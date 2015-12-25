@@ -5,8 +5,9 @@ import android.support.annotation.Nullable;
 import me.ilich.juggler.JugglerContentFragment;
 import me.ilich.juggler.JugglerToolbarFragment;
 import me.ilich.juggler.Screen;
+import me.ilich.juggler.hello.gui.AboutFragment;
 
-public class SplashScreen extends Screen {
+public class AboutScreen extends Screen {
 
     @Nullable
     @Override
@@ -17,7 +18,7 @@ public class SplashScreen extends Screen {
     @Nullable
     @Override
     protected JugglerContentFragment instanceContent() {
-        return null;
+        return AboutFragment.create();
     }
 
 }
