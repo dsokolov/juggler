@@ -38,7 +38,7 @@ public class HelloScreensManager extends ScreensManager {
     }
 
     public void main() {
-        Screen.Instance instance = mainScreen.create(new Screen.Params());
+        Screen.Instance instance = mainScreen.create(new MainScreen.Params());
         show(instance, activity);
     }
 
