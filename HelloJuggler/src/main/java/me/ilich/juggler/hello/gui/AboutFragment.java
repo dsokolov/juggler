@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerContentFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
+import me.ilich.juggler.hello.HelloScreensManager;
 
 public class AboutFragment extends JugglerContentFragment<HelloScreensManager> {
 

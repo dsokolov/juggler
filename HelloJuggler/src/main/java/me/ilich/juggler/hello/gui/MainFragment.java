@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerContentFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
+import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.screens.MainScreen;
 
 public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
 
-    public static MainFragment create() {
+    public static MainFragment create(MainScreen.Params params) {
         return new MainFragment();
     }
 
@@ -28,13 +29,19 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getJuggler().getScreenManager().list();
+                getScreenManager().list();
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getJuggler().getScreenManager().about();
+                /*getJuggler().getScreenManager().about();*/
+            }
+        });
+        view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*getJuggler().getScreenManager().login();*/
             }
         });
     }

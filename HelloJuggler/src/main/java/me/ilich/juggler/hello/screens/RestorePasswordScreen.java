@@ -1,3 +1,4 @@
+/*
 package me.ilich.juggler.hello.screens;
 
 import android.support.annotation.Nullable;
@@ -21,3 +22,4 @@ public class RestorePasswordScreen extends Screen {
     }
     
 }
+*/

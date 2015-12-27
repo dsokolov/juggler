@@ -1,3 +1,4 @@
+/*
 package me.ilich.juggler.hello.screens;
 
 import android.support.annotation.Nullable;
@@ -20,3 +21,4 @@ public class RegistrationScreen extends Screen {
         return null;
     }
 }
+*/

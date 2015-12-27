@@ -9,16 +9,17 @@ import android.widget.TextView;
 
 import me.ilich.juggler.JugglerContentFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
+import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.screens.ItemDetailScreen;
 
 public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensManager> {
 
     private static final String ARG_ID = "id";
 
-    public static ItemDetailsFragment create(int id) {
+    public static ItemDetailsFragment create(ItemDetailScreen.Params params) {
         ItemDetailsFragment f = new ItemDetailsFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_ID, id);
+        bundle.putInt(ARG_ID, params.getItemId());
         f.setArguments(bundle);
         return f;
     }

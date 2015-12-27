@@ -1,3 +1,4 @@
+/*
 package me.ilich.juggler.hello.screens;
 
 import android.support.annotation.Nullable;
@@ -21,4 +22,16 @@ public class AboutScreen extends Screen {
         return AboutFragment.create();
     }
 
+    public Instance create(){
+        return new Instance();
+    }
+
+    public static class Instance extends Screen.Instance {
+
+        public Instance() {
+            super(contentFragmentFactory, toolbarFragmentFactory);
+        }
+    }
+
 }
+*/

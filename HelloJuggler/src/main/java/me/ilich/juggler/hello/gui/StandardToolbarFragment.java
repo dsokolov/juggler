@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.JugglerToolbarFragment;
+import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.R;
 
 public class StandardToolbarFragment extends JugglerToolbarFragment {

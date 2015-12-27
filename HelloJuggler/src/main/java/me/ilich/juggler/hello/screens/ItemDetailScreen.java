@@ -8,23 +8,31 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.ItemDetailsFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-public class ItemDetailScreen extends Screen {
+public class ItemDetailScreen extends Screen<ItemDetailScreen.Params> {
 
-    private int itemId;
 
-    public void setParams(int itemId){
-        this.itemId = itemId;
-    }
-
-    @Nullable
     @Override
-    protected JugglerToolbarFragment instanceToolbar() {
-        return StandardToolbarFragment.create();
+    protected Class<? extends JugglerToolbarFragment> toolbarClass() {
+        return StandardToolbarFragment.class;
     }
 
-    @Nullable
     @Override
-    protected JugglerContentFragment instanceContent() {
-        return ItemDetailsFragment.create(itemId);
+    protected Class<? extends JugglerContentFragment> contentClass() {
+        return ItemDetailsFragment.class;
     }
+
+    public static class Params extends Screen.Params {
+
+        private final int itemId;
+
+        public Params(int itemId) {
+            this.itemId = itemId;
+        }
+
+        public int getItemId() {
+            return itemId;
+        }
+
+    }
+
 }

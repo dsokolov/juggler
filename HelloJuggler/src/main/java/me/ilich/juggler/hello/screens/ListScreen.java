@@ -8,18 +8,17 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.ListFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-public class ListScreen extends Screen {
+public class ListScreen extends Screen<Screen.Params> {
 
-    @Nullable
+
     @Override
-    protected JugglerToolbarFragment instanceToolbar() {
-        return StandardToolbarFragment.create();
+    protected Class<? extends JugglerToolbarFragment> toolbarClass() {
+        return StandardToolbarFragment.class;
     }
 
-    @Nullable
     @Override
-    protected JugglerContentFragment instanceContent() {
-        return ListFragment.create();
+    protected Class<? extends JugglerContentFragment> contentClass() {
+        return ListFragment.class;
     }
 
 }

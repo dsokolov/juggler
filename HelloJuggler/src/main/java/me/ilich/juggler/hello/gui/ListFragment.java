@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.ilich.juggler.JugglerContentFragment;
+import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
+import me.ilich.juggler.hello.HelloScreensManager;
 
 public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
 
-    public static ListFragment create() {
+    public static ListFragment create(Screen.Params params) {
         return new ListFragment();
     }
 
@@ -70,7 +71,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getJuggler().getScreenManager().itemDetails(item);
+                    getScreenManager().itemDetails(item);
                 }
             });
         }
