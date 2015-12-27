@@ -19,8 +19,6 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
         return new StandardToolbarFragment();
     }
 
-    private Toolbar toolbar;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,22 +26,8 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((JugglerActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("123");
-            actionBar.show();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected int getToolbarId() {
+        return R.id.toolbar;
     }
 
 }

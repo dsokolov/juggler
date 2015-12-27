@@ -39,7 +39,7 @@ public class HelloScreensManager extends ScreensManager {
 
     public void main() {
         Screen.Instance instance = mainScreen.create(new MainScreen.Params());
-        show(instance, activity);
+        showNew(instance, activity);
     }
 
 /*    public void login() {
@@ -48,12 +48,12 @@ public class HelloScreensManager extends ScreensManager {
 
     public void list() {
         Screen.Instance instance = listScreen.create(new Screen.Params());
-        show(instance, activity);
+        showNew(instance, activity);
     }
 
     public void itemDetails(int id) {
         Screen.Instance instance = itemDetailScreen.create(new ItemDetailScreen.Params(id));
-        show(instance, activity);
+        showNew(instance, activity);
     }
 
 /*    public void about() {

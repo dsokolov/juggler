@@ -14,13 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.ilich.juggler.JugglerContentFragment;
+import me.ilich.juggler.JugglerNewInstance;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
 
 public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
 
-    public static ListFragment create(Screen.Params params) {
+    @JugglerNewInstance
+    public static ListFragment create() {
         return new ListFragment();
     }
 

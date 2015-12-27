@@ -58,10 +58,11 @@ public abstract class Screen<P extends Screen.Params> {
                     JugglerContent content = screenClass.getAnnotation(JugglerContent.class);
                     Class<? extends JugglerContentFragment> clazz = content.aClass();
                     try {
-                        Method method = clazz.getMethod("create", paramsClass);
-                        r = (JugglerContentFragment) method.invoke(null, params);
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
+                        for (Method method : clazz.getMethods()) {
+                            if (method.isAnnotationPresent(JugglerNewInstance.class)) {
+                                r = (JugglerContentFragment) method.invoke(null, params);
+                            }
+                        }
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     } catch (IllegalAccessException e) {

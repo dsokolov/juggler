@@ -11,6 +11,7 @@ public abstract class ScreensManager {
     private static final String TAG_CONTENT = "content";
 
     private List<Screen.Instance> stack = new ArrayList<>();
+    private Screen.Instance currentScreenInstance = null;
 
     public final void init() {
         onInit();
@@ -18,9 +19,27 @@ public abstract class ScreensManager {
 
     protected abstract void onInit();
 
-    public void show(Screen.Instance screenInstance, JugglerActivity activity) {
+    public void showNew(Screen.Instance screenInstance, JugglerActivity activity) {
+        if (currentScreenInstance != null) {
+            stack.add(currentScreenInstance);
+        }
+        currentScreenInstance = screenInstance;
+        doShow(screenInstance, activity);
+    }
+
+    private void doShow(Screen.Instance screenInstance, JugglerActivity activity) {
         processToolbar(screenInstance, activity);
         processContent(screenInstance, activity);
+    }
+
+    public void showPrev(JugglerActivity activity) {
+        currentScreenInstance = stack.get(stack.size() - 1);
+        stack.remove(stack.size() - 1);
+        doShow(currentScreenInstance, activity);
+    }
+
+    public int getStackSize() {
+        return stack.size();
     }
 
     private void processToolbar(Screen.Instance screenInstance, JugglerActivity activity) {

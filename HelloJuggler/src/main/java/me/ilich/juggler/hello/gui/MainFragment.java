@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerContentFragment;
+import me.ilich.juggler.JugglerNewInstance;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.screens.MainScreen;
 
 public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
 
-    public static MainFragment create(MainScreen.Params params) {
+    @JugglerNewInstance
+    public static MainFragment create() {
         return new MainFragment();
     }
 

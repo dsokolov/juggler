@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import me.ilich.juggler.JugglerContentFragment;
+import me.ilich.juggler.JugglerNewInstance;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.screens.ItemDetailScreen;
@@ -16,6 +17,7 @@ public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensMana
 
     private static final String ARG_ID = "id";
 
+    @JugglerNewInstance
     public static ItemDetailsFragment create(ItemDetailScreen.Params params) {
         ItemDetailsFragment f = new ItemDetailsFragment();
         Bundle bundle = new Bundle();

@@ -8,8 +8,4 @@ public abstract class JugglerContentFragment<SM extends ScreensManager> extends 
         return ((JugglerActivity<SM>)getActivity()).getScreensManager();
     }
 
- /*   protected Juggler<SM> getJuggler() {
-        return ((JugglerActivity<SM>) getActivity()).getJuggler();
-    }*/
-
 }

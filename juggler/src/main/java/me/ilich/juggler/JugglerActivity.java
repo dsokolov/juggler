@@ -28,29 +28,12 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
     @IdRes
     public abstract int getContainerToolbarLayoutId();
 
-    public final void setCurrentScreen(@Nullable Screen.Instance currentScreen) {
-        //this.currentScreen = currentScreen;
-    }
-
-/*
-    @Nullable
-    public final Screen.Instance getCurrentScreen() {
-        return currentScreen;
-    }
-*/
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-/*        if (currentScreen == null) {
+        if (screensManager.getStackSize() == 0) {
             super.onBackPressed();
         } else {
-            Screen backScreen = currentScreen.getBackScreen();
-            if (backScreen == null) {
-                super.onBackPressed();
-            } else {
-                backScreen.showOn(this);
-            }
-        }*/
+            screensManager.showPrev(this);
+        }
     }
 }
