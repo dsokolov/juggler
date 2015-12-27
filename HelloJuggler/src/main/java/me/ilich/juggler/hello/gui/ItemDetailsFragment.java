@@ -46,6 +46,7 @@ public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensMana
         super.onViewCreated(view, savedInstanceState);
         numberTextView = (TextView) view.findViewById(R.id.number);
         numberTextView.setText(Integer.toString(id));
+        getScreenManager().setTitle("item " + id);
     }
 
 }

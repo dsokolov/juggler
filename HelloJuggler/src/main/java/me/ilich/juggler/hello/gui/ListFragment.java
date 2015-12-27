@@ -46,6 +46,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setAdapter(new Adapter());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        getScreenManager().setTitle("list");
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {

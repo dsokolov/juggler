@@ -7,8 +7,8 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.ListFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-@JugglerToolbar(aClass = StandardToolbarFragment.class)
-@JugglerContent(aClass = ListFragment.class)
+@JugglerToolbar(StandardToolbarFragment.class)
+@JugglerContent(ListFragment.class)
 public class ListScreen extends Screen<Screen.Params> {
 
 }

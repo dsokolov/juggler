@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface JugglerToolbar {
 
-    Class<? extends JugglerToolbarFragment> aClass();
+    Class<? extends JugglerToolbarFragment> value();
 
 }

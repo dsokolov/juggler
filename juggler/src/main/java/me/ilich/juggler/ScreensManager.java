@@ -12,6 +12,7 @@ public abstract class ScreensManager {
 
     private List<Screen.Instance> stack = new ArrayList<>();
     private Screen.Instance currentScreenInstance = null;
+    private JugglerToolbarFragment toolbarFragment = null;
 
     public final void init() {
         onInit();
@@ -56,10 +57,12 @@ public abstract class ScreensManager {
                             replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
                             disallowAddToBackStack().
                             commit();
+                    toolbarFragment = newToolbarFragment;
                 }
             } else {
                 if (newToolbarFragment == null) {
                     fragmentManager.beginTransaction().remove(currentToolbarFragment).commit();
+                    toolbarFragment = null;
                 } else {
                     if (!newToolbarFragment.getClass().equals(currentToolbarFragment.getClass())) {
                         fragmentManager.
@@ -67,6 +70,7 @@ public abstract class ScreensManager {
                                 replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
                                 disallowAddToBackStack().
                                 commit();
+                        toolbarFragment = newToolbarFragment;
                     }
                 }
             }
@@ -85,6 +89,12 @@ public abstract class ScreensManager {
                         disallowAddToBackStack().
                         commit();
             }
+        }
+    }
+
+    public void setTitle(String title) {
+        if (toolbarFragment != null) {
+            toolbarFragment.setTitle(title);
         }
     }
 

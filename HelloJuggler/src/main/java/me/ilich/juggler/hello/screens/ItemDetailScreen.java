@@ -6,8 +6,8 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.ItemDetailsFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-@JugglerToolbar(aClass = StandardToolbarFragment.class)
-@JugglerContent(aClass = ItemDetailsFragment.class)
+@JugglerToolbar(StandardToolbarFragment.class)
+@JugglerContent(ItemDetailsFragment.class)
 public class ItemDetailScreen extends Screen<ItemDetailScreen.Params> {
 
     public static class Params extends Screen.Params {

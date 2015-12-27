@@ -33,4 +33,8 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
     @IdRes
     protected abstract int getToolbarId();
 
+    public void setTitle(String title) {
+        toolbar.setTitle(title);
+    }
+
 }

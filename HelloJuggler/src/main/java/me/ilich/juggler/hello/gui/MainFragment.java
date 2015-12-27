@@ -46,5 +46,6 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
                 /*getJuggler().getScreenManager().login();*/
             }
         });
+        getScreenManager().setTitle("main");
     }
 }
