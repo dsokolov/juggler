@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends Fragment {
+public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
 
     private Toolbar toolbar;
 

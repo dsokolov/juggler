@@ -1,5 +1,6 @@
 package me.ilich.juggler;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public abstract class ScreensManager {
 
     public void showNew(Screen.Instance screenInstance, JugglerActivity activity) {
         if (currentScreenInstance != null) {
+            Fragment fragment = activity.getSupportFragmentManager().findFragmentByTag(TAG_CONTENT);
+            Fragment.SavedState savedState = activity.getSupportFragmentManager().saveFragmentInstanceState(fragment);
+            currentScreenInstance.setSavedState(savedState);
             stack.add(currentScreenInstance);
         }
         currentScreenInstance = screenInstance;
@@ -52,6 +56,7 @@ public abstract class ScreensManager {
             JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
             if (currentToolbarFragment == null) {
                 if (newToolbarFragment != null) {
+                    newToolbarFragment.setInitialSavedState(screenInstance.getSavedState());
                     fragmentManager.
                             beginTransaction().
                             replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
@@ -65,6 +70,7 @@ public abstract class ScreensManager {
                     toolbarFragment = null;
                 } else {
                     if (!newToolbarFragment.getClass().equals(currentToolbarFragment.getClass())) {
+                        newToolbarFragment.setInitialSavedState(screenInstance.getSavedState());
                         fragmentManager.
                                 beginTransaction().
                                 replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
@@ -83,6 +89,7 @@ public abstract class ScreensManager {
         if (contentContainerId != 0) {
             JugglerContentFragment contentFragment = screenInstance.instanceContent();
             if (contentFragment != null) {
+                contentFragment.setInitialSavedState(screenInstance.getSavedState());
                 fragmentManager.
                         beginTransaction().
                         replace(contentContainerId, contentFragment, TAG_CONTENT).

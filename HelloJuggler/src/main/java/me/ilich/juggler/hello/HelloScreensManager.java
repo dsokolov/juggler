@@ -6,6 +6,9 @@ import me.ilich.juggler.ScreensManager;
 import me.ilich.juggler.hello.screens.ItemDetailScreen;
 import me.ilich.juggler.hello.screens.ListScreen;
 import me.ilich.juggler.hello.screens.MainScreen;
+import me.ilich.juggler.hello.screens.WizzardOneScreen;
+import me.ilich.juggler.hello.screens.WizzardThreeScreen;
+import me.ilich.juggler.hello.screens.WizzardTwoScreen;
 
 public class HelloScreensManager extends ScreensManager {
 
@@ -18,6 +21,9 @@ public class HelloScreensManager extends ScreensManager {
     private ListScreen listScreen = new ListScreen();
     private ItemDetailScreen itemDetailScreen = new ItemDetailScreen();
     /*private AboutScreen aboutScreen = new AboutScreen();*/
+    private WizzardOneScreen wizzardOneScreen = new WizzardOneScreen();
+    private WizzardTwoScreen wizzardTwoScreen = new WizzardTwoScreen();
+    private WizzardThreeScreen wizzardThreeScreen = new WizzardThreeScreen();
 
     public HelloScreensManager(JugglerActivity<HelloScreensManager> activity) {
         this.activity = activity;
@@ -53,6 +59,21 @@ public class HelloScreensManager extends ScreensManager {
 
     public void itemDetails(int id) {
         Screen.Instance instance = itemDetailScreen.create(new ItemDetailScreen.Params(id));
+        showNew(instance, activity);
+    }
+
+    public void wizzardOne() {
+        Screen.Instance instance = wizzardOneScreen.create();
+        showNew(instance, activity);
+    }
+
+    public void wizzardTwo() {
+        Screen.Instance instance = wizzardTwoScreen.create();
+        showNew(instance, activity);
+    }
+
+    public void wizzardThree() {
+        Screen.Instance instance = wizzardThreeScreen.create();
         showNew(instance, activity);
     }
 

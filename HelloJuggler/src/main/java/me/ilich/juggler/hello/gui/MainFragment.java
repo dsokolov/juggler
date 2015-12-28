@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerContentFragment;
 import me.ilich.juggler.JugglerNewInstance;
-import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
-import me.ilich.juggler.hello.screens.MainScreen;
+import me.ilich.juggler.hello.R;
 
 public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
 
@@ -44,6 +43,12 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
             @Override
             public void onClick(View v) {
                 /*getJuggler().getScreenManager().login();*/
+            }
+        });
+        view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getScreenManager().wizzardOne();
             }
         });
         getScreenManager().setTitle("main");

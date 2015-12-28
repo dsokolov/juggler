@@ -16,18 +16,22 @@
         android:layout_height="wrap_content"
         android:text="list"/>
 
-
     <Button
         android:id="@+id/navigate_to_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="about"/>
 
-
     <Button
         android:id="@+id/navigate_to_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="login"/>
+
+    <Button
+        android:id="@+id/navigate_to_wizzard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="wizzard"/>
 
 </LinearLayout>
