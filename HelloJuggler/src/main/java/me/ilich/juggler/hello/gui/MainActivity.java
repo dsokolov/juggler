@@ -3,8 +3,8 @@ package me.ilich.juggler.hello.gui;
 import android.os.Bundle;
 
 import me.ilich.juggler.JugglerActivity;
-import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.R;
 
 public class MainActivity extends JugglerActivity<HelloScreensManager> {
 
@@ -13,9 +13,9 @@ public class MainActivity extends JugglerActivity<HelloScreensManager> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         boolean authorised = true;
-        if(authorised) {
-            getScreensManager().main();
-        }else{
+        if (authorised) {
+            navigateTo(HelloScreensManager.class).main();
+        } else {
             //getScreensManager().login();
         }
     }

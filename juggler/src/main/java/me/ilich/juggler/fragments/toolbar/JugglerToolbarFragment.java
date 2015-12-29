@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.fragments.JugglerFragment;
 import me.ilich.juggler.ScreensManager;
@@ -26,10 +27,6 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
             actionBar.show();
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-    }
-
-    protected SM getScreenManager() {
-        return ((JugglerActivity<SM>) getActivity()).getScreensManager();
     }
 
     @IdRes

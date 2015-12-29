@@ -11,14 +11,16 @@ import me.ilich.juggler.hello.screens.WizzardOneScreen;
 import me.ilich.juggler.hello.screens.WizzardThreeScreen;
 import me.ilich.juggler.hello.screens.WizzardTwoScreen;
 
-public class HelloScreensManager extends ScreensManager implements MainScreen {
+public class HelloScreensManager extends ScreensManager implements
+        MainScreen,
+        ListScreen,
+        WizzardOneScreen,
+        WizzardTwoScreen,
+        WizzardThreeScreen,
+        LoginScreen {
 
     public HelloScreensManager(JugglerActivity<HelloScreensManager> activity) {
         super(activity);
-    }
-
-    @Override
-    protected void onInit() {
     }
 
     public void main() {
@@ -35,22 +37,27 @@ public class HelloScreensManager extends ScreensManager implements MainScreen {
         showNew(ListScreen.class);
     }
 
+    @Override
     public void itemDetails(int id) {
         showNew(ItemDetailScreen.class, new ItemDetailScreen.Params(id));
     }
 
+    @Override
     public void wizardOne() {
         showNew(WizzardOneScreen.class);
     }
 
-    public void wizzardTwo() {
+    @Override
+    public void wizardTwo() {
         showNew(WizzardTwoScreen.class);
     }
 
-    public void wizzardThree() {
+    @Override
+    public void wizardThree() {
         showNew(WizzardThreeScreen.class);
     }
 
+    @Override
     public void about() {
         showNew(AboutScreen.class);
     }

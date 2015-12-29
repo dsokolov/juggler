@@ -17,6 +17,7 @@ import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.screens.ListScreen;
 
 public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
 
@@ -45,7 +46,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setAdapter(new Adapter());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        getScreenManager().setTitle("list");
+        getJuggler().setTitle("list");
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +74,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getScreenManager().itemDetails(item);
+                    navigateTo(ListScreen.class).itemDetails(item);
                 }
             });
         }

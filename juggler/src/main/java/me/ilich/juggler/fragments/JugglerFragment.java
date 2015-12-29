@@ -2,11 +2,24 @@ package me.ilich.juggler.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 
+import me.ilich.juggler.Juggler;
+import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.ScreensManager;
 
 public abstract class JugglerFragment<SM extends ScreensManager> extends Fragment {
+
+    public Juggler<SM> getJuggler() {
+        return ((JugglerActivity) getActivity()).getJuggler();
+    }
+
+    public <S> S navigateTo(Class<S> sClass) {
+        ScreensManager screensManager = ((JugglerActivity) getActivity()).getJuggler().getScreenManager();
+        if (!sClass.isAssignableFrom(screensManager.getClass())) {
+            throw new RuntimeException("ScreenManager should implements " + sClass);
+        }
+        return (S) screensManager;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +45,6 @@ public abstract class JugglerFragment<SM extends ScreensManager> extends Fragmen
     public void setInitialSavedState(SavedState state) {
         super.setInitialSavedState(state);
     }
-
 
 
 }

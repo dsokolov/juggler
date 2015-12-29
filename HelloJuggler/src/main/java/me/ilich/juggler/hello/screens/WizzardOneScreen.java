@@ -10,4 +10,6 @@ import me.ilich.juggler.hello.gui.WizzardOneFragment;
 @JugglerContent(WizzardOneFragment.class)
 public interface WizzardOneScreen extends Screen {
 
+    void wizardTwo();
+
 }

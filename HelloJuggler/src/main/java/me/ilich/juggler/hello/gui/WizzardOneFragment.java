@@ -6,15 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.screens.WizzardOneScreen;
 
 public class WizzardOneFragment extends JugglerContentFragment<HelloScreensManager> {
 
     @JugglerNewInstance
-    public static WizzardOneFragment newInstance(){
+    public static WizzardOneFragment newInstance() {
         return new WizzardOneFragment();
     }
 
@@ -27,11 +28,10 @@ public class WizzardOneFragment extends JugglerContentFragment<HelloScreensManag
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getScreenManager().wizzardTwo();
+                navigateTo(WizzardOneScreen.class).wizardTwo();
             }
         });
     }

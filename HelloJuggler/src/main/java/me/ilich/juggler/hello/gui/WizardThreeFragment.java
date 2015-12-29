@@ -10,12 +10,13 @@ import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.screens.WizzardThreeScreen;
 
-public class WizzardThreeFragment extends JugglerContentFragment<HelloScreensManager> {
+public class WizardThreeFragment extends JugglerContentFragment<HelloScreensManager> {
 
     @JugglerNewInstance
-    public static WizzardThreeFragment newInstance(){
-        return new WizzardThreeFragment();
+    public static WizardThreeFragment newInstance(){
+        return new WizardThreeFragment();
     }
 
     @Nullable
@@ -30,8 +31,9 @@ public class WizzardThreeFragment extends JugglerContentFragment<HelloScreensMan
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getScreenManager().main();
+                navigateTo(WizzardThreeScreen.class).main();
             }
         });
     }
+
 }

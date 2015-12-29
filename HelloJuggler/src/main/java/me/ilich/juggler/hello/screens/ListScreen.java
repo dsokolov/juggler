@@ -10,4 +10,6 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 @JugglerContent(ListFragment.class)
 public interface ListScreen extends Screen {
 
+    void itemDetails(int item);
+
 }

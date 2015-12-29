@@ -4,10 +4,12 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.hello.gui.WizzardThreeFragment;
+import me.ilich.juggler.hello.gui.WizardThreeFragment;
 
 @JugglerToolbar(StandardToolbarFragment.class)
-@JugglerContent(WizzardThreeFragment.class)
+@JugglerContent(WizardThreeFragment.class)
 public interface WizzardThreeScreen extends Screen {
+
+    void main();
 
 }

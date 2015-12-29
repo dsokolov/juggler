@@ -10,6 +10,7 @@ import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.screens.LoginScreen;
 
 public class LoginFragment extends JugglerContentFragment<HelloScreensManager> implements View.OnClickListener {
 
@@ -36,7 +37,7 @@ public class LoginFragment extends JugglerContentFragment<HelloScreensManager> i
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                getScreenManager().main();
+                navigateTo(LoginScreen.class).main();
                 break;
             case R.id.register:
                 break;

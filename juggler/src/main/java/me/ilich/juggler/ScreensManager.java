@@ -37,12 +37,6 @@ public abstract class ScreensManager {
         this.activity = activity;
     }
 
-    public final void init() {
-        onInit();
-    }
-
-    protected abstract void onInit();
-
     protected void showNew(Class<? extends Screen> screen, Screen.Params params) {
         Screen.Instance screenInstance = Screen.Factory.create(screen, params);
         doShowNew(screenInstance);
@@ -64,10 +58,17 @@ public abstract class ScreensManager {
         doShow(screenInstance, activity);
     }
 
-    protected void showPrev() {
-        currentScreenInstance = stack.get(stack.size() - 1);
-        stack.remove(stack.size() - 1);
-        doShow(currentScreenInstance, activity);
+    protected boolean back() {
+        final boolean b;
+        if (stack.size() > 0) {
+            currentScreenInstance = stack.get(stack.size() - 1);
+            stack.remove(stack.size() - 1);
+            doShow(currentScreenInstance, activity);
+            b = true;
+        } else {
+            b = false;
+        }
+        return b;
     }
 
     private void doShow(Screen.Instance screenInstance, JugglerActivity<? extends ScreensManager> activity) {

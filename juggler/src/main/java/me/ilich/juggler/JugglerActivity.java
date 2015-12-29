@@ -7,19 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class JugglerActivity<SM extends ScreensManager> extends AppCompatActivity {
 
-    private SM screensManager;
+    private Juggler<SM> juggler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screensManager = createScreenManager();
-        screensManager.init();
+        juggler = new Juggler<>(createScreenManager());
     }
 
     protected abstract SM createScreenManager();
 
-    public SM getScreensManager() {
-        return screensManager;
+    public final Juggler<SM> getJuggler() {
+        return juggler;
     }
 
     @IdRes
@@ -30,10 +29,18 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     @Override
     public void onBackPressed() {
-        if (screensManager.hasBack()) {
-            screensManager.showPrev();
-        } else {
+        boolean b = juggler.getScreenManager().back();
+        if (!b) {
             super.onBackPressed();
         }
     }
+
+    public <S> S navigateTo(Class<S> sClass) {
+        ScreensManager screensManager = juggler.getScreenManager();
+        if (!sClass.isAssignableFrom(screensManager.getClass())) {
+            throw new RuntimeException("ScreenManager should implements " + sClass);
+        }
+        return (S) screensManager;
+    }
+
 }

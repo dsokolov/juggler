@@ -10,4 +10,6 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 @JugglerContent(LoginFragment.class)
 public interface LoginScreen extends Screen {
 
+    void main();
+
 }
