@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
-import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.screens.MainScreen;
 
@@ -52,6 +53,13 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
                 navigateTo(MainScreen.class).wizardOne();
             }
         });
+        view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo(MainScreen.class).toolbarExplain();
+            }
+        });
+        getJuggler().setToolbarMode(JugglerToolbarFragment.Mode.NONE);
         getJuggler().setTitle("main");
     }
 }

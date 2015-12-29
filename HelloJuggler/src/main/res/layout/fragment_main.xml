@@ -34,4 +34,10 @@
         android:layout_height="wrap_content"
         android:text="wizzard"/>
 
+    <Button
+        android:id="@+id/navigate_to_toolbar_explain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="toolbar expalain"/>
+
 </LinearLayout>

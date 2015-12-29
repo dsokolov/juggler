@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.ItemDetailScreen;
 
 public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensManager> {
@@ -47,6 +48,7 @@ public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensMana
         numberTextView = (TextView) view.findViewById(R.id.number);
         numberTextView.setText(Integer.toString(id));
         getJuggler().setTitle("item " + id);
+        getJuggler().setToolbarMode(JugglerToolbarFragment.Mode.UP);
     }
 
 }

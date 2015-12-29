@@ -15,8 +15,9 @@ import java.util.List;
 
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.ListScreen;
 
 public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
@@ -47,6 +48,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
         recyclerView.setAdapter(new Adapter());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         getJuggler().setTitle("list");
+        getJuggler().setToolbarMode(JugglerToolbarFragment.Mode.UP);
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {

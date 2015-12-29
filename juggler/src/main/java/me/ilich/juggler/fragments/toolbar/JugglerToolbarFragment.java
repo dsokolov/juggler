@@ -7,10 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.Juggler;
 import me.ilich.juggler.JugglerActivity;
-import me.ilich.juggler.fragments.JugglerFragment;
 import me.ilich.juggler.ScreensManager;
+import me.ilich.juggler.fragments.JugglerFragment;
 
 public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
 
@@ -23,9 +22,7 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         ((JugglerActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("123");
             actionBar.show();
-            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -34,6 +31,48 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
 
     public void setTitle(String title) {
         toolbar.setTitle(title);
+    }
+
+    public void setMode(Mode mode) {
+        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            switch (mode) {
+                case MENU:
+                    actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+                    break;
+                case NONE:
+                    actionBar.setDisplayOptions(0);
+                    break;
+                case UP:
+                    actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
+                    break;
+            }
+        }
+    }
+
+    @ActionBar.DisplayOptions
+    public int getOption() {
+        final int r;
+        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+        if (actionBar == null) {
+            r = 0;
+        } else {
+            r = actionBar.getDisplayOptions();
+        }
+        return r;
+    }
+
+    public void setOptions(@ActionBar.DisplayOptions int options) {
+        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(options);
+        }
+    }
+
+    public enum Mode {
+        NONE,
+        UP,
+        MENU
     }
 
 }

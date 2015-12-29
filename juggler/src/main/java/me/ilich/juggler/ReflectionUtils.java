@@ -24,11 +24,12 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    private static <F extends JugglerFragment> F createFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass, Class<? extends Annotation> annotation, OnGetJugglerClass onGetJugglerClass) {
-        F oneParamsFragment = null;
-        F noParamsFragment = null;
+    private static <F extends JugglerFragment> F createFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass, Class<? extends Annotation> annotation, OnGetJugglerClass<F> onGetJugglerClass) {
+        F r = null;
+        Class<? extends F> clazz = onGetJugglerClass.getJugglerClass(screenClass);
         if (screenClass.isAnnotationPresent(annotation)) {
-            Class<? extends JugglerToolbarFragment> clazz = onGetJugglerClass.getJugglerClass(screenClass);
+            F oneParamsFragment = null;
+            F noParamsFragment = null;
             try {
                 for (Method method : clazz.getMethods()) {
                     if (method.isAnnotationPresent(JugglerNewInstance.class)) {
@@ -50,12 +51,20 @@ public class ReflectionUtils {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+            if (oneParamsFragment != null) {
+                r = oneParamsFragment;
+            } else if (noParamsFragment != null) {
+                r = noParamsFragment;
+            }
         }
-        F r = null;
-        if (oneParamsFragment != null) {
-            r = oneParamsFragment;
-        } else if (noParamsFragment != null) {
-            r = noParamsFragment;
+        if (r == null) {
+            try {
+                r = clazz.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         return r;
     }

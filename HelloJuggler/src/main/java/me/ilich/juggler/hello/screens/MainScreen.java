@@ -17,4 +17,7 @@ public interface MainScreen extends Screen {
     void about();
 
     void login();
+
+    void toolbarExplain();
+
 }

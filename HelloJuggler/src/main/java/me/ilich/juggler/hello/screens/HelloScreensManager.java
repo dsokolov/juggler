@@ -1,15 +1,7 @@
-package me.ilich.juggler.hello;
+package me.ilich.juggler.hello.screens;
 
 import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.ScreensManager;
-import me.ilich.juggler.hello.screens.AboutScreen;
-import me.ilich.juggler.hello.screens.ItemDetailScreen;
-import me.ilich.juggler.hello.screens.ListScreen;
-import me.ilich.juggler.hello.screens.LoginScreen;
-import me.ilich.juggler.hello.screens.MainScreen;
-import me.ilich.juggler.hello.screens.WizzardOneScreen;
-import me.ilich.juggler.hello.screens.WizzardThreeScreen;
-import me.ilich.juggler.hello.screens.WizzardTwoScreen;
 
 public class HelloScreensManager extends ScreensManager implements
         MainScreen,
@@ -30,6 +22,11 @@ public class HelloScreensManager extends ScreensManager implements
     @Override
     public void login() {
         showNew(LoginScreen.class);
+    }
+
+    @Override
+    public void toolbarExplain() {
+        showNew(ToolbarExplainScreen.class);
     }
 
     @Override

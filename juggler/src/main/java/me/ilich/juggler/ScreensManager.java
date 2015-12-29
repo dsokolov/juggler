@@ -1,8 +1,10 @@
 package me.ilich.juggler;
 
 import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public abstract class ScreensManager {
 
     private static void putToolbarFragmentOnActivity(FragmentManager fragmentManager, @IdRes int containerId, Screen.Instance screenInstance, JugglerFragment fragment, String tag) {
         Fragment.SavedState savedState = screenInstance.getToolbarSavedState();
-        fragment.setInitialSavedState(savedState);
+        //fragment.setInitialSavedState(savedState);
         fragmentManager.beginTransaction().replace(containerId, fragment, tag).commit();
     }
 
@@ -117,10 +119,32 @@ public abstract class ScreensManager {
         }
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         if (toolbarFragment != null) {
             toolbarFragment.setTitle(title);
         }
     }
 
+    void setTitle(@StringRes int title) {
+        if (toolbarFragment != null) {
+            String s = activity.getString(title);
+            toolbarFragment.setTitle(s);
+        }
+    }
+
+    public void setToolbarMode(JugglerToolbarFragment.Mode mode) {
+        if (toolbarFragment != null) {
+            toolbarFragment.setMode(mode);
+        }
+    }
+
+    public void setToolbarOptions(@ActionBar.DisplayOptions int options) {
+        if (toolbarFragment != null) {
+            toolbarFragment.setOptions(options);
+        }
+    }
+
+    public int getToolbarOptions() {
+        return toolbarFragment.getOption();
+    }
 }
