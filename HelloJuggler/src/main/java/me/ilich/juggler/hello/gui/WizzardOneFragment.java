@@ -2,14 +2,12 @@ package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerNewInstance;
-import me.ilich.juggler.ScreensManager;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
 

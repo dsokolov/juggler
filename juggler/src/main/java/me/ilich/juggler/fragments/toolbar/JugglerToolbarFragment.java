@@ -1,12 +1,15 @@
-package me.ilich.juggler;
+package me.ilich.juggler.fragments.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.ScreensManager;
 
 public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
 
@@ -24,7 +27,6 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
-
 
     protected SM getScreenManager() {
         return ((JugglerActivity<SM>) getActivity()).getScreensManager();

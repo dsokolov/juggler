@@ -6,6 +6,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.fragments.JugglerNewInstance;
+import me.ilich.juggler.fragments.content.JugglerContent;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+
 public class ReflectionUtils {
 
     static JugglerToolbarFragment createToolbarFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {

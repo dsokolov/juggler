@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerNewInstance;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
 

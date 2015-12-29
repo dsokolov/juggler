@@ -30,10 +30,10 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     @Override
     public void onBackPressed() {
-        if (screensManager.getStackSize() == 0) {
-            super.onBackPressed();
+        if (screensManager.hasBack()) {
+            screensManager.showPrev();
         } else {
-            screensManager.showPrev(this);
+            super.onBackPressed();
         }
     }
 }

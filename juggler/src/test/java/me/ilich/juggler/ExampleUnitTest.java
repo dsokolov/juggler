@@ -2,6 +2,8 @@ package me.ilich.juggler;
 
 import org.junit.Test;
 
+import me.ilich.juggler.fragments.content.JugglerContent;
+
 import static org.junit.Assert.*;
 
 /**

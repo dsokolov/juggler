@@ -3,8 +3,8 @@ package me.ilich.juggler.hello.screens;
 
 import android.support.annotation.Nullable;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerToolbarFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 import me.ilich.juggler.Screen;
 
 public class RestorePasswordScreen extends Screen {

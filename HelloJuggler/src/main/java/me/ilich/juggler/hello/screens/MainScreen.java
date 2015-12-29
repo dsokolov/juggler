@@ -1,18 +1,20 @@
 package me.ilich.juggler.hello.screens;
 
-import me.ilich.juggler.JugglerContent;
-import me.ilich.juggler.JugglerToolbar;
-import me.ilich.juggler.JugglerToolbarFragment;
+import me.ilich.juggler.fragments.content.JugglerContent;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.MainFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
 @JugglerToolbar(StandardToolbarFragment.class)
 @JugglerContent(MainFragment.class)
-public class MainScreen extends Screen<MainScreen.Params> {
+public interface MainScreen extends Screen {
 
-    public static class Params extends Screen.Params {
+    void wizardOne();
 
-    }
+    void list();
 
+    void about();
+
+    void login();
 }

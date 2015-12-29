@@ -1,37 +1,13 @@
-/*
 package me.ilich.juggler.hello.screens;
 
-import android.support.annotation.Nullable;
-
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerToolbarFragment;
 import me.ilich.juggler.Screen;
+import me.ilich.juggler.fragments.content.JugglerContent;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.hello.gui.AboutFragment;
+import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-public class AboutScreen extends Screen {
-
-    @Nullable
-    @Override
-    protected JugglerToolbarFragment instanceToolbar() {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    protected JugglerContentFragment instanceContent() {
-        return AboutFragment.create();
-    }
-
-    public Instance create(){
-        return new Instance();
-    }
-
-    public static class Instance extends Screen.Instance {
-
-        public Instance() {
-            super(contentFragmentFactory, toolbarFragmentFactory);
-        }
-    }
+@JugglerToolbar(StandardToolbarFragment.class)
+@JugglerContent(AboutFragment.class)
+public interface AboutScreen extends Screen {
 
 }
-*/

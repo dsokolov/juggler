@@ -4,34 +4,41 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-public abstract class Screen<P extends Screen.Params> {
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
-    public Instance create(P params) {
-        return new Instance(this, params);
-    }
+public interface Screen {
 
-    public Instance create() {
-        return new Instance(this, new Params());
-    }
+    class Factory {
 
-    @Nullable
-    private ToolbarFragmentFactory instanceToolbar(final Class<? extends Screen> screenClass, final Class<P> paramsClass) {
-        return new ToolbarFragmentFactory() {
-            @Override
-            public JugglerToolbarFragment create(Params params) {
-                return ReflectionUtils.createToolbarFragment(params, screenClass);
-            }
-        };
-    }
+        public static Instance create(Class<? extends Screen> screen, Params params) {
+            return new Instance(screen, params);
+        }
 
-    @Nullable
-    private ContentFragmentFactory instanceContent(final Class<? extends Screen> screenClass, final Class<P> paramsClass) {
-        return new ContentFragmentFactory() {
-            @Override
-            public JugglerContentFragment create(Params params) {
-                return ReflectionUtils.createContentFragment(params, screenClass);
-            }
-        };
+        public static Instance create(Class<? extends Screen> screen) {
+            return new Instance(screen, new Params());
+        }
+
+        @Nullable
+        private static ToolbarFragmentFactory instanceToolbar(final Class<? extends Screen> screenClass) {
+            return new ToolbarFragmentFactory() {
+                @Override
+                public JugglerToolbarFragment create(Params params) {
+                    return ReflectionUtils.createToolbarFragment(params, screenClass);
+                }
+            };
+        }
+
+        @Nullable
+        private static ContentFragmentFactory instanceContent(final Class<? extends Screen> screenClass) {
+            return new ContentFragmentFactory() {
+                @Override
+                public JugglerContentFragment create(Params params) {
+                    return ReflectionUtils.createContentFragment(params, screenClass);
+                }
+            };
+        }
+
     }
 
     interface ContentFragmentFactory {
@@ -46,22 +53,24 @@ public abstract class Screen<P extends Screen.Params> {
 
     }
 
-    public static class Params {
+    class Params {
 
     }
 
-    public static final class Instance {
+    final class Instance {
 
         private final Params params;
         private final ContentFragmentFactory contentFragmentFactory;
         private final ToolbarFragmentFactory toolbarFragmentFactory;
         @Nullable
-        private Fragment.SavedState savedState = null;
+        private Fragment.SavedState contentSavedState = null;
+        @Nullable
+        private Fragment.SavedState toolbarSavedState = null;
 
-        Instance(@NonNull Screen screen, Params params) {
+        Instance(@NonNull Class<? extends Screen> screen, Params params) {
             this.params = params;
-            this.contentFragmentFactory = screen.instanceContent(screen.getClass(), params.getClass());
-            this.toolbarFragmentFactory = screen.instanceToolbar(screen.getClass(), params.getClass());
+            this.contentFragmentFactory = Screen.Factory.instanceContent(screen);
+            this.toolbarFragmentFactory = Screen.Factory.instanceToolbar(screen);
         }
 
         public JugglerToolbarFragment instanceToolbar() {
@@ -72,12 +81,18 @@ public abstract class Screen<P extends Screen.Params> {
             return contentFragmentFactory.create(params);
         }
 
-        public void setSavedState(Fragment.SavedState savedState) {
-            this.savedState = savedState;
+        public void setContentSavedState(@Nullable Fragment.SavedState contentSavedState) {
+            this.contentSavedState = contentSavedState;
         }
 
-        public Fragment.SavedState getSavedState() {
-            return savedState;
+        @Nullable
+        public Fragment.SavedState getToolbarSavedState() {
+            return toolbarSavedState;
+        }
+
+        @Nullable
+        public Fragment.SavedState getContentSavedState() {
+            return contentSavedState;
         }
 
     }

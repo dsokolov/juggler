@@ -1,19 +1,41 @@
 package me.ilich.juggler;
 
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+
 public abstract class ScreensManager {
+
+    private static void putToolbarFragmentOnActivity(FragmentManager fragmentManager, @IdRes int containerId, Screen.Instance screenInstance, JugglerFragment fragment, String tag) {
+        Fragment.SavedState savedState = screenInstance.getToolbarSavedState();
+        fragment.setInitialSavedState(savedState);
+        fragmentManager.beginTransaction().replace(containerId, fragment, tag).commit();
+    }
+
+    private static void putContentFragmentOnActivity(FragmentManager fragmentManager, @IdRes int containerId, Screen.Instance screenInstance, JugglerFragment fragment, String tag) {
+        Fragment.SavedState savedState = screenInstance.getContentSavedState();
+        fragment.setInitialSavedState(savedState);
+        fragmentManager.beginTransaction().replace(containerId, fragment, tag).commit();
+    }
 
     private static final String TAG_TOOLBAR = "toolbar";
     private static final String TAG_CONTENT = "content";
 
+    private JugglerActivity<? extends ScreensManager> activity;
     private List<Screen.Instance> stack = new ArrayList<>();
     private Screen.Instance currentScreenInstance = null;
     private JugglerToolbarFragment toolbarFragment = null;
+
+    public ScreensManager(JugglerActivity<? extends ScreensManager> activity) {
+        this.activity = activity;
+    }
 
     public final void init() {
         onInit();
@@ -21,33 +43,43 @@ public abstract class ScreensManager {
 
     protected abstract void onInit();
 
-    public void showNew(Screen.Instance screenInstance, JugglerActivity activity) {
+    protected void showNew(Class<? extends Screen> screen, Screen.Params params) {
+        Screen.Instance screenInstance = Screen.Factory.create(screen, params);
+        doShowNew(screenInstance);
+    }
+
+    protected void showNew(Class<? extends Screen> screen) {
+        Screen.Instance screenInstance = Screen.Factory.create(screen);
+        doShowNew(screenInstance);
+    }
+
+    private void doShowNew(Screen.Instance screenInstance) {
         if (currentScreenInstance != null) {
             Fragment fragment = activity.getSupportFragmentManager().findFragmentByTag(TAG_CONTENT);
             Fragment.SavedState savedState = activity.getSupportFragmentManager().saveFragmentInstanceState(fragment);
-            currentScreenInstance.setSavedState(savedState);
+            currentScreenInstance.setContentSavedState(savedState);
             stack.add(currentScreenInstance);
         }
         currentScreenInstance = screenInstance;
         doShow(screenInstance, activity);
     }
 
-    private void doShow(Screen.Instance screenInstance, JugglerActivity activity) {
-        processToolbar(screenInstance, activity);
-        processContent(screenInstance, activity);
-    }
-
-    public void showPrev(JugglerActivity activity) {
+    protected void showPrev() {
         currentScreenInstance = stack.get(stack.size() - 1);
         stack.remove(stack.size() - 1);
         doShow(currentScreenInstance, activity);
     }
 
-    public int getStackSize() {
-        return stack.size();
+    private void doShow(Screen.Instance screenInstance, JugglerActivity<? extends ScreensManager> activity) {
+        processToolbar(screenInstance, activity);
+        processContent(screenInstance, activity);
     }
 
-    private void processToolbar(Screen.Instance screenInstance, JugglerActivity activity) {
+    public boolean hasBack() {
+        return stack.size() > 0;
+    }
+
+    private void processToolbar(Screen.Instance screenInstance, JugglerActivity<? extends ScreensManager> activity) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
 
         int toolbarContainerId = activity.getContainerToolbarLayoutId();
@@ -56,12 +88,7 @@ public abstract class ScreensManager {
             JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
             if (currentToolbarFragment == null) {
                 if (newToolbarFragment != null) {
-                    newToolbarFragment.setInitialSavedState(screenInstance.getSavedState());
-                    fragmentManager.
-                            beginTransaction().
-                            replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
-                            disallowAddToBackStack().
-                            commit();
+                    putToolbarFragmentOnActivity(fragmentManager, toolbarContainerId, screenInstance, newToolbarFragment, TAG_TOOLBAR);
                     toolbarFragment = newToolbarFragment;
                 }
             } else {
@@ -70,12 +97,7 @@ public abstract class ScreensManager {
                     toolbarFragment = null;
                 } else {
                     if (!newToolbarFragment.getClass().equals(currentToolbarFragment.getClass())) {
-                        newToolbarFragment.setInitialSavedState(screenInstance.getSavedState());
-                        fragmentManager.
-                                beginTransaction().
-                                replace(toolbarContainerId, newToolbarFragment, TAG_TOOLBAR).
-                                disallowAddToBackStack().
-                                commit();
+                        putToolbarFragmentOnActivity(fragmentManager, toolbarContainerId, screenInstance, newToolbarFragment, TAG_TOOLBAR);
                         toolbarFragment = newToolbarFragment;
                     }
                 }
@@ -83,18 +105,13 @@ public abstract class ScreensManager {
         }
     }
 
-    private void processContent(Screen.Instance screenInstance, JugglerActivity activity) {
+    private void processContent(Screen.Instance screenInstance, JugglerActivity<? extends ScreensManager> activity) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         int contentContainerId = activity.getContainerContentLayoutId();
         if (contentContainerId != 0) {
             JugglerContentFragment contentFragment = screenInstance.instanceContent();
             if (contentFragment != null) {
-                contentFragment.setInitialSavedState(screenInstance.getSavedState());
-                fragmentManager.
-                        beginTransaction().
-                        replace(contentContainerId, contentFragment, TAG_CONTENT).
-                        disallowAddToBackStack().
-                        commit();
+                putContentFragmentOnActivity(fragmentManager, contentContainerId, screenInstance, contentFragment, TAG_CONTENT);
             }
         }
     }

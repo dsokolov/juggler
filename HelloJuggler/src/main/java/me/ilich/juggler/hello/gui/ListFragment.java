@@ -13,9 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerNewInstance;
-import me.ilich.juggler.Screen;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.HelloScreensManager;
 

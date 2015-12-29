@@ -1,4 +1,4 @@
-package me.ilich.juggler;
+package me.ilich.juggler.fragments.toolbar;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface JugglerNewInstance {
+@Target(ElementType.TYPE)
+public @interface JugglerToolbar {
+
+    Class<? extends JugglerToolbarFragment> value();
 
 }

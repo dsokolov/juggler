@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.hello.R;
+import me.ilich.juggler.fragments.JugglerNewInstance;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.hello.HelloScreensManager;
+import me.ilich.juggler.hello.R;
 
 public class LoginFragment extends JugglerContentFragment<HelloScreensManager> implements View.OnClickListener {
 
+    @JugglerNewInstance
     public static LoginFragment create() {
         return new LoginFragment();
     }

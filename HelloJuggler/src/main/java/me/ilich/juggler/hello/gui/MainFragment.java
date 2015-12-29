@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.JugglerContentFragment;
-import me.ilich.juggler.JugglerNewInstance;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.HelloScreensManager;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.screens.MainScreen;
 
 public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
 
@@ -30,25 +31,25 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getScreenManager().list();
+                ((MainScreen)navigateTo()).list();
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*getJuggler().getScreenManager().about();*/
+                ((MainScreen)navigateTo()).about();
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*getJuggler().getScreenManager().login();*/
+                ((MainScreen)navigateTo()).login();
             }
         });
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getScreenManager().wizzardOne();
+                ((MainScreen)navigateTo()).wizardOne();
             }
         });
         getScreenManager().setTitle("main");

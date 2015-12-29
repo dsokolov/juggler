@@ -1,84 +1,58 @@
 package me.ilich.juggler.hello;
 
 import me.ilich.juggler.JugglerActivity;
-import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;
+import me.ilich.juggler.hello.screens.AboutScreen;
 import me.ilich.juggler.hello.screens.ItemDetailScreen;
 import me.ilich.juggler.hello.screens.ListScreen;
+import me.ilich.juggler.hello.screens.LoginScreen;
 import me.ilich.juggler.hello.screens.MainScreen;
 import me.ilich.juggler.hello.screens.WizzardOneScreen;
 import me.ilich.juggler.hello.screens.WizzardThreeScreen;
 import me.ilich.juggler.hello.screens.WizzardTwoScreen;
 
-public class HelloScreensManager extends ScreensManager {
-
-    private final JugglerActivity<HelloScreensManager> activity;
-
-    /*    private SplashScreen helloScreen = new SplashScreen();
-        private LoginScreen loginScreen = new LoginScreen();
-        private RegistrationScreen registrationScreen = new RegistrationScreen();*/
-    private MainScreen mainScreen = new MainScreen();
-    private ListScreen listScreen = new ListScreen();
-    private ItemDetailScreen itemDetailScreen = new ItemDetailScreen();
-    /*private AboutScreen aboutScreen = new AboutScreen();*/
-    private WizzardOneScreen wizzardOneScreen = new WizzardOneScreen();
-    private WizzardTwoScreen wizzardTwoScreen = new WizzardTwoScreen();
-    private WizzardThreeScreen wizzardThreeScreen = new WizzardThreeScreen();
+public class HelloScreensManager extends ScreensManager implements MainScreen {
 
     public HelloScreensManager(JugglerActivity<HelloScreensManager> activity) {
-        this.activity = activity;
+        super(activity);
     }
 
     @Override
     protected void onInit() {
-/*        registrationScreen.setBack(Action.toScreen(loginScreen));
-        registrationScreen.setUp(Action.toScreen(loginScreen));
-
-        mainScreen.setBack((Screen) null);
-
-        listScreen.setBack(mainScreen);
-
-        itemDetailScreen.setBack(listScreen);
-
-        aboutScreen.setBack(mainScreen);*/
     }
 
     public void main() {
-        Screen.Instance instance = mainScreen.create(new MainScreen.Params());
-        showNew(instance, activity);
+        showNew(MainScreen.class);
     }
 
-/*    public void login() {
-        loginScreen.showOn(activity);
-    }*/
+    @Override
+    public void login() {
+        showNew(LoginScreen.class);
+    }
 
+    @Override
     public void list() {
-        Screen.Instance instance = listScreen.create(new Screen.Params());
-        showNew(instance, activity);
+        showNew(ListScreen.class);
     }
 
     public void itemDetails(int id) {
-        Screen.Instance instance = itemDetailScreen.create(new ItemDetailScreen.Params(id));
-        showNew(instance, activity);
+        showNew(ItemDetailScreen.class, new ItemDetailScreen.Params(id));
     }
 
-    public void wizzardOne() {
-        Screen.Instance instance = wizzardOneScreen.create();
-        showNew(instance, activity);
+    public void wizardOne() {
+        showNew(WizzardOneScreen.class);
     }
 
     public void wizzardTwo() {
-        Screen.Instance instance = wizzardTwoScreen.create();
-        showNew(instance, activity);
+        showNew(WizzardTwoScreen.class);
     }
 
     public void wizzardThree() {
-        Screen.Instance instance = wizzardThreeScreen.create();
-        showNew(instance, activity);
+        showNew(WizzardThreeScreen.class);
     }
 
-/*    public void about() {
-        aboutScreen.showOn(activity);
-    }*/
+    public void about() {
+        showNew(AboutScreen.class);
+    }
 
 }
