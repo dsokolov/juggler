@@ -5,15 +5,16 @@ import android.support.v4.app.Fragment;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;
 
 public abstract class JugglerFragment<SM extends ScreensManager> extends Fragment {
 
     public Juggler<SM> getJuggler() {
-        return ((JugglerActivity) getActivity()).getJuggler();
+        return ((JugglerActivity<SM>) getActivity()).getJuggler();
     }
 
-    public <S> S navigateTo(Class<S> sClass) {
+    public <S extends Screen> S navigateTo(Class<S> sClass) {
         ScreensManager screensManager = ((JugglerActivity) getActivity()).getJuggler().getScreenManager();
         if (!sClass.isAssignableFrom(screensManager.getClass())) {
             throw new RuntimeException("ScreenManager should implements " + sClass);

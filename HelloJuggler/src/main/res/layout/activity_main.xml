@@ -6,18 +6,32 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:background="#10FF0000"
         android:id="@+id/container_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:background="#10FF0000"/>
 
     <FrameLayout
-        android:background="#1000FF00"
+        android:id="@+id/container_navigation"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/container_toolbar"
+        android:background="#100000FF"/>
+
+    <FrameLayout
         android:id="@+id/container_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/container_toolbar"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/container_toolbar"
+        android:layout_toEndOf="@+id/container_navigation"
+        android:layout_toRightOf="@+id/container_navigation"
+        android:background="#1000FF00"/>
 
 </RelativeLayout>

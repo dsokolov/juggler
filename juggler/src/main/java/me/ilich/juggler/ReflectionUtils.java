@@ -10,6 +10,8 @@ import me.ilich.juggler.fragments.JugglerFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.navigation.JugglerNavigation;
+import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
@@ -19,6 +21,10 @@ public class ReflectionUtils {
         return createFragment(params, screenClass, JugglerToolbar.class, onGetToolbarJugglerClass);
     }
 
+    static JugglerNavigationFragment createNavigationFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
+        return createFragment(params, screenClass, JugglerNavigation.class, onGetNavigationJugglerClass);
+    }
+
     static JugglerContentFragment createContentFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
         return createFragment(params, screenClass, JugglerContent.class, onGetContentJugglerClass);
     }
@@ -26,12 +32,12 @@ public class ReflectionUtils {
     @Nullable
     private static <F extends JugglerFragment> F createFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass, Class<? extends Annotation> annotation, OnGetJugglerClass<F> onGetJugglerClass) {
         F r = null;
-        Class<? extends F> clazz = onGetJugglerClass.getJugglerClass(screenClass);
         if (screenClass.isAnnotationPresent(annotation)) {
+            Class<? extends F> anotatedClass = onGetJugglerClass.getJugglerClass(screenClass);
             F oneParamsFragment = null;
             F noParamsFragment = null;
             try {
-                for (Method method : clazz.getMethods()) {
+                for (Method method : anotatedClass.getMethods()) {
                     if (method.isAnnotationPresent(JugglerNewInstance.class)) {
                         Class[] methodParams = method.getParameterTypes();
                         switch (methodParams.length) {
@@ -56,14 +62,14 @@ public class ReflectionUtils {
             } else if (noParamsFragment != null) {
                 r = noParamsFragment;
             }
-        }
-        if (r == null) {
-            try {
-                r = clazz.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            if (r == null) {
+                try {
+                    r = anotatedClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return r;
@@ -80,6 +86,16 @@ public class ReflectionUtils {
         @Override
         public Class<? extends JugglerToolbarFragment> getJugglerClass(Class<? extends Screen> screenClass) {
             JugglerToolbar content = screenClass.getAnnotation(JugglerToolbar.class);
+            return content.value();
+        }
+
+    };
+
+    private static OnGetJugglerClass<JugglerNavigationFragment> onGetNavigationJugglerClass = new OnGetJugglerClass<JugglerNavigationFragment>() {
+
+        @Override
+        public Class<? extends JugglerNavigationFragment> getJugglerClass(Class<? extends Screen> screenClass) {
+            JugglerNavigation content = screenClass.getAnnotation(JugglerNavigation.class);
             return content.value();
         }
 

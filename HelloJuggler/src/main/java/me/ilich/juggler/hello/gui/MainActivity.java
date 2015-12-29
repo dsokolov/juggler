@@ -34,4 +34,9 @@ public class MainActivity extends JugglerActivity<HelloScreensManager> {
     public int getContainerToolbarLayoutId() {
         return R.id.container_toolbar;
     }
+
+    @Override
+    public int getContainerNavigationLayoutId() {
+        return R.id.container_navigation;
+    }
 }

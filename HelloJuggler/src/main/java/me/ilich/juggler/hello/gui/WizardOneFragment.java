@@ -6,23 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.WizzardTwoScreen;
+import me.ilich.juggler.hello.screens.HelloScreensManager;
+import me.ilich.juggler.hello.screens.WizardOneScreen;
 
-public class WizzardTwoFragment extends JugglerContentFragment<HelloScreensManager> {
-
-    @JugglerNewInstance
-    public static WizzardTwoFragment newInstance() {
-        return new WizzardTwoFragment();
-    }
+public class WizardOneFragment extends JugglerContentFragment<HelloScreensManager> {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_wizzard_two, container, false);
+        return inflater.inflate(R.layout.fragment_wizzard_one, container, false);
     }
 
     @Override
@@ -31,7 +25,7 @@ public class WizzardTwoFragment extends JugglerContentFragment<HelloScreensManag
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(WizzardTwoScreen.class).wizardThree();
+                navigateTo(WizardOneScreen.class).wizardTwo();
             }
         });
     }

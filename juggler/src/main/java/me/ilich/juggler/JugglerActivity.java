@@ -27,6 +27,9 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
     @IdRes
     public abstract int getContainerToolbarLayoutId();
 
+    @IdRes
+    public abstract int getContainerNavigationLayoutId();
+
     @Override
     public void onBackPressed() {
         boolean b = juggler.getScreenManager().back();

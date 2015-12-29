@@ -8,6 +8,6 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
 @JugglerToolbar(StandardToolbarFragment.class)
 @JugglerContent(ExplainToolbarFragment.class)
-interface ToolbarExplainScreen extends Screen {
+public interface ToolbarExplainScreen extends Screen {
 
 }

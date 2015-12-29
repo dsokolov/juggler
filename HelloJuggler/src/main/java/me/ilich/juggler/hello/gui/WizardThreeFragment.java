@@ -10,7 +10,7 @@ import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.WizzardThreeScreen;
+import me.ilich.juggler.hello.screens.WizardThreeScreen;
 
 public class WizardThreeFragment extends JugglerContentFragment<HelloScreensManager> {
 
@@ -31,7 +31,7 @@ public class WizardThreeFragment extends JugglerContentFragment<HelloScreensMana
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(WizzardThreeScreen.class).main();
+                navigateTo(WizardThreeScreen.class).main();
             }
         });
     }
