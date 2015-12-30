@@ -26,12 +26,14 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((JugglerActivity) getActivity()).getJuggler().onToolbarDetached(this);
+    }
+
     @IdRes
     protected abstract int getToolbarId();
-
-    public void setTitle(String title) {
-        toolbar.setTitle(title);
-    }
 
     public void setMode(Mode mode) {
         ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
@@ -67,6 +69,10 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         if (actionBar != null) {
             actionBar.setDisplayOptions(options);
         }
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 
     public enum Mode {

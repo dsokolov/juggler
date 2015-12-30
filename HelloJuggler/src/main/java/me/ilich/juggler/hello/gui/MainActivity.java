@@ -11,7 +11,6 @@ public class MainActivity extends JugglerActivity<HelloScreensManager> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         boolean authorised = true;
         if (authorised) {
             navigateTo(HelloScreensManager.class).main();

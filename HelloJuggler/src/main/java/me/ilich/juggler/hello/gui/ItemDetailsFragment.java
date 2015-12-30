@@ -2,14 +2,14 @@ package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.JugglerNewInstance;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.ItemDetailScreen;
@@ -47,8 +47,8 @@ public class ItemDetailsFragment extends JugglerContentFragment<HelloScreensMana
         super.onViewCreated(view, savedInstanceState);
         numberTextView = (TextView) view.findViewById(R.id.number);
         numberTextView.setText(Integer.toString(id));
-        getJuggler().setTitle("item " + id);
-        getJuggler().setToolbarMode(JugglerToolbarFragment.Mode.UP);
+        getJuggler().setToolbarOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
+        getActivity().setTitle("item " + id);
     }
 
 }

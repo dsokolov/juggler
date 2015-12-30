@@ -25,52 +25,36 @@ public interface Screen {
         }
 
         @Nullable
-        private static ToolbarFragmentFactory instanceToolbar(final Class<? extends Screen> screenClass) {
-            return new ToolbarFragmentFactory() {
+        private static FragmentFactory instance(final Class<? extends Screen> screenClass) {
+            return new FragmentFactory() {
+
                 @Override
-                public JugglerToolbarFragment create(Params params) {
+                public JugglerToolbarFragment createToolbar(Params params) {
                     return ReflectionUtils.createToolbarFragment(params, screenClass);
                 }
-            };
-        }
 
-        @Nullable
-        private static ContentFragmentFactory instanceContent(final Class<? extends Screen> screenClass) {
-            return new ContentFragmentFactory() {
                 @Override
-                public JugglerContentFragment create(Params params) {
+                public JugglerContentFragment createContent(Params params) {
                     return ReflectionUtils.createContentFragment(params, screenClass);
                 }
-            };
-        }
 
-        @Nullable
-        private static NavigationFragmentFactory instanceNavigation(final Class<? extends Screen> screenClass) {
-            return new NavigationFragmentFactory() {
                 @Override
-                public JugglerNavigationFragment create(Params params) {
+                public JugglerNavigationFragment createNavigation(Params params) {
                     return ReflectionUtils.createNavigationFragment(params, screenClass);
                 }
+
             };
         }
 
     }
 
-    interface ContentFragmentFactory {
+    interface FragmentFactory {
 
-        JugglerContentFragment create(@Nullable Params params);
+        JugglerContentFragment createContent(@Nullable Params params);
 
-    }
+        JugglerToolbarFragment createToolbar(@Nullable Params params);
 
-    interface ToolbarFragmentFactory {
-
-        JugglerToolbarFragment create(@Nullable Params params);
-
-    }
-
-    interface NavigationFragmentFactory {
-
-        JugglerNavigationFragment create(@Nullable Params params);
+        JugglerNavigationFragment createNavigation(@Nullable Params params);
 
     }
 
@@ -81,9 +65,7 @@ public interface Screen {
     final class Instance {
 
         private final Params params;
-        private final ContentFragmentFactory contentFragmentFactory;
-        private final ToolbarFragmentFactory toolbarFragmentFactory;
-        private final NavigationFragmentFactory navigationFragmentFactory;
+        private final FragmentFactory fragmentFactory;
         @Nullable
         private Fragment.SavedState contentSavedState = null;
         @Nullable
@@ -93,21 +75,19 @@ public interface Screen {
 
         Instance(@NonNull Class<? extends Screen> screen, Params params) {
             this.params = params;
-            this.contentFragmentFactory = Screen.Factory.instanceContent(screen);
-            this.toolbarFragmentFactory = Screen.Factory.instanceToolbar(screen);
-            this.navigationFragmentFactory = Screen.Factory.instanceNavigation(screen);
+            this.fragmentFactory = Screen.Factory.instance(screen);
         }
 
         public JugglerToolbarFragment instanceToolbar() {
-            return toolbarFragmentFactory.create(params);
+            return fragmentFactory.createToolbar(params);
         }
 
         public JugglerNavigationFragment instanceNavigation() {
-            return navigationFragmentFactory.create(params);
+            return fragmentFactory.createNavigation(params);
         }
 
         public JugglerContentFragment instanceContent() {
-            return contentFragmentFactory.create(params);
+            return fragmentFactory.createContent(params);
         }
 
         @Nullable
@@ -128,7 +108,6 @@ public interface Screen {
             this.toolbarSavedState = toolbarSavedState;
         }
 
-
         @Nullable
         public Fragment.SavedState getNavigationSavedState() {
             return navigationSavedState;
@@ -139,6 +118,5 @@ public interface Screen {
         }
 
     }
-
 
 }

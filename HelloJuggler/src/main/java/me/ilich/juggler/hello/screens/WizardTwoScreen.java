@@ -6,7 +6,6 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.WizardTwoFragment;
 
-@JugglerToolbar(StandardToolbarFragment.class)
 @JugglerContent(WizardTwoFragment.class)
 public interface WizardTwoScreen extends Screen {
 

@@ -1,10 +1,11 @@
 package me.ilich.juggler;
 
 import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,27 +42,32 @@ public abstract class ScreensManager implements Screen {
             JugglerToolbarFragment newToolbarFragment = screenInstance.instanceToolbar();
             JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
             if (currentToolbarFragment == null) {
-                if (newToolbarFragment != null) {
+                if (newToolbarFragment == null) {
+                    result = null;
+                } else {
                     putToolbarFragmentOnActivity(fragmentManager, toolbarContainerId, screenInstance, newToolbarFragment, TAG_TOOLBAR);
                     result = newToolbarFragment;
-                } else {
-                    result = null;
                 }
             } else {
                 if (newToolbarFragment == null) {
                     fragmentManager.beginTransaction().remove(currentToolbarFragment).commit();
-                    result = null;
+                    result = currentToolbarFragment;
                 } else {
-                    if (!newToolbarFragment.getClass().equals(currentToolbarFragment.getClass())) {
+                    if (newToolbarFragment.getClass().equals(currentToolbarFragment.getClass())) {
+                        result = currentToolbarFragment;
+                    } else {
                         putToolbarFragmentOnActivity(fragmentManager, toolbarContainerId, screenInstance, newToolbarFragment, TAG_TOOLBAR);
                         result = newToolbarFragment;
-                    } else {
-                        result = null;
                     }
                 }
             }
         } else {
             result = null;
+        }
+        if (result == null) {
+            activity.hideToolbarContainer();
+        } else {
+            activity.showToolbarContainer();
         }
         return result;
     }
@@ -87,21 +93,26 @@ public abstract class ScreensManager implements Screen {
     private static JugglerNavigationFragment processNavigation(Screen.Instance screenInstance, JugglerActivity<? extends ScreensManager> activity) {
         final JugglerNavigationFragment result;
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        int navagationContainerId = activity.getContainerNavigationLayoutId();
+        int navigationContainerId = activity.getContainerNavigationLayoutId();
         JugglerNavigationFragment currentNavigationFragment = (JugglerNavigationFragment) fragmentManager.findFragmentByTag(TAG_NAVIGATION);
-        if (navagationContainerId != 0) {
+        if (navigationContainerId == 0) {
+            result = null;
+        } else {
             JugglerNavigationFragment navigationFragment = screenInstance.instanceNavigation();
-            if (navigationFragment != null) {
-                putNavigationFragmentOnActivity(fragmentManager, navagationContainerId, screenInstance, navigationFragment, TAG_NAVIGATION);
-                result = navigationFragment;
-            } else {
+            if (navigationFragment == null) {
                 if (currentNavigationFragment != null) {
                     fragmentManager.beginTransaction().remove(currentNavigationFragment).commit();
                 }
                 result = null;
+            } else {
+                putNavigationFragmentOnActivity(fragmentManager, navigationContainerId, screenInstance, navigationFragment, TAG_NAVIGATION);
+                result = navigationFragment;
             }
+        }
+        if (result == null) {
+            activity.hideNavigationContainer();
         } else {
-            result = null;
+            activity.showNavigationContainer();
         }
         return result;
     }
@@ -175,11 +186,26 @@ public abstract class ScreensManager implements Screen {
         if (currentScreenInstance != null) {
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             Fragment contentFragment = fragmentManager.findFragmentByTag(TAG_CONTENT);
-            Fragment.SavedState contentSavedState = fragmentManager.saveFragmentInstanceState(contentFragment);
-            currentScreenInstance.setContentSavedState(contentSavedState);
+            if (contentFragment == null) {
+                currentScreenInstance.setContentSavedState(null);
+            } else {
+                Fragment.SavedState contentSavedState = fragmentManager.saveFragmentInstanceState(contentFragment);
+                currentScreenInstance.setContentSavedState(contentSavedState);
+            }
             Fragment toolbarFragment = fragmentManager.findFragmentByTag(TAG_TOOLBAR);
-            Fragment.SavedState toolbarSavedState = fragmentManager.saveFragmentInstanceState(toolbarFragment);
-            currentScreenInstance.setToolbarSavedState(toolbarSavedState);
+            if (toolbarFragment == null) {
+                currentScreenInstance.setToolbarSavedState(null);
+            } else {
+                Fragment.SavedState toolbarSavedState = fragmentManager.saveFragmentInstanceState(toolbarFragment);
+                currentScreenInstance.setToolbarSavedState(toolbarSavedState);
+            }
+            Fragment navigationFragment = fragmentManager.findFragmentByTag(TAG_NAVIGATION);
+            if (navigationFragment == null) {
+                currentScreenInstance.setNavigationSavedState(null);
+            } else {
+                Fragment.SavedState toolbarSavedState = fragmentManager.saveFragmentInstanceState(navigationFragment);
+                currentScreenInstance.setNavigationSavedState(toolbarSavedState);
+            }
             stack.add(currentScreenInstance);
         }
         currentScreenInstance = screenInstance;
@@ -190,19 +216,6 @@ public abstract class ScreensManager implements Screen {
         toolbarFragment = processToolbar(screenInstance, activity);
         contentFragment = processContent(screenInstance, activity);
         navigationFragment = processNavigation(screenInstance, activity);
-    }
-
-    void setTitle(String title) {
-        if (toolbarFragment != null) {
-            toolbarFragment.setTitle(title);
-        }
-    }
-
-    void setTitle(@StringRes int title) {
-        if (toolbarFragment != null) {
-            String s = activity.getString(title);
-            toolbarFragment.setTitle(s);
-        }
     }
 
     public void setToolbarMode(JugglerToolbarFragment.Mode mode) {
