@@ -1,12 +1,14 @@
 package me.ilich.juggler.hello.screens;
 
+import android.support.v7.app.ActionBar;
+
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.hello.gui.ItemDetailsFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-@JugglerToolbar(StandardToolbarFragment.class)
+@JugglerToolbar(value = StandardToolbarFragment.class, options = ActionBar.DISPLAY_SHOW_TITLE)
 @JugglerContent(ItemDetailsFragment.class)
 public interface ItemDetailScreen extends Screen {
 

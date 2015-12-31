@@ -14,6 +14,7 @@ import me.ilich.juggler.fragments.JugglerFragment;
 public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
 
     private Toolbar toolbar;
+    private int initialOptions = 0;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         ((JugglerActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
+            actionBar.setDisplayOptions(initialOptions);
             actionBar.show();
         }
     }
@@ -67,6 +69,10 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
 
     public Toolbar getToolbar() {
         return toolbar;
+    }
+
+    public void setInitialOptions(int initialOptions) {
+        this.initialOptions = initialOptions;
     }
 
     public enum Mode {

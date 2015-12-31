@@ -19,14 +19,64 @@ public class ReflectionUtils {
 
 
     public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
-        JugglerToolbarFragment toolbarFragment = createToolbarFragment(params, screenClass);
-        JugglerNavigationFragment navigationFragment = createNavigationFragment(params, screenClass);
-        JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
+        //final JugglerToolbarFragment toolbarFragment = createToolbarFragment(params, screenClass);
+        final JugglerToolbarFragment toolbarFragment;
+        if (screenClass.isAnnotationPresent(JugglerToolbar.class)) {
+            JugglerToolbar annotation = screenClass.getAnnotation(JugglerToolbar.class);
+            Class<? extends JugglerToolbarFragment> fragmentClass = annotation.value();
+            int options = annotation.options();
+            Method noParams = null;
+            Method oneParam = null;
+            for (Method method : fragmentClass.getMethods()) {
+                if (method.isAnnotationPresent(JugglerNewInstance.class)) {
+                    switch (method.getParameterTypes().length) {
+                        case 0:
+                            noParams = method;
+                            break;
+                        case 1:
+                            if (method.getParameterTypes()[0].equals(params.getClass())) {
+                                oneParam = method;
+                            }
+                            break;
+                    }
+                }
+            }
+            JugglerToolbarFragment fragment = null;
+            if (oneParam != null) {
+                try {
+                    fragment = (JugglerToolbarFragment) oneParam.invoke(null, params);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } else if (noParams != null) {
+                try {
+                    fragment = (JugglerToolbarFragment) noParams.invoke(null);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    fragment = fragmentClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fragment != null) {
+                fragment.setInitialOptions(options);
+            }
+            toolbarFragment = fragment;
+        } else {
+            toolbarFragment = null;
+        }
+        final JugglerNavigationFragment navigationFragment = createNavigationFragment(params, screenClass);
+        final JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
         return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment);
-    }
-
-    static JugglerToolbarFragment createToolbarFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
-        return createFragment(params, screenClass, JugglerToolbar.class, onGetToolbarJugglerClass);
     }
 
     static JugglerNavigationFragment createNavigationFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
@@ -88,16 +138,6 @@ public class ReflectionUtils {
         Class<? extends F> getJugglerClass(Class<? extends Screen> screenClass);
 
     }
-
-    private static OnGetJugglerClass<JugglerToolbarFragment> onGetToolbarJugglerClass = new OnGetJugglerClass<JugglerToolbarFragment>() {
-
-        @Override
-        public Class<? extends JugglerToolbarFragment> getJugglerClass(Class<? extends Screen> screenClass) {
-            JugglerToolbar content = screenClass.getAnnotation(JugglerToolbar.class);
-            return content.value();
-        }
-
-    };
 
     private static OnGetJugglerClass<JugglerNavigationFragment> onGetNavigationJugglerClass = new OnGetJugglerClass<JugglerNavigationFragment>() {
 
