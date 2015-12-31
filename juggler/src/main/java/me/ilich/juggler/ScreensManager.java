@@ -49,19 +49,16 @@ public abstract class ScreensManager implements Screen {
         return b;
     }
 
-    /*@Override
     public boolean up() {
         final boolean b;
         if (stack.size() > 0) {
-            currentScreenInstance = stack.get(stack.size() - 1);
-            stack.remove(stack.size() - 1);
-            doShow(currentScreenInstance, activity);
+            show(SHOW_MODE.GET, null);
             b = true;
         } else {
             b = false;
         }
         return b;
-    }*/
+    }
 
     public enum SHOW_MODE {
         ADD,

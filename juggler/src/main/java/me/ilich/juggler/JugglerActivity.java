@@ -89,6 +89,11 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        return juggler.getScreenManager().up();
+    }
+
     public <S> S navigateTo(Class<S> sClass) {
         ScreensManager screensManager = juggler.getScreenManager();
         if (!sClass.isAssignableFrom(screensManager.getClass())) {

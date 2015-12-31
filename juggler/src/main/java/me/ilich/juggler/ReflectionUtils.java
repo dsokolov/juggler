@@ -19,7 +19,6 @@ public class ReflectionUtils {
 
 
     public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
-        //final JugglerToolbarFragment toolbarFragment = createToolbarFragment(params, screenClass);
         final JugglerToolbarFragment toolbarFragment;
         if (screenClass.isAnnotationPresent(JugglerToolbar.class)) {
             JugglerToolbar annotation = screenClass.getAnnotation(JugglerToolbar.class);
