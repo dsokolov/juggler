@@ -6,7 +6,7 @@ import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.R;
 
-public class MainActivity extends JugglerActivity<HelloScreensManager> {
+public class BaseActivity extends JugglerActivity<HelloScreensManager> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +24,4 @@ public class MainActivity extends JugglerActivity<HelloScreensManager> {
         return new HelloScreensManager(this);
     }
 
-    @Override
-    public int getContainerContentLayoutId() {
-        return R.id.container_content;
-    }
-
-    @Override
-    public int getContainerToolbarLayoutId() {
-        return R.id.container_toolbar;
-    }
-
-    @Override
-    public int getContainerNavigationLayoutId() {
-        return R.id.container_navigation;
-    }
 }

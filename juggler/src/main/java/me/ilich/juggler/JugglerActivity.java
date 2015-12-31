@@ -37,25 +37,31 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
 
+    @LayoutRes
+    protected int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
     protected abstract SM createScreenManager();
 
     public final Juggler<SM> getJuggler() {
         return juggler;
     }
 
-    @LayoutRes
-    protected int getContentViewId() {
-        return R.layout.activity_main;
+    @IdRes
+    public int getContainerContentLayoutId() {
+        return R.id.container_content;
     }
 
     @IdRes
-    public abstract int getContainerContentLayoutId();
+    public int getContainerToolbarLayoutId() {
+        return R.id.container_toolbar;
+    }
 
     @IdRes
-    public abstract int getContainerToolbarLayoutId();
-
-    @IdRes
-    public abstract int getContainerNavigationLayoutId();
+    public int getContainerNavigationLayoutId() {
+        return R.id.container_navigation;
+    }
 
     public void hideToolbarContainer() {
         toolbarViewGroup.setVisibility(View.GONE);
@@ -67,10 +73,12 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     public void hideNavigationContainer() {
         navigationViewGroup.setVisibility(View.GONE);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     public void showNavigationContainer() {
         navigationViewGroup.setVisibility(View.VISIBLE);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     @Override
@@ -91,21 +99,6 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     public DrawerLayout getDrawerLayout() {
         return drawerLayout;
-    }
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        Log.v("Sokolov", "attached " + fragment);
-        if (fragment instanceof JugglerToolbarFragment) {
-            juggler.onToolbarAttached((JugglerToolbarFragment) fragment);
-        }
-        if (fragment instanceof JugglerNavigationFragment) {
-            juggler.onNavigationAttached((JugglerNavigationFragment) fragment);
-        }
-        if (fragment instanceof JugglerContentFragment) {
-            juggler.onContentAttached((JugglerContentFragment) fragment);
-        }
     }
 
 }

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="#10FF0000"/>
+            android:background="#40F0000F"/>
 
         <FrameLayout
             android:id="@+id/container_content"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/container_toolbar"
-            android:background="#1000FF00"/>
+            android:background="#400FF000"/>
 
     </RelativeLayout>
 
@@ -31,6 +31,6 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#100000FF"/>
+        android:background="#40000FF0"/>
 
 </android.support.v4.widget.DrawerLayout>

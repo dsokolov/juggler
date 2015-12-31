@@ -17,6 +17,14 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
 public class ReflectionUtils {
 
+
+    public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
+        JugglerToolbarFragment toolbarFragment = createToolbarFragment(params, screenClass);
+        JugglerNavigationFragment navigationFragment = createNavigationFragment(params, screenClass);
+        JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
+        return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment);
+    }
+
     static JugglerToolbarFragment createToolbarFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
         return createFragment(params, screenClass, JugglerToolbar.class, onGetToolbarJugglerClass);
     }

@@ -10,9 +10,9 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
 public interface Screen {
 
-    boolean back();
+/*    boolean back();
 
-    boolean up();
+    boolean up();*/
 
     class Factory {
 
@@ -29,18 +29,8 @@ public interface Screen {
             return new FragmentFactory() {
 
                 @Override
-                public JugglerToolbarFragment createToolbar(Params params) {
-                    return ReflectionUtils.createToolbarFragment(params, screenClass);
-                }
-
-                @Override
-                public JugglerContentFragment createContent(Params params) {
-                    return ReflectionUtils.createContentFragment(params, screenClass);
-                }
-
-                @Override
-                public JugglerNavigationFragment createNavigation(Params params) {
-                    return ReflectionUtils.createNavigationFragment(params, screenClass);
+                public Bundle create(@Nullable Params params) {
+                    return ReflectionUtils.createFragmentBundle(params, screenClass);
                 }
 
             };
@@ -50,20 +40,54 @@ public interface Screen {
 
     interface FragmentFactory {
 
-        JugglerContentFragment createContent(@Nullable Params params);
+        class Bundle {
 
-        JugglerToolbarFragment createToolbar(@Nullable Params params);
+            @Nullable
+            private final JugglerToolbarFragment toolbarFragment;
+            @Nullable
+            private final JugglerNavigationFragment navigationFragment;
+            @Nullable
+            private final JugglerContentFragment contentFragment;
 
-        JugglerNavigationFragment createNavigation(@Nullable Params params);
+            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment contentFragment) {
+                this.toolbarFragment = toolbarFragment;
+                this.navigationFragment = navigationFragment;
+                this.contentFragment = contentFragment;
+            }
+
+            @Nullable
+            public JugglerToolbarFragment getToolbarFragment() {
+                return toolbarFragment;
+            }
+
+            @Nullable
+            public JugglerNavigationFragment getNavigationFragment() {
+                return navigationFragment;
+            }
+
+            @Nullable
+            public JugglerContentFragment getContentFragment() {
+                return contentFragment;
+            }
+
+        }
+
+        Bundle create(@Nullable Params params);
 
     }
 
     class Params {
 
+        @Override
+        public String toString() {
+            return getClass().getCanonicalName();
+        }
+
     }
 
     final class Instance {
 
+        private final String name;
         private final Params params;
         private final FragmentFactory fragmentFactory;
         @Nullable
@@ -74,20 +98,13 @@ public interface Screen {
         private Fragment.SavedState navigationSavedState = null;
 
         Instance(@NonNull Class<? extends Screen> screen, Params params) {
+            name = screen.getSimpleName() + " " + params;
             this.params = params;
             this.fragmentFactory = Screen.Factory.instance(screen);
         }
 
-        public JugglerToolbarFragment instanceToolbar() {
-            return fragmentFactory.createToolbar(params);
-        }
-
-        public JugglerNavigationFragment instanceNavigation() {
-            return fragmentFactory.createNavigation(params);
-        }
-
-        public JugglerContentFragment instanceContent() {
-            return fragmentFactory.createContent(params);
+        public FragmentFactory.Bundle instanceFragments() {
+            return fragmentFactory.create(params);
         }
 
         @Nullable
@@ -115,6 +132,11 @@ public interface Screen {
 
         public void setNavigationSavedState(@Nullable Fragment.SavedState navigationSavedState) {
             this.navigationSavedState = navigationSavedState;
+        }
+
+        @Override
+        public String toString() {
+            return "ScreenInstance " + name;
         }
 
     }

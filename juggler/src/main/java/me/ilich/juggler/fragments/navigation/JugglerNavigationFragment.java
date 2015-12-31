@@ -14,12 +14,6 @@ public abstract class JugglerNavigationFragment<SM extends ScreensManager> exten
 
     private ActionBarDrawerToggle drawerToggle;
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ((JugglerActivity) getActivity()).getJuggler().onNavigationDetached(this);
-    }
-
     public void init(DrawerLayout drawerLayout, Toolbar toolbar) {
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
@@ -37,6 +31,14 @@ public abstract class JugglerNavigationFragment<SM extends ScreensManager> exten
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    public void deinit(DrawerLayout drawerLayout) {
+        drawerToggle.setDrawerIndicatorEnabled(false);
+        drawerToggle = null;
+        drawerLayout.setDrawerListener(null);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
 }

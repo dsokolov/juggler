@@ -26,12 +26,6 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ((JugglerActivity) getActivity()).getJuggler().onToolbarDetached(this);
-    }
-
     @IdRes
     protected abstract int getToolbarId();
 

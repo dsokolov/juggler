@@ -16,47 +16,47 @@ public class HelloScreensManager extends ScreensManager implements
     }
 
     public void main() {
-        showClearStack(MainScreen.class);
+        show(SHOW_MODE.CLEAR, MainScreen.class);
     }
 
     @Override
     public void login() {
-        showAddStack(LoginScreen.class);
+        show(SHOW_MODE.ADD, LoginScreen.class);
     }
 
     @Override
     public void toolbarExplain() {
-        showAddStack(ToolbarExplainScreen.class);
+        show(SHOW_MODE.ADD, ToolbarExplainScreen.class);
     }
 
     @Override
     public void list() {
-        showAddStack(ListScreen.class);
+        show(SHOW_MODE.ADD, ListScreen.class);
     }
 
     @Override
     public void itemDetails(int id) {
-        showAddStack(ItemDetailScreen.class, new ItemDetailScreen.Params(id));
+        show(SHOW_MODE.ADD, ItemDetailScreen.class, new ItemDetailScreen.Params(id));
     }
 
     @Override
     public void wizardOne() {
-        showAddStack(WizardOneScreen.class);
+        show(SHOW_MODE.ADD, WizardOneScreen.class);
     }
 
     @Override
     public void wizardTwo() {
-        showAddStack(WizardTwoScreen.class);
+        show(SHOW_MODE.ADD, WizardTwoScreen.class);
     }
 
     @Override
     public void wizardThree() {
-        showAddStack(WizardThreeScreen.class);
+        show(SHOW_MODE.ADD, WizardThreeScreen.class);
     }
 
     @Override
     public void about() {
-        showAddStack(AboutScreen.class);
+        show(SHOW_MODE.ADD, AboutScreen.class);
     }
 
 }
