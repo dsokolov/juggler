@@ -11,52 +11,54 @@ public class HelloScreensManager extends ScreensManager implements
         WizardThreeScreen,
         LoginScreen {
 
+    private static final String STACK_DEFAULT = "default stack";
+
     public HelloScreensManager(JugglerActivity<HelloScreensManager> activity) {
         super(activity);
     }
 
     public void main() {
-        show(SHOW_MODE.CLEAR, MainScreen.class);
+        show(MODE.CLEAR, STACK_DEFAULT, MainScreen.class, null);
     }
 
     @Override
     public void login() {
-        show(SHOW_MODE.ADD, LoginScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, LoginScreen.class, null);
     }
 
     @Override
     public void toolbarExplain() {
-        show(SHOW_MODE.ADD, ToolbarExplainScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, ToolbarExplainScreen.class, null);
     }
 
     @Override
     public void list() {
-        show(SHOW_MODE.ADD, ListScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, ListScreen.class, null);
     }
 
     @Override
     public void itemDetails(int id) {
-        show(SHOW_MODE.ADD, ItemDetailScreen.class, new ItemDetailScreen.Params(id));
+        show(MODE.ADD, STACK_DEFAULT, ItemDetailScreen.class, new ItemDetailScreen.Params(id));
     }
 
     @Override
     public void wizardOne() {
-        show(SHOW_MODE.ADD, WizardOneScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, WizardOneScreen.class, null);
     }
 
     @Override
     public void wizardTwo() {
-        show(SHOW_MODE.ADD, WizardTwoScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, WizardTwoScreen.class, null);
     }
 
     @Override
     public void wizardThree() {
-        show(SHOW_MODE.ADD, WizardThreeScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, WizardThreeScreen.class, null);
     }
 
     @Override
     public void about() {
-        show(SHOW_MODE.ADD, AboutScreen.class);
+        show(MODE.ADD, STACK_DEFAULT, AboutScreen.class, null);
     }
 
 }

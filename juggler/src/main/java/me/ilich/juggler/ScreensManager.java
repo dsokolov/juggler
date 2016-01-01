@@ -1,17 +1,13 @@
 package me.ilich.juggler;
 
-import android.support.v4.app.FragmentTransaction;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
@@ -21,10 +17,10 @@ public abstract class ScreensManager implements Screen {
 
     private static final String TAG_TOOLBAR = "toolbar";
     private static final String TAG_CONTENT = "content";
-    private static final String TAG_NAVIGATION = "navagation";
+    private static final String TAG_NAVIGATION = "navigation";
 
     private JugglerActivity<? extends ScreensManager> activity;
-    private List<Screen.Instance> stack = new ArrayList<>();
+    private Stacks stacks = new Stacks();
     @Nullable
     private Screen.Instance currentScreenInstance = null;
     @Nullable
@@ -40,46 +36,47 @@ public abstract class ScreensManager implements Screen {
 
     public boolean back() {
         final boolean b;
-        if (stack.size() > 0) {
-            show(SHOW_MODE.GET, null);
-            b = true;
-        } else {
+        if (stacks.currentIsEmpty()) {
             b = false;
+        } else {
+            doShow(MODE.GET, stacks.getCurrentStackName(), null);
+            b = true;
         }
         return b;
     }
 
     public boolean up() {
         final boolean b;
-        if (stack.size() > 0) {
-            show(SHOW_MODE.GET, null);
-            b = true;
-        } else {
+        if (stacks.currentIsEmpty()) {
             b = false;
+        } else {
+            doShow(MODE.GET, stacks.getCurrentStackName(), null);
+            b = true;
         }
         return b;
     }
 
-    public enum SHOW_MODE {
+    public enum MODE {
         ADD,
         CLEAR,
         DIG,
         GET
     }
 
-    protected void show(SHOW_MODE mode, @Nullable Class<? extends Screen> screen) {
+    protected void show(MODE mode, String stackName, @Nullable Class<? extends Screen> screen, @Nullable Screen.Params params) {
         if (screen == null) {
-            doShow(mode, null);
+            doShow(mode, stackName, null);
         } else {
-            doShow(mode, Screen.Factory.create(screen));
+            if (params == null) {
+                doShow(mode, stackName, Screen.Factory.create(screen));
+            } else {
+                doShow(mode, stackName, Screen.Factory.create(screen, params));
+            }
         }
     }
 
-    protected void show(SHOW_MODE mode, Class<? extends Screen> screen, Screen.Params params) {
-        doShow(mode, Screen.Factory.create(screen, params));
-    }
-
-    private void doShow(SHOW_MODE mode, @Nullable Screen.Instance screenInstance) {
+    private void doShow(MODE mode, String stackName, @Nullable Screen.Instance screenInstance) {
+        stacks.setCurrentStack(stackName);
         switch (mode) {
             case ADD:
                 if (currentScreenInstance != null) {
@@ -97,20 +94,20 @@ public abstract class ScreensManager implements Screen {
                         Log.v("Sokolov", "set content saved state " + savedState);
                         currentScreenInstance.setContentSavedState(savedState);
                     }
-                    stack.add(currentScreenInstance);
+                    stacks.addCurrent(currentScreenInstance);
                 }
                 currentScreenInstance = screenInstance;
                 break;
             case CLEAR:
-                stack.clear();
+                stacks.clearCurrent();
                 currentScreenInstance = screenInstance;
                 break;
             case DIG:
                 //TODO
                 break;
             case GET:
-                currentScreenInstance = stack.get(stack.size() - 1);
-                stack.remove(stack.size() - 1);
+                currentScreenInstance = stacks.getCurrentLast();
+                stacks.removeCurrentLast();
                 break;
         }
 
@@ -166,12 +163,6 @@ public abstract class ScreensManager implements Screen {
 
         transaction.commit();
         activity.getJuggler().onEndNewScreen(currentScreenInstance);
-    }
-
-    public void setToolbarMode(JugglerToolbarFragment.Mode mode) {
-        if (toolbarFragment != null) {
-            toolbarFragment.setMode(mode);
-        }
     }
 
     public void setToolbarOptions(@ActionBar.DisplayOptions int options) {

@@ -1,5 +1,6 @@
 package me.ilich.juggler.fragments.navigation;
 
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,13 @@ import me.ilich.juggler.fragments.JugglerFragment;
 public abstract class JugglerNavigationFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
 
     private ActionBarDrawerToggle drawerToggle;
+    private int initialSelectedItem;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        onSetSelectedItem(initialSelectedItem);
+    }
 
     public void init(DrawerLayout drawerLayout, Toolbar toolbar) {
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -40,5 +48,15 @@ public abstract class JugglerNavigationFragment<SM extends ScreensManager> exten
         drawerLayout.setDrawerListener(null);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
+
+    public void setSelectedItem(int item) {
+        if (isAdded()) {
+            onSetSelectedItem(item);
+        } else {
+            initialSelectedItem = item;
+        }
+    }
+
+    protected abstract void onSetSelectedItem(int itemId);
 
 }

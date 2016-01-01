@@ -20,10 +20,6 @@ public class Juggler<SM extends ScreensManager> {
         this.activity = activity;
     }
 
-    public void setToolbarMode(JugglerToolbarFragment.Mode mode) {
-        screensManager.setToolbarMode(mode);
-    }
-
     public SM getScreenManager() {
         return screensManager;
     }

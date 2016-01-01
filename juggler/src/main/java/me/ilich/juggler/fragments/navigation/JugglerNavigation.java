@@ -13,4 +13,6 @@ public @interface JugglerNavigation {
 
     Class<? extends JugglerNavigationFragment> value();
 
+    int menuItem() default 0;
+
 }

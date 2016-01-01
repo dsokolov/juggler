@@ -31,23 +31,6 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
     @IdRes
     protected abstract int getToolbarId();
 
-    public void setMode(Mode mode) {
-        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            switch (mode) {
-                case MENU:
-                    actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-                    break;
-                case NONE:
-                    actionBar.setDisplayOptions(0);
-                    break;
-                case UP:
-                    actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
-                    break;
-            }
-        }
-    }
-
     @ActionBar.DisplayOptions
     public int getOption() {
         final int r;
@@ -73,12 +56,6 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
 
     public void setInitialOptions(int initialOptions) {
         this.initialOptions = initialOptions;
-    }
-
-    public enum Mode {
-        NONE,
-        UP,
-        MENU
     }
 
 }

@@ -11,7 +11,7 @@ import me.ilich.juggler.hello.gui.MenuFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
 @JugglerToolbar(value = StandardToolbarFragment.class, options = ActionBar.DISPLAY_SHOW_TITLE)
-@JugglerNavigation(MenuFragment.class)
+@JugglerNavigation(value = MenuFragment.class, menuItem = 1)
 @JugglerContent(MainFragment.class)
 public interface MainScreen extends Screen {
 
