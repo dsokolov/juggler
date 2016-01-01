@@ -1,6 +1,5 @@
 package me.ilich.juggler;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Stacks {
+class Stacks {
 
     private static final String DEFAULT_STACK = "default stack";
 

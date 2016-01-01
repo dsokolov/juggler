@@ -91,7 +91,6 @@ public abstract class ScreensManager implements Screen {
                     }
                     if (contentFragment != null) {
                         Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(contentFragment);
-                        Log.v("Sokolov", "set content saved state " + savedState);
                         currentScreenInstance.setContentSavedState(savedState);
                     }
                     stacks.addCurrent(currentScreenInstance);
@@ -130,9 +129,21 @@ public abstract class ScreensManager implements Screen {
                 transaction.remove(currentToolbarFragment);
             }
         } else {
-            newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-            transaction.replace(activity.getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
-            toolbarFragment = null;
+            if (currentToolbarFragment == null) {
+                newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
+                transaction.replace(activity.getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                toolbarFragment = null;
+            } else {
+                //TODO не заменять фрагмент если тот же класс. Надо ли? Почему поведение кнопки "назад" не меняется?
+/*                if (currentToolbarFragment.getClass().equals(newToolbarFragment.getClass())) {
+                    int options = newToolbarFragment.getOption();
+                    currentToolbarFragment.setOptions(options);
+                } else {*/
+                newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
+                transaction.replace(activity.getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                toolbarFragment = null;
+  /*              }*/
+            }
         }
 
         JugglerNavigationFragment currentNavigationFragment = (JugglerNavigationFragment) fragmentManager.findFragmentByTag(TAG_NAVIGATION);
@@ -155,7 +166,6 @@ public abstract class ScreensManager implements Screen {
             }
         } else {
             Fragment.SavedState savedState = currentScreenInstance.getContentSavedState();
-            Log.v("Sokolov", "get content saved state " + savedState);
             newContentFragment.setInitialSavedState(savedState);
             transaction.replace(activity.getContainerContentLayoutId(), newContentFragment, TAG_CONTENT);
             contentFragment = null;
@@ -192,20 +202,24 @@ public abstract class ScreensManager implements Screen {
     }
 
     public void onToolbarAttached(JugglerToolbarFragment fragment) {
+        Log.v("Sokolov", "toolbar attached " + fragment);
         toolbarFragment = fragment;
         initNavigationWithToolbar();
     }
 
     public void onToolbarDetached(JugglerToolbarFragment fragment) {
+        Log.v("Sokolov", "toolbar detached " + fragment);
         toolbarFragment = null;
     }
 
     public void onNavigationAttached(JugglerNavigationFragment fragment) {
+        Log.v("Sokolov", "navigation attached " + fragment);
         navigationFragment = fragment;
         initNavigationWithToolbar();
     }
 
     public void onNavigationDetached(JugglerNavigationFragment fragment) {
+        Log.v("Sokolov", "navigation detached " + fragment);
         DrawerLayout drawerLayout = activity.getDrawerLayout();
         if (navigationFragment != null) {
             navigationFragment.deinit(drawerLayout);

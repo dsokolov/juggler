@@ -68,7 +68,7 @@ public class ReflectionUtils {
                 }
             }
             if (fragment != null) {
-                fragment.setInitialOptions(options);
+                fragment.setOptions(options);
             }
             toolbarFragment = fragment;
         } else {

@@ -55,6 +55,5 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
             }
         });
         getActivity().setTitle("main");
-        getJuggler().setToolbarOptions(ActionBar.DISPLAY_SHOW_TITLE);
     }
 }

@@ -34,28 +34,34 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
     @ActionBar.DisplayOptions
     public int getOption() {
         final int r;
-        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
-        if (actionBar == null) {
-            r = 0;
+        if (isAdded()) {
+            ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+            if (actionBar == null) {
+                r = initialOptions;
+            } else {
+                r = actionBar.getDisplayOptions();
+            }
         } else {
-            r = actionBar.getDisplayOptions();
+            r = initialOptions;
         }
         return r;
     }
 
     public void setOptions(@ActionBar.DisplayOptions int options) {
-        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayOptions(options);
+        if (isAdded()) {
+            ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+            if (actionBar == null) {
+                initialOptions = options;
+            } else {
+                actionBar.setDisplayOptions(options);
+            }
+        } else {
+            initialOptions = options;
         }
     }
 
     public Toolbar getToolbar() {
         return toolbar;
-    }
-
-    public void setInitialOptions(int initialOptions) {
-        this.initialOptions = initialOptions;
     }
 
 }

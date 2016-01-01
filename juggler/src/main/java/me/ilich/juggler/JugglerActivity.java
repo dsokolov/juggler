@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -83,9 +84,14 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     @Override
     public void onBackPressed() {
-        boolean b = juggler.getScreenManager().back();
-        if (!b) {
-            super.onBackPressed();
+        boolean b = drawerLayout.isDrawerOpen(GravityCompat.START);
+        if (b) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            b = juggler.getScreenManager().back();
+            if (!b) {
+                super.onBackPressed();
+            }
         }
     }
 
