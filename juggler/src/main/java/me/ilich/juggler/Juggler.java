@@ -69,4 +69,9 @@ public class Juggler<SM extends ScreensManager> {
     public LayoutController getLayoutController() {
         return layoutController;
     }
+
+    public boolean hasToolbarContainer() {
+        return layoutController.getToolbarViewGroup() != null;
+    }
+
 }

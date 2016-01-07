@@ -62,4 +62,7 @@ public class LayoutController {
         return drawerLayout;
     }
 
+    public ViewGroup getToolbarViewGroup() {
+        return toolbarViewGroup;
+    }
 }

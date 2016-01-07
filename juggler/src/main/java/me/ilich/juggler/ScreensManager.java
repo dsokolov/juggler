@@ -125,27 +125,29 @@ public abstract class ScreensManager implements Screen {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
-        JugglerToolbarFragment newToolbarFragment = bundle.getToolbarFragment();
-        if (newToolbarFragment == null) {
-            if (currentToolbarFragment != null) {
-                transaction.remove(currentToolbarFragment);
-            }
-        } else {
-            if (currentToolbarFragment == null) {
-                newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
-                toolbarFragment = null;
+        if (activity.getJuggler().hasToolbarContainer()) {
+            JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
+            JugglerToolbarFragment newToolbarFragment = bundle.getToolbarFragment();
+            if (newToolbarFragment == null) {
+                if (currentToolbarFragment != null) {
+                    transaction.remove(currentToolbarFragment);
+                }
             } else {
-                //TODO не заменять фрагмент если тот же класс. Надо ли? Почему поведение кнопки "назад" не меняется?
+                if (currentToolbarFragment == null) {
+                    newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
+                    transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                    toolbarFragment = null;
+                } else {
+                    //TODO не заменять фрагмент если тот же класс. Надо ли? Почему поведение кнопки "назад" не меняется?
 /*                if (currentToolbarFragment.getClass().equals(newToolbarFragment.getClass())) {
                     int options = newToolbarFragment.getOption();
                     currentToolbarFragment.setOptions(options);
                 } else {*/
-                newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
-                toolbarFragment = null;
+                    newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
+                    transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                    toolbarFragment = null;
 /*                }*/
+                }
             }
         }
 

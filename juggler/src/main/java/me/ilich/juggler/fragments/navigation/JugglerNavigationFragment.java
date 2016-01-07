@@ -22,23 +22,25 @@ public abstract class JugglerNavigationFragment<SM extends ScreensManager> exten
     }
 
     public void init(DrawerLayout drawerLayout, Toolbar toolbar) {
-        drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+        if (drawerLayout != null) {
+            drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getActivity().invalidateOptionsMenu();
-            }
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                    getActivity().invalidateOptionsMenu();
+                }
 
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getActivity().invalidateOptionsMenu();
-            }
-        };
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    getActivity().invalidateOptionsMenu();
+                }
+            };
 
-        //drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.setDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            //drawerToggle.setDrawerIndicatorEnabled(true);
+            drawerLayout.setDrawerListener(drawerToggle);
+            drawerToggle.syncState();
+            //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
     }
 
     public void deinit(DrawerLayout drawerLayout) {

@@ -7,12 +7,14 @@ import me.ilich.juggler.fragments.JugglerLayout;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.navigation.JugglerNavigation;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
+import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.gui.CollapsingToolbarFragment;
 import me.ilich.juggler.hello.gui.MainFragment;
 import me.ilich.juggler.hello.gui.MenuFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 
-@JugglerLayout(me.ilich.juggler.R.layout.juggler_layout_navigation)
-@JugglerToolbar(value = StandardToolbarFragment.class, options = ActionBar.DISPLAY_SHOW_TITLE)
+@JugglerLayout(R.layout.layout_main)
+@JugglerToolbar(value = CollapsingToolbarFragment.class, options = ActionBar.DISPLAY_SHOW_TITLE)
 @JugglerNavigation(value = MenuFragment.class, menuItem = 5)
 @JugglerContent(MainFragment.class)
 public interface MainScreen extends Screen {

@@ -54,6 +54,6 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
                 navigateTo(MainScreen.class).toolbarExplain();
             }
         });
-        getActivity().setTitle("main");
+        getActivity().setTitle("main screen");
     }
 }
