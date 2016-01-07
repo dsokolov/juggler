@@ -2,9 +2,8 @@ package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 
-import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.hello.screens.HelloScreensManager;
-import me.ilich.juggler.hello.R;
 
 public class BaseActivity extends JugglerActivity<HelloScreensManager> {
 

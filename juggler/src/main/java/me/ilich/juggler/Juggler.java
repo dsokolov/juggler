@@ -1,10 +1,10 @@
 package me.ilich.juggler;
 
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import me.ilich.juggler.activity.JugglerActivity;
+import me.ilich.juggler.activity.LayoutController;
 import me.ilich.juggler.fragments.JugglerFragment;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
@@ -13,11 +13,13 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 public class Juggler<SM extends ScreensManager> {
 
     private SM screensManager;
+    private LayoutController layoutController = null;
     private JugglerActivity<SM> activity;
 
     public Juggler(SM screensManager, JugglerActivity<SM> activity) {
         this.screensManager = screensManager;
         this.activity = activity;
+        layoutController = new LayoutController(activity);
     }
 
     public SM getScreenManager() {
@@ -60,4 +62,11 @@ public class Juggler<SM extends ScreensManager> {
         Log.v("Sokolov", "end " + screenInstance);
     }
 
+    public boolean onBackPressed() {
+        return layoutController.onBackPressed();
+    }
+
+    public LayoutController getLayoutController() {
+        return layoutController;
+    }
 }

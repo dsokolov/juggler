@@ -1,6 +1,6 @@
 package me.ilich.juggler.hello.screens;
 
-import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.ScreensManager;
 
 public class HelloScreensManager extends ScreensManager implements

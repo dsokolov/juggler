@@ -1,13 +1,10 @@
 package me.ilich.juggler.fragments;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import me.ilich.juggler.Juggler;
-import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;
 

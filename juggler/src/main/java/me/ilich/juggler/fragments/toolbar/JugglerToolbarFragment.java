@@ -7,7 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.ScreensManager;
 import me.ilich.juggler.fragments.JugglerFragment;
 

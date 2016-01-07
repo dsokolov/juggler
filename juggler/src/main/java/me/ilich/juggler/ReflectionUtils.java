@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.fragments.JugglerLayout;
 import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
@@ -131,7 +132,16 @@ public class ReflectionUtils {
         }
 
         final JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
-        return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment);
+
+        final int layoutId;
+        if (screenClass.isAnnotationPresent(JugglerLayout.class)) {
+            JugglerLayout jugglerLayout = screenClass.getAnnotation(JugglerLayout.class);
+            layoutId = jugglerLayout.value();
+        } else {
+            layoutId = -1;
+        }
+
+        return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment, layoutId);
     }
 
     static JugglerContentFragment createContentFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {

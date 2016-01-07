@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
@@ -119,6 +120,8 @@ public abstract class ScreensManager implements Screen {
 
         FragmentFactory.Bundle bundle = currentScreenInstance.instanceFragments();
 
+        activity.getJuggler().getLayoutController().init(bundle.getLayoutId());
+
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -131,7 +134,7 @@ public abstract class ScreensManager implements Screen {
         } else {
             if (currentToolbarFragment == null) {
                 newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                transaction.replace(activity.getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
                 toolbarFragment = null;
             } else {
                 //TODO не заменять фрагмент если тот же класс. Надо ли? Почему поведение кнопки "назад" не меняется?
@@ -140,9 +143,9 @@ public abstract class ScreensManager implements Screen {
                     currentToolbarFragment.setOptions(options);
                 } else {*/
                 newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                transaction.replace(activity.getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
                 toolbarFragment = null;
-  /*              }*/
+/*                }*/
             }
         }
 
@@ -154,7 +157,7 @@ public abstract class ScreensManager implements Screen {
             }
         } else {
             newNavigationFragment.setInitialSavedState(currentScreenInstance.getNavigationSavedState());
-            transaction.replace(activity.getContainerNavigationLayoutId(), newNavigationFragment, TAG_NAVIGATION);
+            transaction.replace(activity.getJuggler().getLayoutController().getContainerNavigationLayoutId(), newNavigationFragment, TAG_NAVIGATION);
             navigationFragment = null;
         }
 
@@ -167,7 +170,7 @@ public abstract class ScreensManager implements Screen {
         } else {
             Fragment.SavedState savedState = currentScreenInstance.getContentSavedState();
             newContentFragment.setInitialSavedState(savedState);
-            transaction.replace(activity.getContainerContentLayoutId(), newContentFragment, TAG_CONTENT);
+            transaction.replace(activity.getJuggler().getLayoutController().getContainerContentLayoutId(), newContentFragment, TAG_CONTENT);
             contentFragment = null;
         }
 
@@ -220,7 +223,7 @@ public abstract class ScreensManager implements Screen {
 
     public void onNavigationDetached(JugglerNavigationFragment fragment) {
         Log.v("Sokolov", "navigation detached " + fragment);
-        DrawerLayout drawerLayout = activity.getDrawerLayout();
+        DrawerLayout drawerLayout = activity.getJuggler().getLayoutController().getDrawerLayout();
         if (navigationFragment != null) {
             navigationFragment.deinit(drawerLayout);
             navigationFragment = null;
@@ -229,7 +232,7 @@ public abstract class ScreensManager implements Screen {
 
     private void initNavigationWithToolbar() {
         if (navigationFragment != null && toolbarFragment != null) {
-            DrawerLayout drawerLayout = activity.getDrawerLayout();
+            DrawerLayout drawerLayout = activity.getJuggler().getLayoutController().getDrawerLayout();
             Toolbar toolbar = toolbarFragment.getToolbar();
             navigationFragment.init(drawerLayout, toolbar);
         }

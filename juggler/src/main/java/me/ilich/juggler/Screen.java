@@ -1,5 +1,6 @@
 package me.ilich.juggler;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -48,11 +49,14 @@ public interface Screen {
             private final JugglerNavigationFragment navigationFragment;
             @Nullable
             private final JugglerContentFragment contentFragment;
+            @LayoutRes
+            private final int layoutId;
 
-            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment contentFragment) {
+            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment contentFragment, int layoutId) {
                 this.toolbarFragment = toolbarFragment;
                 this.navigationFragment = navigationFragment;
                 this.contentFragment = contentFragment;
+                this.layoutId = layoutId;
             }
 
             @Nullable
@@ -68,6 +72,11 @@ public interface Screen {
             @Nullable
             public JugglerContentFragment getContentFragment() {
                 return contentFragment;
+            }
+
+            @LayoutRes
+            public int getLayoutId() {
+                return layoutId;
             }
 
         }

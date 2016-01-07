@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.R;
 import me.ilich.juggler.ScreensManager;
 import me.ilich.juggler.fragments.JugglerFragment;
@@ -36,17 +35,19 @@ public abstract class JugglerNavigationFragment<SM extends ScreensManager> exten
             }
         };
 
-        drawerToggle.setDrawerIndicatorEnabled(true);
+        //drawerToggle.setDrawerIndicatorEnabled(true);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     public void deinit(DrawerLayout drawerLayout) {
-        drawerToggle.setDrawerIndicatorEnabled(false);
+        //drawerToggle.setDrawerIndicatorEnabled(false);
         drawerToggle = null;
-        drawerLayout.setDrawerListener(null);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        if (drawerLayout != null) {
+            drawerLayout.setDrawerListener(null);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
     }
 
     public void setSelectedItem(int item) {
