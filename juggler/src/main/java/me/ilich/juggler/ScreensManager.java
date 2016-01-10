@@ -45,8 +45,23 @@ public abstract class ScreensManager implements Screen {
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        stacks.addCurrent(currentScreenInstance);
-        currentScreenInstance = null;
+        if (currentScreenInstance != null) {
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            if (toolbarFragment != null) {
+                Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(toolbarFragment);
+                currentScreenInstance.setToolbarSavedState(savedState);
+            }
+            if (navigationFragment != null) {
+                Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(navigationFragment);
+                currentScreenInstance.setNavigationSavedState(savedState);
+            }
+            if (contentFragment != null) {
+                Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(contentFragment);
+                currentScreenInstance.setContentSavedState(savedState);
+            }
+            stacks.addCurrent(currentScreenInstance);
+            currentScreenInstance = null;
+        }
         outState.putSerializable("STACKS", stacks);
     }
 

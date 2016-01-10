@@ -132,13 +132,14 @@ public class ReflectionUtils {
         }
 
         final JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
+        //TODO провнерка на наличие аннотации, получение фрагмента контекта
 
         final int layoutId;
         if (screenClass.isAnnotationPresent(JugglerLayout.class)) {
             JugglerLayout jugglerLayout = screenClass.getAnnotation(JugglerLayout.class);
             layoutId = jugglerLayout.value();
         } else {
-            layoutId = -1;
+            throw new RuntimeException(screenClass.getName() + " should have a " + JugglerLayout.class.getName() + " annotation.");
         }
 
         return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment, layoutId);
