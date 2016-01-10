@@ -17,6 +17,11 @@ public class HelloScreensManager extends ScreensManager implements
         super(activity);
     }
 
+    @Override
+    public void onFirstScreen() {
+        show(MODE.CLEAR, STACK_DEFAULT, MainScreen.class, null);
+    }
+
     public void main() {
         show(MODE.CLEAR, STACK_DEFAULT, MainScreen.class, null);
     }

@@ -1,5 +1,6 @@
 package me.ilich.juggler;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 
@@ -18,8 +19,25 @@ public class Juggler<SM extends ScreensManager> {
 
     public Juggler(SM screensManager, JugglerActivity<SM> activity) {
         this.screensManager = screensManager;
+        this.screensManager.setJuggler(this);
         this.activity = activity;
         layoutController = new LayoutController(activity);
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            screensManager.onFirstScreen();
+        }else {
+            screensManager.onRestore(savedInstanceState);
+        }
+    }
+
+    public void onDestroy() {
+        screensManager.deattachAll();
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        screensManager.onSaveInstanceState(outState);
     }
 
     public SM getScreenManager() {
@@ -62,8 +80,16 @@ public class Juggler<SM extends ScreensManager> {
         Log.v("Sokolov", "end " + screenInstance);
     }
 
-    public boolean onBackPressed() {
-        return layoutController.onBackPressed();
+    public boolean onBack() {
+        boolean b = layoutController.onBackPressed();
+        if (!b) {
+            b = screensManager.back();
+        }
+        return b;
+    }
+
+    public boolean onUp() {
+        return screensManager.up();
     }
 
     public LayoutController getLayoutController() {

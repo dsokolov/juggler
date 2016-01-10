@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import java.io.Serializable;
+
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
@@ -94,7 +96,7 @@ public interface Screen {
 
     }
 
-    final class Instance {
+    final class Instance implements Serializable {
 
         private final String name;
         private final Params params;

@@ -2,12 +2,13 @@ package me.ilich.juggler;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Stacks {
+class Stacks implements Serializable {
 
     private static final String DEFAULT_STACK = "default stack";
 
@@ -18,7 +19,7 @@ class Stacks {
         stacks.put(currentStackName, new ArrayList<Screen.Instance>());
     }
 
-    public boolean currentIsEmpty() {
+    public boolean isCurrentEmpty() {
         return stacks.get(currentStackName).size() == 0;
     }
 

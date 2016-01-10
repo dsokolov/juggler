@@ -1,5 +1,6 @@
 package me.ilich.juggler;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +17,19 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
 public abstract class ScreensManager implements Screen {
 
+    public enum MODE {
+        ADD,
+        CLEAR,
+        DIG,
+        GET
+    }
+
     private static final String TAG_TOOLBAR = "toolbar";
     private static final String TAG_CONTENT = "content";
     private static final String TAG_NAVIGATION = "navigation";
 
     private JugglerActivity<? extends ScreensManager> activity;
+    private Juggler juggler;
     private Stacks stacks = new Stacks();
     @Nullable
     private Screen.Instance currentScreenInstance = null;
@@ -35,9 +44,26 @@ public abstract class ScreensManager implements Screen {
         this.activity = activity;
     }
 
+    public void onSaveInstanceState(Bundle outState) {
+        stacks.addCurrent(currentScreenInstance);
+        currentScreenInstance = null;
+        outState.putSerializable("STACKS", stacks);
+    }
+
+    public void onRestore(Bundle savedInstanceState) {
+        stacks = (Stacks) savedInstanceState.getSerializable("STACKS");
+        doShow(MODE.GET, null, null);
+    }
+
+    public void setJuggler(Juggler juggler) {
+        this.juggler = juggler;
+    }
+
+    public abstract void onFirstScreen();
+
     public boolean back() {
         final boolean b;
-        if (stacks.currentIsEmpty()) {
+        if (stacks.isCurrentEmpty()) {
             b = false;
         } else {
             doShow(MODE.GET, stacks.getCurrentStackName(), null);
@@ -48,20 +74,13 @@ public abstract class ScreensManager implements Screen {
 
     public boolean up() {
         final boolean b;
-        if (stacks.currentIsEmpty()) {
+        if (stacks.isCurrentEmpty()) {
             b = false;
         } else {
             doShow(MODE.GET, stacks.getCurrentStackName(), null);
             b = true;
         }
         return b;
-    }
-
-    public enum MODE {
-        ADD,
-        CLEAR,
-        DIG,
-        GET
     }
 
     protected void show(MODE mode, String stackName, @Nullable Class<? extends Screen> screen, @Nullable Screen.Params params) {
@@ -77,11 +96,11 @@ public abstract class ScreensManager implements Screen {
     }
 
     private void doShow(MODE mode, String stackName, @Nullable Screen.Instance screenInstance) {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         stacks.setCurrentStack(stackName);
         switch (mode) {
             case ADD:
                 if (currentScreenInstance != null) {
-                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     if (toolbarFragment != null) {
                         Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(toolbarFragment);
                         currentScreenInstance.setToolbarSavedState(savedState);
@@ -111,21 +130,20 @@ public abstract class ScreensManager implements Screen {
                 break;
         }
 
-        showScreenInstance();
+        showScreenInstance(fragmentManager);
     }
 
-    private void showScreenInstance() {
+    private void showScreenInstance(FragmentManager fragmentManager) {
         assert currentScreenInstance != null;
-        activity.getJuggler().onBeginNewScreen(currentScreenInstance);
+        juggler.onBeginNewScreen(currentScreenInstance);
 
         FragmentFactory.Bundle bundle = currentScreenInstance.instanceFragments();
 
-        activity.getJuggler().getLayoutController().init(bundle.getLayoutId());
+        juggler.getLayoutController().init(bundle.getLayoutId());
 
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (activity.getJuggler().hasToolbarContainer()) {
+        if (juggler.hasToolbarContainer()) {
             JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
             JugglerToolbarFragment newToolbarFragment = bundle.getToolbarFragment();
             if (newToolbarFragment == null) {
@@ -135,7 +153,7 @@ public abstract class ScreensManager implements Screen {
             } else {
                 if (currentToolbarFragment == null) {
                     newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                    transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                    transaction.replace(juggler.getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
                     toolbarFragment = null;
                 } else {
                     //TODO не заменять фрагмент если тот же класс. Надо ли? Почему поведение кнопки "назад" не меняется?
@@ -144,7 +162,7 @@ public abstract class ScreensManager implements Screen {
                     currentToolbarFragment.setOptions(options);
                 } else {*/
                     newToolbarFragment.setInitialSavedState(currentScreenInstance.getToolbarSavedState());
-                    transaction.replace(activity.getJuggler().getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
+                    transaction.replace(juggler.getLayoutController().getContainerToolbarLayoutId(), newToolbarFragment, TAG_TOOLBAR);
                     toolbarFragment = null;
 /*                }*/
                 }
@@ -159,7 +177,7 @@ public abstract class ScreensManager implements Screen {
             }
         } else {
             newNavigationFragment.setInitialSavedState(currentScreenInstance.getNavigationSavedState());
-            transaction.replace(activity.getJuggler().getLayoutController().getContainerNavigationLayoutId(), newNavigationFragment, TAG_NAVIGATION);
+            transaction.replace(juggler.getLayoutController().getContainerNavigationLayoutId(), newNavigationFragment, TAG_NAVIGATION);
             navigationFragment = null;
         }
 
@@ -172,12 +190,12 @@ public abstract class ScreensManager implements Screen {
         } else {
             Fragment.SavedState savedState = currentScreenInstance.getContentSavedState();
             newContentFragment.setInitialSavedState(savedState);
-            transaction.replace(activity.getJuggler().getLayoutController().getContainerContentLayoutId(), newContentFragment, TAG_CONTENT);
+            transaction.replace(juggler.getLayoutController().getContainerContentLayoutId(), newContentFragment, TAG_CONTENT);
             contentFragment = null;
         }
 
         transaction.commit();
-        activity.getJuggler().onEndNewScreen(currentScreenInstance);
+        juggler.onEndNewScreen(currentScreenInstance);
     }
 
     public void setToolbarOptions(@ActionBar.DisplayOptions int options) {
@@ -225,7 +243,7 @@ public abstract class ScreensManager implements Screen {
 
     public void onNavigationDetached(JugglerNavigationFragment fragment) {
         Log.v("Sokolov", "navigation detached " + fragment);
-        DrawerLayout drawerLayout = activity.getJuggler().getLayoutController().getDrawerLayout();
+        DrawerLayout drawerLayout = juggler.getLayoutController().getDrawerLayout();
         if (navigationFragment != null) {
             navigationFragment.deinit(drawerLayout);
             navigationFragment = null;
@@ -234,10 +252,26 @@ public abstract class ScreensManager implements Screen {
 
     private void initNavigationWithToolbar() {
         if (navigationFragment != null && toolbarFragment != null) {
-            DrawerLayout drawerLayout = activity.getJuggler().getLayoutController().getDrawerLayout();
+            DrawerLayout drawerLayout = juggler.getLayoutController().getDrawerLayout();
             Toolbar toolbar = toolbarFragment.getToolbar();
             navigationFragment.init(drawerLayout, toolbar);
         }
+    }
+
+
+    public void deattachAll() {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (toolbarFragment != null) {
+            transaction.remove(toolbarFragment);
+        }
+        if (navigationFragment != null) {
+            transaction.remove(navigationFragment);
+        }
+        if (contentFragment != null) {
+            transaction.remove(contentFragment);
+        }
+        transaction.commit();
     }
 
 }

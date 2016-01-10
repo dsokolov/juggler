@@ -1,6 +1,7 @@
 package me.ilich.juggler.fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import me.ilich.juggler.Juggler;
@@ -11,7 +12,14 @@ import me.ilich.juggler.ScreensManager;
 public abstract class JugglerFragment<SM extends ScreensManager> extends Fragment {
 
     public Juggler<SM> getJuggler() {
-        return ((JugglerActivity<SM>) getActivity()).getJuggler();
+        if (getActivity() == null) {
+            throw new NullPointerException("activity");
+        }
+        if (getActivity() instanceof JugglerActivity) {
+            return ((JugglerActivity<SM>) getActivity()).getJuggler();
+        } else {
+            throw new RuntimeException("activity should be instance of JugglerActivity");
+        }
     }
 
     public <S extends Screen> S navigateTo(Class<S> sClass) {
@@ -25,6 +33,10 @@ public abstract class JugglerFragment<SM extends ScreensManager> extends Fragmen
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Juggler juggler = getJuggler();
+        if (juggler == null) {
+            throw new NullPointerException("juggler");
+        }
         getJuggler().onAttach(this);
     }
 
