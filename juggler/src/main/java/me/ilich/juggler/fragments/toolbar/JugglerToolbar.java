@@ -1,5 +1,6 @@
 package me.ilich.juggler.fragments.toolbar;
 
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.ActionBar;
 
 import java.lang.annotation.ElementType;
@@ -14,5 +15,7 @@ public @interface JugglerToolbar {
     Class<? extends JugglerToolbarFragment> value();
 
     @ActionBar.DisplayOptions int options() default ActionBar.DISPLAY_SHOW_TITLE;
+
+    @DrawableRes int navigationIcon() default 0;
 
 }

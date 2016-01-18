@@ -8,5 +8,5 @@ public class HelloJugglerApplication extends Application {
     public void onCreate() {
         super.onCreate();
     }
-    
+
 }

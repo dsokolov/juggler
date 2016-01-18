@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import me.ilich.juggler.Juggler;
+import me.ilich.juggler.Transition;
 import me.ilich.juggler.activity.JugglerActivity;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;

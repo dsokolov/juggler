@@ -1,14 +1,15 @@
 package me.ilich.juggler;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import me.ilich.juggler.fragments.JugglerFragment;
 import me.ilich.juggler.fragments.JugglerLayout;
-import me.ilich.juggler.fragments.JugglerNewInstance;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.navigation.JugglerNavigation;
@@ -18,122 +19,10 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
 public class ReflectionUtils {
 
-
     public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
-
-        final JugglerToolbarFragment toolbarFragment;
-        if (screenClass.isAnnotationPresent(JugglerToolbar.class)) {
-            JugglerToolbar annotation = screenClass.getAnnotation(JugglerToolbar.class);
-            Class<? extends JugglerToolbarFragment> fragmentClass = annotation.value();
-            int options = annotation.options();
-            Method noParams = null;
-            Method oneParam = null;
-            for (Method method : fragmentClass.getMethods()) {
-                if (method.isAnnotationPresent(JugglerNewInstance.class)) {
-                    switch (method.getParameterTypes().length) {
-                        case 0:
-                            noParams = method;
-                            break;
-                        case 1:
-                            if (method.getParameterTypes()[0].equals(params.getClass())) {
-                                oneParam = method;
-                            }
-                            break;
-                    }
-                }
-            }
-            JugglerToolbarFragment fragment = null;
-            if (oneParam != null) {
-                try {
-                    fragment = (JugglerToolbarFragment) oneParam.invoke(null, params);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            } else if (noParams != null) {
-                try {
-                    fragment = (JugglerToolbarFragment) noParams.invoke(null);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    fragment = fragmentClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (fragment != null) {
-                fragment.setOptions(options);
-            }
-            toolbarFragment = fragment;
-        } else {
-            toolbarFragment = null;
-        }
-
-        final JugglerNavigationFragment navigationFragment;
-        if (screenClass.isAnnotationPresent(JugglerNavigation.class)) {
-            JugglerNavigation annotation = screenClass.getAnnotation(JugglerNavigation.class);
-            Class<? extends JugglerNavigationFragment> fragmentClass = annotation.value();
-            int menuItem = annotation.menuItem();
-            Method noParams = null;
-            Method oneParam = null;
-            for (Method method : fragmentClass.getMethods()) {
-                if (method.isAnnotationPresent(JugglerNewInstance.class)) {
-                    switch (method.getParameterTypes().length) {
-                        case 0:
-                            noParams = method;
-                            break;
-                        case 1:
-                            if (method.getParameterTypes()[0].equals(params.getClass())) {
-                                oneParam = method;
-                            }
-                            break;
-                    }
-                }
-            }
-            JugglerNavigationFragment fragment = null;
-            if (oneParam != null) {
-                try {
-                    fragment = (JugglerNavigationFragment) oneParam.invoke(null, params);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            } else if (noParams != null) {
-                try {
-                    fragment = (JugglerNavigationFragment) noParams.invoke(null);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    fragment = fragmentClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (fragment != null) {
-                fragment.setSelectedItem(menuItem);
-            }
-            navigationFragment = fragment;
-        } else {
-            navigationFragment = null;
-        }
-
-        final JugglerContentFragment contentFragment = createContentFragment(params, screenClass);
-        //TODO провнерка на наличие аннотации, получение фрагмента контекта
-
+        final JugglerToolbarFragment toolbarFragment = getToolbarFragment(params, screenClass);
+        final JugglerNavigationFragment navigationFragment = getNavigationFragment(params, screenClass);
+        final JugglerContentFragment contentFragment = getContentFragment(params, screenClass);
         final int layoutId;
         if (screenClass.isAnnotationPresent(JugglerLayout.class)) {
             JugglerLayout jugglerLayout = screenClass.getAnnotation(JugglerLayout.class);
@@ -141,75 +30,122 @@ public class ReflectionUtils {
         } else {
             throw new RuntimeException(screenClass.getName() + " should have a " + JugglerLayout.class.getName() + " annotation.");
         }
-
         return new Screen.FragmentFactory.Bundle(toolbarFragment, navigationFragment, contentFragment, layoutId);
     }
 
-    static JugglerContentFragment createContentFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass) {
-        return createFragment(params, screenClass, JugglerContent.class, onGetContentJugglerClass);
+    @Nullable
+    private static JugglerContentFragment getContentFragment(Screen.Params params, Class<? extends Screen> screenClass) {
+        final JugglerContentFragment contentFragment;
+        if (screenClass.isAnnotationPresent(JugglerContent.class)) {
+            JugglerContent annotation = screenClass.getAnnotation(JugglerContent.class);
+            Class<? extends JugglerContentFragment> fragmentClass = annotation.value();
+            contentFragment = createFragment(params, fragmentClass);
+        } else {
+            contentFragment = null;
+        }
+        return contentFragment;
     }
 
     @Nullable
-    private static <F extends JugglerFragment> F createFragment(@Nullable Screen.Params params, Class<? extends Screen> screenClass, Class<? extends Annotation> annotation, OnGetJugglerClass<F> onGetJugglerClass) {
-        F r = null;
-        if (screenClass.isAnnotationPresent(annotation)) {
-            Class<? extends F> anotatedClass = onGetJugglerClass.getJugglerClass(screenClass);
-            F oneParamsFragment = null;
-            F noParamsFragment = null;
+    private static <T extends JugglerFragment> T createFragment(Screen.Params params, Class<? extends T> fragmentClass) {
+        T fragment = null;
+        Methods methods = new Methods(params, fragmentClass).invoke();
+        if (methods.oneParam != null) {
             try {
-                for (Method method : anotatedClass.getMethods()) {
-                    if (method.isAnnotationPresent(JugglerNewInstance.class)) {
-                        Class[] methodParams = method.getParameterTypes();
-                        switch (methodParams.length) {
-                            case 1:
-                                if (params != null && params.getClass().equals(methodParams[0])) {
-                                    oneParamsFragment = (F) method.invoke(null, params);
-                                }
-                                break;
-                            case 0:
-                                noParamsFragment = (F) method.invoke(null);
-                                break;
-                        }
-                    }
-                }
+                fragment = (T) methods.oneParam.invoke(null, params);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } else if (methods.noParams != null) {
+            try {
+                fragment = (T) methods.noParams.invoke(null);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                fragment = fragmentClass.newInstance();
+            } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            if (oneParamsFragment != null) {
-                r = oneParamsFragment;
-            } else if (noParamsFragment != null) {
-                r = noParamsFragment;
+        }
+        return fragment;
+    }
+
+    @Nullable
+    private static JugglerNavigationFragment getNavigationFragment(Screen.Params params, Class<? extends Screen> screenClass) {
+        final JugglerNavigationFragment navigationFragment;
+        if (screenClass.isAnnotationPresent(JugglerNavigation.class)) {
+            JugglerNavigation annotation = screenClass.getAnnotation(JugglerNavigation.class);
+            Class<? extends JugglerNavigationFragment> fragmentClass = annotation.value();
+            int menuItem = annotation.menuItem();
+            JugglerNavigationFragment fragment = createFragment(params, fragmentClass);
+            if (fragment != null) {
+                fragment.setSelectedItem(menuItem);
             }
-            if (r == null) {
-                try {
-                    r = anotatedClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+            navigationFragment = fragment;
+        } else {
+            navigationFragment = null;
+        }
+        return navigationFragment;
+    }
+
+    @Nullable
+    private static JugglerToolbarFragment getToolbarFragment(Screen.Params params, Class<? extends Screen> screenClass) {
+        final JugglerToolbarFragment toolbarFragment;
+        if (screenClass.isAnnotationPresent(JugglerToolbar.class)) {
+            JugglerToolbar annotation = screenClass.getAnnotation(JugglerToolbar.class);
+            Class<? extends JugglerToolbarFragment> fragmentClass = annotation.value();
+            @ActionBar.DisplayOptions int options = annotation.options();
+            @DrawableRes int navigationIcon = annotation.navigationIcon();
+            JugglerToolbarFragment fragment = createFragment(params, fragmentClass);
+            if (fragment != null) {
+                fragment.setOptions(options);
+                fragment.setNavigationIcon(navigationIcon);
+            }
+            toolbarFragment = fragment;
+        } else {
+            toolbarFragment = null;
+        }
+        return toolbarFragment;
+    }
+
+    private static class Methods {
+
+        private Screen.Params params;
+        private Class<? extends JugglerFragment> fragmentClass;
+        private Method noParams;
+        private Method oneParam;
+
+        public Methods(Screen.Params params, Class<? extends JugglerFragment> fragmentClass) {
+            this.params = params;
+            this.fragmentClass = fragmentClass;
+        }
+
+        public Methods invoke() {
+            for (Method method : fragmentClass.getMethods()) {
+                boolean isStatic = Modifier.isStatic(method.getModifiers());
+                boolean isReturnsSame = method.getReturnType().equals(fragmentClass);
+                if (isStatic && isReturnsSame) {
+                    switch (method.getParameterTypes().length) {
+                        case 0:
+                            noParams = method;
+                            break;
+                        case 1:
+                            if (method.getParameterTypes()[0].equals(params.getClass())) {
+                                oneParam = method;
+                            }
+                            break;
+                    }
                 }
             }
+            return this;
         }
-        return r;
     }
-
-    public interface OnGetJugglerClass<F extends JugglerFragment> {
-
-        Class<? extends F> getJugglerClass(Class<? extends Screen> screenClass);
-
-    }
-
-    private static OnGetJugglerClass<JugglerContentFragment> onGetContentJugglerClass = new OnGetJugglerClass<JugglerContentFragment>() {
-
-        @Override
-        public Class<? extends JugglerContentFragment> getJugglerClass(Class<? extends Screen> screenClass) {
-            JugglerContent content = screenClass.getAnnotation(JugglerContent.class);
-            return content.value();
-        }
-
-    };
-
-
 }

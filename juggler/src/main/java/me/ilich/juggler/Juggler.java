@@ -27,7 +27,7 @@ public class Juggler<SM extends ScreensManager> {
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             screensManager.onFirstScreen();
-        }else {
+        } else {
             screensManager.onRestore(savedInstanceState);
         }
     }
@@ -98,6 +98,23 @@ public class Juggler<SM extends ScreensManager> {
 
     public boolean hasToolbarContainer() {
         return layoutController.getToolbarViewGroup() != null;
+    }
+
+    public void setToolbarTitle(CharSequence title, int color) {
+        if (screensManager.getToolbarFragment() != null) {
+            screensManager.getToolbarFragment().setTitle(title, color);
+        }
+    }
+
+    public void navigateTo(Transition transition) {
+        Screen.Instance instance = screensManager.getCurrentScreen();
+        String currentScreen = instance.getScreenClassName();
+        String sourceScreen = transition.getSource().getName();
+        if (currentScreen.equals(sourceScreen)) {
+            transition.execute(screensManager);
+        } else {
+            throw new RuntimeException("");
+        }
     }
 
 }

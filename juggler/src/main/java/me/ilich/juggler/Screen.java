@@ -98,6 +98,7 @@ public interface Screen {
 
     final class Instance implements Serializable {
 
+        private final String screenClassName;
         private final String name;
         private final Params params;
         private final FragmentFactory fragmentFactory;
@@ -109,6 +110,7 @@ public interface Screen {
         private Fragment.SavedState navigationSavedState = null;
 
         Instance(@NonNull Class<? extends Screen> screen, Params params) {
+            screenClassName = screen.getName();
             name = screen.getSimpleName() + " " + params;
             this.params = params;
             this.fragmentFactory = Screen.Factory.instance(screen);
@@ -148,6 +150,10 @@ public interface Screen {
         @Override
         public String toString() {
             return "ScreenInstance " + name;
+        }
+
+        public String getScreenClassName() {
+            return screenClassName;
         }
 
     }

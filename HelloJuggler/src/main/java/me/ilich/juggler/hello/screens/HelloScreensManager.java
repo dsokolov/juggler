@@ -11,7 +11,7 @@ public class HelloScreensManager extends ScreensManager implements
         WizardThreeScreen,
         LoginScreen {
 
-    private static final String STACK_DEFAULT = "default stack";
+    public static final String STACK_DEFAULT = "default stack";
 
     public HelloScreensManager(JugglerActivity<HelloScreensManager> activity) {
         super(activity);
@@ -59,11 +59,6 @@ public class HelloScreensManager extends ScreensManager implements
     @Override
     public void wizardThree() {
         show(MODE.ADD, STACK_DEFAULT, WizardThreeScreen.class, null);
-    }
-
-    @Override
-    public void about() {
-        show(MODE.ADD, STACK_DEFAULT, AboutScreen.class, null);
     }
 
 }

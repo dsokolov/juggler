@@ -44,6 +44,11 @@ public abstract class ScreensManager implements Screen {
         this.activity = activity;
     }
 
+    @Nullable
+    public JugglerToolbarFragment getToolbarFragment() {
+        return toolbarFragment;
+    }
+
     public void onSaveInstanceState(Bundle outState) {
         if (currentScreenInstance != null) {
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -137,8 +142,7 @@ public abstract class ScreensManager implements Screen {
                 currentScreenInstance = screenInstance;
                 break;
             case DIG:
-                //TODO
-                break;
+                throw new RuntimeException("not implemented");
             case GET:
                 currentScreenInstance = stacks.getCurrentLast();
                 stacks.removeCurrentLast();
@@ -287,6 +291,10 @@ public abstract class ScreensManager implements Screen {
             transaction.remove(contentFragment);
         }
         transaction.commit();
+    }
+
+    public Instance getCurrentScreen() {
+        return currentScreenInstance;
     }
 
 }

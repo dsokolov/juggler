@@ -55,4 +55,17 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
         return b;
     }
 
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        if (juggler.getScreenManager().getToolbarFragment() == null) {
+            super.onTitleChanged(title, color);
+        } else {
+            if (juggler.getScreenManager().getToolbarFragment().isCustomToolbar()) {
+                juggler.setToolbarTitle(title, color);
+            } else {
+                super.onTitleChanged(title, color);
+            }
+        }
+    }
+
 }

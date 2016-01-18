@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import me.ilich.juggler.Transition;
 import me.ilich.juggler.fragments.content.JugglerContentFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
@@ -43,7 +44,7 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(MainScreen.class).about();
+                getJuggler().navigateTo(MainScreen.about);
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
