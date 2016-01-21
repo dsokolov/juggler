@@ -8,10 +8,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.fragments.JugglerFragment_;
 import me.ilich.juggler.fragments.JugglerLayout;
 import me.ilich.juggler.fragments.content.JugglerContent;
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.fragments.navigation.JugglerNavigation;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
@@ -22,7 +22,7 @@ public class ReflectionUtils {
     public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
         final JugglerToolbarFragment toolbarFragment = getToolbarFragment(params, screenClass);
         final JugglerNavigationFragment navigationFragment = getNavigationFragment(params, screenClass);
-        final JugglerContentFragment contentFragment = getContentFragment(params, screenClass);
+        final JugglerContentFragment_ contentFragment = getContentFragment(params, screenClass);
         final int layoutId;
         if (screenClass.isAnnotationPresent(JugglerLayout.class)) {
             JugglerLayout jugglerLayout = screenClass.getAnnotation(JugglerLayout.class);
@@ -34,11 +34,11 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    private static JugglerContentFragment getContentFragment(Screen.Params params, Class<? extends Screen> screenClass) {
-        final JugglerContentFragment contentFragment;
+    private static JugglerContentFragment_ getContentFragment(Screen.Params params, Class<? extends Screen> screenClass) {
+        final JugglerContentFragment_ contentFragment;
         if (screenClass.isAnnotationPresent(JugglerContent.class)) {
             JugglerContent annotation = screenClass.getAnnotation(JugglerContent.class);
-            Class<? extends JugglerContentFragment> fragmentClass = annotation.value();
+            Class<? extends JugglerContentFragment_> fragmentClass = annotation.value();
             contentFragment = createFragment(params, fragmentClass);
         } else {
             contentFragment = null;
@@ -47,7 +47,7 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    private static <T extends JugglerFragment> T createFragment(Screen.Params params, Class<? extends T> fragmentClass) {
+    private static <T extends JugglerFragment_> T createFragment(Screen.Params params, Class<? extends T> fragmentClass) {
         T fragment = null;
         Methods methods = new Methods(params, fragmentClass).invoke();
         if (methods.oneParam != null) {
@@ -119,11 +119,11 @@ public class ReflectionUtils {
     private static class Methods {
 
         private Screen.Params params;
-        private Class<? extends JugglerFragment> fragmentClass;
+        private Class<? extends JugglerFragment_> fragmentClass;
         private Method noParams;
         private Method oneParam;
 
-        public Methods(Screen.Params params, Class<? extends JugglerFragment> fragmentClass) {
+        public Methods(Screen.Params params, Class<? extends JugglerFragment_> fragmentClass) {
             this.params = params;
             this.fragmentClass = fragmentClass;
         }

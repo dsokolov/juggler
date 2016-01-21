@@ -1,4 +1,4 @@
-package me.ilich.juggler.activity;
+package me.ilich.juggler;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -6,23 +6,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.R;
-import me.ilich.juggler.ScreensManager;
-
 public class LayoutController {
-
-    private JugglerActivity activity;
 
     private ViewGroup toolbarViewGroup;
     private ViewGroup navigationViewGroup;
     private ViewGroup contentViewGroup;
     private DrawerLayout drawerLayout;
 
-    public LayoutController(JugglerActivity activity) {
-        this.activity = activity;
-    }
-
-    public void init(@LayoutRes int layoutId) {
+    public void init(JugglerActivity_ activity, @LayoutRes int layoutId) {
         activity.setContentView(layoutId);
         toolbarViewGroup = (ViewGroup) activity.findViewById(getContainerToolbarLayoutId());
         navigationViewGroup = (ViewGroup) activity.findViewById(getContainerNavigationLayoutId());

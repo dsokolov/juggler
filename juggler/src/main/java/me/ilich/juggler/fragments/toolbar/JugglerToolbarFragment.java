@@ -8,11 +8,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.ScreensManager;
-import me.ilich.juggler.activity.JugglerActivity;
-import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.JugglerActivity_;
+import me.ilich.juggler.fragments.JugglerFragment_;
 
-public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
+public abstract class JugglerToolbarFragment extends JugglerFragment_ {
 
     private Toolbar toolbar;
     @ActionBar.DisplayOptions
@@ -27,8 +26,8 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
         if (initialNavigationIcon != 0) {
             toolbar.setNavigationIcon(initialNavigationIcon);
         }
-        ((JugglerActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+        ((JugglerActivity_) getActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((JugglerActivity_) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(initialOptions);
             actionBar.show();
@@ -42,7 +41,7 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
     public int getOption() {
         final int r;
         if (isAdded()) {
-            ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+            ActionBar actionBar = ((JugglerActivity_) getActivity()).getSupportActionBar();
             if (actionBar == null) {
                 r = initialOptions;
             } else {
@@ -56,7 +55,7 @@ public abstract class JugglerToolbarFragment<SM extends ScreensManager> extends 
 
     public void setOptions(@ActionBar.DisplayOptions int options) {
         if (isAdded()) {
-            ActionBar actionBar = ((JugglerActivity) getActivity()).getSupportActionBar();
+            ActionBar actionBar = ((JugglerActivity_) getActivity()).getSupportActionBar();
             if (actionBar == null) {
                 initialOptions = options;
             } else {

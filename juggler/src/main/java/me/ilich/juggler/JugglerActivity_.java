@@ -1,46 +1,46 @@
-package me.ilich.juggler.activity;
+package me.ilich.juggler;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import me.ilich.juggler.Juggler;
-import me.ilich.juggler.ScreensManager;
+public abstract class JugglerActivity_ extends AppCompatActivity {
 
-public abstract class JugglerActivity<SM extends ScreensManager> extends AppCompatActivity {
-
-    private Juggler<SM> juggler;
+    private Juggler_ juggler;
 
     @Override
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        juggler = new Juggler<>(createScreenManager(), this);
-        juggler.onCreate(savedInstanceState);
+        juggler = Juggler_.getInstance();
+        juggler.onCreate(this, savedInstanceState);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        juggler.onSaveInstanceState(outState);
-        juggler.onDestroy();
+        if (!isFinishing()) {
+            juggler.onSaveInstanceState(this, outState);
+            juggler.onDestroy(this);
+        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (isFinishing()) {
+            juggler.onDestroy(this);
+        }
     }
 
-    protected abstract SM createScreenManager();
-
-    public final Juggler<SM> getJuggler() {
+    public final Juggler_ getJuggler() {
         return juggler;
     }
 
     @Override
     public void onBackPressed() {
-        boolean b = juggler.onBack();
+        boolean b = juggler.onBack(this);
         if (!b) {
             super.onBackPressed();
         }
@@ -48,7 +48,7 @@ public abstract class JugglerActivity<SM extends ScreensManager> extends AppComp
 
     @Override
     public boolean onSupportNavigateUp() {
-        boolean b = juggler.onUp();
+        boolean b = juggler.onUp(this);
         if (!b) {
             b = super.onSupportNavigateUp();
         }

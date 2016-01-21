@@ -1,31 +1,25 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.ilich.juggler.fragments.JugglerNewInstance;
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
-import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.ItemDetailScreen;
-
-public class ItemDetailsFragment extends JugglerContentFragment_ {
+public class ItemDetailsFragment extends Fragment {
 
     private static final String ARG_ID = "id";
 
-    @JugglerNewInstance
-    public static ItemDetailsFragment create(ItemDetailScreen.Params params) {
+    public static ItemDetailsFragment newInstance(int id) {
         ItemDetailsFragment f = new ItemDetailsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_ID, params.getItemId());
-        f.setArguments(bundle);
+        Bundle b = new Bundle();
+        b.putInt(ARG_ID, id);
+        f.setArguments(b);
         return f;
     }
 
-    private TextView numberTextView;
     private int id;
 
     @Override
@@ -43,9 +37,7 @@ public class ItemDetailsFragment extends JugglerContentFragment_ {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        numberTextView = (TextView) view.findViewById(R.id.number);
-        numberTextView.setText(Integer.toString(id));
-        getActivity().setTitle("item " + id);
+        TextView number = (TextView) view.findViewById(R.id.number);
+        number.setText(id + "");
     }
-
 }

@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.hello.R;
 
-public class ExplainToolbarFragment extends JugglerContentFragment {
+public class ExplainToolbarFragment extends JugglerContentFragment_ {
 
     @Nullable
     @Override

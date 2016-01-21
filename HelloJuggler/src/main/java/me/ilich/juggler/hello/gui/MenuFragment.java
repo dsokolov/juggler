@@ -9,15 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
-import android.widget.TextView;
-
-import java.util.List;
 
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
 
-public class MenuFragment extends JugglerNavigationFragment<HelloScreensManager> {
+public class MenuFragment extends JugglerNavigationFragment {
 
     private RecyclerView recyclerView;
     private Adapter adapter = new Adapter();

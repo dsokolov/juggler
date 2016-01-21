@@ -7,10 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import me.ilich.juggler.R;
-import me.ilich.juggler.ScreensManager;
-import me.ilich.juggler.fragments.JugglerFragment;
+import me.ilich.juggler.fragments.JugglerFragment_;
 
-public abstract class JugglerNavigationFragment<SM extends ScreensManager> extends JugglerFragment<SM> {
+public abstract class JugglerNavigationFragment extends JugglerFragment_ {
 
     private ActionBarDrawerToggle drawerToggle;
     private int initialSelectedItem;

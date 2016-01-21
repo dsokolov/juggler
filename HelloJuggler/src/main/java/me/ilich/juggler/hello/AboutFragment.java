@@ -1,19 +1,15 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.fragments.JugglerNewInstance;
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
-import me.ilich.juggler.hello.R;
+public class AboutFragment extends Fragment {
 
-public class AboutFragment extends JugglerContentFragment_ {
-
-    @JugglerNewInstance
-    public static JugglerContentFragment_ create() {
+    public static AboutFragment newInstance() {
         return new AboutFragment();
     }
 

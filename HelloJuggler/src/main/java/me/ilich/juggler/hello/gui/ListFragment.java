@@ -13,14 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.fragments.JugglerNewInstance;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.ListScreen;
 
-public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
+public class ListFragment extends JugglerContentFragment_ {
 
     @JugglerNewInstance
     public static ListFragment create() {
@@ -75,7 +73,7 @@ public class ListFragment extends JugglerContentFragment<HelloScreensManager> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateTo(ListScreen.class).itemDetails(item);
+                    getJuggler().navigate(ListScreen.class).itemDetails(item);
                 }
             });
         }

@@ -1,120 +1,74 @@
 package me.ilich.juggler;
 
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
+import android.support.annotation.Nullable;
 
-import me.ilich.juggler.activity.JugglerActivity;
-import me.ilich.juggler.activity.LayoutController;
-import me.ilich.juggler.fragments.JugglerFragment;
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
-import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Juggler<SM extends ScreensManager> {
+import me.ilich.juggler.states.ClosedSystemState;
+import me.ilich.juggler.states.State;
 
-    private SM screensManager;
-    private LayoutController layoutController = null;
-    private JugglerActivity<SM> activity;
+public class Juggler {
 
-    public Juggler(SM screensManager, JugglerActivity<SM> activity) {
-        this.screensManager = screensManager;
-        this.screensManager.setJuggler(this);
-        this.activity = activity;
-        layoutController = new LayoutController(activity);
+    private static Juggler instance;
+
+    public static void init() {
+        instance = new Juggler();
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            screensManager.onFirstScreen();
-        } else {
-            screensManager.onRestore(savedInstanceState);
+    public static Juggler getInstance() {
+        return instance;
+    }
+
+    private List<JugglerActivity> activities = new ArrayList<>();
+    private List<TransitionBundle> transitionBundles = new ArrayList<>();
+    @Nullable
+    private State currentState = null;
+
+    private Juggler() {
+
+    }
+
+    public void changeState(State state) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        state.processActivity(activity);
+    }
+
+    public void registerTransition(Class<? extends State> source, Class<? extends State> destination, Transition transition) {
+        TransitionBundle transitionBundle = new TransitionBundle(source, destination, transition);
+        transitionBundles.add(transitionBundle);
+    }
+
+    public List<TransitionBundle> getTransitionBundles() {
+        List<TransitionBundle> list = new ArrayList<>();
+        for (TransitionBundle transitionBundle : transitionBundles) {
+            if (transitionBundle.source.equals(ClosedSystemState.class)) {
+                list.add(transitionBundle);
+            }
         }
+        return list;
     }
 
-    public void onDestroy() {
-        screensManager.deattachAll();
+    void registerActivity(JugglerActivity activity) {
+        activities.add(activity);
     }
 
-    public void onSaveInstanceState(Bundle outState) {
-        screensManager.onSaveInstanceState(outState);
+    void unregisterActivity(JugglerActivity activity) {
+        activities.remove(activity);
     }
 
-    public SM getScreenManager() {
-        return screensManager;
-    }
+    public static class TransitionBundle {
 
-    public void setToolbarOptions(@ActionBar.DisplayOptions int options) {
-        screensManager.setToolbarOptions(options);
-    }
+        private final Class<? extends State> source;
+        private final Class<? extends State> destination;
+        private final Transition transition;
 
-    public int getToolbarOptions() {
-        return screensManager.getToolbarOptions();
-    }
-
-    public void onAttach(JugglerFragment<SM> fragment) {
-        if (fragment instanceof JugglerToolbarFragment) {
-            screensManager.onToolbarAttached((JugglerToolbarFragment) fragment);
-        } else if (fragment instanceof JugglerNavigationFragment) {
-            screensManager.onNavigationAttached((JugglerNavigationFragment) fragment);
-        } else if (fragment instanceof JugglerContentFragment) {
-            screensManager.onContentAttached((JugglerContentFragment) fragment);
+        public TransitionBundle(Class<? extends State> source, Class<? extends State> destination, Transition transition) {
+            this.source = source;
+            this.destination = destination;
+            this.transition = transition;
         }
-    }
 
-    public void onDetach(JugglerFragment<SM> fragment) {
-        if (fragment instanceof JugglerToolbarFragment) {
-            screensManager.onToolbarDetached((JugglerToolbarFragment) fragment);
-        } else if (fragment instanceof JugglerNavigationFragment) {
-            screensManager.onNavigationDetached((JugglerNavigationFragment) fragment);
-        } else if (fragment instanceof JugglerContentFragment) {
-            screensManager.onContentDetached((JugglerContentFragment) fragment);
-        }
-    }
-
-    public void onBeginNewScreen(Screen.Instance screenInstance) {
-        Log.v("Sokolov", "begin " + screenInstance);
-    }
-
-    public void onEndNewScreen(Screen.Instance screenInstance) {
-        Log.v("Sokolov", "end " + screenInstance);
-    }
-
-    public boolean onBack() {
-        boolean b = layoutController.onBackPressed();
-        if (!b) {
-            b = screensManager.back();
-        }
-        return b;
-    }
-
-    public boolean onUp() {
-        return screensManager.up();
-    }
-
-    public LayoutController getLayoutController() {
-        return layoutController;
-    }
-
-    public boolean hasToolbarContainer() {
-        return layoutController.getToolbarViewGroup() != null;
-    }
-
-    public void setToolbarTitle(CharSequence title, int color) {
-        if (screensManager.getToolbarFragment() != null) {
-            screensManager.getToolbarFragment().setTitle(title, color);
-        }
-    }
-
-    public void navigateTo(Transition transition) {
-        Screen.Instance instance = screensManager.getCurrentScreen();
-        String currentScreen = instance.getScreenClassName();
-        String sourceScreen = transition.getSource().getName();
-        if (currentScreen.equals(sourceScreen)) {
-            transition.execute(screensManager);
-        } else {
-            throw new RuntimeException("");
-        }
     }
 
 }

@@ -7,17 +7,27 @@ import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
-public interface Screen {
+public class Screen {
+
+    private final Navigator navigator;
+
+    public Screen(Navigator navigator) {
+        this.navigator = navigator;
+    }
+
+    protected final void navigate(Transition_ transition, @Nullable Screen.Params params) {
+        navigator.navigate(transition, params);
+    }
 
 /*    boolean back();
 
     boolean up();*/
 
-    class Factory {
+    public static class Factory {
 
         public static Instance create(Class<? extends Screen> screen, Params params) {
             return new Instance(screen, params);
@@ -41,7 +51,7 @@ public interface Screen {
 
     }
 
-    interface FragmentFactory {
+    public interface FragmentFactory {
 
         class Bundle {
 
@@ -50,11 +60,11 @@ public interface Screen {
             @Nullable
             private final JugglerNavigationFragment navigationFragment;
             @Nullable
-            private final JugglerContentFragment contentFragment;
+            private final JugglerContentFragment_ contentFragment;
             @LayoutRes
             private final int layoutId;
 
-            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment contentFragment, int layoutId) {
+            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment_ contentFragment, int layoutId) {
                 this.toolbarFragment = toolbarFragment;
                 this.navigationFragment = navigationFragment;
                 this.contentFragment = contentFragment;
@@ -72,7 +82,7 @@ public interface Screen {
             }
 
             @Nullable
-            public JugglerContentFragment getContentFragment() {
+            public JugglerContentFragment_ getContentFragment() {
                 return contentFragment;
             }
 
@@ -87,7 +97,7 @@ public interface Screen {
 
     }
 
-    class Params {
+    public static class Params {
 
         @Override
         public String toString() {
@@ -96,7 +106,7 @@ public interface Screen {
 
     }
 
-    final class Instance implements Serializable {
+    public final static class Instance implements Serializable {
 
         private final String screenClassName;
         private final String name;

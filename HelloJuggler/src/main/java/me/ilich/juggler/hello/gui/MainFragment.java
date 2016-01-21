@@ -2,7 +2,6 @@ package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.ilich.juggler.Transition;
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.MainScreen;
 
-public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
+public class MainFragment extends JugglerContentFragment_ {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,31 +34,31 @@ public class MainFragment extends JugglerContentFragment<HelloScreensManager> {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(MainScreen.class).list();
+                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.list, null);
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getJuggler().navigateTo(MainScreen.about);
+                getJuggler().navigate(MainScreen.class).about();
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(MainScreen.class).login();
+                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.login, null);
             }
         });
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(MainScreen.class).wizardOne();
+                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.wizardOne, null);
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(MainScreen.class).toolbarExplain();
+                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.toolbarExplain, null);
             }
         });
         getActivity().setTitle("main screen");

@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment;
+import me.ilich.juggler.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.HelloScreensManager;
 import me.ilich.juggler.hello.screens.WizardOneScreen;
 
-public class WizardOneFragment extends JugglerContentFragment<HelloScreensManager> {
+public class WizardOneFragment extends JugglerContentFragment_ {
 
     @Nullable
     @Override
@@ -25,7 +24,7 @@ public class WizardOneFragment extends JugglerContentFragment<HelloScreensManage
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(WizardOneScreen.class).wizardTwo();
+                getJuggler().navigate(WizardOneScreen.class).wizardTwo();
             }
         });
     }
