@@ -28,7 +28,7 @@ public abstract class ScreensManager {
     private static final String TAG_NAVIGATION = "navigation";
 
     private Juggler_ juggler;
-    private Stacks stacks = new Stacks();
+    private Stacks_ stacks = new Stacks_();
     @Nullable
     private Screen.Instance currentScreenInstance = null;
     @Nullable
@@ -65,7 +65,7 @@ public abstract class ScreensManager {
     }
 
     public void onRestore(JugglerActivity_ activity, Bundle savedInstanceState) {
-        stacks = (Stacks) savedInstanceState.getSerializable("STACKS");
+        stacks = (Stacks_) savedInstanceState.getSerializable("STACKS");
         doShow(activity, MODE.GET, null, null);
     }
 

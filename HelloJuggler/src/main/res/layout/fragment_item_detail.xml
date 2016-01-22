@@ -6,13 +6,18 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="item"/>
 
     <TextView
         android:id="@+id/number"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/about"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

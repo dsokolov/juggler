@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Stacks implements Serializable {
+class Stacks_ implements Serializable {
 
     private static final String DEFAULT_STACK = "default stack";
 
     private Map<String, List<Screen.Instance>> stacks = new HashMap<>();
     private String currentStackName = DEFAULT_STACK;
 
-    public Stacks() {
+    public Stacks_() {
         stacks.put(currentStackName, new ArrayList<Screen.Instance>());
     }
 

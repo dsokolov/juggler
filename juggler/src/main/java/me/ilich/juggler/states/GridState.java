@@ -1,6 +1,8 @@
 package me.ilich.juggler.states;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import me.ilich.juggler.Grid;
 import me.ilich.juggler.JugglerActivity;
@@ -16,13 +18,21 @@ public abstract class GridState<P extends State.Params> extends State<P> {
     }
 
     @Override
-    public void processActivity(JugglerActivity activity) {
+    public void process(JugglerActivity activity) {
         activity.setContentView(grid.getLayoutId());
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         for (Grid.Cell cell : grid.getCells()) {
-            convertCell(activity, cell, params);
+            int containerId = cell.getContainerId();
+            Fragment oldFragment = activity.getSupportFragmentManager().findFragmentById(containerId);
+            Fragment newFragment = convertCell(cell, oldFragment, params);
+            if (newFragment != null) {
+                fragmentTransaction.replace(containerId, newFragment);
+            }
         }
+        fragmentTransaction.commit();
     }
 
-    protected abstract Fragment convertCell(JugglerActivity activity, Grid.Cell cell, P params);
+    @Nullable
+    protected abstract Fragment convertCell(Grid.Cell cell, @Nullable Fragment fragment, P params);
 
 }

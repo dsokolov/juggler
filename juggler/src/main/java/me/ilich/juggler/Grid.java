@@ -47,7 +47,8 @@ public class Grid {
     public static class Cell {
 
         public enum TYPE {
-            CONTENT
+            CONTENT,
+            TOOLBAR
         }
 
         @IdRes

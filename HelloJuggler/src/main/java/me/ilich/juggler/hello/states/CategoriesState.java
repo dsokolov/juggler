@@ -1,9 +1,9 @@
 package me.ilich.juggler.hello.states;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import me.ilich.juggler.Grid;
-import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.states.GridState;
 
 public class CategoriesState extends GridState<GridState.Params> {
@@ -12,8 +12,9 @@ public class CategoriesState extends GridState<GridState.Params> {
         super(Grid.contentOnly(), null);
     }
 
+    @Nullable
     @Override
-    protected Fragment convertCell(JugglerActivity activity, Grid.Cell cell, Params params) {
+    protected Fragment convertCell(Grid.Cell cell, @Nullable Fragment fragment, Params params) {
         return null;
     }
 

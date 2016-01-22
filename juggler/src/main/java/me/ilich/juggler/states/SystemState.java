@@ -5,7 +5,7 @@ import me.ilich.juggler.JugglerActivity;
 public class SystemState extends State {
 
     @Override
-    public void processActivity(JugglerActivity activity) {
+    public void process(JugglerActivity activity) {
 
     }
 

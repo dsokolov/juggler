@@ -1,10 +1,9 @@
 package me.ilich.juggler.hello.states;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import me.ilich.juggler.Grid;
-import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.hello.ItemDetailsFragment;
 import me.ilich.juggler.states.GridState;
 
@@ -15,16 +14,18 @@ public class ItemDetailsState extends GridState<ItemDetailsState.Params> {
     }
 
     @Override
-    protected Fragment convertCell(JugglerActivity activity, Grid.Cell cell, Params params) {
-        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+    @Nullable
+    protected Fragment convertCell(Grid.Cell cell, Fragment fragment, Params params) {
+        final Fragment f;
         switch (cell.getType()) {
             case CONTENT:
-                Fragment fragment = ItemDetailsFragment.newInstance(params.id);
-                fragmentTransaction.replace(cell.getContainerId(), fragment);
+                f = ItemDetailsFragment.newInstance(params.id);
+                break;
+            default:
+                f = null;
                 break;
         }
-        fragmentTransaction.commit();
-        return null;
+        return f;
     }
 
     public static class Params extends GridState.Params {

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.ilich.juggler.Juggler;
+import me.ilich.juggler.hello.states.AboutState;
+
 public class ItemDetailsFragment extends Fragment {
 
     private static final String ARG_ID = "id";
@@ -39,5 +42,11 @@ public class ItemDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView number = (TextView) view.findViewById(R.id.number);
         number.setText(id + "");
+        view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Juggler.getInstance().changeState(new AboutState());
+            }
+        });
     }
 }
