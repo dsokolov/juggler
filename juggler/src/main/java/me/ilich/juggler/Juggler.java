@@ -7,6 +7,7 @@ import java.util.Stack;
 import me.ilich.juggler.states.InactiveSystemState;
 import me.ilich.juggler.states.PreviousStateSystemState;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.transitions.NewStackPushTransition;
 import me.ilich.juggler.transitions.Transition;
 
 public class Juggler {
@@ -46,19 +47,21 @@ public class Juggler {
         }
     }
 
+    public void registerStartup(Class<? extends State> source, String stackName) {
+        TransitionBundle transitionBundle = new TransitionBundle(null, source, new NewStackPushTransition(), Event.STARTUP);
+    }
+
     public void registerTransition(Class<? extends State> source, Class<? extends State> destination, Transition transition) {
-        TransitionBundle transitionBundle = new TransitionBundle(source, destination, transition);
+        TransitionBundle transitionBundle = new TransitionBundle(source, destination, transition, Event.OTHER);
         transitionBundles.add(transitionBundle);
     }
 
-    public List<TransitionBundle> getStartTransitionBundles() {
-        List<TransitionBundle> list = new ArrayList<>();
-        for (TransitionBundle transitionBundle : transitionBundles) {
-            if (transitionBundle.source.equals(InactiveSystemState.class)) {
-                list.add(transitionBundle);
-            }
-        }
-        return list;
+    public void registerBack(Class<? extends State> source, Transition transition) {
+        //TODO
+    }
+
+    public void registerUp(Class<? extends State> source, Transition transition) {
+        //TODO
     }
 
     public List<TransitionBundle> getBackTransitionBundles() {
@@ -81,16 +84,28 @@ public class Juggler {
         activities.remove(activity);
     }
 
+    public Class<? extends State> getStartupState() {
+        Class<? extends State> r = null;
+        for (TransitionBundle transitionBundle : transitionBundles) {
+            if (transitionBundle.event == Event.STARTUP) {
+                r = transitionBundle.destination;
+            }
+        }
+        return r;
+    }
+
     public static class TransitionBundle {
 
         private final Class<? extends State> source;
         private final Class<? extends State> destination;
         private final Transition transition;
+        private final Event event;
 
-        public TransitionBundle(Class<? extends State> source, Class<? extends State> destination, Transition transition) {
+        public TransitionBundle(Class<? extends State> source, Class<? extends State> destination, Transition transition, Event event) {
             this.source = source;
             this.destination = destination;
             this.transition = transition;
+            this.event = event;
         }
 
         public Class<? extends State> getDestination() {

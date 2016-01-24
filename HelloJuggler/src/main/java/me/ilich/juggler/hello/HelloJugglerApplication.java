@@ -4,6 +4,8 @@ import android.app.Application;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Juggler_;
+import me.ilich.juggler.states.PreviousStackSystemState;
+import me.ilich.juggler.transitions.CurrentStackPopTransition;
 import me.ilich.juggler.transitions.Transition;
 import me.ilich.juggler.hello.screens.AboutScreen;
 import me.ilich.juggler.hello.screens.HelloScreensManager;
@@ -25,9 +27,10 @@ public class HelloJugglerApplication extends Application {
         Juggler_.getInstance().setStart(MainScreen.class, null);
 
         Juggler.init();
-        Juggler.getInstance().registerTransition(InactiveSystemState.class, ItemDetailsState.class, Transition.clearStackAndAdd(STACK));
+        Juggler.getInstance().registerStartup(ItemDetailsState.class, STACK);
+        Juggler.getInstance().registerBack(ItemDetailsState.class, new CurrentStackPopTransition());
 
-        Juggler.getInstance().registerTransition(ItemDetailsState.class, AboutState.class, Transition.clearStackAndAdd(STACK));
+        Juggler.getInstance().registerTransition(ItemDetailsState.class, AboutState.class, null);
 
     }
 
