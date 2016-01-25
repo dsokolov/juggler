@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.ilich.juggler.Juggler;
+import me.ilich.juggler.JugglerFragment;
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends JugglerFragment {
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
@@ -25,4 +26,5 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
 }

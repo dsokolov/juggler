@@ -1,11 +1,17 @@
 package me.ilich.juggler;
 
+import me.ilich.juggler.states.State;
+
 public interface Navigable {
 
-    <S extends Screen> S navigateAddStack(Class<S> sClass);
+    void firstState();
 
-    <S extends Screen> S navigateClearStack(Class<S> sClass);
+    void backState();
 
-    <S extends Screen> S navigateDigStack(Class<S> sClass);
+    boolean upState();
+
+    void changeState(State state);
+
+    void currentState();
 
 }

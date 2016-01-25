@@ -1,6 +1,6 @@
 package me.ilich.juggler.hello.screens;
 
-import me.ilich.juggler.Navigator;
+import me.ilich.juggler.Navigator_;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.fragments.JugglerLayout;
 import me.ilich.juggler.fragments.content.JugglerContent;
@@ -10,7 +10,7 @@ import me.ilich.juggler.hello.gui.WizardOneFragment;
 @JugglerContent(WizardOneFragment.class)
 public class WizardOneScreen extends Screen {
 
-    public WizardOneScreen(Navigator navigator) {
+    public WizardOneScreen(Navigator_ navigator) {
         super(navigator);
     }
 

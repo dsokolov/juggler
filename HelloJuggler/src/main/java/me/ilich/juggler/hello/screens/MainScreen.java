@@ -2,7 +2,7 @@ package me.ilich.juggler.hello.screens;
 
 import android.support.v7.app.ActionBar;
 
-import me.ilich.juggler.Navigator;
+import me.ilich.juggler.Navigator_;
 import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;
 import me.ilich.juggler.Transition_;
@@ -23,7 +23,7 @@ public class MainScreen extends Screen {
 
     private Transition_ about = new Transition_(MainScreen.class, AboutScreen.class, ScreensManager.MODE.ADD, HelloScreensManager.STACK_DEFAULT);
 
-    public MainScreen(Navigator navigator) {
+    public MainScreen(Navigator_ navigator) {
         super(navigator);
     }
 

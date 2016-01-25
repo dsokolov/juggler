@@ -10,9 +10,10 @@ import me.ilich.juggler.JugglerActivity;
 public abstract class GridState<P extends State.Params> extends State<P> {
 
     private final Grid grid;
+    @Nullable
     private final P params;
 
-    protected GridState(Grid grid, P params) {
+    protected GridState(Grid grid, @Nullable P params) {
         this.grid = grid;
         this.params = params;
     }
@@ -33,6 +34,6 @@ public abstract class GridState<P extends State.Params> extends State<P> {
     }
 
     @Nullable
-    protected abstract Fragment convertCell(Grid.Cell cell, @Nullable Fragment fragment, P params);
+    protected abstract Fragment convertCell(Grid.Cell cell, @Nullable Fragment fragment, @Nullable P params);
 
 }

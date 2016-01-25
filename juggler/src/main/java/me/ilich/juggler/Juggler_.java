@@ -64,8 +64,8 @@ public class Juggler_ {
 
     public void registerScreen(Class<? extends Screen> screenClass) {
         try {
-            Constructor<? extends Screen> constructor = screenClass.getDeclaredConstructor(Navigator.class);
-            Screen screen = constructor.newInstance(new Navigator() {
+            Constructor<? extends Screen> constructor = screenClass.getDeclaredConstructor(Navigator_.class);
+            Screen screen = constructor.newInstance(new Navigator_() {
                 @Override
                 public void navigate(Transition_ transition, @Nullable Screen.Params params) {
                     Juggler_.this.navigate(transition, params);

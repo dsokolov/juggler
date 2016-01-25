@@ -2,7 +2,7 @@ package me.ilich.juggler.hello.screens;
 
 import android.support.v7.app.ActionBar;
 
-import me.ilich.juggler.Navigator;
+import me.ilich.juggler.Navigator_;
 import me.ilich.juggler.fragments.JugglerLayout;
 import me.ilich.juggler.fragments.content.JugglerContent;
 import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
@@ -15,7 +15,7 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 @JugglerContent(ItemDetailsFragment.class)
 public class ItemDetailScreen extends Screen {
 
-    public ItemDetailScreen(Navigator navigator) {
+    public ItemDetailScreen(Navigator_ navigator) {
         super(navigator);
     }
 

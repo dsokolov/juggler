@@ -13,9 +13,9 @@ import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
 
 public class Screen {
 
-    private final Navigator navigator;
+    private final Navigator_ navigator;
 
-    public Screen(Navigator navigator) {
+    public Screen(Navigator_ navigator) {
         this.navigator = navigator;
     }
 

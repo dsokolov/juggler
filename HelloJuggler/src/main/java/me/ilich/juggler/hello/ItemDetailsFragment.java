@@ -2,16 +2,15 @@ package me.ilich.juggler.hello;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.ilich.juggler.Juggler;
+import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.hello.states.AboutState;
 
-public class ItemDetailsFragment extends Fragment {
+public class ItemDetailsFragment extends JugglerFragment {
 
     private static final String ARG_ID = "id";
 
@@ -45,7 +44,7 @@ public class ItemDetailsFragment extends Fragment {
         view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Juggler.getInstance().changeState(new AboutState());
+                navigateTo().changeState(new AboutState());
             }
         });
     }
