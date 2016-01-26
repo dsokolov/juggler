@@ -3,3 +3,5 @@ android:
   components:
     - android-23
     - build-tools-23.0.2
+  before_install:
+    - echo yes | android update sdk --all --filter build-tools-23.0.2 --no-ui --force > /dev/null
