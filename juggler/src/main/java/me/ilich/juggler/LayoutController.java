@@ -6,6 +6,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.old.fragments.JugglerActivity_;
+
 public class LayoutController {
 
     private ViewGroup toolbarViewGroup;

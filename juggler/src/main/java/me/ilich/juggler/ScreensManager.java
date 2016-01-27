@@ -10,9 +10,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
-import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.JugglerActivity_;
+import me.ilich.juggler.old.fragments.Juggler_;
+import me.ilich.juggler.old.fragments.Stacks_;
+import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
+import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
 
 public abstract class ScreensManager {
 

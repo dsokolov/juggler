@@ -3,8 +3,9 @@ package me.ilich.juggler;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ilich.juggler.actions.Action;
+import me.ilich.juggler.actions.ResetStacksAction;
 import me.ilich.juggler.states.State;
-import me.ilich.juggler.transitions.Transition;
 
 public class Juggler implements Navigable {
 
@@ -22,7 +23,6 @@ public class Juggler implements Navigable {
     }
 
     private List<JugglerActivity> activities = new ArrayList<>();
-    private TransactionsRepository transactionsRepository = new TransactionsRepository();
     private Stacks stacks = new Stacks();
 
     private Juggler() {
@@ -30,66 +30,68 @@ public class Juggler implements Navigable {
     }
 
     @Override
-    public void firstState() {
-        TransactionsRepository.Item item = transactionsRepository.getFirst();
-        if (item == null) {
-            throw new RuntimeException("First state is not registred");
-        }
-        State state = item.getDestinationInstance();
-        Transition transition = item.getTransition();
-        doChangeState(transition, state);
-    }
-
-    @Override
     public void backState() {
-        State currentState = stacks.getCurrentState();
-        TransactionsRepository.Item item = transactionsRepository.getBack(currentState);
-        if (item == null) {
+        State<?> currentState = stacks.peekCurrentStack();
+        List<Transition> transitions = currentState.getTransitions(Event.BACK);
+        if (transitions.isEmpty()) {
             throw new RuntimeException("Back state for " + currentState + " is not registred");
         }
-        State state = item.getDestinationInstance();
-        Transition transition = item.getTransition();
-        doChangeState(transition, state);
+        Transition transition = transitions.get(0);
+        State state = transition.getDestinationInstance();
+        Action action = transition.getAction();
+        doChangeState(action, state);
     }
 
     @Override
     public boolean upState() {
-        State currentState = stacks.getCurrentState();
-        TransactionsRepository.Item item = transactionsRepository.getUp(currentState);
-        if (item == null) {
+        State<?> currentState = stacks.peekCurrentStack();
+        List<Transition> transitions = currentState.getTransitions(Event.UP);
+        if (transitions.isEmpty()) {
             throw new RuntimeException("Up state for " + currentState + " is not registred");
         }
-        State state = item.getDestinationInstance();
-        Transition transition = item.getTransition();
-        doChangeState(transition, state);
+        Transition transition = transitions.get(0);
+        State state = transition.getDestinationInstance();
+        Action action = transition.getAction();
+        doChangeState(action, state);
         return true;
     }
 
     @Override
     public void changeState(State state) {
-        State currentState = stacks.getCurrentState();
-        TransactionsRepository.Item item = transactionsRepository.get(currentState, state, Event.OTHER);
-        if (item == null) {
-            throw new RuntimeException("No transition from " + currentState + " to " + state + " is not registered");
+        State<?> currentState = stacks.peekCurrentStack();
+        final Action action;
+        if (currentState == null) {
+            action = new ResetStacksAction();
+        } else {
+            List<Transition> transitions = currentState.getTransitions(Event.OTHER);
+            if (transitions.size() == 0) {
+                throw new RuntimeException("No transition from " + currentState + " to " + state + " is not registered");
+            }
+            Transition transition = null;
+            for (Transition tr : transitions) {
+                if (tr.isAccessibleFrom(state)) {
+                    transition = tr;
+                    break;
+                }
+            }
+            if (transition == null) {
+                throw new RuntimeException("No transition from " + currentState + " to " + state + " is not registered");
+            }
+            action = transition.getAction();
         }
-        Transition transition = item.getTransition();
-        doChangeState(transition, state);
+        doChangeState(action, state);
     }
 
     @Override
     public void currentState() {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        State currentState = stacks.getCurrentState();
+        State currentState = stacks.peekCurrentStack();
         currentState.process(activity);
     }
 
-    private void doChangeState(Transition transition, State state) {
+    private void doChangeState(Action action, State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        transition.execute(activity, this, state);
-    }
-
-    public TransactionsRepository getTransactionsRepository() {
-        return transactionsRepository;
+        action.execute(activity, this, state);
     }
 
     void registerActivity(JugglerActivity activity) {

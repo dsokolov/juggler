@@ -2,86 +2,116 @@ package me.ilich.juggler;
 
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Stack;
 
 import me.ilich.juggler.states.State;
 
 public class Stacks {
 
-    private Map<String, List<State>> stacks = new HashMap<>();
-    private List<String> stackNames = new ArrayList<>();
+    private Stack<Group> stateStacks = new Stack<>();
 
-    public State getCurrentState() {
-        String currentStackName = stackNames.get(stackNames.size() - 1);
-        List<State> currentStack = stacks.get(currentStackName);
-        return currentStack.get(currentStack.size() - 1);
-    }
-
-    public void setCurrentStack(String stackName) {
-        stackNames.add(stackName);
-    }
-
-    public void addStateToCurrentStack(State state) {
-        String currentStackName = stackNames.get(stackNames.size() - 1);
-        List<State> currentStack;
-        if (stacks.containsKey(currentStackName)) {
-            currentStack = stacks.get(currentStackName);
-        } else {
-            currentStack = new ArrayList<>();
-            stacks.put(currentStackName, currentStack);
+    public void pushToCurrentStack(State state) {
+        if (stateStacks.isEmpty()) {
+            stateStacks.push(new Group());
         }
-        currentStack.add(state);
+        stateStacks.peek().states.push(new Item(state));
     }
 
-    public void clearCurrentStack() {
-        String currentStackName = stackNames.get(stackNames.size() - 1);
-        List<State> currentStack;
-        if (stacks.containsKey(currentStackName)) {
-            currentStack = stacks.get(currentStackName);
-            currentStack.clear();
-        } else {
-            currentStack = new ArrayList<>();
-            stacks.put(currentStackName, currentStack);
-        }
+    public void pushToNewStack(State state) {
+        stateStacks.push(new Group());
+        stateStacks.peek().states.push(new Item(state));
     }
 
     @Nullable
-    public State prevState() {
+    public State popFromCurrentStack() {
         final State result;
-        if (stackNames.size() > 0) {
-            String currentStackName = stackNames.get(stackNames.size() - 1);
-            if (stacks.containsKey(currentStackName)) {
-                List<State> currentStack = stacks.get(currentStackName);
-                if (currentStack.size() > 0) {
-                    currentStack.remove(currentStack.size() - 1);
-                    if (currentStack.size() > 0) {
-                        result = currentStack.get(currentStack.size() - 1);
-                    } else {
-                        stacks.remove(currentStackName);
-                        stackNames.remove(stackNames.size() - 1);
-                        result = prevState();
-                    }
-                } else {
-                    stacks.remove(currentStackName);
-                    stackNames.remove(stackNames.size() - 1);
-                    result = prevState();
-                }
-            } else {
-                stackNames.remove(stackNames.size() - 1);
-                result = prevState();
-            }
-        } else {
+        if (stateStacks.empty()) {
             result = null;
+        } else {
+            Group currentStack = stateStacks.peek();
+            if (currentStack.states.empty()) {
+                result = null;
+            } else {
+                result = currentStack.states.pop().state;
+            }
         }
         return result;
     }
 
-    public void reset() {
-        stackNames.clear();
-        stacks.clear();
+    @Nullable
+    public State popPrevStack() {
+        final State result;
+        if (stateStacks.empty()) {
+            result = null;
+        } else {
+            stateStacks.pop();
+            if (stateStacks.empty()) {
+                result = null;
+            } else {
+                Group currentStack = stateStacks.peek();
+                if (currentStack.states.empty()) {
+                    result = null;
+                } else {
+                    result = currentStack.states.pop().state;
+                }
+            }
+        }
+        return result;
+    }
+
+    public State peekCurrentStack() {
+        final State result;
+        if (stateStacks.empty()) {
+            result = null;
+        } else {
+            Group currentStack = stateStacks.peek();
+            if (currentStack.states.empty()) {
+                result = null;
+            } else {
+                result = currentStack.states.peek().state;
+            }
+        }
+        return result;
+    }
+
+    public State peekPrevStack() {
+        final State result;
+        if (stateStacks.empty()) {
+            result = null;
+        } else {
+            stateStacks.pop();
+            if (stateStacks.empty()) {
+                result = null;
+            } else {
+                Group currentStack = stateStacks.peek();
+                if (currentStack.states.empty()) {
+                    result = null;
+                } else {
+                    result = currentStack.states.peek().state;
+                }
+            }
+        }
+        return result;
+    }
+
+    public void clear() {
+        stateStacks.clear();
+    }
+
+    private static final class Group {
+
+        private final Stack<Item> states = new Stack<>();
+
+    }
+
+    private static final class Item {
+
+        private final State state;
+
+        private Item(State state) {
+            this.state = state;
+        }
+
     }
 
 }

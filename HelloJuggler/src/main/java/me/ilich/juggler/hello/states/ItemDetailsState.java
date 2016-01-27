@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import me.ilich.juggler.Grid;
-import me.ilich.juggler.hello.ItemDetailsFragment;
+import me.ilich.juggler.hello.gui.ItemDetailsFragment;
 import me.ilich.juggler.states.GridState;
 
 public class ItemDetailsState extends GridState<ItemDetailsState.Params> {

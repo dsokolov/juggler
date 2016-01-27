@@ -8,14 +8,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import me.ilich.juggler.fragments.JugglerFragment_;
-import me.ilich.juggler.fragments.JugglerLayout;
-import me.ilich.juggler.fragments.content.JugglerContent;
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
-import me.ilich.juggler.fragments.navigation.JugglerNavigation;
-import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbar;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.JugglerFragment_;
+import me.ilich.juggler.old.fragments.JugglerLayout;
+import me.ilich.juggler.old.fragments.content.JugglerContent;
+import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
+import me.ilich.juggler.old.fragments.navigation.JugglerNavigation;
+import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbar;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
 
 public class ReflectionUtils {
 

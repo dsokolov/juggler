@@ -17,7 +17,7 @@
                     </intent-filter>
                 </activity>-->
 
-        <activity android:name=".HelloActivity">
+        <activity android:name=".gui.HelloActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

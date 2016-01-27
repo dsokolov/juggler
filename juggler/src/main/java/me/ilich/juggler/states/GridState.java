@@ -10,12 +10,10 @@ import me.ilich.juggler.JugglerActivity;
 public abstract class GridState<P extends State.Params> extends State<P> {
 
     private final Grid grid;
-    @Nullable
-    private final P params;
 
-    protected GridState(Grid grid, @Nullable P params) {
+    public GridState(Grid grid, @Nullable P params) {
+        super(params);
         this.grid = grid;
-        this.params = params;
     }
 
     @Override
@@ -25,7 +23,7 @@ public abstract class GridState<P extends State.Params> extends State<P> {
         for (Grid.Cell cell : grid.getCells()) {
             int containerId = cell.getContainerId();
             Fragment oldFragment = activity.getSupportFragmentManager().findFragmentById(containerId);
-            Fragment newFragment = convertCell(cell, oldFragment, params);
+            Fragment newFragment = convertCell(cell, oldFragment, getParams());
             if (newFragment != null) {
                 fragmentTransaction.replace(containerId, newFragment);
             }

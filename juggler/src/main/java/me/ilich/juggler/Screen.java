@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
-import me.ilich.juggler.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.Navigator_;
+import me.ilich.juggler.old.fragments.Transition_;
+import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
+import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
 
 public class Screen {
 

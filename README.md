@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dsokolov/juggler.svg?branch=master)](https://travis-ci.org/dsokolov/juggler)
+
 # juggler
 
 TODO

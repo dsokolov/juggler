@@ -10,11 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.ilich.juggler.fragments.content.JugglerContentFragment_;
+import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.screens.MainScreen;
+import me.ilich.juggler.hello.states.AboutState;
+import me.ilich.juggler.hello.states.ItemsListState;
+import me.ilich.juggler.hello.states.WizardOneState;
 
-public class MainFragment extends JugglerContentFragment_ {
+public class MainFragment extends JugglerFragment {
+
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,31 +40,31 @@ public class MainFragment extends JugglerContentFragment_ {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.list, null);
+                navigateTo().changeState(new ItemsListState());
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getJuggler().navigate(MainScreen.class).about();
+                navigateTo().changeState(new AboutState());
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.login, null);
+
             }
         });
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.wizardOne, null);
+                navigateTo().changeState(new WizardOneState());
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getJuggler().navigate((JugglerActivity) getActivity(), MainScreen.toolbarExplain, null);
+
             }
         });
         getActivity().setTitle("main screen");
