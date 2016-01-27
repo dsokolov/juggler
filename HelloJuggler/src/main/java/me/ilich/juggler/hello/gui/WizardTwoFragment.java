@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.old.screens.WizardTwoScreen;
+import me.ilich.juggler.hello.states.WizardOneState;
 import me.ilich.juggler.hello.states.WizardThreeState;
 import me.ilich.juggler.old.fragments.JugglerNewInstance;
-import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
 
 public class WizardTwoFragment extends JugglerFragment {
 
@@ -23,7 +22,7 @@ public class WizardTwoFragment extends JugglerFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_wizzard_two, container, false);
+        return inflater.inflate(R.layout.fragment_wizard_two, container, false);
     }
 
     @Override
@@ -33,6 +32,12 @@ public class WizardTwoFragment extends JugglerFragment {
             @Override
             public void onClick(View v) {
                 navigateTo().changeState(new WizardThreeState());
+            }
+        });
+        view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo().changeState(new WizardOneState());
             }
         });
     }

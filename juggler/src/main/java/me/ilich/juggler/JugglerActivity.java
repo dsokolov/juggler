@@ -1,6 +1,7 @@
 package me.ilich.juggler;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class JugglerActivity extends AppCompatActivity {
@@ -11,6 +12,12 @@ public class JugglerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         juggler.registerActivity(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        juggler.onSaveInstanceState(outState);
     }
 
     @Override

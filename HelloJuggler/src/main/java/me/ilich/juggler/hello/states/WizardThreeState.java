@@ -28,7 +28,8 @@ public class WizardThreeState extends GridState<GridState.Params> {
                 break;
             case OTHER:
                 transitions = new ArrayList<>();
-                transitions.add(Transition.backPrevStack(this.getClass()));
+                transitions.add(Transition.backPrevStack(this.getClass(), MainState.class));
+                transitions.add(Transition.backCurrentStack(this.getClass(), WizardTwoState.class));
                 break;
             default:
                 transitions = Collections.emptyList();

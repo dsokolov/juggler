@@ -1,5 +1,7 @@
 package me.ilich.juggler;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class Juggler implements Navigable {
         Transition transition = transitions.get(0);
         State state = transition.getDestinationInstance();
         Action action = transition.getAction();
-        doChangeState(action, state);
+        doChangeState(action, state, currentState);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class Juggler implements Navigable {
         Transition transition = transitions.get(0);
         State state = transition.getDestinationInstance();
         Action action = transition.getAction();
-        doChangeState(action, state);
+        doChangeState(action, state, currentState);
         return true;
     }
 
@@ -79,19 +81,19 @@ public class Juggler implements Navigable {
             }
             action = transition.getAction();
         }
-        doChangeState(action, state);
+        doChangeState(action, state, currentState);
     }
 
     @Override
     public void currentState() {
         JugglerActivity activity = activities.get(activities.size() - 1);
         State currentState = stacks.peekCurrentStack();
-        currentState.process(activity);
+        currentState.activate(activity, currentState);
     }
 
-    private void doChangeState(Action action, State state) {
+    private void doChangeState(Action action, State state, State oldState) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        action.execute(activity, this, state);
+        action.execute(activity, this, state, oldState);
     }
 
     void registerActivity(JugglerActivity activity) {
@@ -104,6 +106,10 @@ public class Juggler implements Navigable {
 
     public Stacks getStacks() {
         return stacks;
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+
     }
 
 }

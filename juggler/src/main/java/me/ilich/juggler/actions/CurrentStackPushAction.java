@@ -7,9 +7,9 @@ import me.ilich.juggler.states.State;
 public class CurrentStackPushAction extends StackPushAction {
 
     @Override
-    protected void onExecute(JugglerActivity activity, Juggler juggler, State state) {
+    protected void onExecute(JugglerActivity activity, Juggler juggler, State state, State oldState) {
         juggler.getStacks().pushToCurrentStack(state);
-        state.process(activity);
+        state.activate(activity, oldState);
     }
 
 }

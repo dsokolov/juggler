@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="wizzard three"/>
+        android:text="wizzard two"/>
 
     <EditText
         android:id="@+id/text"
@@ -18,6 +18,13 @@
 
     <Button
         android:id="@+id/next"
+        android:text="next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/prev"
+        android:text="prev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

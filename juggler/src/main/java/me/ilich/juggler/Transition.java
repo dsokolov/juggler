@@ -17,6 +17,14 @@ public class Transition {
         return new Transition(sourceClass, null, null, new NewStackPopAction());
     }
 
+    public static Transition backCurrentStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
+        return new Transition(sourceClass, destinationClass, null, new CurrentStackPopAction());
+    }
+
+    public static Transition backPrevStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
+        return new Transition(sourceClass, destinationClass, null, new NewStackPopAction());
+    }
+
     public static Transition addCurrentStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
         return new Transition(sourceClass, destinationClass, null, new CurrentStackPushAction());
     }
@@ -38,7 +46,9 @@ public class Transition {
     }
 
     public boolean isAccessibleFrom(State state) {
-        return state.getClass().equals(destinationClass);
+        boolean sameClass = state.getClass().equals(destinationClass);
+        boolean anyDestination = destinationClass == null;
+        return sameClass || anyDestination;
     }
 
     public Action getAction() {

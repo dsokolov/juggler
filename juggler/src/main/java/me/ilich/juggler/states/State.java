@@ -1,14 +1,15 @@
 package me.ilich.juggler.states;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import me.ilich.juggler.Event;
+import me.ilich.juggler.Grid;
 import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.Transition;
 
@@ -45,7 +46,9 @@ public abstract class State<P extends State.Params> {
         return result;
     }
 
-    public abstract void process(JugglerActivity activity);
+    public abstract void activate(JugglerActivity activity, State prevState);
+
+    public abstract void deactivate(JugglerActivity activity);
 
     public static class Params {
 

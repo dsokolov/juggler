@@ -15,6 +15,8 @@ import me.ilich.juggler.states.GridState;
 
 public class WizardOneState extends GridState<GridState.Params> {
 
+    private Fragment.SavedState savedState = null;
+
     public WizardOneState() {
         super(Grid.contentOnly(), null);
     }
@@ -51,4 +53,5 @@ public class WizardOneState extends GridState<GridState.Params> {
         }
         return f;
     }
+
 }

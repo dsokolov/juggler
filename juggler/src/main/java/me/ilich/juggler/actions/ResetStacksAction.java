@@ -7,10 +7,10 @@ import me.ilich.juggler.states.State;
 public class ResetStacksAction extends StackPushAction {
 
     @Override
-    protected void onExecute(JugglerActivity activity, Juggler juggler, State state) {
+    protected void onExecute(JugglerActivity activity, Juggler juggler, State state, State oldState) {
         juggler.getStacks().clear();
         juggler.getStacks().pushToCurrentStack(state);
-        state.process(activity);
+        state.activate(activity, oldState);
     }
 
 }
