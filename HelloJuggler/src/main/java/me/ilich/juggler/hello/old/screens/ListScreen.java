@@ -12,7 +12,7 @@ import me.ilich.juggler.old.fragments.toolbar.JugglerToolbar;
 import me.ilich.juggler.hello.old.gui.ListFragment;
 import me.ilich.juggler.hello.old.gui.StandardToolbarFragment;
 
-@JugglerLayout(me.ilich.juggler.R.layout.juggler_layout_toolbar)
+@JugglerLayout(me.ilich.juggler.R.layout.juggler_layout_content_below_toolbar)
 @JugglerToolbar(value = StandardToolbarFragment.class, options = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE)
 @JugglerContent(ListFragment.class)
 public class ListScreen extends Screen {

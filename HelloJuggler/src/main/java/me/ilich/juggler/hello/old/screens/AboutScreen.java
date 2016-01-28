@@ -11,7 +11,7 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.old.gui.AboutFragment;
 import me.ilich.juggler.hello.old.gui.StandardToolbarFragment;
 
-@JugglerLayout(R.layout.juggler_layout_toolbar)
+@JugglerLayout(R.layout.juggler_layout_content_below_toolbar)
 @JugglerToolbar(value = StandardToolbarFragment.class, options = ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE)
 @JugglerContent(AboutFragment.class)
 public class AboutScreen extends Screen {

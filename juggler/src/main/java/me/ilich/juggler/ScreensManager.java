@@ -15,7 +15,7 @@ import me.ilich.juggler.old.fragments.Juggler_;
 import me.ilich.juggler.old.fragments.Stacks_;
 import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
 
 public abstract class ScreensManager {
 
@@ -35,14 +35,14 @@ public abstract class ScreensManager {
     @Nullable
     private Screen.Instance currentScreenInstance = null;
     @Nullable
-    private JugglerToolbarFragment toolbarFragment = null;
+    private JugglerToolbarFragment_ toolbarFragment = null;
     @Nullable
     private JugglerContentFragment_ contentFragment = null;
     @Nullable
     private JugglerNavigationFragment navigationFragment = null;
 
     @Nullable
-    public JugglerToolbarFragment getToolbarFragment() {
+    public JugglerToolbarFragment_ getToolbarFragment() {
         return toolbarFragment;
     }
 
@@ -158,8 +158,8 @@ public abstract class ScreensManager {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (juggler.hasToolbarContainer()) {
-            JugglerToolbarFragment currentToolbarFragment = (JugglerToolbarFragment) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
-            JugglerToolbarFragment newToolbarFragment = bundle.getToolbarFragment();
+            JugglerToolbarFragment_ currentToolbarFragment = (JugglerToolbarFragment_) fragmentManager.findFragmentByTag(TAG_TOOLBAR);
+            JugglerToolbarFragment_ newToolbarFragment = bundle.getToolbarFragment();
             if (newToolbarFragment == null) {
                 if (currentToolbarFragment != null) {
                     transaction.remove(currentToolbarFragment);
@@ -238,13 +238,13 @@ public abstract class ScreensManager {
         contentFragment = null;
     }
 
-    public void onToolbarAttached(JugglerToolbarFragment fragment) {
+    public void onToolbarAttached(JugglerToolbarFragment_ fragment) {
         Log.v("Sokolov", "toolbar attached " + fragment);
         toolbarFragment = fragment;
         initNavigationWithToolbar();
     }
 
-    public void onToolbarDetached(JugglerToolbarFragment fragment) {
+    public void onToolbarDetached(JugglerToolbarFragment_ fragment) {
         Log.v("Sokolov", "toolbar detached " + fragment);
         toolbarFragment = null;
     }

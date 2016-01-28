@@ -1,4 +1,4 @@
-package me.ilich.juggler.hello.old.gui;
+package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.old.fragments.JugglerNewInstance;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
+import me.ilich.juggler.JugglerFragment;
+import me.ilich.juggler.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 
-public class StandardToolbarFragment extends JugglerToolbarFragment_ {
+public class StandardToolbarFragment extends JugglerToolbarFragment {
 
-    @JugglerNewInstance
     public static StandardToolbarFragment create() {
         return new StandardToolbarFragment();
     }

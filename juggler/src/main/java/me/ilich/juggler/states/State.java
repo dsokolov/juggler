@@ -1,7 +1,9 @@
 package me.ilich.juggler.states;
 
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.StringRes;
+import android.text.TextUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import me.ilich.juggler.Event;
-import me.ilich.juggler.Grid;
 import me.ilich.juggler.JugglerActivity;
 import me.ilich.juggler.Transition;
 
@@ -46,9 +47,37 @@ public abstract class State<P extends State.Params> {
         return result;
     }
 
-    public abstract void activate(JugglerActivity activity, State prevState);
+    public String getTitle() {
+        return null;
+    }
 
-    public abstract void deactivate(JugglerActivity activity);
+    @StringRes
+    public int getTitleRes() {
+        return 0;
+    }
+
+    @CallSuper
+    public void activate(JugglerActivity activity, State prevState) {
+        if (prevState != null) {
+            prevState.deactivate(activity);
+        }
+        String title = getTitle();
+        if (TextUtils.isEmpty(title)) {
+            int titleRes = getTitleRes();
+            if (titleRes == 0) {
+                activity.setTitle(null);
+            } else {
+                activity.setTitle(titleRes);
+            }
+        } else {
+            activity.setTitle(title);
+        }
+    }
+
+    @CallSuper
+    public void deactivate(JugglerActivity activity) {
+
+    }
 
     public static class Params {
 

@@ -8,27 +8,27 @@ import android.support.v4.app.FragmentTransaction;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.ilich.juggler.Grid;
 import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.grid.Cell;
+import me.ilich.juggler.grid.CellType;
+import me.ilich.juggler.grid.Grid;
 
 public abstract class GridState<P extends State.Params> extends State<P> {
 
-    private final Map<Grid.Cell.TYPE, Fragment.SavedState> savedStateMap = new HashMap<>();
-    private final Grid grid;
+    private final Map<CellType, Fragment.SavedState> savedStateMap = new HashMap<>();
+    private final Grid<Cell<CellType>> grid;
 
-    public GridState(Grid grid, @Nullable P params) {
+    public GridState(Grid<Cell<CellType>> grid, @Nullable P params) {
         super(params);
         this.grid = grid;
     }
 
     @Override
     public void activate(JugglerActivity activity, State prevState) {
-        if (prevState != null) {
-            prevState.deactivate(activity);
-        }
+        super.activate(activity, prevState);
         activity.setContentView(grid.getLayoutId());
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-        for (Grid.Cell cell : grid.getCells()) {
+        for (Cell cell : grid.getCells()) {
             final int containerId = cell.getContainerId();
             Fragment oldFragment = activity.getSupportFragmentManager().findFragmentById(containerId);
             Fragment newFragment = convertCell(cell, oldFragment, getParams());
@@ -45,8 +45,9 @@ public abstract class GridState<P extends State.Params> extends State<P> {
 
     @Override
     public void deactivate(JugglerActivity activity) {
+        super.deactivate(activity);
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        for (Grid.Cell cell : grid.getCells()) {
+        for (Cell cell : grid.getCells()) {
             final int containerId = cell.getContainerId();
             Fragment fragment = fragmentManager.findFragmentById(containerId);
             Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(fragment);
@@ -55,6 +56,6 @@ public abstract class GridState<P extends State.Params> extends State<P> {
     }
 
     @Nullable
-    protected abstract Fragment convertCell(Grid.Cell cell, @Nullable Fragment fragment, @Nullable P params);
+    protected abstract Fragment convertCell(Cell cell, @Nullable Fragment fragment, @Nullable P params);
 
 }

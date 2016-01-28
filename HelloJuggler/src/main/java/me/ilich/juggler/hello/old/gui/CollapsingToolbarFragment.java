@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.ilich.juggler.old.fragments.JugglerNewInstance;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
 import me.ilich.juggler.hello.R;
 
-public class CollapsingToolbarFragment extends JugglerToolbarFragment {
+public class CollapsingToolbarFragment extends JugglerToolbarFragment_ {
 
     @JugglerNewInstance
     public static CollapsingToolbarFragment create() {

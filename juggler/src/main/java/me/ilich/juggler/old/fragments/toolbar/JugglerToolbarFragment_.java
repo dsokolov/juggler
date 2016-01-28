@@ -11,7 +11,8 @@ import android.view.View;
 import me.ilich.juggler.old.fragments.JugglerActivity_;
 import me.ilich.juggler.old.fragments.JugglerFragment_;
 
-public abstract class JugglerToolbarFragment extends JugglerFragment_ {
+@Deprecated
+public abstract class JugglerToolbarFragment_ extends JugglerFragment_ {
 
     private Toolbar toolbar;
     @ActionBar.DisplayOptions

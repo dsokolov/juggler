@@ -6,7 +6,7 @@ import me.ilich.juggler.old.fragments.JugglerLayout;
 import me.ilich.juggler.old.fragments.content.JugglerContent;
 import me.ilich.juggler.hello.old.gui.WizardTwoFragment;
 
-@JugglerLayout(me.ilich.juggler.R.layout.juggler_layout_toolbar)
+@JugglerLayout(me.ilich.juggler.R.layout.juggler_layout_content_below_toolbar)
 @JugglerContent(WizardTwoFragment.class)
 public class WizardTwoScreen extends Screen {
 

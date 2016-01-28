@@ -11,7 +11,7 @@ import me.ilich.juggler.old.fragments.Navigator_;
 import me.ilich.juggler.old.fragments.Transition_;
 import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
 
 public class Screen {
 
@@ -58,7 +58,7 @@ public class Screen {
         class Bundle {
 
             @Nullable
-            private final JugglerToolbarFragment toolbarFragment;
+            private final JugglerToolbarFragment_ toolbarFragment;
             @Nullable
             private final JugglerNavigationFragment navigationFragment;
             @Nullable
@@ -66,7 +66,7 @@ public class Screen {
             @LayoutRes
             private final int layoutId;
 
-            public Bundle(@Nullable JugglerToolbarFragment toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment_ contentFragment, int layoutId) {
+            public Bundle(@Nullable JugglerToolbarFragment_ toolbarFragment, @Nullable JugglerNavigationFragment navigationFragment, @Nullable JugglerContentFragment_ contentFragment, int layoutId) {
                 this.toolbarFragment = toolbarFragment;
                 this.navigationFragment = navigationFragment;
                 this.contentFragment = contentFragment;
@@ -74,7 +74,7 @@ public class Screen {
             }
 
             @Nullable
-            public JugglerToolbarFragment getToolbarFragment() {
+            public JugglerToolbarFragment_ getToolbarFragment() {
                 return toolbarFragment;
             }
 

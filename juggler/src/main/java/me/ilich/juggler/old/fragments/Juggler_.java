@@ -17,7 +17,7 @@ import me.ilich.juggler.Screen;
 import me.ilich.juggler.ScreensManager;
 import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
 
 @Deprecated
 public class Juggler_ {
@@ -103,8 +103,8 @@ public class Juggler_ {
     }
 
     public void onAttach(JugglerFragment_ fragment) {
-        if (fragment instanceof JugglerToolbarFragment) {
-            screensManager.onToolbarAttached((JugglerToolbarFragment) fragment);
+        if (fragment instanceof JugglerToolbarFragment_) {
+            screensManager.onToolbarAttached((JugglerToolbarFragment_) fragment);
         } else if (fragment instanceof JugglerNavigationFragment) {
             screensManager.onNavigationAttached((JugglerNavigationFragment) fragment);
         } else if (fragment instanceof JugglerContentFragment_) {
@@ -113,8 +113,8 @@ public class Juggler_ {
     }
 
     public void onDetach(JugglerFragment_ fragment) {
-        if (fragment instanceof JugglerToolbarFragment) {
-            screensManager.onToolbarDetached((JugglerToolbarFragment) fragment);
+        if (fragment instanceof JugglerToolbarFragment_) {
+            screensManager.onToolbarDetached((JugglerToolbarFragment_) fragment);
         } else if (fragment instanceof JugglerNavigationFragment) {
             screensManager.onNavigationDetached((JugglerNavigationFragment) fragment);
         } else if (fragment instanceof JugglerContentFragment_) {

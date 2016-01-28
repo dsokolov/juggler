@@ -3,7 +3,8 @@ package me.ilich.juggler.hello.states;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import me.ilich.juggler.Grid;
+import me.ilich.juggler.grid.Cell;
+import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.hello.gui.ItemDetailsFragment;
 import me.ilich.juggler.states.GridState;
 
@@ -15,7 +16,7 @@ public class ItemDetailsState extends GridState<ItemDetailsState.Params> {
 
     @Override
     @Nullable
-    protected Fragment convertCell(Grid.Cell cell, Fragment fragment, Params params) {
+    protected Fragment convertCell(Cell cell, Fragment fragment, Params params) {
         final Fragment f;
         switch (cell.getType()) {
             case CONTENT:

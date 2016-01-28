@@ -15,12 +15,12 @@ import me.ilich.juggler.old.fragments.content.JugglerContentFragment_;
 import me.ilich.juggler.old.fragments.navigation.JugglerNavigation;
 import me.ilich.juggler.old.fragments.navigation.JugglerNavigationFragment;
 import me.ilich.juggler.old.fragments.toolbar.JugglerToolbar;
-import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment;
+import me.ilich.juggler.old.fragments.toolbar.JugglerToolbarFragment_;
 
 public class ReflectionUtils {
 
     public static Screen.FragmentFactory.Bundle createFragmentBundle(Screen.Params params, Class<? extends Screen> screenClass) {
-        final JugglerToolbarFragment toolbarFragment = getToolbarFragment(params, screenClass);
+        final JugglerToolbarFragment_ toolbarFragment = getToolbarFragment(params, screenClass);
         final JugglerNavigationFragment navigationFragment = getNavigationFragment(params, screenClass);
         final JugglerContentFragment_ contentFragment = getContentFragment(params, screenClass);
         final int layoutId;
@@ -97,14 +97,14 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    private static JugglerToolbarFragment getToolbarFragment(Screen.Params params, Class<? extends Screen> screenClass) {
-        final JugglerToolbarFragment toolbarFragment;
+    private static JugglerToolbarFragment_ getToolbarFragment(Screen.Params params, Class<? extends Screen> screenClass) {
+        final JugglerToolbarFragment_ toolbarFragment;
         if (screenClass.isAnnotationPresent(JugglerToolbar.class)) {
             JugglerToolbar annotation = screenClass.getAnnotation(JugglerToolbar.class);
-            Class<? extends JugglerToolbarFragment> fragmentClass = annotation.value();
+            Class<? extends JugglerToolbarFragment_> fragmentClass = annotation.value();
             @ActionBar.DisplayOptions int options = annotation.options();
             @DrawableRes int navigationIcon = annotation.navigationIcon();
-            JugglerToolbarFragment fragment = createFragment(params, fragmentClass);
+            JugglerToolbarFragment_ fragment = createFragment(params, fragmentClass);
             if (fragment != null) {
                 fragment.setOptions(options);
                 fragment.setNavigationIcon(navigationIcon);

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface JugglerToolbar {
 
-    Class<? extends JugglerToolbarFragment> value();
+    Class<? extends JugglerToolbarFragment_> value();
 
     @ActionBar.DisplayOptions int options() default ActionBar.DISPLAY_SHOW_TITLE;
 
