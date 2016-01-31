@@ -12,12 +12,13 @@ import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.hello.gui.MainFragment;
+import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.states.GridState;
 
 public class MainState extends GridState<GridState.Params> {
 
     public MainState() {
-        super(Grid.contentOnly(), null);
+        super(Grid.contentBelowToolbar(), null);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class MainState extends GridState<GridState.Params> {
         switch (cell.getType()) {
             case CONTENT:
                 f = MainFragment.newInstance();
+                break;
+            case TOOLBAR:
+                f = StandardToolbarFragment.create();
                 break;
             default:
                 f = null;

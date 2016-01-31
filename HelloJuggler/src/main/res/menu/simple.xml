@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/about"
-        android:icon="@android:drawable/ic_menu_crop"
-        android:title="About"
+        android:id="@+id/item1"
+        android:title="item 1"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item2"
+        android:title="item 2"
         app:showAsAction="never" />
 </menu>

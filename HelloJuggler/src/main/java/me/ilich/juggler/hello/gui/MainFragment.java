@@ -82,6 +82,7 @@ public class MainFragment extends JugglerFragment {
         switch (item.getItemId()) {
             case R.id.about:
                 Toast.makeText(getContext(), "about", Toast.LENGTH_SHORT).show();
+                navigateTo().changeState(new AboutState());
                 b = true;
                 break;
             default:
