@@ -16,10 +16,10 @@ import me.ilich.juggler.grid.Grid;
 public abstract class GridState<P extends State.Params> extends State<P> {
 
     private final Map<CellType, Fragment.SavedState> savedStateMap = new HashMap<>();
-    private final Grid<Cell<CellType>> grid;
+    private final Grid grid;
 
-    public GridState(Grid<Cell<CellType>> grid, @Nullable P params) {
-        super(params);
+    public GridState(Grid grid, @Nullable P params) {
+        super(params, grid);
         this.grid = grid;
     }
 

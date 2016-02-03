@@ -2,13 +2,13 @@ package me.ilich.juggler.grid;
 
 import android.support.annotation.IdRes;
 
-public class Cell<T extends CellType> {
+public class Cell {
 
     @IdRes
     private final int containerId;
-    private final T type;
+    private final CellType type;
 
-    public Cell(int containerId, T type) {
+    public Cell(int containerId, CellType type) {
         this.containerId = containerId;
         this.type = type;
     }
@@ -18,7 +18,7 @@ public class Cell<T extends CellType> {
         return containerId;
     }
 
-    public T getType() {
+    public CellType getType() {
         return type;
     }
 

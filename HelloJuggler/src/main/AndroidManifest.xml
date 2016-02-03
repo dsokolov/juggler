@@ -1,5 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.ilich.juggler.hello">
+<manifest
+    package="me.ilich.juggler.hello"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:name=".HelloJugglerApplication"
@@ -17,16 +18,17 @@
                 </activity>-->
 
         <activity android:name=".gui.HelloActivity">
-            <!--                    <intent-filter>
-                                    <action android:name="android.intent.action.MAIN"/>
-                                    <category android:name="android.intent.category.LAUNCHER"/>
-                                </intent-filter>-->
+            <!--            <intent-filter>
+                            <action android:name="android.intent.action.MAIN"/>
+                            <category android:name="android.intent.category.LAUNCHER"/>
+                        </intent-filter>-->
         </activity>
 
-        <activity android:name=".gui.SimpleFragmentsActivity">
+        <activity android:name=".simple.SimpleFragmentsActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 

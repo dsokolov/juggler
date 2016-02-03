@@ -8,22 +8,21 @@ import java.util.List;
 
 import me.ilich.juggler.R;
 
-public class Grid<C extends Cell> {
+public class Grid {
 
-    public static Grid<Cell<CellType>> contentOnly() {
-        return new Grid<>(R.layout.juggler_layout_content_only, new Cell<>(R.id.container_content, CellType.CONTENT));
+    public static Grid contentOnly() {
+        return new Grid(R.layout.juggler_layout_content_only, new Cell(R.id.container_content, CellType.CONTENT));
     }
 
-    public static Grid<Cell<CellType>> contentBelowToolbar() {
-        return new Grid<>(R.layout.juggler_layout_content_below_toolbar, new Cell<>(R.id.container_content, CellType.CONTENT), new Cell<>(R.id.container_toolbar, CellType.TOOLBAR));
+    public static Grid contentBelowToolbar() {
+        return new Grid(R.layout.juggler_layout_content_below_toolbar, new Cell(R.id.container_content, CellType.CONTENT), new Cell(R.id.container_toolbar, CellType.TOOLBAR));
     }
 
     @LayoutRes
     private final int layoutId;
-    private List<C> cells = new ArrayList<>();
+    private List<Cell> cells = new ArrayList<>();
 
-    @SafeVarargs
-    private Grid(int layoutId, C... cells) {
+    private Grid(int layoutId, Cell... cells) {
         this.layoutId = layoutId;
         Collections.addAll(this.cells, cells);
     }
@@ -45,7 +44,7 @@ public class Grid<C extends Cell> {
         return layoutId;
     }
 
-    public List<C> getCells() {
+    public List<Cell> getCells() {
         return cells;
     }
 

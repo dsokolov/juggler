@@ -12,9 +12,12 @@ public class HelloActivity extends JugglerActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             navigateTo().changeState(new MainState());
-        } else {
+        }else{
             navigateTo().currentState();
         }
+/*        } else {
+            navigateTo().currentState();
+        }*/
     }
 
 }

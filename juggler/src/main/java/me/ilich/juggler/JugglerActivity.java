@@ -1,7 +1,6 @@
 package me.ilich.juggler;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class JugglerActivity extends AppCompatActivity {
@@ -32,7 +31,10 @@ public class JugglerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        juggler.backState();
+        boolean b = juggler.backState();
+        if (!b) {
+            finish();
+        }
     }
 
     @Override

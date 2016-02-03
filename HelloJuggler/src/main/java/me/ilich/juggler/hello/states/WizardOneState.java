@@ -9,19 +9,23 @@ import java.util.Collections;
 import java.util.List;
 
 import me.ilich.juggler.Event;
+import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
+import me.ilich.juggler.grid.CellType;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.WizardOneFragment;
 import me.ilich.juggler.states.GridState;
+import me.ilich.juggler.states.State;
 
 public class WizardOneState extends GridState<GridState.Params> {
 
     private Fragment.SavedState savedState = null;
 
     public WizardOneState() {
-        super(Grid.contentOnly(), null);
+        //super(Grid.contentOnly(), null);
+        super(Grid.contentBelowToolbar(), null);
     }
 
     @Override
@@ -65,6 +69,25 @@ public class WizardOneState extends GridState<GridState.Params> {
     @Override
     public String getTitle() {
         return "Wizard One";
+    }
+
+    @Override
+    protected JugglerFragment onCreateFragment(CellType cellType, Params params) {
+        final JugglerFragment f;
+        switch (cellType) {
+            case CONTENT:
+                f = new WizardOneFragment();
+                break;
+            case TOOLBAR:
+                StandardToolbarFragment standardToolbarFragment = StandardToolbarFragment.create();
+                standardToolbarFragment.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+                f = standardToolbarFragment;
+                break;
+            default:
+                f = null;
+                break;
+        }
+        return f;
     }
 
 }

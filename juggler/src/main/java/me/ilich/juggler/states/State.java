@@ -12,25 +12,37 @@ import java.util.Map;
 
 import me.ilich.juggler.Event;
 import me.ilich.juggler.JugglerActivity;
+import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.Transition;
+import me.ilich.juggler.grid.CellType;
+import me.ilich.juggler.grid.Grid;
 
 public abstract class State<P extends State.Params> {
 
     @Nullable
     private final P params;
     private final Map<Event, List<Transition>> availableTransitions = new HashMap<>();
+    private Grid grid;
 
-    public State(@Nullable P params) {
+    public State(@Nullable P params, Grid grid) {
+        if (grid == null) {
+            throw new NullPointerException("grid");
+        }
         this.params = params;
         for (Event event : Event.values()) {
             List<Transition> transitions = createTransitionsForEvent(event);
             availableTransitions.put(event, transitions);
         }
+        this.grid = grid;
     }
 
     @Nullable
     protected final P getParams() {
         return params;
+    }
+
+    public final Grid getGrid() {
+        return grid;
     }
 
     protected List<Transition> createTransitionsForEvent(Event event) {
@@ -79,7 +91,23 @@ public abstract class State<P extends State.Params> {
 
     }
 
+    public JugglerFragment createFragment(CellType cellType) {
+        return onCreateFragment(cellType, params);
+    }
+
+    protected abstract JugglerFragment onCreateFragment(CellType cellType, P params);
+
+    @Override
+    public String toString() {
+        return getClass().getName() + " (" + params + ")";
+    }
+
     public static class Params {
+
+        @Override
+        public String toString() {
+            return getClass().getName();
+        }
 
     }
 

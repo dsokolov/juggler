@@ -1,12 +1,12 @@
 package me.ilich.juggler;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.ilich.juggler.actions.Action;
-import me.ilich.juggler.actions.ResetStacksAction;
 import me.ilich.juggler.states.State;
 
 public class Juggler implements Navigable {
@@ -24,6 +24,9 @@ public class Juggler implements Navigable {
         return instance;
     }
 
+    private StateChanger stateChanger = new StateChanger();
+    @Nullable
+    private State currentState = null;
     private List<JugglerActivity> activities = new ArrayList<>();
     private Stacks stacks = new Stacks();
 
@@ -32,8 +35,11 @@ public class Juggler implements Navigable {
     }
 
     @Override
-    public void backState() {
-        State<?> currentState = stacks.peekCurrentStack();
+    public boolean backState() {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        boolean b = stateChanger.back(activity);
+        return b;
+/*        State<?> currentState = stacks.peekCurrentStack();
         List<Transition> transitions = currentState.getTransitions(Event.BACK);
         if (transitions.isEmpty()) {
             throw new RuntimeException("Back state for " + currentState + " is not registred");
@@ -41,7 +47,7 @@ public class Juggler implements Navigable {
         Transition transition = transitions.get(0);
         State state = transition.getDestinationInstance();
         Action action = transition.getAction();
-        doChangeState(action, state, currentState);
+        doChangeState(action, state, currentState);*/
     }
 
     @Override
@@ -60,7 +66,10 @@ public class Juggler implements Navigable {
 
     @Override
     public void changeState(State state) {
-        State<?> currentState = stacks.peekCurrentStack();
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        stateChanger.change(currentState, state, activity);
+        currentState = state;
+/*        State<?> currentState = stacks.peekCurrentStack();
         final Action action;
         if (currentState == null) {
             action = new ResetStacksAction();
@@ -81,14 +90,18 @@ public class Juggler implements Navigable {
             }
             action = transition.getAction();
         }
-        doChangeState(action, state, currentState);
+        doChangeState(action, state, currentState);*/
     }
 
     @Override
     public void currentState() {
+        if (currentState == null) {
+            throw new NullPointerException("currentState");
+        }
         JugglerActivity activity = activities.get(activities.size() - 1);
-        State currentState = stacks.peekCurrentStack();
-        currentState.activate(activity, currentState);
+        stateChanger.change(null, currentState, activity);
+        /*State currentState = stacks.peekCurrentStack();
+        currentState.activate(activity, currentState);*/
     }
 
     private void doChangeState(Action action, State state, State oldState) {

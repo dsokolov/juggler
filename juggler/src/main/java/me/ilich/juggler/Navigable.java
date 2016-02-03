@@ -4,7 +4,7 @@ import me.ilich.juggler.states.State;
 
 public interface Navigable {
 
-    void backState();
+    boolean backState();
 
     boolean upState();
 
