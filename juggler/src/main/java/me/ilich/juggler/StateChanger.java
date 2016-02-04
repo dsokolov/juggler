@@ -21,7 +21,6 @@ public class StateChanger {
 
     private Stack<Item> items = new Stack<>();
 
-
     public State transaction(String transactionName, JugglerActivity activity) {
         Item oldItem = items.peek();
         Item newItem = null;
@@ -49,6 +48,7 @@ public class StateChanger {
             }
             activity.getSupportFragmentManager().popBackStack(newItem.transactionName, 0);
         }
+        processStateChange(activity, oldItem.state, newState);
         return newState;
     }
 
@@ -107,6 +107,7 @@ public class StateChanger {
         }
         fragmentTransaction.commit();
         items.push(item);
+        processStateChange(activity, oldState, newState);
         return newState;
     }
 
@@ -129,13 +130,14 @@ public class StateChanger {
             state = null;
         }
         items.pop();
+        processStateChange(activity, current.state, state);
         return state;
     }
 
     @Nullable
     public State up(JugglerActivity activity) {
         final State state;
-        Item current = items.get(items.size() - 1);
+        Item current = items.peek();
         if (items.size() > 1) {
             Item prev = items.get(items.size() - 2);
             int currentLayoutId = current.layoutId;
@@ -151,13 +153,24 @@ public class StateChanger {
             state = null;
         }
         items.pop();
+        processStateChange(activity, current.state, state);
         return state;
     }
 
     public State restore(JugglerActivity activity) {
         Item item = items.peek();
         activity.setContentView(item.layoutId);
+        processStateChange(activity, null, item.state);
         return item.state;
+    }
+
+    private void processStateChange(JugglerActivity activity, @Nullable State oldState, @Nullable State newState) {
+        if (oldState != null) {
+            oldState.onDeactivate(activity);
+        }
+        if (newState != null) {
+            newState.onActivate(activity);
+        }
     }
 
     private static class Item {

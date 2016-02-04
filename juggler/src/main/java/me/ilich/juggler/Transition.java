@@ -26,65 +26,6 @@ public abstract class Transition {
         return new Transaction(transition);
     }
 
-/*    public static Transition backCurrentStack(Class<? extends State> sourceClass) {
-        return new Transition(sourceClass, null, null, new CurrentStackPopAction());
-    }
-
-    public static Transition backPrevStack(Class<? extends State> sourceClass) {
-        return new Transition(sourceClass, null, null, new NewStackPopAction());
-    }
-
-    public static Transition backCurrentStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
-        return new Transition(sourceClass, destinationClass, null, new CurrentStackPopAction());
-    }
-
-    public static Transition backPrevStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
-        return new Transition(sourceClass, destinationClass, null, new NewStackPopAction());
-    }
-
-    public static Transition addCurrentStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
-        return new Transition(sourceClass, destinationClass, null, new CurrentStackPushAction());
-    }
-
-    public static Transition addNewStack(Class<? extends State> sourceClass, Class<? extends State> destinationClass) {
-        return new Transition(sourceClass, destinationClass, null, new NewStackPushAction());
-    }*/
-
-/*    private final Class<? extends State> sourceClass;
-    private final Class<? extends State> destinationClass;
-    private final State destinationInstance;
-    private final Action action;
-
-    private Transition(Class<? extends State> sourceClass, Class<? extends State> destinationClass, State destinationInstance, Action action) {
-        this.sourceClass = sourceClass;
-        this.destinationClass = destinationClass;
-        this.destinationInstance = destinationInstance;
-        this.action = action;
-    }
-
-    public boolean isAccessibleFrom(State state) {
-        boolean sameClass = state.getClass().equals(destinationClass);
-        boolean anyDestination = destinationClass == null;
-        return sameClass || anyDestination;
-    }
-
-    public Action getAction() {
-        return action;
-    }
-
-    public Class<? extends State> getDestinationClass() {
-        return destinationClass;
-    }
-
-    public State getDestinationInstance() {
-        return destinationInstance;
-    }
-
-    @Override
-    public String toString() {
-        return sourceClass.getName() + " -> " + destinationClass.getName() + " ( " + action.toString() + " )";
-    }*/
-
     public final State execute(JugglerActivity activity, StateChanger stateChanger) {
         return onExecute(activity, stateChanger);
     }

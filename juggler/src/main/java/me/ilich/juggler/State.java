@@ -69,10 +69,7 @@ public abstract class State<P extends State.Params> {
     }
 
     @CallSuper
-    public void activate(JugglerActivity activity, State prevState) {
-        if (prevState != null) {
-            prevState.deactivate(activity);
-        }
+    public void onActivate(JugglerActivity activity) {
         String title = getTitle();
         if (TextUtils.isEmpty(title)) {
             int titleRes = getTitleRes();
@@ -87,7 +84,7 @@ public abstract class State<P extends State.Params> {
     }
 
     @CallSuper
-    public void deactivate(JugglerActivity activity) {
+    public void onDeactivate(JugglerActivity activity) {
 
     }
 
