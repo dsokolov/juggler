@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.states.MainState;
 import me.ilich.juggler.hello.states.WizardTwoState;
-import me.ilich.juggler.old.fragments.JugglerNewInstance;
 
 public class WizardThreeFragment extends JugglerFragment {
 

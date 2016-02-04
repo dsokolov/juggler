@@ -10,14 +10,8 @@ import me.ilich.juggler.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.WizardOneState;
 import me.ilich.juggler.hello.states.WizardThreeState;
-import me.ilich.juggler.old.fragments.JugglerNewInstance;
 
 public class WizardTwoFragment extends JugglerFragment {
-
-    @JugglerNewInstance
-    public static WizardTwoFragment newInstance() {
-        return new WizardTwoFragment();
-    }
 
     @Nullable
     @Override
