@@ -24,7 +24,7 @@ public class WizardOneFragment extends JugglerFragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().changeState(new WizardTwoState());
+                navigateTo().linearState(new WizardTwoState());
             }
         });
     }

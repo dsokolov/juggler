@@ -1,13 +1,9 @@
 package me.ilich.juggler;
 
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.ilich.juggler.actions.Action;
-import me.ilich.juggler.states.State;
 
 public class Juggler implements Navigable {
 
@@ -36,77 +32,75 @@ public class Juggler implements Navigable {
 
     @Override
     public boolean backState() {
-        JugglerActivity activity = activities.get(activities.size() - 1);
-        boolean b = stateChanger.back(activity);
-        return b;
-/*        State<?> currentState = stacks.peekCurrentStack();
-        List<Transition> transitions = currentState.getTransitions(Event.BACK);
-        if (transitions.isEmpty()) {
-            throw new RuntimeException("Back state for " + currentState + " is not registred");
+        final boolean b;
+        if (currentState == null) {
+            b = false;
+        } else {
+            Transition transition = currentState.getBackTransition();
+            if (transition == null) {
+                b = false;
+            } else {
+                JugglerActivity activity = activities.get(activities.size() - 1);
+                currentState = transition.execute(activity, stateChanger);
+                b = currentState != null;
+            }
         }
-        Transition transition = transitions.get(0);
-        State state = transition.getDestinationInstance();
-        Action action = transition.getAction();
-        doChangeState(action, state, currentState);*/
+        return b;
     }
 
     @Override
     public boolean upState() {
-        State<?> currentState = stacks.peekCurrentStack();
-        List<Transition> transitions = currentState.getTransitions(Event.UP);
-        if (transitions.isEmpty()) {
-            throw new RuntimeException("Up state for " + currentState + " is not registred");
-        }
-        Transition transition = transitions.get(0);
-        State state = transition.getDestinationInstance();
-        Action action = transition.getAction();
-        doChangeState(action, state, currentState);
-        return true;
-    }
-
-    @Override
-    public void changeState(State state) {
-        JugglerActivity activity = activities.get(activities.size() - 1);
-        stateChanger.change(currentState, state, activity);
-        currentState = state;
-/*        State<?> currentState = stacks.peekCurrentStack();
-        final Action action;
+        final boolean b;
         if (currentState == null) {
-            action = new ResetStacksAction();
+            b = false;
         } else {
-            List<Transition> transitions = currentState.getTransitions(Event.OTHER);
-            if (transitions.size() == 0) {
-                throw new RuntimeException("No transition from " + currentState + " to " + state + " is not registered");
-            }
-            Transition transition = null;
-            for (Transition tr : transitions) {
-                if (tr.isAccessibleFrom(state)) {
-                    transition = tr;
-                    break;
-                }
-            }
+            Transition transition = currentState.getUpTransition();
             if (transition == null) {
-                throw new RuntimeException("No transition from " + currentState + " to " + state + " is not registered");
+                b = false;
+            } else {
+                JugglerActivity activity = activities.get(activities.size() - 1);
+                currentState = transition.execute(activity, stateChanger);
+                b = currentState != null;
             }
-            action = transition.getAction();
         }
-        doChangeState(action, state, currentState);*/
+        return b;
     }
 
     @Override
-    public void currentState() {
-        if (currentState == null) {
-            throw new NullPointerException("currentState");
-        }
+    public void linearState(State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        stateChanger.change(null, currentState, activity);
-        /*State currentState = stacks.peekCurrentStack();
-        currentState.activate(activity, currentState);*/
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state);
+        } else {
+            transition = Transition.addLinear(state);
+        }
+        currentState = transition.execute(activity, stateChanger);
     }
 
-    private void doChangeState(Action action, State state, State oldState) {
+    @Override
+    public void deeperState(State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        action.execute(activity, this, state, oldState);
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state);
+        } else {
+            transition = Transition.addDeeper(state);
+        }
+        currentState = transition.execute(activity, stateChanger);
+    }
+
+    @Override
+    public void clearState(State state) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition = Transition.clearAdd(state);
+        currentState = transition.execute(activity, stateChanger);
+    }
+
+    @Override
+    public void restore() {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        currentState = stateChanger.restore(activity);
     }
 
     void registerActivity(JugglerActivity activity) {
@@ -119,10 +113,6 @@ public class Juggler implements Navigable {
 
     public Stacks getStacks() {
         return stacks;
-    }
-
-    public void onSaveInstanceState(Bundle outState) {
-
     }
 
 }

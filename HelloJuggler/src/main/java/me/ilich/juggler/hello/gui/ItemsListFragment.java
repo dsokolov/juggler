@@ -71,7 +71,7 @@ public class ItemsListFragment extends JugglerFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateTo().changeState(new ItemDetailsState(item));
+                    navigateTo().linearState(new ItemDetailsState(item));
                 }
             });
         }

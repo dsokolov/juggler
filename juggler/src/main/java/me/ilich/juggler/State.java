@@ -1,4 +1,4 @@
-package me.ilich.juggler.states;
+package me.ilich.juggler;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -10,10 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.ilich.juggler.Event;
-import me.ilich.juggler.JugglerActivity;
-import me.ilich.juggler.JugglerFragment;
-import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.CellType;
 import me.ilich.juggler.grid.Grid;
 
@@ -23,8 +19,12 @@ public abstract class State<P extends State.Params> {
     private final P params;
     private final Map<Event, List<Transition>> availableTransitions = new HashMap<>();
     private Grid grid;
+    @Nullable
+    private Transition backTransition;
+    @Nullable
+    private Transition upTransition;
 
-    public State(@Nullable P params, Grid grid) {
+    public State(Grid grid, @Nullable P params) {
         if (grid == null) {
             throw new NullPointerException("grid");
         }
@@ -100,6 +100,24 @@ public abstract class State<P extends State.Params> {
     @Override
     public String toString() {
         return getClass().getName() + " (" + params + ")";
+    }
+
+    @Nullable
+    public final Transition getBackTransition() {
+        return backTransition;
+    }
+
+    public void setBackTransition(@Nullable Transition transition) {
+        backTransition = transition;
+    }
+
+    @Nullable
+    public Transition getUpTransition() {
+        return upTransition;
+    }
+
+    public void setUpTransition(@Nullable Transition transition) {
+        upTransition = transition;
     }
 
     public static class Params {

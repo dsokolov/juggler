@@ -2,37 +2,103 @@ package me.ilich.juggler;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.CellType;
-import me.ilich.juggler.states.State;
 
 public class StateChanger {
 
-    private List<Item> items = new ArrayList<>();
+    public enum Mode {
+        ADD_CLEAR,
+        ADD_LINEAR,
+        ADD_DEEPER
+    }
 
-    public void change(@Nullable State oldState, State newState, JugglerActivity activity) {
-        int newLayoutId = newState.getGrid().getLayoutId();
-        if (oldState == null) {
-            items.clear();
-            activity.setContentView(newLayoutId);
-        } else {
-            int oldLayoutId = oldState.getGrid().getLayoutId();
-            boolean sameLayout = oldLayoutId == newLayoutId;
-            if (!sameLayout) {
-                activity.setContentView(newLayoutId);
+    private Stack<Item> items = new Stack<>();
+
+
+    public State transaction(String transactionName, JugglerActivity activity) {
+        Item oldItem = items.peek();
+        Item newItem = null;
+        boolean work = true;
+        while (work) {
+            if (items.isEmpty()) {
+                work = false;
+            } else {
+                Item item = items.peek();
+                if (item.transactionName.equals(transactionName)) {
+                    newItem = item;
+                    work = false;
+                } else {
+                    items.pop();
+                }
             }
         }
+        final State newState;
+        if (newItem == null) {
+            newState = null;
+        } else {
+            newState = newItem.state;
+            if (oldItem.layoutId != newItem.layoutId) {
+                activity.setContentView(newItem.layoutId);
+            }
+            activity.getSupportFragmentManager().popBackStack(newItem.transactionName, 0);
+        }
+        return newState;
+    }
+
+    public State add(State newState, JugglerActivity activity, Mode mode) {
+        final Item oldItem;
+        final State oldState;
+        if (items.isEmpty()) {
+            oldItem = null;
+            oldState = null;
+        } else {
+            oldItem = items.peek();
+            oldState = oldItem.state;
+        }
+        int newLayoutId = newState.getGrid().getLayoutId();
+        final boolean sameLayout;
+        if (oldItem == null || mode == Mode.ADD_CLEAR) {
+            items.clear();
+            activity.setContentView(newLayoutId);
+            sameLayout = true;
+        } else {
+            int oldLayoutId = oldState.getGrid().getLayoutId();
+            sameLayout = oldLayoutId == newLayoutId;
+            switch (mode) {
+                case ADD_DEEPER:
+                    newState.setBackTransition(Transition.transaction(oldItem.transactionName));
+                    newState.setUpTransition(Transition.transaction(oldItem.transactionName));
+                    break;
+                case ADD_LINEAR:
+                    newState.setBackTransition(Transition.transaction(oldItem.transactionName));
+                    newState.setUpTransition(oldState.getUpTransition());
+                    break;
+            }
+
+        }
         String transactionName = oldState + " -> " + newState;
-        Item item = new Item(newLayoutId, transactionName);
+        Item item = new Item(newLayoutId, transactionName, newState);
+
+        if (!sameLayout) {
+            activity.setContentView(newLayoutId);
+        }
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(transactionName);
+        if (oldState != null & !sameLayout) {
+            for (Cell cell : oldState.getGrid().getCells()) {
+                int containerId = cell.getContainerId();
+                Fragment fragment = fragmentManager.findFragmentById(containerId);
+                fragmentTransaction.remove(fragment);
+            }
+        }
         for (Cell cell : newState.getGrid().getCells()) {
             int containerId = cell.getContainerId();
             CellType cellType = cell.getType();
@@ -40,13 +106,15 @@ public class StateChanger {
             fragmentTransaction.replace(containerId, fragment);
         }
         fragmentTransaction.commit();
-        items.add(item);
+        items.push(item);
+        return newState;
     }
 
-    public boolean back(JugglerActivity activity) {
-        final boolean b;
+    @Nullable
+    public State back(JugglerActivity activity) {
+        final State state;
+        Item current = items.get(items.size() - 1);
         if (items.size() > 1) {
-            Item current = items.get(items.size() - 1);
             Item prev = items.get(items.size() - 2);
             int currentLayoutId = current.layoutId;
             int prevLayoutId = prev.layoutId;
@@ -56,12 +124,40 @@ public class StateChanger {
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             String transactionName = prev.transactionName;
             fragmentManager.popBackStack(transactionName, 0);
-            items.remove(items.size() - 1);
-            b = true;
+            state = prev.state;
         } else {
-            b = false;
+            state = null;
         }
-        return b;
+        items.pop();
+        return state;
+    }
+
+    @Nullable
+    public State up(JugglerActivity activity) {
+        final State state;
+        Item current = items.get(items.size() - 1);
+        if (items.size() > 1) {
+            Item prev = items.get(items.size() - 2);
+            int currentLayoutId = current.layoutId;
+            int prevLayoutId = prev.layoutId;
+            if (currentLayoutId != prevLayoutId) {
+                activity.setContentView(prevLayoutId);
+            }
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            String transactionName = prev.transactionName;
+            fragmentManager.popBackStack(transactionName, 0);
+            state = prev.state;
+        } else {
+            state = null;
+        }
+        items.pop();
+        return state;
+    }
+
+    public State restore(JugglerActivity activity) {
+        Item item = items.peek();
+        activity.setContentView(item.layoutId);
+        return item.state;
     }
 
     private static class Item {
@@ -69,15 +165,17 @@ public class StateChanger {
         @LayoutRes
         private final int layoutId;
         private final String transactionName;
+        private final State state;
 
-        private Item(int layoutId, String transactionName) {
+        private Item(int layoutId, String transactionName, State state) {
             this.layoutId = layoutId;
             this.transactionName = transactionName;
+            this.state = state;
         }
 
         @Override
         public String toString() {
-            return transactionName + " " + layoutId;
+            return transactionName + " " + layoutId + " " + state;
         }
 
     }

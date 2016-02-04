@@ -4,8 +4,6 @@ import android.support.annotation.Nullable;
 
 import java.util.Stack;
 
-import me.ilich.juggler.states.State;
-
 public class Stacks {
 
     private Stack<Group> stateStacks = new Stack<>();

@@ -11,9 +11,9 @@ public class HelloActivity extends JugglerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            navigateTo().changeState(new MainState());
-        }else{
-            navigateTo().currentState();
+            navigateTo().clearState(new MainState());
+        } else {
+            navigateTo().restore();
         }
 /*        } else {
             navigateTo().currentState();

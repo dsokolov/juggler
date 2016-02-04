@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 public abstract class JugglerToolbarFragment extends JugglerFragment {
@@ -14,6 +15,7 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     private static final String STATE_OPTIONS = "state_options";
 
     private Toolbar toolbar;
+    @Nullable
     private ActionBar actionBar;
     private AppCompatActivity activity;
     @ActionBar.DisplayOptions
@@ -45,7 +47,11 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_OPTIONS, actionBar.getDisplayOptions());
+        if (actionBar != null) {
+            outState.putInt(STATE_OPTIONS, actionBar.getDisplayOptions());
+        } else {
+            Log.w("Sokolov", "null");
+        }
     }
 
     @IdRes

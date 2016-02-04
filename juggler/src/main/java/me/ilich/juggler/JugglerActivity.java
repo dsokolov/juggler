@@ -14,12 +14,6 @@ public class JugglerActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        juggler.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         juggler.unregisterActivity(this);
@@ -39,7 +33,11 @@ public class JugglerActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        return juggler.upState();
+        boolean b = juggler.upState();
+        if (!b) {
+            b = super.onSupportNavigateUp();
+        }
+        return b;
     }
 
 }

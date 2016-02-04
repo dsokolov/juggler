@@ -40,13 +40,13 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().changeState(new ItemsListState());
+                navigateTo().linearState(new ItemsListState());
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().changeState(new AboutState());
+                navigateTo().linearState(new AboutState());
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().changeState(new WizardOneState());
+                navigateTo().deeperState(new WizardOneState());
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class MainFragment extends JugglerFragment {
         switch (item.getItemId()) {
             case R.id.about:
                 Toast.makeText(getContext(), "about", Toast.LENGTH_SHORT).show();
-                navigateTo().changeState(new AboutState());
+                navigateTo().deeperState(new AboutState());
                 b = true;
                 break;
             default:
