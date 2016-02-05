@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'juggler'
+
+    publishedGroupId = 'me.ilich.juggler'
+    libraryName = 'Juggler'
+    artifact = 'juggler'
+
+    libraryDescription = 'Represents android navigation as a state machine.'
+
+    siteUrl = 'https://github.com/dsokolov/juggler'
+    gitUrl = 'https://github.com/dsokolov/juggler.git'
+
+    libraryVersion = '0.0.8'
+
+    developerId = 'dsokolov'
+    developerName = 'Dmitry Sokolov'
+    developerEmail = 'DmitryIlichSokolov@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -11,7 +35,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1"
+        versionName '1.0'
     }
     buildTypes {
         release {
@@ -31,3 +55,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
