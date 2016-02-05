@@ -2,7 +2,7 @@
 
   "package": {
     "name": "juggler", // Bintray package name
-    "repo": "juggler", // Bintray repository name
+    "repo": "maven", // Bintray repository name
     "subject": "dsokolov" // Bintray subject (user or organization)
   },
 
