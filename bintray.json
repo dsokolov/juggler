@@ -7,8 +7,15 @@
   },
 
   "version": {
-    "name": "0.0.3"
+    "name": "0.0.4"
   },
+
+  "files": [
+    {
+      "includePattern": "juggler\/build\/outputs\/aar\/(.*-release.aar)",
+      "uploadPattern": "$1.aar"
+    }
+  ],
 
   "publish": true
 
