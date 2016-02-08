@@ -1,29 +1,19 @@
 package me.ilich.juggler.hello.states;
 
-import me.ilich.juggler.JugglerFragment;
-import me.ilich.juggler.grid.CellType;
-import me.ilich.juggler.grid.Grid;
+import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.ItemDetailsFragment;
-import me.ilich.juggler.State;
+import me.ilich.juggler.states.ContentOnlyState;
+import me.ilich.juggler.states.State;
 
-public class ItemDetailsState extends State<ItemDetailsState.Params> {
+public class ItemDetailsState extends ContentOnlyState<ItemDetailsState.Params> {
 
     public ItemDetailsState(int id) {
-        super(Grid.contentOnly(), new Params(id));
+        super(new Params(id));
     }
 
     @Override
-    protected JugglerFragment onCreateFragment(CellType cellType, Params params) {
-        final JugglerFragment f;
-        switch (cellType) {
-            case CONTENT:
-                f = ItemDetailsFragment.newInstance(params.id);
-                break;
-            default:
-                f = null;
-                break;
-        }
-        return f;
+    protected JugglerFragment onCreateContent(ItemDetailsState.Params params) {
+        return ItemDetailsFragment.newInstance(params.id);
     }
 
     public static class Params extends State.Params {

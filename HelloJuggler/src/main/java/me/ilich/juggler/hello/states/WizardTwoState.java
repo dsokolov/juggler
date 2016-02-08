@@ -2,18 +2,17 @@ package me.ilich.juggler.hello.states;
 
 import android.support.v7.app.ActionBar;
 
-import me.ilich.juggler.JugglerFragment;
-import me.ilich.juggler.State;
-import me.ilich.juggler.grid.CellType;
-import me.ilich.juggler.grid.Grid;
+import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.WizardTwoFragment;
+import me.ilich.juggler.states.ContentBelowToolbarState;
+import me.ilich.juggler.states.State;
 
-public class WizardTwoState extends State<State.Params> {
+public class WizardTwoState extends ContentBelowToolbarState<State.Params> {
 
     public WizardTwoState() {
-        super(Grid.contentBelowToolbar(), null);
+        super(null);
     }
 
     @Override
@@ -22,22 +21,14 @@ public class WizardTwoState extends State<State.Params> {
     }
 
     @Override
-    protected JugglerFragment onCreateFragment(CellType cellType, Params params) {
-        final JugglerFragment f;
-        switch (cellType) {
-            case CONTENT:
-                f = new WizardTwoFragment();
-                break;
-            case TOOLBAR:
-                StandardToolbarFragment standardToolbarFragment = StandardToolbarFragment.create();
-                standardToolbarFragment.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-                f = standardToolbarFragment;
-                break;
-            default:
-                f = null;
-                break;
-        }
-        return f;
+    protected JugglerFragment onCreateContent(Params params) {
+        return new WizardTwoFragment();
+    }
+
+    @Override
+    protected JugglerFragment onCreateToolbar(Params params) {
+        StandardToolbarFragment standardToolbarFragment = StandardToolbarFragment.create(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        return standardToolbarFragment;
     }
 
 }

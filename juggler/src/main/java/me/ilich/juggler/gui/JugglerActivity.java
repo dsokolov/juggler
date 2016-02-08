@@ -1,7 +1,12 @@
-package me.ilich.juggler;
+package me.ilich.juggler.gui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+
+import me.ilich.juggler.Juggler;
+import me.ilich.juggler.Navigable;
 
 public class JugglerActivity extends AppCompatActivity {
 
@@ -17,6 +22,12 @@ public class JugglerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         juggler.unregisterActivity(this);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        juggler.onPostCreate(savedInstanceState);
     }
 
     protected Navigable navigateTo() {

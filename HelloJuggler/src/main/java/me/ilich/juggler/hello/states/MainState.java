@@ -1,33 +1,33 @@
 package me.ilich.juggler.hello.states;
 
-import me.ilich.juggler.JugglerFragment;
-import me.ilich.juggler.State;
-import me.ilich.juggler.grid.CellType;
-import me.ilich.juggler.grid.Grid;
-import me.ilich.juggler.hello.gui.MainFragment;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
+import android.support.v7.app.ActionBar;
 
-public class MainState extends State<State.Params> {
+import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.hello.gui.MainFragment;
+import me.ilich.juggler.hello.gui.StandardNavigationFragment;
+import me.ilich.juggler.hello.gui.StandardToolbarFragment;
+import me.ilich.juggler.states.ContentToolbarNavigationState;
+import me.ilich.juggler.states.State;
+
+public class MainState extends ContentToolbarNavigationState<State.Params> {
 
     public MainState() {
-        super(Grid.contentBelowToolbar(), null);
+        super(null);
     }
 
     @Override
-    protected JugglerFragment onCreateFragment(CellType cellType, Params params) {
-        final JugglerFragment f;
-        switch (cellType) {
-            case CONTENT:
-                f = MainFragment.newInstance();
-                break;
-            case TOOLBAR:
-                f = StandardToolbarFragment.create();
-                break;
-            default:
-                f = null;
-                break;
-        }
-        return f;
+    protected JugglerFragment onCreateContent(Params params) {
+        return MainFragment.newInstance();
+    }
+
+    @Override
+    protected JugglerFragment onCreateToolbar(Params params) {
+        return StandardToolbarFragment.create(ActionBar.DISPLAY_HOME_AS_UP);
+    }
+
+    @Override
+    protected JugglerFragment onCreateNavigation(Params params) {
+        return StandardNavigationFragment.create(0);
     }
 
 }

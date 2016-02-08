@@ -13,16 +13,14 @@
             android:id="@+id/container_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="#40F0000F"/>
+            android:layout_alignParentTop="true"/>
 
         <FrameLayout
             android:id="@+id/container_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/container_toolbar"
-            android:background="#400FF000"/>
+            android:layout_below="@id/container_toolbar"/>
 
     </RelativeLayout>
 
@@ -30,7 +28,6 @@
         android:id="@+id/container_navigation"
         android:layout_width="280dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#40000FF0"/>
+        android:layout_gravity="start"/>
 
 </android.support.v4.widget.DrawerLayout>

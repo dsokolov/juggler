@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.ilich.juggler.JugglerFragment;
+import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.ItemsListState;
@@ -40,13 +40,13 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new ItemsListState());
+                navigateTo().deeperState(new ItemsListState());
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new AboutState());
+                navigateTo().deeperState(new AboutState());
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {

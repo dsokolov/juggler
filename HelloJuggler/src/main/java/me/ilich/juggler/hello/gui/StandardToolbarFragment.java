@@ -2,18 +2,20 @@ package me.ilich.juggler.hello.gui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.JugglerFragment;
-import me.ilich.juggler.JugglerToolbarFragment;
+import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 
 public class StandardToolbarFragment extends JugglerToolbarFragment {
 
-    public static StandardToolbarFragment create() {
-        return new StandardToolbarFragment();
+    public static StandardToolbarFragment create(@ActionBar.DisplayOptions int displayOptions) {
+        StandardToolbarFragment f = new StandardToolbarFragment();
+        f.setArguments(addDisplayOptionsToBundle(null, displayOptions));
+        return f;
     }
 
     @Nullable

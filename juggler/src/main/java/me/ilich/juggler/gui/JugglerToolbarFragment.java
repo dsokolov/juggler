@@ -1,4 +1,4 @@
-package me.ilich.juggler;
+package me.ilich.juggler.gui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,14 +12,20 @@ import android.view.View;
 
 public abstract class JugglerToolbarFragment extends JugglerFragment {
 
-    private static final String STATE_OPTIONS = "state_options";
+    private static final String EXTRA_OPTIONS = "options";
+
+    protected static Bundle addDisplayOptionsToBundle(Bundle bundle, @ActionBar.DisplayOptions int displayOptions) {
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putInt(EXTRA_OPTIONS, displayOptions);
+        return bundle;
+    }
 
     private Toolbar toolbar;
     @Nullable
     private ActionBar actionBar;
     private AppCompatActivity activity;
-    @ActionBar.DisplayOptions
-    private int initialOptions = 0;
 
     @Override
     public void onAttach(Context context) {
@@ -30,27 +36,13 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        @ActionBar.DisplayOptions int opt = getArguments().getInt(EXTRA_OPTIONS);
         toolbar = (Toolbar) view.findViewById(getToolbarId());
         activity.setSupportActionBar(toolbar);
         actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
-            if (savedInstanceState != null) {
-                int options = savedInstanceState.getInt(STATE_OPTIONS, initialOptions);
-                actionBar.setDisplayOptions(options);
-            } else {
-                actionBar.setDisplayOptions(initialOptions);
-            }
+            actionBar.setDisplayOptions(opt);
             actionBar.show();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (actionBar != null) {
-            outState.putInt(STATE_OPTIONS, actionBar.getDisplayOptions());
-        } else {
-            Log.w("Sokolov", "null");
         }
     }
 
@@ -59,19 +51,6 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
 
     public Toolbar getToolbar() {
         return toolbar;
-    }
-
-    public final void setDisplayOptions(@ActionBar.DisplayOptions int options) {
-        if (isAdded()) {
-            ActionBar actionBar = activity.getSupportActionBar();
-            if (actionBar == null) {
-                initialOptions = options;
-            } else {
-                actionBar.setDisplayOptions(options);
-            }
-        } else {
-            initialOptions = options;
-        }
     }
 
 }

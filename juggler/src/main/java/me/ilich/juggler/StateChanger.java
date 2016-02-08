@@ -9,7 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import java.util.Stack;
 
 import me.ilich.juggler.grid.Cell;
-import me.ilich.juggler.grid.CellType;
+import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.states.State;
 
 public class StateChanger {
 
@@ -101,7 +103,7 @@ public class StateChanger {
         }
         for (Cell cell : newState.getGrid().getCells()) {
             int containerId = cell.getContainerId();
-            CellType cellType = cell.getType();
+            int cellType = cell.getType();
             JugglerFragment fragment = newState.createFragment(cellType);
             fragmentTransaction.replace(containerId, fragment);
         }

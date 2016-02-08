@@ -1,5 +1,8 @@
 package me.ilich.juggler;
 
+import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.states.State;
+
 public abstract class Transition {
 
     public static Transition clearAdd(State newState) {

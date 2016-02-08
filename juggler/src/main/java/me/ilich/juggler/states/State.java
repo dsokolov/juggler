@@ -1,16 +1,16 @@
-package me.ilich.juggler;
+package me.ilich.juggler.states;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.view.MenuItem;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import me.ilich.juggler.grid.CellType;
+import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Grid;
 
 public abstract class State<P extends State.Params> {
@@ -64,11 +64,11 @@ public abstract class State<P extends State.Params> {
 
     }
 
-    public JugglerFragment createFragment(CellType cellType) {
+    public JugglerFragment createFragment(int cellType) {
         return onCreateFragment(cellType, params);
     }
 
-    protected abstract JugglerFragment onCreateFragment(CellType cellType, P params);
+    protected abstract JugglerFragment onCreateFragment(int cellType, P params);
 
     @Override
     public String toString() {
@@ -91,6 +91,10 @@ public abstract class State<P extends State.Params> {
 
     public void setUpTransition(@Nullable Transition transition) {
         upTransition = transition;
+    }
+
+    public void onPostCreate(JugglerActivity activity, Bundle savedInstanceState) {
+
     }
 
     public static class Params {

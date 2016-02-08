@@ -1,9 +1,15 @@
 package me.ilich.juggler;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.states.State;
 
 public class Juggler implements Navigable {
 
@@ -102,12 +108,19 @@ public class Juggler implements Navigable {
         currentState = stateChanger.restore(activity);
     }
 
-    void registerActivity(JugglerActivity activity) {
+    public void registerActivity(JugglerActivity activity) {
         activities.add(activity);
     }
 
-    void unregisterActivity(JugglerActivity activity) {
+    public void unregisterActivity(JugglerActivity activity) {
         activities.remove(activity);
+    }
+
+    public void onPostCreate(Bundle savedInstanceState) {
+        if (currentState != null) {
+            JugglerActivity activity = activities.get(activities.size() - 1);
+            currentState.onPostCreate(activity, savedInstanceState);
+        }
     }
 
 }

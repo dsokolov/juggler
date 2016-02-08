@@ -11,11 +11,15 @@ import me.ilich.juggler.R;
 public class Grid {
 
     public static Grid contentOnly() {
-        return new Grid(R.layout.juggler_layout_content_only, new Cell(R.id.container_content, CellType.CONTENT));
+        return new Grid(R.layout.juggler_layout_content_only, Cell.content(R.id.container_content));
     }
 
     public static Grid contentBelowToolbar() {
-        return new Grid(R.layout.juggler_layout_content_below_toolbar, new Cell(R.id.container_content, CellType.CONTENT), new Cell(R.id.container_toolbar, CellType.TOOLBAR));
+        return new Grid(R.layout.juggler_layout_content_below_toolbar, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar));
+    }
+
+    public static Grid contentToolbarNavigation() {
+        return new Grid(R.layout.juggler_layout_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
     }
 
     @LayoutRes
