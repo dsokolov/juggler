@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 def groupId = "me.ilich"
 def artifactId = "juggler"
-def version = "0.0.5"
+def version = "0.0.6"
 
 def releaseDir = "${buildDir}/release"
 
@@ -59,6 +59,12 @@ uploadArchives {
         pom.version = version
         repository(url: "file://${releaseDir}")
     }
+}
+
+task generateBintrayJson {
+    def template = new File("bintray.json").text
+    File configFileText = new File("${buildDir}/bintray.json")
+    configFileText.write(template.replace('[version]', version))
 }
 
 artifacts {

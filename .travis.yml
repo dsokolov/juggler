@@ -12,6 +12,7 @@ script:
     - ./gradlew clean
     - ./gradlew assembleRelease
     - ./gradlew uploadArchives
+    - ./gradlew generateBintrayJson
 
 jdk:
   - oraclejdk7
@@ -22,6 +23,6 @@ cache:
 
 deploy:
   provider: bintray
-  file: "bintray.json"
+  file: "jugler/build/bintray.json"
   user: "dsokolov"
   key: $BINTRAY_API_KEY
