@@ -24,7 +24,6 @@ public class Juggler implements Navigable {
     @Nullable
     private State currentState = null;
     private List<JugglerActivity> activities = new ArrayList<>();
-    private Stacks stacks = new Stacks();
 
     private Juggler() {
 
@@ -109,10 +108,6 @@ public class Juggler implements Navigable {
 
     void unregisterActivity(JugglerActivity activity) {
         activities.remove(activity);
-    }
-
-    public Stacks getStacks() {
-        return stacks;
     }
 
 }

@@ -8,6 +8,9 @@ android:
     - build-tools-23.0.2
     - extra-android-m2repository
 
+script:
+    - ./gradlew clean assembleRelease
+
 jdk:
   - oraclejdk7
 

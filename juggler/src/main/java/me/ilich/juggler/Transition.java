@@ -2,14 +2,6 @@ package me.ilich.juggler;
 
 public abstract class Transition {
 
-    public static Transition back() {
-        return new Back();
-    }
-
-    public static Transition up() {
-        return new Up();
-    }
-
     public static Transition clearAdd(State newState) {
         return new ClearAdd(newState);
     }
@@ -31,24 +23,6 @@ public abstract class Transition {
     }
 
     protected abstract State onExecute(JugglerActivity activity, StateChanger stateChanger);
-
-    private static class Back extends Transition {
-
-        @Override
-        protected State onExecute(JugglerActivity activity, StateChanger stateChanger) {
-            return stateChanger.back(activity);
-        }
-
-    }
-
-    private static class Up extends Transition {
-
-        @Override
-        protected State onExecute(JugglerActivity activity, StateChanger stateChanger) {
-            return stateChanger.up(activity);
-        }
-
-    }
 
     private static class ClearAdd extends Transition {
 
