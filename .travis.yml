@@ -9,7 +9,9 @@ android:
     - extra-android-m2repository
 
 script:
-    - ./gradlew clean assembleRelease uploadArchives
+    - ./gradlew clean
+    - ./gradlew assembleRelease
+    - ./gradlew uploadArchives
 
 jdk:
   - oraclejdk7
