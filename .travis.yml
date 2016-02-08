@@ -9,7 +9,7 @@ android:
     - extra-android-m2repository
 
 script:
-    - ./gradlew clean assembleRelease
+    - ./gradlew clean assembleRelease uploadArchives
 
 jdk:
   - oraclejdk7
@@ -17,3 +17,9 @@ jdk:
 cache:
   directories:
     - $HOME/.gradle
+
+deploy:
+  provider: bintray
+  file: "bintray.json"
+  user: "dsokolov"
+  key: $BINTRAY_API_KEY

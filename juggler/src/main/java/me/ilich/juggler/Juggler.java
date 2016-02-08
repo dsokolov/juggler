@@ -1,9 +1,7 @@
 package me.ilich.juggler;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
