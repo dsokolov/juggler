@@ -7,17 +7,17 @@
   },
 
   "version": {
-    "name": "0.0.9"
+    "name": "0.0.10"
   },
 
   "files": [
     {
-      "includePattern": "juggler/build/release/0.0.9/me/ilich/juggler/juggler/maven-metadata.xml",
-      "uploadPattern": "maven-metadata.xml"
+      "includePattern": "juggler/build/release/0.0.10/me/ilich/juggler/juggler/maven-metadata.xml",
+      "uploadPattern": "me/ilich/juggler/juggler/maven-metadata.xml"
     },
     {
-      "includePattern": "juggler/build/release/0.0.9/me/ilich/juggler/juggler/0.0.9/juggler-0.0.9.aar",
-      "uploadPattern": "0.0.9/juggler-0.0.9.aar"
+      "includePattern": "juggler/build/release/0.0.10/me/ilich/juggler/juggler/0.0.10/juggler-0.0.10.aar",
+      "uploadPattern": "me/ilich/juggler/juggler/0.0.10/juggler-0.0.10.aar"
     }
   ],
 
