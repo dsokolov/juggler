@@ -1,5 +1,6 @@
 package me.ilich.juggler.grid;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class Grid {
 
     public static Grid contentToolbarNavigation() {
         return new Grid(R.layout.juggler_layout_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
+    }
+
+    public static Grid content(@LayoutRes int layoutId, @IdRes int contentId){
+        return new Grid(layoutId, Cell.content(contentId));
     }
 
     @LayoutRes

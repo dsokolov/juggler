@@ -22,11 +22,15 @@ public class Cell {
         return new Cell(layoutId, CELL_TYPE_NAVIGATION);
     }
 
+    public static Cell custom(@IdRes int layoutId, int cellType){
+        return new Cell(layoutId, cellType);
+    }
+
     @IdRes
     private final int containerId;
     private final int type;
 
-    public Cell(@IdRes int containerId, int type) {
+    private Cell(@IdRes int containerId, int type) {
         this.containerId = containerId;
         this.type = type;
     }
