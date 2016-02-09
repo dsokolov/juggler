@@ -23,6 +23,6 @@ cache:
 
 deploy:
   provider: bintray
-  file: "jugler/build/bintray.json"
+  file: "bintray.json"
   user: "dsokolov"
   key: $BINTRAY_API_KEY
