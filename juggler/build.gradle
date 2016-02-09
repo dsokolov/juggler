@@ -62,8 +62,8 @@ uploadArchives {
 }
 
 task generateBintrayJson {
-    def template = new File("bintray.json").text
-    File configFileText = new File("${buildDir}/bintray.json")
+    def template = new File("bintray_template.json").text
+    File configFileText = new File("bintray.json")
     configFileText.createNewFile()
     configFileText.write(template.replace('[version]', version))
 }
