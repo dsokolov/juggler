@@ -27,6 +27,10 @@ public class Grid {
         return new Grid(layoutId, Cell.content(contentId));
     }
 
+    public static Grid contentWithToolbar(@LayoutRes int layoutId, @IdRes int contentId, @IdRes int toolbarId){
+        return new Grid(layoutId, Cell.content(contentId), Cell.toolbar(toolbarId));
+    }
+
     @LayoutRes
     private final int layoutId;
     private List<Cell> cells = new ArrayList<>();
