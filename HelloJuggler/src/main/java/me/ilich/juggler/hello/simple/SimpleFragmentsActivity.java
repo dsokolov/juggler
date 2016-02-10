@@ -2,10 +2,8 @@ package me.ilich.juggler.hello.simple;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,14 +16,15 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_1);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setContentView(R.layout.activity_simple_2);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container2, new CoordinatorFragment()).commit();
+/*        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        *//*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        myToolbar.setTitle("13345");*/
+        myToolbar.setTitle("13345");*//*
 
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -34,7 +33,7 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-   /*     if (savedInstanceState == null) {
+   *//*     if (savedInstanceState == null) {
             do1();
         } else {
             //Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container1);
@@ -46,7 +45,7 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+//        mDrawerToggle.syncState();
     }
 
     @Override

@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/collapsing_toolbar"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    app:contentScrim="#6e6e6e"
-    app:expandedTitleMarginEnd="64dp"
-    app:expandedTitleMarginStart="48dp"
-    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+    android:layout_height="?attr/actionBarSize"
+    android:background="#f50"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_collapseMode="parallax">
+        android:ellipsize="end"
+        android:lines="1"
+        android:singleLine="true"
+        android:text="toolbar text" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_header" />
-
-    </FrameLayout>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-</android.support.design.widget.CollapsingToolbarLayout>
+</android.support.v7.widget.Toolbar>

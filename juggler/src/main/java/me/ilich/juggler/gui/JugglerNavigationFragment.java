@@ -2,6 +2,7 @@ package me.ilich.juggler.gui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -25,16 +26,24 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return bundle;
     }
 
+    private int defaultSelectedItem;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
 
     @Override
+    @CallSuper
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM);
+    }
+
+    protected final int getDefaultSelectedItem(){
+        return defaultSelectedItem;
     }
 
     @Override
+    @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = (DrawerLayout) getActivity().findViewById(getDrawerLayoutId());
@@ -42,8 +51,6 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        int selectItem = getArguments().getInt(ARG_SELECTED_ITEM);
-        onNavigationItemSelect(selectItem);
     }
 
     @IdRes
@@ -62,12 +69,14 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     }
 
     @Override
+    @CallSuper
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
+    @CallSuper
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         boolean b = drawerToggle.onOptionsItemSelected(menuItem);
         if (!b) {
@@ -75,8 +84,6 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         }
         return b;
     }
-
-    protected abstract void onNavigationItemSelect(int id);
 
     public void close(){
         drawerLayout.closeDrawer(GravityCompat.START);

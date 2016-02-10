@@ -21,10 +21,6 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
         return f;
     }
 
-    private NavigationView navigationView;
-    private boolean initMenuItem = false;
-    private int initMenuId;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navigationView = (NavigationView) view.findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView) view.findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -56,19 +52,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                 return b;
             }
         });
-        if (initMenuItem) {
-            onNavigationItemSelect(initMenuId);
-        }
-    }
-
-    @Override
-    protected void onNavigationItemSelect(int id) {
-        if (navigationView == null) {
-            initMenuId = id;
-            initMenuItem = true;
-        } else {
-            navigationView.getMenu().getItem(id).setChecked(true);
-        }
+        navigationView.getMenu().getItem(getDefaultSelectedItem()).setChecked(true);
     }
 
 }

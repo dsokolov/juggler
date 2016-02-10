@@ -64,7 +64,7 @@ public abstract class State<P extends State.Params> {
 
     }
 
-    public JugglerFragment createFragment(int cellType) {
+    public final JugglerFragment createFragment(int cellType) {
         return onCreateFragment(cellType, params);
     }
 
