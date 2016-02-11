@@ -20,7 +20,11 @@ public class Grid {
     }
 
     public static Grid contentToolbarNavigation() {
-        return new Grid(R.layout.juggler_layout_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
+        return new Grid(R.layout.juggler_layout_content_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
+    }
+
+    public static Grid contentNavigation() {
+        return new Grid(R.layout.juggler_layout_content_navigation, Cell.content(R.id.container_content), Cell.navigation(R.id.container_navigation));
     }
 
     public static Grid content(@LayoutRes int layoutId, @IdRes int contentId){
