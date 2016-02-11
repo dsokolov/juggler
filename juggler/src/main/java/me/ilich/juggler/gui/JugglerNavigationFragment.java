@@ -17,6 +17,7 @@ import me.ilich.juggler.R;
 public abstract class JugglerNavigationFragment extends JugglerFragment {
 
     private static final String ARG_SELECTED_ITEM = "selected_item";
+    private static final String ARG_DRAWABLE_INDICATOR = "drawable_indicator";
 
     protected static Bundle addSelectedItemToBundle(@Nullable Bundle bundle, int itemIndex) {
         if (bundle == null) {
@@ -26,7 +27,16 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return bundle;
     }
 
+    protected static Bundle addDrawableIndicatorToBundle(@Nullable Bundle bundle, boolean enabled) {
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putBoolean(ARG_DRAWABLE_INDICATOR, enabled);
+        return bundle;
+    }
+
     private int defaultSelectedItem;
+    private boolean drawableIndicator;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
 
@@ -35,10 +45,11 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM);
+        defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM, 0);
+        drawableIndicator = getArguments().getBoolean(ARG_DRAWABLE_INDICATOR, true);
     }
 
-    protected final int getDefaultSelectedItem(){
+    protected final int getDefaultSelectedItem() {
         return defaultSelectedItem;
     }
 
@@ -48,7 +59,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = (DrawerLayout) getActivity().findViewById(getDrawerLayoutId());
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
-        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.setDrawerIndicatorEnabled(drawableIndicator);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
@@ -85,7 +96,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return b;
     }
 
-    public void close(){
+    public void close() {
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 
