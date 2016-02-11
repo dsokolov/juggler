@@ -7,7 +7,6 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.AboutFragment;
 import me.ilich.juggler.hello.gui.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.State;
 
@@ -18,7 +17,7 @@ public class AboutState extends ContentToolbarNavigationState<State.Params> {
     }
 
     @Override
-    public int getTitleRes() {
+    public int getTitleRes(Params params) {
         return R.string.title_about;
     }
 

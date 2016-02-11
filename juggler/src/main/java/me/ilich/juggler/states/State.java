@@ -1,19 +1,19 @@
 package me.ilich.juggler.states;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.view.MenuItem;
 
-import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Grid;
+import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.gui.JugglerFragment;
 
 public abstract class State<P extends State.Params> {
+
+    private static final int NOT_SET = -1;
 
     @Nullable
     private final P params;
@@ -35,21 +35,26 @@ public abstract class State<P extends State.Params> {
         return grid;
     }
 
-    public String getTitle() {
+    @Nullable
+    public String getTitle(P params) {
         return null;
     }
 
     @StringRes
-    public int getTitleRes() {
-        return 0;
+    public int getTitleRes(P params) {
+        return NOT_SET;
     }
 
     @CallSuper
     public void onActivate(JugglerActivity activity) {
-        String title = getTitle();
+        processTitle(activity);
+    }
+
+    protected void processTitle(JugglerActivity activity) {
+        String title = getTitle(params);
         if (TextUtils.isEmpty(title)) {
-            int titleRes = getTitleRes();
-            if (titleRes == 0) {
+            int titleRes = getTitleRes(params);
+            if (titleRes == NOT_SET) {
                 activity.setTitle(null);
             } else {
                 activity.setTitle(titleRes);

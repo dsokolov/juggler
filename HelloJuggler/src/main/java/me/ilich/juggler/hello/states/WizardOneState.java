@@ -15,7 +15,7 @@ public class WizardOneState extends ContentBelowToolbarState<State.Params> {
     }
 
     @Override
-    public String getTitle() {
+    public String getTitle(Params params) {
         return "Wizard One";
     }
 

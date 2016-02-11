@@ -16,7 +16,7 @@ public class WizardTwoState extends ContentBelowToolbarState<State.Params> {
     }
 
     @Override
-    public int getTitleRes() {
+    public int getTitleRes(Params params) {
         return R.string.title_wizard_two;
     }
 
