@@ -82,6 +82,11 @@ public class Juggler implements Navigable {
     }
 
     @Override
+    public void linearState(State state, String tag) {
+
+    }
+
+    @Override
     public void deeperState(State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition;
@@ -94,10 +99,35 @@ public class Juggler implements Navigable {
     }
 
     @Override
+    public void deeperState(State state, String tag) {
+
+    }
+
+    @Override
     public void clearState(State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition = Transition.clearAdd(state);
         currentState = transition.execute(activity, stateChanger);
+    }
+
+    @Override
+    public void clearState(State state, String tag) {
+
+    }
+
+    @Override
+    public void dig(String tag) {
+
+    }
+
+    @Override
+    public void digLinearState(String tag, State state) {
+
+    }
+
+    @Override
+    public void digDeeperState(String tag, State state) {
+
     }
 
     @Override
