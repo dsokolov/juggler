@@ -14,7 +14,10 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
 
     public static StandardToolbarFragment create(@ActionBar.DisplayOptions int displayOptions) {
         StandardToolbarFragment f = new StandardToolbarFragment();
-        f.setArguments(addDisplayOptionsToBundle(null, displayOptions));
+        Bundle b = new Bundle();
+        addDisplayOptionsToBundle(b, displayOptions);
+        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        f.setArguments(b);
         return f;
     }
 
@@ -22,6 +25,17 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_toolbar_standart, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getToolbar().setNavigationIcon(android.R.drawable.ic_menu_camera);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

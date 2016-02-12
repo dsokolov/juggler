@@ -17,7 +17,9 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
 
     public static StandardNavigationFragment create(int itemId) {
         StandardNavigationFragment f = new StandardNavigationFragment();
-        f.setArguments(addSelectedItemToBundle(null, itemId));
+        Bundle b = new Bundle();
+        addSelectedItemToBundle(b, itemId);
+        f.setArguments(b);
         return f;
     }
 
