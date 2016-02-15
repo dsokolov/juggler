@@ -39,11 +39,11 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                 final boolean b;
                 switch (item.getItemId()) {
                     case R.id.menu_main:
-                        navigateTo().clearState(new MainState());
+                        navigateTo().dig(MainState.TAG);
                         b = true;
                         break;
                     case R.id.menu_about:
-                        navigateTo().linearState(new AboutState());
+                        navigateTo().digDeeperState(MainState.TAG, new AboutState());
                         b = true;
                         break;
                     default:

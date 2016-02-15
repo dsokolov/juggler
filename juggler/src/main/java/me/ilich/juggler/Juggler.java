@@ -71,19 +71,23 @@ public class Juggler implements Navigable {
 
     @Override
     public void linearState(State state) {
-        JugglerActivity activity = activities.get(activities.size() - 1);
-        final Transition transition;
-        if (currentState == null) {
-            transition = Transition.clearAdd(state);
-        } else {
-            transition = Transition.addLinear(state);
-        }
-        currentState = transition.execute(activity, stateChanger);
+        doLinerState(state, null);
     }
 
     @Override
-    public void linearState(State state, String tag) {
+    public void linearState(State state, @Nullable String tag) {
+        doLinerState(state, tag);
+    }
 
+    private void doLinerState(State state, @Nullable String tag) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state, tag);
+        } else {
+            transition = Transition.addLinear(state, tag);
+        }
+        currentState = transition.execute(activity, stateChanger);
     }
 
     @Override
@@ -91,9 +95,9 @@ public class Juggler implements Navigable {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition;
         if (currentState == null) {
-            transition = Transition.clearAdd(state);
+            transition = Transition.clearAdd(state, null);
         } else {
-            transition = Transition.addDeeper(state);
+            transition = Transition.addDeeper(state, null);
         }
         currentState = transition.execute(activity, stateChanger);
     }
@@ -103,10 +107,21 @@ public class Juggler implements Navigable {
 
     }
 
+    private void doDeeperState(State state, @Nullable String tag) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state, tag);
+        } else {
+            transition = Transition.addDeeper(state, tag);
+        }
+        currentState = transition.execute(activity, stateChanger);
+    }
+
     @Override
     public void clearState(State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        final Transition transition = Transition.clearAdd(state);
+        final Transition transition = Transition.clearAdd(state, null);
         currentState = transition.execute(activity, stateChanger);
     }
 
@@ -117,17 +132,37 @@ public class Juggler implements Navigable {
 
     @Override
     public void dig(String tag) {
-
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition = Transition.dig(tag);
+        currentState = transition.execute(activity, stateChanger);
     }
 
     @Override
-    public void digLinearState(String tag, State state) {
-
+    public void digLinearState(String digTag, State state) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state, null);
+        } else {
+            transition = Transition.digAddLinear(digTag, state, null);
+        }
+        currentState = transition.execute(activity, stateChanger);
     }
 
     @Override
     public void digDeeperState(String tag, State state) {
+        doDigDeeperState(tag, state);
+    }
 
+    private void doDigDeeperState(String digTag, State state) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition;
+        if (currentState == null) {
+            transition = Transition.clearAdd(state, null);
+        } else {
+            transition = Transition.digAddDeeper(digTag, state, null);
+        }
+        currentState = transition.execute(activity, stateChanger);
     }
 
     @Override

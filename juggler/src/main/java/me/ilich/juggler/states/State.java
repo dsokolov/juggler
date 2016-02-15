@@ -102,6 +102,11 @@ public abstract class State<P extends State.Params> {
 
     }
 
+    @Nullable
+    public String getTag(){
+        return null;
+    }
+
     public static class Params {
 
         @Override

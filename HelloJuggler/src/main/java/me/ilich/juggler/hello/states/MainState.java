@@ -11,6 +11,8 @@ import me.ilich.juggler.states.State;
 
 public class MainState extends ContentToolbarNavigationState<State.Params> {
 
+    public static final String TAG = "main";
+
     public MainState() {
         super(null);
     }
@@ -28,6 +30,11 @@ public class MainState extends ContentToolbarNavigationState<State.Params> {
     @Override
     protected JugglerFragment onCreateNavigation(Params params) {
         return StandardNavigationFragment.create(0);
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
 }
