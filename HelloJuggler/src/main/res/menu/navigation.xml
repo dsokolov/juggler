@@ -15,6 +15,12 @@
             android:icon="@android:drawable/ic_menu_send"
             android:title="@string/menu_about"/>
 
+        <item
+            android:id="@+id/menu_only_content"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_send"
+            android:title="content only"/>
+
     </group>
 
 </menu>

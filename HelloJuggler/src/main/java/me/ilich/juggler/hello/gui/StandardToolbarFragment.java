@@ -7,15 +7,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 
 public class StandardToolbarFragment extends JugglerToolbarFragment {
 
-    public static StandardToolbarFragment create(@ActionBar.DisplayOptions int displayOptions) {
+    public static StandardToolbarFragment create1(@ActionBar.DisplayOptions int displayOptions) {
         StandardToolbarFragment f = new StandardToolbarFragment();
         Bundle b = new Bundle();
         addDisplayOptionsToBundle(b, displayOptions);
+        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        f.setArguments(b);
+        return f;
+    }
+
+    public static StandardToolbarFragment createTitleBack() {
+        StandardToolbarFragment f = new StandardToolbarFragment();
+        Bundle b = new Bundle();
+        addDisplayOptionsToBundle(b, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        f.setArguments(b);
+        return f;
+    }
+
+    public static JugglerFragment createBack() {
+        StandardToolbarFragment f = new StandardToolbarFragment();
+        Bundle b = new Bundle();
+        addDisplayOptionsToBundle(b, ActionBar.DISPLAY_HOME_AS_UP);
         addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
         f.setArguments(b);
         return f;

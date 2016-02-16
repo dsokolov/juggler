@@ -12,6 +12,7 @@ import me.ilich.juggler.gui.JugglerNavigationFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.MainState;
+import me.ilich.juggler.hello.states.NoTitleNavagationState;
 
 public class StandardNavigationFragment extends JugglerNavigationFragment {
 
@@ -44,6 +45,10 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                         break;
                     case R.id.menu_about:
                         navigateTo().digDeeperState(MainState.TAG, new AboutState());
+                        b = true;
+                        break;
+                    case R.id.menu_only_content:
+                        navigateTo().digDeeperState(MainState.TAG, new NoTitleNavagationState());
                         b = true;
                         break;
                     default:

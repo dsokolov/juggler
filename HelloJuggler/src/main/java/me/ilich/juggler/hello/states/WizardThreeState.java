@@ -21,9 +21,7 @@ public class WizardThreeState extends ContentBelowToolbarState<State.Params> {
 
     @Override
     protected JugglerFragment onCreateToolbar(Params params) {
-        StandardToolbarFragment standardToolbarFragment = StandardToolbarFragment.create(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        //standardToolbarFragment.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        return standardToolbarFragment;
+        return StandardToolbarFragment.createTitleBack();
     }
 
 }

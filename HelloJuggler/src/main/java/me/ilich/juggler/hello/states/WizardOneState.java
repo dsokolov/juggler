@@ -26,7 +26,7 @@ public class WizardOneState extends ContentBelowToolbarState<State.Params> {
 
     @Override
     protected JugglerFragment onCreateToolbar(Params params) {
-        return StandardToolbarFragment.create(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        return StandardToolbarFragment.createTitleBack();
     }
 
 }

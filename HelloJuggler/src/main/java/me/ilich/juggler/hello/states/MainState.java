@@ -24,7 +24,7 @@ public class MainState extends ContentToolbarNavigationState<State.Params> {
 
     @Override
     protected JugglerFragment onCreateToolbar(Params params) {
-        return StandardToolbarFragment.create(ActionBar.DISPLAY_HOME_AS_UP);
+        return StandardToolbarFragment.createBack();
     }
 
     @Override

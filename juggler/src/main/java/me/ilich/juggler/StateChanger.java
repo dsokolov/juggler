@@ -122,6 +122,17 @@ public class StateChanger {
     }
 
     public State digAdd(String digTag, JugglerActivity activity, Mode mode, State newState, @Nullable String tag) {
+
+        final Item oldItem;
+        final State oldState;
+        if (items.isEmpty()) {
+            oldItem = null;
+            oldState = null;
+        } else {
+            oldItem = items.peek();
+            oldState = oldItem.state;
+        }
+
         boolean work = true;
         while (work) {
             if (items.isEmpty()) {
@@ -134,16 +145,6 @@ public class StateChanger {
                     items.pop();
                 }
             }
-        }
-
-        final Item oldItem;
-        final State oldState;
-        if (items.isEmpty()) {
-            oldItem = null;
-            oldState = null;
-        } else {
-            oldItem = items.peek();
-            oldState = oldItem.state;
         }
 
         int newLayoutId = newState.getGrid().getLayoutId();
