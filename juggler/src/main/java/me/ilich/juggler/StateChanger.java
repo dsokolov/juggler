@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import java.util.Stack;
+import java.util.UUID;
 
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
@@ -20,6 +21,13 @@ public class StateChanger {
         ADD_CLEAR,
         ADD_LINEAR,
         ADD_DEEPER
+    }
+
+    private static String generateTransactionName(State oldState, State newState) {
+        String fromStr = oldState == null ? "null" : oldState.getClass().getSimpleName();
+        String toStr = newState == null ? "null" : newState.getClass().getSimpleName();
+        String hashStr = UUID.randomUUID().toString();
+        return String.format("%s -> %s (%s)", fromStr, toStr, hashStr);
     }
 
     private Stack<Item> items = new Stack<>();
@@ -85,7 +93,7 @@ public class StateChanger {
                     break;
             }
         }
-        String transactionName = oldState + " -> " + newState;
+        String transactionName = generateTransactionName(oldState, newState);
         String itemTag = null;
         if (tag != null) {
             itemTag = tag;
@@ -167,7 +175,7 @@ public class StateChanger {
                     break;
             }
         }
-        String transactionName = oldState + " -> " + newState;
+        String transactionName = generateTransactionName(oldState, newState);
         String itemTag = null;
         if (tag != null) {
             itemTag = tag;

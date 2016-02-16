@@ -13,15 +13,6 @@ import me.ilich.juggler.hello.R;
 
 public class StandardToolbarFragment extends JugglerToolbarFragment {
 
-    public static StandardToolbarFragment create1(@ActionBar.DisplayOptions int displayOptions) {
-        StandardToolbarFragment f = new StandardToolbarFragment();
-        Bundle b = new Bundle();
-        addDisplayOptionsToBundle(b, displayOptions);
-        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
-        f.setArguments(b);
-        return f;
-    }
-
     public static StandardToolbarFragment createTitleBack() {
         StandardToolbarFragment f = new StandardToolbarFragment();
         Bundle b = new Bundle();

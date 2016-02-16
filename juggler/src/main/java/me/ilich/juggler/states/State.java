@@ -2,6 +2,7 @@ package me.ilich.juggler.states;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
@@ -69,8 +70,13 @@ public abstract class State<P extends State.Params> {
 
     }
 
+    @NonNull
     public final JugglerFragment createFragment(int cellType) {
-        return onCreateFragment(cellType, params);
+        JugglerFragment f = onCreateFragment(cellType, params);
+        if (f == null) {
+            throw new NullPointerException("Fragment " + cellType + " is null");
+        }
+        return f;
     }
 
     protected abstract JugglerFragment onCreateFragment(int cellType, P params);
@@ -103,7 +109,7 @@ public abstract class State<P extends State.Params> {
     }
 
     @Nullable
-    public String getTag(){
+    public String getTag() {
         return null;
     }
 

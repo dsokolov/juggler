@@ -13,6 +13,7 @@ import android.widget.Toast;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
+import me.ilich.juggler.hello.states.InfinityState;
 import me.ilich.juggler.hello.states.ItemsListState;
 import me.ilich.juggler.hello.states.WizardOneState;
 
@@ -65,6 +66,12 @@ public class MainFragment extends JugglerFragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        view.findViewById(R.id.navigate_to_infinity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo().linearState(new InfinityState(1));
             }
         });
         getActivity().setTitle("main screen");
