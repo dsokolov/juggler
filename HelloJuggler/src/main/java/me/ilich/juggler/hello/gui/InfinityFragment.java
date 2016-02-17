@@ -21,6 +21,15 @@ public class InfinityFragment extends JugglerFragment {
         return infinityFragment;
     }
 
+    private int i;
+    private TextView textView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        i = getArguments().getInt("I", -10);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,8 +39,8 @@ public class InfinityFragment extends JugglerFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final int i = getArguments().getInt("I", -10);
-        ((TextView) view.findViewById(R.id.text)).setText(i + "");
+        textView = (TextView) view.findViewById(R.id.text);
+        processI();
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,4 +55,20 @@ public class InfinityFragment extends JugglerFragment {
         });
     }
 
+    private void processI() {
+        textView.setText(i + "");
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        boolean b;
+        if (i == 0) {
+            b = false;
+        } else {
+            i = 0;
+            processI();
+            b = true;
+        }
+        return b;
+    }
 }

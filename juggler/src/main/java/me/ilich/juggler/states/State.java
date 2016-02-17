@@ -5,9 +5,12 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 
 import me.ilich.juggler.Transition;
+import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
@@ -111,6 +114,23 @@ public abstract class State<P extends State.Params> {
     @Nullable
     public String getTag() {
         return null;
+    }
+
+    public boolean onBackPressed(JugglerActivity activity) {
+        boolean b = false;
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        for (Cell cell : grid.getCells()) {
+            int containerId = cell.getContainerId();
+            Fragment fragment = fragmentManager.findFragmentById(containerId);
+            if (fragment != null && fragment instanceof JugglerFragment) {
+                boolean processed = ((JugglerFragment) fragment).onBackPressed();
+                if (processed) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        return b;
     }
 
     public static class Params {

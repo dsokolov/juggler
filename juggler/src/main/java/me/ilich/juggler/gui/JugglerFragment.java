@@ -13,4 +13,8 @@ public class JugglerFragment extends Fragment {
         return juggler;
     }
 
+    public boolean onBackPressed() {
+        return false;
+    }
+
 }

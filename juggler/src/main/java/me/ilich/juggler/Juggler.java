@@ -183,4 +183,15 @@ public class Juggler implements Navigable {
         }
     }
 
+    public boolean onBackPressed() {
+        final boolean b;
+        if (currentState == null) {
+            b = false;
+        } else {
+            JugglerActivity activity = activities.get(activities.size() - 1);
+            b = currentState.onBackPressed(activity);
+        }
+        return b;
+    }
+
 }

@@ -1,9 +1,7 @@
 package me.ilich.juggler.gui;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Navigable;
@@ -36,9 +34,12 @@ public class JugglerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        boolean b = juggler.backState();
+        boolean b = juggler.onBackPressed();
         if (!b) {
-            finish();
+            b = juggler.backState();
+            if (!b) {
+                finish();
+            }
         }
     }
 
