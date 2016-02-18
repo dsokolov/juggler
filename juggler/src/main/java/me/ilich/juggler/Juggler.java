@@ -92,8 +92,8 @@ public class Juggler implements Navigable {
     }
 
     @Override
-    public void deeperState(State state) {
-        doDeeperState(state, null);
+    public void deeperState(State state, TargetBound... targetBounds) {
+        doDeeperState(state, null, targetBounds);
     }
 
     @Override
@@ -101,13 +101,13 @@ public class Juggler implements Navigable {
         doDeeperState(state, tag);
     }
 
-    private void doDeeperState(State state, @Nullable String tag) {
+    private void doDeeperState(State state, @Nullable String tag, TargetBound... targetBounds) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition;
         if (currentState == null) {
             transition = Transition.clearAdd(state, tag);
         } else {
-            transition = Transition.addDeeper(state, tag);
+            transition = Transition.addDeeper(state, tag, targetBounds);
         }
         currentState = transition.execute(activity, stateChanger);
     }

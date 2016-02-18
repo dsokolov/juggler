@@ -13,7 +13,7 @@ public interface Navigable {
 
     void linearState(State state, String tag);
 
-    void deeperState(State state);
+    void deeperState(State state, TargetBound... targetBounds);
 
     void deeperState(State state, String tag);
 
