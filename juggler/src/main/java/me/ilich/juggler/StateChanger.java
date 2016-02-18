@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.TargetBound;
 
 //TODO do a refactoring!
 public class StateChanger {
@@ -63,7 +66,7 @@ public class StateChanger {
         return newState;
     }
 
-    public State add(State newState, JugglerActivity activity, Mode mode, @Nullable String tag) {
+    public State add(State newState, JugglerActivity activity, Mode mode, @Nullable String tag, TargetBound... targetBounds) {
         final Item oldItem;
         final State oldState;
         if (items.isEmpty()) {
@@ -104,32 +107,19 @@ public class StateChanger {
         }
         Item item = new Item(newLayoutId, transactionName, newState, itemTag);
 
+
         if (!sameLayout) {
             activity.setContentView(newLayoutId);
         }
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(transactionName);
-        if (oldState != null & !sameLayout) {
-            for (Cell cell : oldState.getGrid().getCells()) {
-                int containerId = cell.getContainerId();
-                Fragment fragment = fragmentManager.findFragmentById(containerId);
-                fragmentTransaction.remove(fragment);
-            }
-        }
-        for (Cell cell : newState.getGrid().getCells()) {
-            int containerId = cell.getContainerId();
-            int cellType = cell.getType();
-            JugglerFragment fragment = newState.createFragment(cellType);
-            fragmentTransaction.replace(containerId, fragment);
-        }
-        fragmentTransaction.commit();
+
+        processFragmentTransaction(activity, newState, oldState, sameLayout, transactionName, targetBounds);
+
         items.push(item);
         processStateChange(activity, oldState, newState);
         return newState;
     }
 
-    public State digAdd(String digTag, JugglerActivity activity, Mode mode, State newState, @Nullable String tag) {
+    public State digAdd(String digTag, JugglerActivity activity, Mode mode, State newState, @Nullable String tag, TargetBound... targetBounds) {
 
         final Item oldItem;
         final State oldState;
@@ -186,29 +176,53 @@ public class StateChanger {
         }
         Item item = new Item(newLayoutId, transactionName, newState, itemTag);
 
+
         if (!sameLayout) {
             activity.setContentView(newLayoutId);
         }
+
+        processFragmentTransaction(activity, newState, oldState, sameLayout, transactionName, targetBounds);
+
+        items.push(item);
+        processStateChange(activity, oldState, newState);
+        return newState;
+    }
+
+    private void processFragmentTransaction(JugglerActivity activity, State newState, State oldState, boolean sameLayout, String transactionName, TargetBound[] targetBounds) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(transactionName);
-        if (oldState != null & !sameLayout) {
+
+        Map<TargetBound, Fragment> bounds = new HashMap<>();
+
+        if (oldState != null) {
             for (Cell cell : oldState.getGrid().getCells()) {
                 int containerId = cell.getContainerId();
                 Fragment fragment = fragmentManager.findFragmentById(containerId);
-                fragmentTransaction.remove(fragment);
+                for (TargetBound targetBound : targetBounds) {
+                    if (targetBound.getCellIdFrom() == cell.getType()) {
+                        bounds.put(targetBound, fragment);
+                        break;
+                    }
+                }
+                if (!sameLayout) {
+                    fragmentTransaction.remove(fragment);
+                }
             }
         }
         for (Cell cell : newState.getGrid().getCells()) {
             int containerId = cell.getContainerId();
             int cellType = cell.getType();
             JugglerFragment fragment = newState.createFragment(cellType);
+            for (TargetBound targetBound : bounds.keySet()) {
+                if (targetBound.getCellIdTo() == cellType) {
+                    Fragment targetFragment = bounds.get(targetBound);
+                    fragment.setTargetFragment(targetFragment, targetBound.getRequestCode());
+                }
+            }
             fragmentTransaction.replace(containerId, fragment);
         }
         fragmentTransaction.commit();
-        items.push(item);
-        processStateChange(activity, oldState, newState);
-        return newState;
     }
 
 

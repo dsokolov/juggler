@@ -10,18 +10,19 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".gui.HelloActivity">
-<!--            <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
-        <activity android:name=".simple.SimpleFragmentsActivity"
+        <activity
+            android:name=".simple.SimpleFragmentsActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+            <!--                        <intent-filter>
+                                        <action android:name="android.intent.action.MAIN" />
+                                        <category android:name="android.intent.category.LAUNCHER" />
+                                    </intent-filter>-->
         </activity>
 
         <activity android:name=".simple.CollapsingToolbarActivity">

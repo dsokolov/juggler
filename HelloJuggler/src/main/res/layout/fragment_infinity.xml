@@ -9,13 +9,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/send"
+        android:text="send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/next"
+        android:text="next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/prev"
+        android:text="prev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

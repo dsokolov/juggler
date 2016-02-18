@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.TargetBound;
 
 public abstract class Transition {
 
@@ -11,16 +12,16 @@ public abstract class Transition {
         return new ClearAdd(newState, tag);
     }
 
-    public static Transition addLinear(State newState, @Nullable String tag) {
-        return new AddLinear(newState, tag);
+    public static Transition addLinear(State newState, @Nullable String tag, TargetBound... targetBounds) {
+        return new AddLinear(newState, tag, targetBounds);
     }
 
     public static Transition digAddLinear(String digTag, State newState, @Nullable String tag) {
         return new DigAddLinear(digTag, newState, tag);
     }
 
-    public static Transition addDeeper(State newState, @Nullable String tag) {
-        return new AddDeeper(newState, tag);
+    public static Transition addDeeper(State newState, @Nullable String tag, TargetBound... targetBounds) {
+        return new AddDeeper(newState, tag, targetBounds);
     }
 
     public static Transition digAddDeeper(String digTag, State newState, @Nullable String tag) {
@@ -67,15 +68,17 @@ public abstract class Transition {
     private static class AddLinear extends Transition {
 
         private final State newState;
+        private final TargetBound[] targetBounds;
 
-        private AddLinear(State newState, @Nullable String tag) {
+        private AddLinear(State newState, @Nullable String tag, TargetBound... targetBounds) {
             super(tag);
             this.newState = newState;
+            this.targetBounds = targetBounds;
         }
 
         @Override
         protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
-            return stateChanger.add(newState, activity, StateChanger.Mode.ADD_LINEAR, tag);
+            return stateChanger.add(newState, activity, StateChanger.Mode.ADD_LINEAR, tag, targetBounds);
         }
 
     }
@@ -83,15 +86,17 @@ public abstract class Transition {
     private static class AddDeeper extends Transition {
 
         private final State newState;
+        private TargetBound[] targetBounds;
 
-        private AddDeeper(State newState, @Nullable String tag) {
+        private AddDeeper(State newState, @Nullable String tag, TargetBound... targetBounds) {
             super(tag);
             this.newState = newState;
+            this.targetBounds = targetBounds;
         }
 
         @Override
         protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
-            return stateChanger.add(newState, activity, StateChanger.Mode.ADD_DEEPER, tag);
+            return stateChanger.add(newState, activity, StateChanger.Mode.ADD_DEEPER, tag, targetBounds);
         }
 
     }

@@ -1,17 +1,23 @@
 package me.ilich.juggler.hello.gui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.InfinityState;
+import me.ilich.juggler.states.TargetBound;
 
 public class InfinityFragment extends JugglerFragment {
+
+    private static final String EXTRA_PARAM = "param";
 
     public static JugglerFragment create(int i) {
         InfinityFragment infinityFragment = new InfinityFragment();
@@ -23,6 +29,8 @@ public class InfinityFragment extends JugglerFragment {
 
     private int i;
     private TextView textView;
+    private String s = null;
+    private EditText editText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,11 +48,12 @@ public class InfinityFragment extends JugglerFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView = (TextView) view.findViewById(R.id.text);
+        editText = (EditText) view.findViewById(R.id.edit);
         processI();
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new InfinityState(i + 1));
+                navigateTo().linearState(new InfinityState(i + 1), TargetBound.contentToContent(10));
             }
         });
         view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
@@ -53,6 +62,31 @@ public class InfinityFragment extends JugglerFragment {
                 navigateTo().backState();
             }
         });
+        view.findViewById(R.id.send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getTargetFragment() != null) {
+                    Intent intent = new Intent().putExtra(EXTRA_PARAM, editText.getText().toString());
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                    navigateTo().backState();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        s = data.getStringExtra(EXTRA_PARAM);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (s != null) {
+            editText.setText(s);
+            s = null;
+        }
     }
 
     private void processI() {

@@ -1,6 +1,7 @@
 package me.ilich.juggler;
 
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.TargetBound;
 
 public interface Navigable {
 
@@ -8,7 +9,7 @@ public interface Navigable {
 
     boolean upState();
 
-    void linearState(State state);
+    void linearState(State state, TargetBound... targetBounds);
 
     void linearState(State state, String tag);
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.TargetBound;
 
 public class Juggler implements Navigable {
 
@@ -70,8 +71,8 @@ public class Juggler implements Navigable {
     }
 
     @Override
-    public void linearState(State state) {
-        doLinerState(state, null);
+    public void linearState(State state, TargetBound... targetBounds) {
+        doLinerState(state, null, targetBounds);
     }
 
     @Override
@@ -79,13 +80,13 @@ public class Juggler implements Navigable {
         doLinerState(state, tag);
     }
 
-    private void doLinerState(State state, @Nullable String tag) {
+    private void doLinerState(State state, @Nullable String tag, TargetBound... targetBounds) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition;
         if (currentState == null) {
             transition = Transition.clearAdd(state, tag);
         } else {
-            transition = Transition.addLinear(state, tag);
+            transition = Transition.addLinear(state, tag, targetBounds);
         }
         currentState = transition.execute(activity, stateChanger);
     }
