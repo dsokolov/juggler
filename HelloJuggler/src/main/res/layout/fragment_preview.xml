@@ -4,20 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="login" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="passord" />
+        android:text="preview" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login" />
+        android:text="next" />
 
 </LinearLayout>

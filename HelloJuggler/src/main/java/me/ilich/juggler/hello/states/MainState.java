@@ -6,10 +6,12 @@ import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.MainFragment;
 import me.ilich.juggler.hello.gui.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
+import me.ilich.juggler.states.ContentNavigationState;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.State;
 
-public class MainState extends ContentToolbarNavigationState<State.Params> {
+//public class MainState extends ContentToolbarNavigationState<State.Params> {
+public class MainState extends ContentNavigationState<State.Params> {
 
     public static final String TAG = "main";
 
@@ -22,10 +24,10 @@ public class MainState extends ContentToolbarNavigationState<State.Params> {
         return MainFragment.newInstance();
     }
 
-    @Override
+/*    @Override
     protected JugglerFragment onCreateToolbar(Params params) {
         return StandardToolbarFragment.createBack();
-    }
+    }*/
 
     @Override
     protected JugglerFragment onCreateNavigation(Params params) {

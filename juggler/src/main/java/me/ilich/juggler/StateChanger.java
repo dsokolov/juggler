@@ -69,7 +69,7 @@ public class StateChanger {
     public State add(State newState, JugglerActivity activity, Mode mode, @Nullable String tag, TargetBound... targetBounds) {
         final Item oldItem;
         final State oldState;
-        if (items.isEmpty()) {
+        if (items.isEmpty() || mode == Mode.ADD_CLEAR) {
             oldItem = null;
             oldState = null;
         } else {
@@ -106,6 +106,13 @@ public class StateChanger {
             }
         }
         Item item = new Item(newLayoutId, transactionName, newState, itemTag);
+
+        if (mode == Mode.ADD_CLEAR) {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            while (fm.getBackStackEntryCount() > 0) {
+                fm.popBackStackImmediate();
+            }
+        }
 
 
         if (!sameLayout) {

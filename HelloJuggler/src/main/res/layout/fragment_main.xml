@@ -46,4 +46,11 @@
         android:layout_height="wrap_content"
         android:text="infinity"/>
 
+
+    <Button
+        android:id="@+id/navigate_to_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="preview"/>
+
 </LinearLayout>
