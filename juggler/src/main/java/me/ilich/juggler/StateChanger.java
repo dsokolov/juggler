@@ -77,8 +77,12 @@ public class StateChanger {
             oldState = oldItem.state;
         }
         int newLayoutId = newState.getGrid().getLayoutId();
+        String firstTransactionName = null;
         final boolean sameLayout;
         if (oldItem == null || mode == Mode.ADD_CLEAR) {
+            if (items.size() > 0) {
+                firstTransactionName = items.get(0).transactionName;
+            }
             items.clear();
             activity.setContentView(newLayoutId);
             sameLayout = true;
@@ -109,9 +113,7 @@ public class StateChanger {
 
         if (mode == Mode.ADD_CLEAR) {
             FragmentManager fm = activity.getSupportFragmentManager();
-            while (fm.getBackStackEntryCount() > 0) {
-                fm.popBackStackImmediate();
-            }
+            fm.popBackStackImmediate(firstTransactionName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
 

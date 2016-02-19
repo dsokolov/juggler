@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="registration" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,12 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="passord" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="login" />
 
     <Button
         android:id="@+id/register"
