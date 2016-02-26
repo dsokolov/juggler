@@ -76,9 +76,9 @@ artifacts {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-annotations:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    javadocDependencies 'com.android.support:appcompat-v7:23.1.1'
-    javadocDependencies 'com.android.support:support-annotations:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:support-annotations:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    javadocDependencies 'com.android.support:appcompat-v7:23.2.0'
+    javadocDependencies 'com.android.support:support-annotations:23.2.0'
 }
