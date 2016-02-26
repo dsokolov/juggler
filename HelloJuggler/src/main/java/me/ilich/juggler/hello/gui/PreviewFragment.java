@@ -29,9 +29,7 @@ public class PreviewFragment extends JugglerFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new WizardOneState()));
-                //TODO tag
-                //, "ABC");
+                navigateTo().state(null, new DeeperAdd(new WizardOneState(), "ABC"));
             }
         });
     }

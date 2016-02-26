@@ -29,7 +29,7 @@ public class RegistrationFragment extends JugglerFragment {
         view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new RegistrationDoneState()));
+                navigateTo().state(null, new DeeperAdd(new RegistrationDoneState(), null));
             }
         });
     }

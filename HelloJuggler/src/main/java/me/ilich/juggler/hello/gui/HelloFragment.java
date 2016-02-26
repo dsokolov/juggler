@@ -30,7 +30,7 @@ public class HelloFragment extends JugglerFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new LoginState()));
+                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new LoginState(), null));
             }
         });
     }

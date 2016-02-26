@@ -46,11 +46,11 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                         b = true;
                         break;
                     case R.id.menu_about:
-                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new AboutState()));
+                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new AboutState(), null));
                         b = true;
                         break;
                     case R.id.menu_only_content:
-                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new NoTitleNavagationState()));
+                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new NoTitleNavagationState(), null));
                         b = true;
                         break;
                     default:

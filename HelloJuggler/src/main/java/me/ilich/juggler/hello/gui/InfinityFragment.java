@@ -54,7 +54,7 @@ public class InfinityFragment extends JugglerFragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new LinearAdd(new InfinityState(i + 1), TargetBound.contentToContent(10)));
+                navigateTo().state(null, new LinearAdd(new InfinityState(i + 1), null, TargetBound.contentToContent(10)));
             }
         });
         view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package me.ilich.juggler.change;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,10 +18,12 @@ import me.ilich.juggler.states.TargetBound;
 public abstract class AbstractAdd implements Add {
 
     private final State newState;
+    private final String tag;
     private final TargetBound[] targetBounds;
 
-    public AbstractAdd(State state, TargetBound... targetBounds) {
+    public AbstractAdd(State state, @Nullable String tag, TargetBound... targetBounds) {
         this.newState = state;
+        this.tag = tag;
         this.targetBounds = targetBounds;
     }
 
@@ -31,17 +34,18 @@ public abstract class AbstractAdd implements Add {
         final Item newItem;
         final boolean needToSetLayout;
         final String transactionName;
+        final String tag = this.tag == null ? newState.getTag() : this.tag;
         if (items.empty()) {
             needToSetLayout = true;
             transactionName = StateChanger.generateTransactionName(null, newState);
-            newItem = new Item(newLayoutId, transactionName, newState, null);
+            newItem = new Item(newLayoutId, transactionName, newState, tag);
         } else {
             Item oldItem = items.peek();
             State oldState = oldItem.getState();
             transactionName = StateChanger.generateTransactionName(oldState, newState);
             int oldLayoutId = oldState.getGrid().getLayoutId();
             needToSetLayout = oldLayoutId != newLayoutId;
-            newItem = new Item(newLayoutId, transactionName, newState, null);
+            newItem = new Item(newLayoutId, transactionName, newState, tag);
             onProcessBackUp(oldItem, newItem);
         }
         if (needToSetLayout) {

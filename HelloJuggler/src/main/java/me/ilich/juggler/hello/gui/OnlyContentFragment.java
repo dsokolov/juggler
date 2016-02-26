@@ -31,7 +31,7 @@ public class OnlyContentFragment extends JugglerFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new MainState()));
+                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new MainState(), null));
             }
         }, 1000);
     }

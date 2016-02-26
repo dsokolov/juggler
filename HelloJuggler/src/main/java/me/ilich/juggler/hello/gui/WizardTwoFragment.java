@@ -26,13 +26,13 @@ public class WizardTwoFragment extends JugglerFragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new LinearAdd(new WizardThreeState()));
+                navigateTo().state(null, new LinearAdd(new WizardThreeState(), null));
             }
         });
         view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new LinearAdd(new WizardOneState()));
+                navigateTo().backState();
             }
         });
     }

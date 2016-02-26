@@ -6,8 +6,8 @@ import me.ilich.juggler.states.TargetBound;
 
 public class LinearAdd extends AbstractAdd {
 
-    public LinearAdd(State state, TargetBound... targetBounds) {
-        super(state, targetBounds);
+    public LinearAdd(State state, String tag, TargetBound... targetBounds) {
+        super(state, tag, targetBounds);
     }
 
     @Override

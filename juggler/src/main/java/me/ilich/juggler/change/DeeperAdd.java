@@ -1,13 +1,15 @@
 package me.ilich.juggler.change;
 
+import android.support.annotation.Nullable;
+
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
 public class DeeperAdd extends AbstractAdd {
 
-    public DeeperAdd(State state, TargetBound... targetBounds) {
-        super(state, targetBounds);
+    public DeeperAdd(State state, @Nullable String tag, TargetBound... targetBounds) {
+        super(state, tag, targetBounds);
     }
 
     @Override

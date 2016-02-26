@@ -46,7 +46,7 @@ public class ItemDetailsFragment extends JugglerFragment {
         view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new AboutState()));
+                navigateTo().state(null, new DeeperAdd(new AboutState(), null));
             }
         });
     }

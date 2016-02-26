@@ -14,7 +14,7 @@ public class HelloActivity extends JugglerActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             //navigateTo().clearState(new MainState());
-            navigateTo().state(new ClearPopCondition(), new DeeperAdd(new MainState()));
+            navigateTo().state(new ClearPopCondition(), new DeeperAdd(new MainState(), null));
 
             //navigateTo().clearState(new SplashState());
             //navigateTo().clearState(new LoginState());
