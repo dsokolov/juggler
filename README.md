@@ -13,6 +13,7 @@ Juggler is Android framework represents navigation as a state machine.
 
 In your root build.gradle
 
+```
 allprojects {
     repositories {
         ...
@@ -21,13 +22,16 @@ allprojects {
         }
     }
 }
+```
 
 In your project build.gradle (usaly app/build.gralde or mobile/build.gralde):
 
+```
 dependencies {
     ...
     compile 'me.ilich:juggler:0.0.16'
 }
+```
 
 
 
