@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.ilich.juggler.change.DeeperAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
@@ -45,7 +46,7 @@ public class ItemDetailsFragment extends JugglerFragment {
         view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().deeperState(new AboutState());
+                navigateTo().state(null, new DeeperAdd(new AboutState()));
             }
         });
     }

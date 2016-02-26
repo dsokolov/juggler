@@ -2,6 +2,9 @@ package me.ilich.juggler;
 
 import android.support.annotation.Nullable;
 
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.PopCondition;
+import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
@@ -34,6 +37,10 @@ public abstract class Transition {
 
     public static Transition dig(String tag) {
         return new DigTransition(tag);
+    }
+
+    public static Transition custom(String tag, PopCondition popCondition, Add addCondition) {
+        return new CustomTransition(tag, popCondition, addCondition);
     }
 
     @Nullable
@@ -162,6 +169,24 @@ public abstract class Transition {
         @Override
         protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
             return stateChanger.dig(tag, activity);
+        }
+
+    }
+
+    private static class CustomTransition extends Transition {
+
+        private final PopCondition popCondition;
+        private final Add addCondition;
+
+        protected CustomTransition(String tag, PopCondition popCondition, Add addCondition) {
+            super(tag);
+            this.popCondition = popCondition;
+            this.addCondition = addCondition;
+        }
+
+        @Override
+        protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
+            return stateChanger.change(activity, popCondition, addCondition);
         }
 
     }

@@ -1,7 +1,7 @@
 package me.ilich.juggler;
 
-import me.ilich.juggler.states.State;
-import me.ilich.juggler.states.TargetBound;
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.PopCondition;
 
 public interface Navigable {
 
@@ -9,7 +9,7 @@ public interface Navigable {
 
     boolean upState();
 
-    void linearState(State state, TargetBound... targetBounds);
+/*    void linearState(State state, TargetBound... targetBounds);
 
     void linearState(State state, String tag);
 
@@ -25,8 +25,10 @@ public interface Navigable {
 
     void digLinearState(String tag, State state);
 
-    void digDeeperState(String tag, State state);
+    void digDeeperState(String tag, State state);*/
 
     void restore();
+
+    void state(PopCondition popCondition, Add addCondition);
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.change.DeeperAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.RegistrationDoneState;
@@ -28,7 +29,7 @@ public class RegistrationFragment extends JugglerFragment {
         view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().deeperState(new RegistrationDoneState());
+                navigateTo().state(null, new DeeperAdd(new RegistrationDoneState()));
             }
         });
     }

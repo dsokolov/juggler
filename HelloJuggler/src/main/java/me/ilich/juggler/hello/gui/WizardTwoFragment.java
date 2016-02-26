@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.change.LinearAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.WizardOneState;
@@ -25,13 +26,13 @@ public class WizardTwoFragment extends JugglerFragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new WizardThreeState());
+                navigateTo().state(null, new LinearAdd(new WizardThreeState()));
             }
         });
         view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new WizardOneState());
+                navigateTo().state(null, new LinearAdd(new WizardOneState()));
             }
         });
     }

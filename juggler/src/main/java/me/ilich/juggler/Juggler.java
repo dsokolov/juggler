@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.PopCondition;
+import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
@@ -70,15 +73,15 @@ public class Juggler implements Navigable {
         return b;
     }
 
-    @Override
+/*    @Override
     public void linearState(State state, TargetBound... targetBounds) {
         doLinerState(state, null, targetBounds);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void linearState(State state, @Nullable String tag) {
         doLinerState(state, tag);
-    }
+    }*/
 
     private void doLinerState(State state, @Nullable String tag, TargetBound... targetBounds) {
         JugglerActivity activity = activities.get(activities.size() - 1);
@@ -91,15 +94,15 @@ public class Juggler implements Navigable {
         currentState = transition.execute(activity, stateChanger);
     }
 
-    @Override
+/*    @Override
     public void deeperState(State state, TargetBound... targetBounds) {
         doDeeperState(state, null, targetBounds);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void deeperState(State state, String tag) {
         doDeeperState(state, tag);
-    }
+    }*/
 
     private void doDeeperState(State state, @Nullable String tag, TargetBound... targetBounds) {
         JugglerActivity activity = activities.get(activities.size() - 1);
@@ -112,15 +115,18 @@ public class Juggler implements Navigable {
         currentState = transition.execute(activity, stateChanger);
     }
 
-    @Override
+/*    @Override
     public void clearState(State state) {
-        doClearState(state, null);
-    }
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition = Transition.custom(null, new ClearPopCondition(), new DeeperAddCondition(state));
+        currentState = transition.execute(activity, stateChanger);
+        //doClearState(state, null);
+    }*/
 
-    @Override
+  /*  @Override
     public void clearState(State state, String tag) {
         doClearState(state, tag);
-    }
+    }*/
 
     private void doClearState(State state, @Nullable String tag) {
         JugglerActivity activity = activities.get(activities.size() - 1);
@@ -128,14 +134,14 @@ public class Juggler implements Navigable {
         currentState = transition.execute(activity, stateChanger);
     }
 
-    @Override
+/*    @Override
     public void dig(String tag) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition = Transition.dig(tag);
         currentState = transition.execute(activity, stateChanger);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void digLinearState(String digTag, State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition;
@@ -145,12 +151,12 @@ public class Juggler implements Navigable {
             transition = Transition.digAddLinear(digTag, state, null);
         }
         currentState = transition.execute(activity, stateChanger);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void digDeeperState(String tag, State state) {
         doDigDeeperState(tag, state);
-    }
+    }*/
 
     private void doDigDeeperState(String digTag, State state) {
         JugglerActivity activity = activities.get(activities.size() - 1);
@@ -167,6 +173,13 @@ public class Juggler implements Navigable {
     public void restore() {
         JugglerActivity activity = activities.get(activities.size() - 1);
         currentState = stateChanger.restore(activity);
+    }
+
+    @Override
+    public void state(PopCondition popCondition, Add addCondition) {
+        JugglerActivity activity = activities.get(activities.size() - 1);
+        final Transition transition = Transition.custom(null, popCondition, addCondition);
+        currentState = transition.execute(activity, stateChanger);
     }
 
     public void registerActivity(JugglerActivity activity) {

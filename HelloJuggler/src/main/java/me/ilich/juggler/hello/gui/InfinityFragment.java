@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import me.ilich.juggler.change.LinearAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.InfinityState;
@@ -53,7 +54,7 @@ public class InfinityFragment extends JugglerFragment {
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().linearState(new InfinityState(i + 1), TargetBound.contentToContent(10));
+                navigateTo().state(null, new LinearAdd(new InfinityState(i + 1), TargetBound.contentToContent(10)));
             }
         });
         view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ilich.juggler.change.LinearAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.ItemDetailsState;
@@ -71,7 +72,7 @@ public class ItemsListFragment extends JugglerFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateTo().linearState(new ItemDetailsState(item));
+                    navigateTo().state(null, new LinearAdd(new ItemDetailsState(item)));
                 }
             });
         }

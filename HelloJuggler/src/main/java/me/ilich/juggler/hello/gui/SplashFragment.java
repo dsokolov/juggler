@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.change.ClearPopCondition;
+import me.ilich.juggler.change.DeeperAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.HelloState;
@@ -28,7 +30,7 @@ public class SplashFragment extends JugglerFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().clearState(new HelloState());
+                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new HelloState()));
             }
         });
     }
