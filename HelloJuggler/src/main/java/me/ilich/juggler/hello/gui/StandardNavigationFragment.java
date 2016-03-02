@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.change.DeeperAdd;
-import me.ilich.juggler.change.DigPop;
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerNavigationFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
@@ -42,15 +42,15 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                 final boolean b;
                 switch (item.getItemId()) {
                     case R.id.menu_main:
-                        navigateTo().state(new DigPop(MainState.TAG), null);
+                        navigateTo().state(Remove.dig(MainState.TAG));
                         b = true;
                         break;
                     case R.id.menu_about:
-                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new AboutState(), null));
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new AboutState()));
                         b = true;
                         break;
                     case R.id.menu_only_content:
-                        navigateTo().state(new DigPop(MainState.TAG), new DeeperAdd(new NoTitleNavagationState(), null));
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new NoTitleNavagationState()));
                         b = true;
                         break;
                     default:

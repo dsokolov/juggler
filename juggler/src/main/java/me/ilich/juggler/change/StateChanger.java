@@ -1,21 +1,13 @@
 package me.ilich.juggler.change;
 
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.annotation.VisibleForTesting;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 import java.util.UUID;
 
-import me.ilich.juggler.Transition;
-import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
-import me.ilich.juggler.states.TargetBound;
 
 public class StateChanger {
 
@@ -28,12 +20,17 @@ public class StateChanger {
 
     private Stack<Item> items = new Stack<>();
 
-    public State change(JugglerActivity activity, PopCondition popStateCondition, Add addCondition) {
-        return doChange(activity, popStateCondition, addCondition);
+    public State change(JugglerActivity activity, Remove.Interface pop, Add.Interface add) {
+        return doChange(activity, pop, add);
+    }
+
+    @VisibleForTesting
+    public int getStackLength(){
+        return items.size();
     }
 
     @Nullable
-    private State doChange(JugglerActivity activity, PopCondition popStateCondition, Add addCondition) {
+    private State doChange(JugglerActivity activity, Remove.Interface pop, Add.Interface add) {
         if (activity == null) {
             throw new NullPointerException("activity");
         }
@@ -47,16 +44,16 @@ public class StateChanger {
         }
         State oldState = oldItem == null ? null : oldItem.getState();
 
-        boolean hasPop = popStateCondition != null;
-        boolean hasAdd = addCondition != null;
+        boolean hasPop = pop != null;
+        boolean hasAdd = add != null;
 
         if (hasPop && hasAdd) {
-            popStateCondition.pop(activity, items);
-            resultItem = addCondition.add(activity, items);
+            pop.pop(activity, items);
+            resultItem = add.add(activity, items);
         } else if (hasPop) {
-            resultItem = popStateCondition.pop(activity, items);
+            resultItem = pop.pop(activity, items);
         } else if (hasAdd) {
-            resultItem = addCondition.add(activity, items);
+            resultItem = add.add(activity, items);
         } else {
             if (items.empty()) {
                 resultItem = null;

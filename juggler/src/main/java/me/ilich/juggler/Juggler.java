@@ -1,17 +1,15 @@
 package me.ilich.juggler;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.ClearPopCondition;
-import me.ilich.juggler.change.DeeperAdd;
-import me.ilich.juggler.change.DigPop;
-import me.ilich.juggler.change.LinearAdd;
-import me.ilich.juggler.change.PopCondition;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
@@ -79,47 +77,47 @@ public class Juggler implements Navigable {
 
     @Override
     public void linearState(State state, TargetBound... targetBounds) {
-        doState(null, new LinearAdd(state, null, targetBounds));
+        doState(null, Add.linear(state, targetBounds));
     }
 
     @Override
     public void linearState(State state, @Nullable String tag) {
-        doState(null, new LinearAdd(state, tag));
+        doState(null, Add.linear(state, tag));
     }
 
     @Override
     public void deeperState(State state, TargetBound... targetBounds) {
-        doState(null, new DeeperAdd(state, null, targetBounds));
+        doState(null, Add.deeper(state, targetBounds));
     }
 
     @Override
     public void deeperState(State state, String tag) {
-        doState(null, new DeeperAdd(state, tag));
+        doState(null, Add.deeper(state, tag));
     }
 
     @Override
     public void clearState(State state) {
-        doState(new ClearPopCondition(), new DeeperAdd(state, null));
+        doState(Remove.clear(), Add.deeper(state));
     }
 
     @Override
     public void clearState(State state, String tag) {
-        doState(new ClearPopCondition(), new DeeperAdd(state, tag));
+        doState(Remove.clear(), Add.deeper(state, tag));
     }
 
     @Override
     public void dig(String tag) {
-        doState(new DigPop(tag), null);
+        doState(Remove.dig(tag), null);
     }
 
     @Override
     public void digLinearState(String digTag, State state) {
-        doState(new DigPop(digTag), new DeeperAdd(state, null));
+        doState(Remove.dig(digTag), Add.deeper(state));
     }
 
     @Override
     public void digDeeperState(String tag, State state) {
-        doState(new DigPop(tag), new DeeperAdd(state, tag));
+        doState(Remove.dig(tag), Add.deeper(state, tag));
     }
 
     @Override
@@ -129,13 +127,23 @@ public class Juggler implements Navigable {
     }
 
     @Override
-    public void state(PopCondition popCondition, Add addCondition) {
-        doState(popCondition, addCondition);
+    public void state(@NonNull Remove.Interface pop) {
+        doState(pop, null);
     }
 
-    private void doState(PopCondition popCondition, Add addCondition) {
+    @Override
+    public void state(@NonNull Add.Interface add) {
+        doState(null, add);
+    }
+
+    @Override
+    public void state(@NonNull Remove.Interface pop, @NonNull Add.Interface add) {
+        doState(pop, add);
+    }
+
+    private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
         JugglerActivity activity = activities.get(activities.size() - 1);
-        final Transition transition = Transition.custom(null, popCondition, addCondition);
+        final Transition transition = Transition.custom(null, pop, add);
         currentState = transition.execute(activity, stateChanger);
     }
 
@@ -163,6 +171,11 @@ public class Juggler implements Navigable {
             b = currentState.onBackPressed(activity);
         }
         return b;
+    }
+
+    @VisibleForTesting
+    public int getStackLength(){
+        return stateChanger.getStackLength();
     }
 
 }

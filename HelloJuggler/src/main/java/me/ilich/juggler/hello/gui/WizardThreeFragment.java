@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.change.LinearAdd;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.states.WizardTwoState;
 
 public class WizardThreeFragment extends JugglerFragment {
 

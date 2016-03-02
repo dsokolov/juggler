@@ -15,7 +15,7 @@ import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
-public abstract class AbstractAdd implements Add {
+public abstract class AbstractAdd implements Add.Interface {
 
     private final State newState;
     private final String tag;

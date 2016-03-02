@@ -5,12 +5,11 @@ import java.util.Stack;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 
-//TODO
-public class DigPop implements PopCondition {
+class RemoveDig implements Remove.Interface {
 
     private final String tag;
 
-    public DigPop(String tag) {
+    public RemoveDig(String tag) {
         this.tag = tag;
     }
 

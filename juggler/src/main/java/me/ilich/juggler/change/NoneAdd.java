@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import me.ilich.juggler.gui.JugglerActivity;
 
-public class NoneAddCondition implements Add {
+class NoneAdd implements Add.Interface {
 
     @Override
     public Item add(JugglerActivity activity, Stack<Item> items) {

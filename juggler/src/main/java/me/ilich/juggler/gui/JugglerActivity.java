@@ -1,6 +1,7 @@
 package me.ilich.juggler.gui;
 
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
 import me.ilich.juggler.Juggler;
@@ -28,7 +29,8 @@ public class JugglerActivity extends AppCompatActivity {
         juggler.onPostCreate(savedInstanceState);
     }
 
-    protected Navigable navigateTo() {
+    @VisibleForTesting
+    public Navigable navigateTo() {
         return juggler;
     }
 

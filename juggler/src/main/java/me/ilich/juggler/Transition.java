@@ -3,11 +3,10 @@ package me.ilich.juggler;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.PopCondition;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
-import me.ilich.juggler.states.TargetBound;
 
 public abstract class Transition {
 
@@ -15,8 +14,8 @@ public abstract class Transition {
         return new Transaction(transition, tag);
     }
 
-    public static Transition custom(String tag, PopCondition popCondition, Add addCondition) {
-        return new CustomTransition(tag, popCondition, addCondition);
+    public static Transition custom(String tag, Remove.Interface pop, Add.Interface add) {
+        return new CustomTransition(tag, pop, add);
     }
 
     @Nullable
@@ -50,18 +49,18 @@ public abstract class Transition {
 
     private static class CustomTransition extends Transition {
 
-        private final PopCondition popCondition;
-        private final Add addCondition;
+        private final Remove.Interface pop;
+        private final Add.Interface addCondition;
 
-        protected CustomTransition(String tag, PopCondition popCondition, Add addCondition) {
+        protected CustomTransition(String tag, Remove.Interface pop, Add.Interface addCondition) {
             super(tag);
-            this.popCondition = popCondition;
+            this.pop = pop;
             this.addCondition = addCondition;
         }
 
         @Override
         protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
-            return stateChanger.change(activity, popCondition, addCondition);
+            return stateChanger.change(activity, pop, addCondition);
         }
 
     }

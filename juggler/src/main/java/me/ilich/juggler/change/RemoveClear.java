@@ -6,7 +6,7 @@ import java.util.Stack;
 
 import me.ilich.juggler.gui.JugglerActivity;
 
-public class ClearPopCondition implements PopCondition {
+class RemoveClear implements Remove.Interface {
 
     @Override
     public Item pop(JugglerActivity activity, Stack<Item> items) {
@@ -20,4 +20,5 @@ public class ClearPopCondition implements PopCondition {
         }
         return null;
     }
+
 }

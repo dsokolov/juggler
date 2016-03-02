@@ -4,10 +4,11 @@ import java.util.Stack;
 
 import me.ilich.juggler.gui.JugglerActivity;
 
-public class NonePopCondition implements PopCondition {
+class RemoveNone implements Remove.Interface {
 
     @Override
     public Item pop(JugglerActivity activity, Stack<Item> items) {
         return null;
     }
+
 }

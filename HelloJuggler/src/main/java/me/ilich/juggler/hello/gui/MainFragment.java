@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.ilich.juggler.change.DeeperAdd;
-import me.ilich.juggler.change.LinearAdd;
-import me.ilich.juggler.change.NonePopCondition;
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
@@ -45,14 +44,13 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new ItemsListState(), null));
+                navigateTo().state(Add.deeper(new ItemsListState()));
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //navigateTo().deeperState(new AboutState());
-                navigateTo().state(new NonePopCondition(), new DeeperAdd(new AboutState(), null));
+                navigateTo().state(Remove.none(), Add.deeper(new AboutState()));
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {
@@ -64,7 +62,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new WizardOneState(), null));
+                navigateTo().state(Add.deeper(new WizardOneState()));
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
@@ -76,13 +74,13 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_infinity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new LinearAdd(new InfinityState(1), null));
+                navigateTo().state(Add.linear(new InfinityState(1)));
             }
         });
         view.findViewById(R.id.navigate_to_preview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new PreviewState(), null));
+                navigateTo().state(Add.deeper(new PreviewState()));
             }
         });
         getActivity().setTitle("main screen");
@@ -100,7 +98,7 @@ public class MainFragment extends JugglerFragment {
         switch (item.getItemId()) {
             case R.id.about:
                 Toast.makeText(getContext(), "about", Toast.LENGTH_SHORT).show();
-                navigateTo().state(null, new DeeperAdd(new AboutState(), null));
+                navigateTo().state(Add.deeper(new AboutState()));
                 b = true;
                 break;
             default:

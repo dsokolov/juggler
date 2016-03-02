@@ -4,7 +4,7 @@ import me.ilich.juggler.Transition;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
-public class LinearAdd extends AbstractAdd {
+class LinearAdd extends AbstractAdd {
 
     public LinearAdd(State state, String tag, TargetBound... targetBounds) {
         super(state, tag, targetBounds);

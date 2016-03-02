@@ -1,7 +1,9 @@
 package me.ilich.juggler;
 
+import android.support.annotation.NonNull;
+
 import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.PopCondition;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
@@ -31,6 +33,10 @@ public interface Navigable {
 
     void restore();
 
-    void state(PopCondition popCondition, Add addCondition);
+    void state(@NonNull Remove.Interface pop);
+
+    void state(@NonNull Add.Interface add);
+
+    void state(@NonNull Remove.Interface pop, @NonNull Add.Interface add);
 
 }

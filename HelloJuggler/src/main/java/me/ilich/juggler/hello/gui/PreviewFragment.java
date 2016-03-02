@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.change.DeeperAdd;
+import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.WizardOneState;
@@ -29,7 +29,7 @@ public class PreviewFragment extends JugglerFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(null, new DeeperAdd(new WizardOneState(), "ABC"));
+                navigateTo().state(Add.deeper(new WizardOneState(), "ABC"));
             }
         });
     }

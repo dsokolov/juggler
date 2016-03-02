@@ -6,7 +6,7 @@ import me.ilich.juggler.Transition;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
-public class DeeperAdd extends AbstractAdd {
+class DeeperAdd extends AbstractAdd {
 
     public DeeperAdd(State state, @Nullable String tag, TargetBound... targetBounds) {
         super(state, tag, targetBounds);

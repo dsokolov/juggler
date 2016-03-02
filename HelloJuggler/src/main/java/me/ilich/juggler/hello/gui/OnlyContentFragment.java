@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.change.ClearPopCondition;
-import me.ilich.juggler.change.DeeperAdd;
+import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.MainState;
@@ -31,7 +31,7 @@ public class OnlyContentFragment extends JugglerFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                navigateTo().state(new ClearPopCondition(), new DeeperAdd(new MainState(), null));
+                navigateTo().state(Remove.clear(), Add.deeper(new MainState()));
             }
         }, 1000);
     }
