@@ -9,6 +9,8 @@ import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.hello.gui.TestActivity;
 import me.ilich.juggler.hello.states.HelloState;
 import me.ilich.juggler.hello.states.InfinityState;
+import me.ilich.juggler.hello.states.MainState;
+import me.ilich.juggler.hello.states.PreviewState;
 import me.ilich.juggler.hello.states.SplashState;
 
 public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity> {
@@ -183,6 +185,26 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
             @Override
             public void run() {
                 navigable.state(Remove.last(), Add.linear(new InfinityState(2)));
+            }
+        });
+    }
+
+    public void testRemoveLast2() {
+        doNavigateToState(2, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Add.linear(new MainState()));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Add.deeper(new PreviewState()));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Remove.last(), Add.deeper(new InfinityState(3)));
+                //navigable.state(Remove.last());
             }
         });
     }

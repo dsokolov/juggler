@@ -10,16 +10,19 @@ class RemoveLast implements Remove.Interface {
 
     @Override
     public Item pop(JugglerActivity activity, Stack<Item> items) {
-        items.pop();
-        FragmentManager fm = activity.getSupportFragmentManager();
-        fm.popBackStack();
-        final Item item;
+        final Item oldItem = items.pop();
+        final Item newItem;
         if (items.isEmpty()) {
-            item = null;
+            newItem = null;
         } else {
-            item = items.peek();
+            newItem = items.peek();
         }
-        return item;
+        if (newItem != null && newItem.getLayoutId() != oldItem.getLayoutId()) {
+            activity.setContentView(newItem.getLayoutId());
+        }
+        FragmentManager fm = activity.getSupportFragmentManager();
+        fm.popBackStackImmediate();
+        return newItem;
     }
 
 }
