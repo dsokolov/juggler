@@ -17,7 +17,7 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
         StandardToolbarFragment f = new StandardToolbarFragment();
         Bundle b = new Bundle();
         addDisplayOptionsToBundle(b, ActionBar.DISPLAY_SHOW_TITLE);
-        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        //addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
         f.setArguments(b);
         return f;
     }
@@ -26,7 +26,7 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
         StandardToolbarFragment f = new StandardToolbarFragment();
         Bundle b = new Bundle();
         addDisplayOptionsToBundle(b, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        //addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
         f.setArguments(b);
         return f;
     }
@@ -35,7 +35,7 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
         StandardToolbarFragment f = new StandardToolbarFragment();
         Bundle b = new Bundle();
         addDisplayOptionsToBundle(b, ActionBar.DISPLAY_HOME_AS_UP);
-        addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
+        //addNavigationIcon(b, android.R.drawable.ic_menu_gallery);
         f.setArguments(b);
         return f;
     }
@@ -44,12 +44,6 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_toolbar_standart, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getToolbar().setNavigationIcon(android.R.drawable.ic_menu_camera);
     }
 
     @Override

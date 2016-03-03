@@ -46,6 +46,11 @@ public class JugglerActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onNavigateUp() {
+        return super.onNavigateUp();
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         boolean b = juggler.upState();
         if (!b) {

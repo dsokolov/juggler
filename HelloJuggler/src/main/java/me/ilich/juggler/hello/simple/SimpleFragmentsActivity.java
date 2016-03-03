@@ -1,10 +1,12 @@
 package me.ilich.juggler.hello.simple;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,7 +20,23 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_2);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.container2, new CoordinatorFragment()).commit();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
+        }
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        Log.v("Sokolov", "onNavigateUp");
+        return super.onNavigateUp();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Log.v("Sokolov", "onSupportNavigateUp");
+        return super.onSupportNavigateUp();
     }
 
     @Override
