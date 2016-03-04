@@ -8,7 +8,6 @@ import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.State;
 
 public class MainState extends ContentToolbarNavigationState<State.Params> {
-//public class MainState extends ContentNavigationState<State.Params> {
 
     public static final String TAG = "main";
 
