@@ -209,4 +209,23 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
         });
     }
 
+    public void testDig() {
+        doNavigateToState(2, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Add.deeper(new MainState(), "A"));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Add.deeper(new InfinityState(2)));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                navigable.state(Remove.dig("A"), Add.deeper(new InfinityState(1)));
+            }
+        });
+    }
+
 }
