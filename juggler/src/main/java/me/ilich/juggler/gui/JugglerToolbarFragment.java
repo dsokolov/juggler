@@ -53,10 +53,18 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     }
 
     @Override
+    @SuppressWarnings("all")
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        @ActionBar.DisplayOptions int opt = getArguments().getInt(EXTRA_OPTIONS, 0);
-        @DrawableRes final int navigationIcon = getArguments().getInt(EXTRA_NAVIGATION_ICON, NOT_SET);
+        @ActionBar.DisplayOptions final int opt;
+        @DrawableRes final int navigationIcon;
+        if (getArguments() != null) {
+            opt = getArguments().getInt(EXTRA_OPTIONS, 0);
+            navigationIcon = getArguments().getInt(EXTRA_NAVIGATION_ICON, NOT_SET);
+        } else {
+            opt = 0;
+            navigationIcon = NOT_SET;
+        }
         toolbar = (Toolbar) view.findViewById(getToolbarId());
         activity.setSupportActionBar(toolbar);
         actionBar = activity.getSupportActionBar();

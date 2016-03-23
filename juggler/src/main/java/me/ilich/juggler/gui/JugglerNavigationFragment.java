@@ -48,7 +48,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = (DrawerLayout) getActivity().findViewById(getDrawerLayoutId());
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
 
