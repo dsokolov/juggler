@@ -1,5 +1,6 @@
 package me.ilich.juggler.states;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -40,12 +41,12 @@ public abstract class State<P extends State.Params> {
     }
 
     @Nullable
-    public String getTitle(P params) {
+    public String getTitle(Context context, P params) {
         return null;
     }
 
     @StringRes
-    public int getTitleRes(P params) {
+    public int getTitleRes(Context context, P params) {
         return NOT_SET;
     }
 
@@ -55,9 +56,9 @@ public abstract class State<P extends State.Params> {
     }
 
     protected void processTitle(JugglerActivity activity) {
-        String title = getTitle(params);
+        String title = getTitle(activity, params);
         if (TextUtils.isEmpty(title)) {
-            int titleRes = getTitleRes(params);
+            int titleRes = getTitleRes(activity, params);
             if (titleRes == NOT_SET) {
                 activity.setTitle(null);
             } else {

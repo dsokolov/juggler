@@ -1,5 +1,6 @@
 package me.ilich.juggler.hello.states;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
@@ -26,7 +27,7 @@ public class InfinityState extends ContentBelowToolbarState<InfinityState.Params
 
     @Nullable
     @Override
-    public String getTitle(Params params) {
+    public String getTitle(Context context, Params params) {
         return Integer.toString(params.i);
     }
 

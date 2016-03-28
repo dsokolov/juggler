@@ -1,6 +1,6 @@
 package me.ilich.juggler.hello.states;
 
-import android.support.v7.app.ActionBar;
+import android.content.Context;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
@@ -15,7 +15,7 @@ public class WizardOneState extends ContentBelowToolbarState<State.Params> {
     }
 
     @Override
-    public String getTitle(Params params) {
+    public String getTitle(Context context, Params params) {
         return "Wizard One";
     }
 

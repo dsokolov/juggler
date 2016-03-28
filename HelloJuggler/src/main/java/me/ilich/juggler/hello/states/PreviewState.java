@@ -1,12 +1,10 @@
 package me.ilich.juggler.hello.states;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.HelloFragment;
 import me.ilich.juggler.hello.gui.PreviewFragment;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.ContentOnlyState;
 import me.ilich.juggler.states.VoidParams;
 
@@ -28,7 +26,7 @@ public class PreviewState extends ContentOnlyState<VoidParams> {
 
     @Nullable
     @Override
-    public String getTitle(VoidParams params) {
+    public String getTitle(Context context, VoidParams params) {
         return "preview";
     }
 
