@@ -13,6 +13,11 @@ public class JugglerFragment extends Fragment {
         return juggler;
     }
 
+    /**
+     * Called when back button pressed
+     * @return true if press processed
+     * false by default
+     */
     public boolean onBackPressed() {
         return false;
     }

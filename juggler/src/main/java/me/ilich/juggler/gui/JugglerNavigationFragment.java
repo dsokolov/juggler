@@ -26,7 +26,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return bundle;
     }
 
-    private int defaultSelectedItem;
+    private int defaultSelectedItem = 0;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
 
@@ -35,7 +35,9 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM, 0);
+        if (getArguments() != null) {
+            defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM, 0);
+        }
     }
 
     protected final int getDefaultSelectedItem() {
@@ -48,7 +50,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = (DrawerLayout) getActivity().findViewById(getDrawerLayoutId());
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
 

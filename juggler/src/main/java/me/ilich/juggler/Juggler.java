@@ -162,6 +162,11 @@ public class Juggler implements Navigable {
         }
     }
 
+    /**
+     *
+     * @return true if current state process back press
+     * false if not
+     */
     public boolean onBackPressed() {
         final boolean b;
         if (currentState == null) {

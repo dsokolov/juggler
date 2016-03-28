@@ -117,6 +117,13 @@ public abstract class State<P extends State.Params> {
         return null;
     }
 
+    /**
+     *
+     * @param activity
+     * An JugglerActivity
+     * @return true if any juggler fragment process back press
+     * false if not
+     */
     public boolean onBackPressed(JugglerActivity activity) {
         boolean b = false;
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
