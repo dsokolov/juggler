@@ -8,7 +8,7 @@ import me.ilich.juggler.states.VoidParams;
 public class HelloState extends ContentOnlyState<VoidParams> {
 
     public HelloState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

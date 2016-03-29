@@ -9,30 +9,31 @@ import me.ilich.juggler.hello.gui.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.VoidParams;
 
-public class AboutState extends ContentToolbarNavigationState<State.Params> {
+public class AboutState extends ContentToolbarNavigationState<VoidParams> {
 
     public AboutState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override
-    public int getTitleRes(Context context, Params params) {
+    public int getTitleRes(Context context, VoidParams params) {
         return R.string.title_about;
     }
 
     @Override
-    protected JugglerFragment onCreateContent(Params params) {
+    protected JugglerFragment onCreateContent(VoidParams params) {
         return AboutFragment.newInstance();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(Params params) {
+    protected JugglerFragment onCreateToolbar(VoidParams params) {
         return StandardToolbarFragment.createTitleBack();
     }
 
     @Override
-    protected JugglerFragment onCreateNavigation(Params params) {
+    protected JugglerFragment onCreateNavigation(VoidParams params) {
         return StandardNavigationFragment.create(1);
     }
 

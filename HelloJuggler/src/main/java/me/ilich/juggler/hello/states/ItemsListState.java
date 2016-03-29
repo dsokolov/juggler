@@ -3,16 +3,16 @@ package me.ilich.juggler.hello.states;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.ItemsListFragment;
 import me.ilich.juggler.states.ContentOnlyState;
-import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.VoidParams;
 
-public class ItemsListState extends ContentOnlyState<State.Params> {
+public class ItemsListState extends ContentOnlyState<VoidParams> {
 
     public ItemsListState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override
-    protected JugglerFragment onCreateContent(Params params) {
+    protected JugglerFragment onCreateContent(VoidParams params) {
         return ItemsListFragment.create();
     }
 
