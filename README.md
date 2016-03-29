@@ -109,7 +109,7 @@ Then link it together by state:
 public class MainState extends ContentToolbarNavigationState<VoidParams> {
 
     public MainState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

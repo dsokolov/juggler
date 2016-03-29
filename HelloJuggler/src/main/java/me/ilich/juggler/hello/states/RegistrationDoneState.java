@@ -10,7 +10,7 @@ import me.ilich.juggler.states.VoidParams;
 public class RegistrationDoneState extends ContentOnlyState<VoidParams> {
 
     public RegistrationDoneState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

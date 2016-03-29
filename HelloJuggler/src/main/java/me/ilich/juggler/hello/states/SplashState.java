@@ -8,7 +8,7 @@ import me.ilich.juggler.states.VoidParams;
 public class SplashState extends ContentOnlyState<VoidParams> {
 
     public SplashState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

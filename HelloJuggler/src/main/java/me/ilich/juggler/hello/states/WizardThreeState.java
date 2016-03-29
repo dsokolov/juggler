@@ -7,20 +7,21 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.WizardThreeFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.VoidParams;
 
-public class WizardThreeState extends ContentBelowToolbarState<State.Params> {
+public class WizardThreeState extends ContentBelowToolbarState<VoidParams> {
 
     public WizardThreeState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override
-    protected JugglerFragment onCreateContent(Params params) {
+    protected JugglerFragment onCreateContent(VoidParams params) {
         return new WizardThreeFragment();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(Params params) {
+    protected JugglerFragment onCreateToolbar(VoidParams params) {
         return StandardToolbarFragment.createTitleBack();
     }
 

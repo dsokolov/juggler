@@ -7,25 +7,26 @@ import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.WizardOneFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.State;
+import me.ilich.juggler.states.VoidParams;
 
-public class WizardOneState extends ContentBelowToolbarState<State.Params> {
+public class WizardOneState extends ContentBelowToolbarState<VoidParams> {
 
     public WizardOneState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override
-    public String getTitle(Context context, Params params) {
+    public String getTitle(Context context, VoidParams params) {
         return "Wizard One";
     }
 
     @Override
-    protected JugglerFragment onCreateContent(Params params) {
+    protected JugglerFragment onCreateContent(VoidParams params) {
         return new WizardOneFragment();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(Params params) {
+    protected JugglerFragment onCreateToolbar(VoidParams params) {
         return StandardToolbarFragment.createTitleBack();
     }
 

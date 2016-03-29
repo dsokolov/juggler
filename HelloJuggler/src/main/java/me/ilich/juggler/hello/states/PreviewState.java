@@ -11,7 +11,7 @@ import me.ilich.juggler.states.VoidParams;
 public class PreviewState extends ContentOnlyState<VoidParams> {
 
     public PreviewState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

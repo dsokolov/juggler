@@ -9,7 +9,7 @@ import me.ilich.juggler.states.VoidParams;
 public class RegistrationState extends ContentBelowToolbarState<VoidParams> {
 
     public RegistrationState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

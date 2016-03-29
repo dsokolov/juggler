@@ -11,7 +11,7 @@ import me.ilich.juggler.states.VoidParams;
 public class NoTitleNavagationState extends ContentNavigationState<VoidParams> {
 
     public NoTitleNavagationState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override

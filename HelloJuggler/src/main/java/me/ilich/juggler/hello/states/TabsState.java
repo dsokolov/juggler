@@ -9,7 +9,7 @@ import me.ilich.juggler.states.VoidParams;
 public class TabsState extends ContentBelowToolbarState<VoidParams> {
 
     public TabsState() {
-        super(null);
+        super(VoidParams.instance());
     }
 
     @Override
