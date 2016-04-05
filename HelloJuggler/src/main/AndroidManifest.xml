@@ -9,26 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".gui.HelloActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".gui.HelloActivity" />
 
-        <activity android:name=".simple.SimpleFragmentsActivity">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>-->
-        </activity>
+        <activity android:name=".simple.SimpleFragmentsActivity" />
 
-        <activity android:name=".simple.CollapsingToolbarActivity">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>-->
-        </activity>
+        <activity android:name=".simple.CollapsingToolbarActivity" />
 
         <activity android:name=".gui.TestActivity" />
 

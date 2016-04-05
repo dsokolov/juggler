@@ -1,87 +1,85 @@
 package me.ilich.juggler.hello.simple;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import me.ilich.juggler.hello.R;
 
 public class SimpleFragmentsActivity extends AppCompatActivity {
 
-    private ActionBarDrawerToggle mDrawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
-        }
-    }
-
-    @Override
-    public boolean onNavigateUp() {
-        Log.v("Sokolov", "onNavigateUp");
-        return super.onNavigateUp();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        Log.v("Sokolov", "onSupportNavigateUp");
-        return super.onSupportNavigateUp();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.simple, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-/*        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }*/
-        switch (item.getItemId()) {
-            case R.id.item1:
-                do1();
-                break;
-            case R.id.item2:
-                do2();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void do1() {
-        Fragment1 f = new Fragment1();
         setContentView(R.layout.activity_simple_1);
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.container1, f).
-                addToBackStack("1").
-                commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment1()).addToBackStack("A").commit();
+            showBackstack();
+        }
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                //getSupportFragmentManager().popBackStackImmediate();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment2()).addToBackStack("B").commit();
+                showBackstack();
+            }
+
+        }.execute();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment3()).addToBackStack("C").commit();
+                showBackstack();
+            }
+
+        }.execute();
     }
 
-    private void do2() {
-        Fragment fr = getSupportFragmentManager().findFragmentById(R.id.container1);
+    private void showBackstack() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("backstack: ");
+        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            if (i != 0) {
+                sb.append(" -> ");
+            }
+            sb.append(getSupportFragmentManager().getBackStackEntryAt(i).getName());
+        }
+        Log.v("Sokolov", sb.toString());
+    }
 
-        Fragment2 f = new Fragment2();
-        f.setTargetFragment(fr, 10);
-        setContentView(R.layout.activity_simple_1);
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.container1, f).
-                addToBackStack("2").
-                commit();
+    @Override
+    public void onBackPressed() {
+        showBackstack();
+        getSupportFragmentManager().popBackStack();
     }
 
 }
