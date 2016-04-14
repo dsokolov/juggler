@@ -24,7 +24,6 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Juggler.init();
         setActivityInitialTouchMode(true);
         navigable = getActivity().navigateTo();
     }
@@ -35,7 +34,7 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
             getInstrumentation().waitForIdleSync();
         }
         assertEquals(expectedStackSize, getActivity().getSupportFragmentManager().getBackStackEntryCount());
-        assertEquals(expectedStackSize, Juggler.getInstance().getStackLength());
+        assertEquals(expectedStackSize, getActivity().getJuggler().getStackLength());
     }
 
     public void testEmpty() {

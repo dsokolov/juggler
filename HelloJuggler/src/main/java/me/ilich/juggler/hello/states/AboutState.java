@@ -8,7 +8,6 @@ import me.ilich.juggler.hello.gui.AboutFragment;
 import me.ilich.juggler.hello.gui.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
-import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.VoidParams;
 
 public class AboutState extends ContentToolbarNavigationState<VoidParams> {
@@ -18,8 +17,8 @@ public class AboutState extends ContentToolbarNavigationState<VoidParams> {
     }
 
     @Override
-    public int getTitleRes(Context context, VoidParams params) {
-        return R.string.title_about;
+    public String getTitle(Context context, VoidParams params) {
+        return context.getString(R.string.title_about);
     }
 
     @Override

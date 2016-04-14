@@ -14,6 +14,7 @@ public class HelloActivity extends JugglerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
+
             //navigateTo().state(Remove.clear(), Add.deeper(new TabsState()));
             //navigateTo().clearState(new WizardOneState());
             navigateTo().state(Add.deeper(new MainState()));

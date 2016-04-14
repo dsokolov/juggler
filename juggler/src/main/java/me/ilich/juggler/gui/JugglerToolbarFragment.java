@@ -37,19 +37,12 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     private Toolbar toolbar;
     @Nullable
     private ActionBar actionBar;
-    private AppCompatActivity activity;
     private Handler handler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        activity = (AppCompatActivity) getActivity();
     }
 
     @Override
@@ -66,8 +59,8 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
             navigationIcon = NOT_SET;
         }
         toolbar = (Toolbar) view.findViewById(getToolbarId());
-        activity.setSupportActionBar(toolbar);
-        actionBar = activity.getSupportActionBar();
+        getJugglerActivity().setSupportActionBar(toolbar);
+        actionBar = getJugglerActivity().getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(opt);
             actionBar.show();

@@ -9,7 +9,6 @@ public class HelloJugglerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Juggler.init();
     }
 
 }

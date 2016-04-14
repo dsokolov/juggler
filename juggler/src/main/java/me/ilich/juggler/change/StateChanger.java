@@ -113,10 +113,7 @@ public class StateChanger {
 
     private void processStateChange(JugglerActivity activity, @Nullable State oldState, @Nullable State newState) {
         if (oldState != null) {
-            oldState.onDeactivate(activity);
-        }
-        if (newState != null) {
-            newState.onActivate(activity);
+            oldState.onDeactivate(activity); //TODO call when all fragments stopped
         }
     }
 

@@ -4,4 +4,5 @@
     <string name="title_wizard_two">Wizard two</string>
     <string name="menu_main">мейн</string>
     <string name="menu_about">эбаут</string>
+    <string name="title_main">main screen</string>
 </resources>

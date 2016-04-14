@@ -2,13 +2,15 @@ package me.ilich.juggler;
 
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
+
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 
-public abstract class Transition {
+public abstract class Transition implements Serializable {
 
     public static Transition transaction(String transition, @Nullable String tag) {
         return new Transaction(transition, tag);

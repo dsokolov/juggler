@@ -1,6 +1,7 @@
 package me.ilich.juggler.hello.states;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
@@ -16,9 +17,10 @@ public class WizardTwoState extends ContentBelowToolbarState<VoidParams> {
         super(VoidParams.instance());
     }
 
+    @Nullable
     @Override
-    public int getTitleRes(Context context, VoidParams params) {
-        return R.string.title_wizard_two;
+    public String getTitle(Context context, VoidParams params) {
+        return context.getString(R.string.title_wizard_two);
     }
 
     @Override
