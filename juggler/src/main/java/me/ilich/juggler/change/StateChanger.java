@@ -3,13 +3,14 @@ package me.ilich.juggler.change;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
+import java.io.Serializable;
 import java.util.Stack;
 import java.util.UUID;
 
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 
-public class StateChanger {
+public class StateChanger implements Serializable {
 
     public static String generateTransactionName(State oldState, State newState) {
         String fromStr = oldState == null ? "null" : oldState.getClass().getSimpleName();

@@ -14,7 +14,6 @@ public class JugglerFragment extends Fragment {
 
     private static final String STATE_TARGET_CELL_TYPE = "target_cell_type";
 
-    private Juggler juggler = null;
     private JugglerActivity activity;
     private int targetCellType;
 
@@ -28,7 +27,6 @@ public class JugglerFragment extends Fragment {
             throw new RuntimeException("JugglerFragment can be attached only to JugglerActivity");
         }
         activity = (JugglerActivity) getActivity();
-        juggler = activity.getJuggler();
     }
 
     @Override
@@ -50,14 +48,14 @@ public class JugglerFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.v(Juggler.TAG, "onStart " + this);
-        juggler.onFragmentStart(this);
+        getJugglerActivity().getJuggler().onFragmentStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.v(Juggler.TAG, "onStop " + this);
-        juggler.onFragmentStop(this);
+        getJugglerActivity().getJuggler().onFragmentStop(this);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class JugglerFragment extends Fragment {
     }
 
     protected Navigable navigateTo() {
-        return juggler;
+        return getJugglerActivity().getJuggler();
     }
 
     /**

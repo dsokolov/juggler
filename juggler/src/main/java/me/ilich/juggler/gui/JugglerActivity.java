@@ -29,8 +29,8 @@ public class JugglerActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         juggler.unregisterActivity(this);
         outState.putSerializable(STATE_JUGGLER, juggler);
     }
