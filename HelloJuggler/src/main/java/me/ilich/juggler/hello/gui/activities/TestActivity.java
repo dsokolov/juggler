@@ -1,4 +1,4 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.activities;
 
 import me.ilich.juggler.gui.JugglerActivity;
 

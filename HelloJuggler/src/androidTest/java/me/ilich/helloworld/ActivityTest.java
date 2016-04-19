@@ -2,11 +2,10 @@ package me.ilich.helloworld;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Navigable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
-import me.ilich.juggler.hello.gui.TestActivity;
+import me.ilich.juggler.hello.gui.activities.TestActivity;
 import me.ilich.juggler.hello.states.HelloState;
 import me.ilich.juggler.hello.states.InfinityState;
 import me.ilich.juggler.hello.states.MainState;

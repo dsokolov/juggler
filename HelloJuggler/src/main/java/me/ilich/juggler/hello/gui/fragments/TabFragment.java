@@ -1,4 +1,4 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

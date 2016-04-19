@@ -1,7 +1,7 @@
 package me.ilich.juggler.hello.states;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.ItemDetailsFragment;
+import me.ilich.juggler.hello.gui.fragments.ItemDetailsFragment;
 import me.ilich.juggler.states.ContentOnlyState;
 import me.ilich.juggler.states.State;
 

@@ -1,4 +1,4 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -106,4 +106,5 @@ public class InfinityFragment extends JugglerFragment {
         }
         return b;
     }
+
 }

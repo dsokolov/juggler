@@ -1,4 +1,4 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,18 +25,6 @@ public class HelloActivity extends JugglerActivity {
         } else {
             navigateTo().restore();
         }
-    }
-
-    @Override
-    public boolean onNavigateUp() {
-        Log.v("Sokolov", "onNavigateUp");
-        return super.onNavigateUp();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        Log.v("Sokolov", "onSupportNavigateUp");
-        return super.onSupportNavigateUp();
     }
 
 }

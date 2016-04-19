@@ -1,6 +1,7 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,35 +12,28 @@ import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.MainState;
-import me.ilich.juggler.hello.states.RegistrationState;
 
-public class LoginFragment extends JugglerFragment {
+public class OnlyContentFragment extends JugglerFragment {
 
-    public static LoginFragment create() {
-        return new LoginFragment();
+    public static JugglerFragment create() {
+        return new OnlyContentFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_content_only, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
                 navigateTo().state(Remove.clear(), Add.deeper(new MainState()));
             }
-        });
-        view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateTo().state(Add.deeper(new RegistrationState()));
-            }
-        });
+        }, 1000);
     }
 
 }

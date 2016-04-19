@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.InfinityFragment;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.InfinityFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.State;
 

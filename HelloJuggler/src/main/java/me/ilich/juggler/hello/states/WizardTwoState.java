@@ -5,10 +5,9 @@ import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.hello.gui.WizardTwoFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.WizardTwoFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
-import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.VoidParams;
 
 public class WizardTwoState extends ContentBelowToolbarState<VoidParams> {

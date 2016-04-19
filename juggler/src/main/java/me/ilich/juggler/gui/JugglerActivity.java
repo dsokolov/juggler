@@ -25,13 +25,12 @@ public class JugglerActivity extends AppCompatActivity {
                 throw new RuntimeException("savedInstanceState should contains Juggler instance");
             }
         }
-        juggler.registerActivity(this);
+        juggler.setActivity(this);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        juggler.unregisterActivity(this);
         outState.putSerializable(STATE_JUGGLER, juggler);
     }
 

@@ -2,14 +2,11 @@ package me.ilich.juggler.hello.states;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 
-import me.ilich.juggler.Transition;
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.hello.gui.WizardOneFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.WizardOneFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
-import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.VoidParams;
 
 public class WizardOneState extends ContentBelowToolbarState<VoidParams> {

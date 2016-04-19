@@ -31,6 +31,9 @@ public class Juggler implements Navigable, Serializable {
 
     @Override
     public boolean backState() {
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
         final boolean b;
         if (currentState == null) {
             b = false;
@@ -48,6 +51,9 @@ public class Juggler implements Navigable, Serializable {
 
     @Override
     public boolean upState() {
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
         final boolean b;
         if (currentState == null) {
             b = false;
@@ -139,12 +145,8 @@ public class Juggler implements Navigable, Serializable {
         }
     }
 
-    public void registerActivity(JugglerActivity activity) {
+    public void setActivity(JugglerActivity activity) {
         this.activity = activity;
-    }
-
-    public void unregisterActivity(JugglerActivity activity) {
-        this.activity = null;
     }
 
     public void onPostCreate(Bundle savedInstanceState) {
@@ -173,7 +175,9 @@ public class Juggler implements Navigable, Serializable {
     }
 
     public void onFragmentStart(JugglerFragment jugglerFragment) {
-        Log.v("Sokolov", "attach " + jugglerFragment);
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
         int cellType = jugglerFragment.getTargetCell();
         newStateStarted.put(cellType, true);
         boolean allCellAttached = true;
@@ -184,7 +188,6 @@ public class Juggler implements Navigable, Serializable {
             }
         }
         if (allCellAttached) {
-            Log.v("Sokolov", "all started");
             if (currentState != null) {
                 currentState.onActivate(activity);
             }
@@ -192,7 +195,7 @@ public class Juggler implements Navigable, Serializable {
     }
 
     public void onFragmentStop(JugglerFragment jugglerFragment) {
-        Log.v("Sokolov", "detach " + jugglerFragment);
+
     }
 
 }

@@ -10,9 +10,9 @@ import me.ilich.juggler.Navigable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
-import me.ilich.juggler.hello.gui.StubContentFragment;
-import me.ilich.juggler.hello.gui.TestActivity;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.StubContentFragment;
+import me.ilich.juggler.hello.gui.activities.TestActivity;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.VoidParams;
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.PreviewFragment;
+import me.ilich.juggler.hello.gui.fragments.PreviewFragment;
 import me.ilich.juggler.states.ContentOnlyState;
 import me.ilich.juggler.states.VoidParams;
 
