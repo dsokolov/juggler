@@ -3,6 +3,8 @@ package me.ilich.juggler.hello.gui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +64,28 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
             }
         });
         navigationView.getMenu().getItem(getDefaultSelectedItem()).setChecked(true);
+
+        getDrawerLayout().addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                //Log.v("Sokolov", "onDrawerSlide " + drawerView + " " + slideOffset);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Log.v("Sokolov", "onDrawerOpened " + drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Log.v("Sokolov", "onDrawerClosed " + drawerView);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                Log.v("Sokolov", "onDrawerStateChanged " + newState);
+            }
+        });
     }
 
 }
