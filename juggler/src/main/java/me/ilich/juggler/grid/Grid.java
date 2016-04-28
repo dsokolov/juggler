@@ -3,13 +3,14 @@ package me.ilich.juggler.grid;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import me.ilich.juggler.R;
 
-public class Grid {
+public class Grid implements Serializable {
 
     public static Grid contentOnly() {
         return new Grid(R.layout.juggler_layout_content_only, Cell.content(R.id.container_content));

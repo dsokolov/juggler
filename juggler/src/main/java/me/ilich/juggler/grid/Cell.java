@@ -2,9 +2,11 @@ package me.ilich.juggler.grid;
 
 import android.support.annotation.IdRes;
 
+import java.io.Serializable;
+
 import me.ilich.juggler.R;
 
-public class Cell {
+public class Cell implements Serializable {
 
     public static final int CELL_TYPE_CONTENT = 0;
     public static final int CELL_TYPE_TOOLBAR = 1;

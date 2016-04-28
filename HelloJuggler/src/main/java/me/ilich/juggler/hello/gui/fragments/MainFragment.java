@@ -1,7 +1,13 @@
-package me.ilich.juggler.hello.gui;
+package me.ilich.juggler.hello.gui.fragments;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +20,7 @@ import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.gui.activities.SlaveActivity;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.InfinityState;
 import me.ilich.juggler.hello.states.ItemsListState;
@@ -81,6 +88,38 @@ public class MainFragment extends JugglerFragment {
             @Override
             public void onClick(View v) {
                 navigateTo().state(Add.deeper(new PreviewState()));
+            }
+        });
+        view.findViewById(R.id.navigate_to_slave_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SlaveActivity.class));
+            }
+        });
+        view.findViewById(R.id.show_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent notificationIntent = new Intent(getContext(), SlaveActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                Notification.Builder builder = new Notification.Builder(getContext());
+
+                builder.setContentIntent(contentIntent)
+                        .setSmallIcon(android.R.drawable.ic_media_pause)
+                        .setTicker("Последнее китайское предупреждение!")
+                        .setWhen(System.currentTimeMillis())
+                        .setAutoCancel(true)
+                        .setContentTitle("Напоминание")
+                        .setContentText("Пора покормить кота");
+
+                Notification notification = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    notification = builder.build();
+                } else {
+                    notification = builder.getNotification();
+                }
+
+                NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(123, notification);
             }
         });
         getActivity().setTitle("main screen");

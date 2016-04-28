@@ -1,8 +1,8 @@
 package me.ilich.juggler.hello.states;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.gui.LoginFragment;
-import me.ilich.juggler.hello.gui.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.LoginFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.VoidParams;
 

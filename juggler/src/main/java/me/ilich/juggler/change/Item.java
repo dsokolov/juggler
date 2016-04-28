@@ -3,9 +3,11 @@ package me.ilich.juggler.change;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
+
 import me.ilich.juggler.states.State;
 
-public class Item {
+public class Item implements Serializable {
 
     @LayoutRes
     private final int layoutId;

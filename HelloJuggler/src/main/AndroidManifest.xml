@@ -9,13 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".gui.HelloActivity" />
+        <activity android:name=".gui.activities.HelloActivity" />
+
+        <activity android:name=".gui.activities.SlaveActivity" />
 
         <activity android:name=".simple.SimpleFragmentsActivity" />
 
         <activity android:name=".simple.CollapsingToolbarActivity" />
 
-        <activity android:name=".gui.TestActivity" />
+        <activity android:name=".gui.activities.TestActivity" />
 
     </application>
 

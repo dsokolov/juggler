@@ -2,11 +2,10 @@ package me.ilich.helloworld;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Navigable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
-import me.ilich.juggler.hello.gui.TestActivity;
+import me.ilich.juggler.hello.gui.activities.TestActivity;
 import me.ilich.juggler.hello.states.HelloState;
 import me.ilich.juggler.hello.states.InfinityState;
 import me.ilich.juggler.hello.states.MainState;
@@ -24,7 +23,6 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Juggler.init();
         setActivityInitialTouchMode(true);
         navigable = getActivity().navigateTo();
     }
@@ -35,7 +33,7 @@ public class ActivityTest extends ActivityInstrumentationTestCase2<TestActivity>
             getInstrumentation().waitForIdleSync();
         }
         assertEquals(expectedStackSize, getActivity().getSupportFragmentManager().getBackStackEntryCount());
-        assertEquals(expectedStackSize, Juggler.getInstance().getStackLength());
+        assertEquals(expectedStackSize, getActivity().getJuggler().getStackLength());
     }
 
     public void testEmpty() {

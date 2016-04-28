@@ -1,22 +1,26 @@
 package me.ilich.juggler.states;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.util.Log;
 
+import java.io.Serializable;
+
+import me.ilich.juggler.R;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
 
-public abstract class State<P extends State.Params> {
+public abstract class State<P extends State.Params> implements Serializable {
 
     private static final int NOT_SET = -1;
 
@@ -36,6 +40,7 @@ public abstract class State<P extends State.Params> {
         this.grid = grid;
     }
 
+    @NonNull
     public final Grid getGrid() {
         return grid;
     }
@@ -45,33 +50,35 @@ public abstract class State<P extends State.Params> {
         return null;
     }
 
-    @StringRes
-    public int getTitleRes(Context context, P params) {
-        return NOT_SET;
+    public Drawable getUpNavigationIcon(Context context, P params) {
+        return null;
     }
 
     @CallSuper
     public void onActivate(JugglerActivity activity) {
+        Log.v("Sokolov", "state activated " + this);
         processTitle(activity);
+        processUpIcon(activity);
+    }
+
+    private void processUpIcon(final JugglerActivity activity) {
+        final android.support.v7.app.ActionBarDrawerToggle.Delegate delegate = activity.getDrawerToggleDelegate();
+        if (delegate != null) {
+            Drawable upIcon = getUpNavigationIcon(activity, params);
+            delegate.setActionBarUpIndicator(upIcon, R.string.empty);
+        }
     }
 
     protected void processTitle(JugglerActivity activity) {
         String title = getTitle(activity, params);
-        if (TextUtils.isEmpty(title)) {
-            int titleRes = getTitleRes(activity, params);
-            if (titleRes == NOT_SET) {
-                activity.setTitle(null);
-            } else {
-                activity.setTitle(titleRes);
-            }
-        } else {
+        if (!TextUtils.isEmpty(title)) {
             activity.setTitle(title);
         }
     }
 
     @CallSuper
     public void onDeactivate(JugglerActivity activity) {
-
+        Log.v("Sokolov", "state deactivated " + this);
     }
 
     @NonNull
@@ -80,6 +87,7 @@ public abstract class State<P extends State.Params> {
         if (f == null) {
             throw new NullPointerException("Fragment " + cellType + " is null");
         }
+        f.setTargetCellType(cellType);
         return f;
     }
 
@@ -118,9 +126,7 @@ public abstract class State<P extends State.Params> {
     }
 
     /**
-     *
-     * @param activity
-     * An JugglerActivity
+     * @param activity An JugglerActivity
      * @return true if any juggler fragment process back press
      * false if not
      */
@@ -158,7 +164,7 @@ public abstract class State<P extends State.Params> {
         return b;
     }
 
-    public static class Params {
+    public static class Params implements Serializable {
 
         @Override
         public String toString() {

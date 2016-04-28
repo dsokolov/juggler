@@ -1,6 +1,7 @@
 package me.ilich.juggler.gui;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,18 +10,28 @@ import me.ilich.juggler.Navigable;
 
 public class JugglerActivity extends AppCompatActivity {
 
-    private Juggler juggler = Juggler.getInstance();
+    private static final String STATE_JUGGLER = "state_juggler";
+
+    private Juggler juggler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        juggler.registerActivity(this);
+        if (savedInstanceState == null) {
+            juggler = new Juggler();
+        } else {
+            juggler = (Juggler) savedInstanceState.getSerializable(STATE_JUGGLER);
+            if (juggler == null) {
+                throw new RuntimeException("savedInstanceState should contains Juggler instance");
+            }
+        }
+        juggler.setActivity(this);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        juggler.unregisterActivity(this);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(STATE_JUGGLER, juggler);
     }
 
     @Override
@@ -55,6 +66,11 @@ public class JugglerActivity extends AppCompatActivity {
             }
         }
         return b;
+    }
+
+    @VisibleForTesting
+    public Juggler getJuggler() {
+        return juggler;
     }
 
 }

@@ -4,43 +4,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
+import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
-public class Juggler implements Navigable {
+public class Juggler implements Navigable, Serializable {
 
-    private static Juggler instance;
-
-    public static void init() {
-        instance = new Juggler();
-    }
-
-    public static Juggler getInstance() {
-        if (instance == null) {
-            throw new RuntimeException("Call init() first.");
-        }
-        return instance;
-    }
+    public static final String TAG = "Juggler";
 
     private StateChanger stateChanger = new StateChanger();
     @Nullable
     private State currentState = null;
-    private List<JugglerActivity> activities = new ArrayList<>();
-
-    private Juggler() {
-
-    }
+    private transient JugglerActivity activity;
+    private Map<Integer, Boolean> newStateStarted = new HashMap<>();
 
     @Override
     public boolean backState() {
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
         final boolean b;
         if (currentState == null) {
             b = false;
@@ -49,7 +42,6 @@ public class Juggler implements Navigable {
             if (transition == null) {
                 b = false;
             } else {
-                JugglerActivity activity = activities.get(activities.size() - 1);
                 currentState = transition.execute(activity, stateChanger);
                 b = currentState != null;
             }
@@ -59,6 +51,9 @@ public class Juggler implements Navigable {
 
     @Override
     public boolean upState() {
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
         final boolean b;
         if (currentState == null) {
             b = false;
@@ -67,7 +62,6 @@ public class Juggler implements Navigable {
             if (transition == null) {
                 b = false;
             } else {
-                JugglerActivity activity = activities.get(activities.size() - 1);
                 currentState = transition.execute(activity, stateChanger);
                 b = currentState != null;
             }
@@ -122,7 +116,6 @@ public class Juggler implements Navigable {
 
     @Override
     public void restore() {
-        JugglerActivity activity = activities.get(activities.size() - 1);
         currentState = stateChanger.restore(activity);
     }
 
@@ -142,28 +135,27 @@ public class Juggler implements Navigable {
     }
 
     private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
-        JugglerActivity activity = activities.get(activities.size() - 1);
         final Transition transition = Transition.custom(null, pop, add);
         currentState = transition.execute(activity, stateChanger);
+        newStateStarted.clear();
+        if (currentState != null) {
+            for (Cell cell : currentState.getGrid().getCells()) {
+                newStateStarted.put(cell.getType(), false);
+            }
+        }
     }
 
-    public void registerActivity(JugglerActivity activity) {
-        activities.add(activity);
-    }
-
-    public void unregisterActivity(JugglerActivity activity) {
-        activities.remove(activity);
+    public void setActivity(JugglerActivity activity) {
+        this.activity = activity;
     }
 
     public void onPostCreate(Bundle savedInstanceState) {
         if (currentState != null) {
-            JugglerActivity activity = activities.get(activities.size() - 1);
             currentState.onPostCreate(activity, savedInstanceState);
         }
     }
 
     /**
-     *
      * @return true if current state process back press
      * false if not
      */
@@ -172,7 +164,6 @@ public class Juggler implements Navigable {
         if (currentState == null) {
             b = false;
         } else {
-            JugglerActivity activity = activities.get(activities.size() - 1);
             b = currentState.onBackPressed(activity);
         }
         return b;
@@ -190,8 +181,32 @@ public class Juggler implements Navigable {
     }
 
     @VisibleForTesting
-    public int getStackLength(){
+    public int getStackLength() {
         return stateChanger.getStackLength();
+    }
+
+    public void onFragmentStart(JugglerFragment jugglerFragment) {
+        if (activity == null) {
+            throw new NullPointerException("activity == null");
+        }
+        int cellType = jugglerFragment.getTargetCell();
+        newStateStarted.put(cellType, true);
+        boolean allCellAttached = true;
+        for (Boolean bool : newStateStarted.values()) {
+            if (!bool) {
+                allCellAttached = false;
+                break;
+            }
+        }
+        if (allCellAttached) {
+            if (currentState != null) {
+                currentState.onActivate(activity);
+            }
+        }
+    }
+
+    public void onFragmentStop(JugglerFragment jugglerFragment) {
+
     }
 
 }
