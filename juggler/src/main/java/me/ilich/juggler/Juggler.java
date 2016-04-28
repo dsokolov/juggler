@@ -174,7 +174,6 @@ public class Juggler implements Navigable, Serializable {
         if (currentState == null) {
             b = false;
         } else {
-            JugglerActivity activity = activities.get(activities.size() - 1);
             b = currentState.onUpPressed(activity);
         }
         return b;
