@@ -178,6 +178,17 @@ public class Juggler implements Navigable {
         return b;
     }
 
+    public boolean onUpPressed() {
+        final boolean b;
+        if (currentState == null) {
+            b = false;
+        } else {
+            JugglerActivity activity = activities.get(activities.size() - 1);
+            b = currentState.onUpPressed(activity);
+        }
+        return b;
+    }
+
     @VisibleForTesting
     public int getStackLength(){
         return stateChanger.getStackLength();

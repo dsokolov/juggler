@@ -22,4 +22,8 @@ public class JugglerFragment extends Fragment {
         return false;
     }
 
+    public boolean onUpPressed() {
+        return false;
+    }
+
 }

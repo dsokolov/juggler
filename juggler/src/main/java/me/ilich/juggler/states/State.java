@@ -141,6 +141,23 @@ public abstract class State<P extends State.Params> {
         return b;
     }
 
+    public boolean onUpPressed(JugglerActivity activity){
+        boolean b = false;
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        for (Cell cell : grid.getCells()) {
+            int containerId = cell.getContainerId();
+            Fragment fragment = fragmentManager.findFragmentById(containerId);
+            if (fragment != null && fragment instanceof JugglerFragment) {
+                boolean processed = ((JugglerFragment) fragment).onUpPressed();
+                if (processed) {
+                    b = true;
+                    break;
+                }
+            }
+        }
+        return b;
+    }
+
     public static class Params {
 
         @Override

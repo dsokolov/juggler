@@ -100,10 +100,24 @@ public class InfinityFragment extends JugglerFragment {
         if (i == 0) {
             b = false;
         } else {
-            i = 0;
+            i--;
             processI();
             b = true;
         }
         return b;
     }
+
+    @Override
+    public boolean onUpPressed() {
+        boolean b;
+        if (i == 10) {
+            b = false;
+        } else {
+            i++;
+            processI();
+            b = true;
+        }
+        return b;
+    }
+
 }

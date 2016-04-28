@@ -30,4 +30,9 @@ public class WizardOneFragment extends JugglerFragment {
         });
     }
 
+    @Override
+    public boolean onBackPressed() {
+        return true;
+    }
+
 }

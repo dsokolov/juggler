@@ -74,7 +74,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_infinity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Add.linear(new InfinityState(1)));
+                navigateTo().state(Add.deeper(new InfinityState(1)));
             }
         });
         view.findViewById(R.id.navigate_to_preview).setOnClickListener(new View.OnClickListener() {
