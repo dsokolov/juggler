@@ -88,6 +88,7 @@ public abstract class AbstractAdd implements Add.Interface {
             }
             fragmentTransaction.replace(containerId, fragment);
         }
+        newState.onFragmentTransitionBeforeCommit(fragmentTransaction);
         fragmentTransaction.commit();
 
         items.push(newItem);

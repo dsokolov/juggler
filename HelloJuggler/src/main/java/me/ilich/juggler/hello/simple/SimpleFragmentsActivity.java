@@ -2,7 +2,7 @@ package me.ilich.juggler.hello.simple;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -15,7 +15,12 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_1);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment1()).addToBackStack("A").commit();
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.container1, new Fragment1()).
+                    addToBackStack("A").
+                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
+                    commit();
             showBackstack();
         }
 
@@ -35,7 +40,13 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 //getSupportFragmentManager().popBackStackImmediate();
-                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment2()).addToBackStack("B").commit();
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.container1, new Fragment2()).
+                        addToBackStack("B").
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
+                        commit();
                 showBackstack();
             }
 
@@ -57,7 +68,12 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 getSupportFragmentManager().popBackStack();
-                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new Fragment3()).addToBackStack("C").commit();
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.container1, new Fragment3()).
+                        addToBackStack("C").
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).
+                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
+                        commit();
                 showBackstack();
             }
 
@@ -78,8 +94,9 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        showBackstack();
-        getSupportFragmentManager().popBackStack();
+        /*showBackstack();
+        getSupportFragmentManager().popBackStack();*/
+        super.onBackPressed();
     }
 
 }

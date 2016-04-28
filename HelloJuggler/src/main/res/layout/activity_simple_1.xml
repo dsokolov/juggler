@@ -26,8 +26,8 @@
 
         <FrameLayout
             android:id="@+id/container1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_width="340dp"
+            android:layout_height="350dp"/>
 
     </LinearLayout>
 
