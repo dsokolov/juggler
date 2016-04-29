@@ -56,4 +56,9 @@ public class StandardToolbarFragment extends JugglerToolbarFragment {
         return R.id.toolbar;
     }
 
+    @Override
+    public boolean isReusable() {
+        return true;
+    }
+
 }

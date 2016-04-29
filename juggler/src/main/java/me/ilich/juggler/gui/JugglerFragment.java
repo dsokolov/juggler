@@ -48,7 +48,7 @@ public class JugglerFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.v(Juggler.TAG, "onStart " + this);
-        getJugglerActivity().getJuggler().onFragmentStart(this);
+        getJugglerActivity().getJuggler().onFragmentStart(this); //TODO при реюзе не вызывается. перенести в onResume?
     }
 
     @Override
@@ -98,6 +98,10 @@ public class JugglerFragment extends Fragment {
 
     public void setTargetCellType(int cellType) {
         this.targetCellType = cellType;
+    }
+
+    public boolean isReusable() {
+        return false;
     }
 
 }

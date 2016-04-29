@@ -38,4 +38,17 @@ public abstract class ContentToolbarNavigationState<P extends State.Params> exte
 
     protected abstract JugglerFragment onCreateNavigation(P params);
 
+    @Override
+    protected void onConvertFragment(int cellType, JugglerFragment fragment, P params) {
+        switch (cellType) {
+            case Cell.CELL_TYPE_TOOLBAR:
+                onConvertToolbar(fragment, params);
+                break;
+        }
+    }
+
+    protected void onConvertToolbar(JugglerFragment fragment, P params){
+
+    }
+
 }

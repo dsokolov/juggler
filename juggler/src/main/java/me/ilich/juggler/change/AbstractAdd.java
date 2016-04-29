@@ -78,15 +78,25 @@ public abstract class AbstractAdd implements Add.Interface {
         }
         for (Cell cell : newState.getGrid().getCells()) {
             int containerId = cell.getContainerId();
-            int cellType = cell.getType();
-            JugglerFragment fragment = newState.createFragment(cellType);
-            for (TargetBound targetBound : bounds.keySet()) {
-                if (targetBound.getCellIdTo() == cellType) {
-                    Fragment targetFragment = bounds.get(targetBound);
-                    fragment.setTargetFragment(targetFragment, targetBound.getRequestCode());
-                }
+            Fragment oldFragment = fragmentManager.findFragmentById(containerId);
+            boolean reuseFragment = false;
+            if (oldFragment != null && oldFragment instanceof JugglerFragment) {
+                reuseFragment = ((JugglerFragment) oldFragment).isReusable();
             }
-            fragmentTransaction.replace(containerId, fragment);
+            if (reuseFragment) {
+                int cellType = cell.getType();
+                newState.convertFragment(cellType, (JugglerFragment) oldFragment);
+            } else {
+                int cellType = cell.getType();
+                JugglerFragment fragment = newState.createFragment(cellType);
+                for (TargetBound targetBound : bounds.keySet()) {
+                    if (targetBound.getCellIdTo() == cellType) {
+                        Fragment targetFragment = bounds.get(targetBound);
+                        fragment.setTargetFragment(targetFragment, targetBound.getRequestCode());
+                    }
+                }
+                fragmentTransaction.replace(containerId, fragment);
+            }
         }
         newState.onFragmentTransitionBeforeCommit(fragmentTransaction);
         fragmentTransaction.commit();

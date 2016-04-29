@@ -32,6 +32,11 @@ public class AboutState extends ContentToolbarNavigationState<VoidParams> {
     }
 
     @Override
+    protected void onConvertToolbar(JugglerFragment fragment, VoidParams params) {
+        //TODO
+    }
+
+    @Override
     protected JugglerFragment onCreateNavigation(VoidParams params) {
         return StandardNavigationFragment.create(1);
     }

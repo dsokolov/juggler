@@ -92,11 +92,18 @@ public abstract class State<P extends State.Params> implements Serializable {
         return f;
     }
 
+    protected abstract JugglerFragment onCreateFragment(int cellType, P params);
+
+    public final void convertFragment(int cellType, JugglerFragment fragment) {
+        onConvertFragment(cellType, fragment, params);
+    }
+
+    protected void onConvertFragment(int cellType, JugglerFragment fragment, P params) {
+    }
+
     public void onFragmentTransitionBeforeCommit(FragmentTransaction fragmentTransaction) {
 
     }
-
-    protected abstract JugglerFragment onCreateFragment(int cellType, P params);
 
     @Override
     public String toString() {
