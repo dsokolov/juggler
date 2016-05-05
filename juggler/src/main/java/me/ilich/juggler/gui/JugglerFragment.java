@@ -62,6 +62,7 @@ public class JugglerFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_TARGET_CELL_TYPE, targetCellType);
+
     }
 
     protected JugglerActivity getJugglerActivity() {
