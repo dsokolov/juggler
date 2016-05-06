@@ -4,7 +4,7 @@ import android.content.Context;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.gui.fragments.AFragment;
+import me.ilich.juggler.hello.gui.fragments.FragmentA;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
@@ -23,7 +23,7 @@ public class StateA extends ContentToolbarNavigationState<VoidParams> {
 
     @Override
     protected JugglerFragment onCreateContent(VoidParams params) {
-        return AFragment.newInstance();
+        return FragmentA.newInstance();
     }
 
     @Override

@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 
-public class AFragment extends JugglerFragment {
+public class FragmentA extends JugglerFragment {
 
-    public static AFragment newInstance() {
-        return new AFragment();
+    public static FragmentA newInstance() {
+        return new FragmentA();
     }
 
     @Nullable
