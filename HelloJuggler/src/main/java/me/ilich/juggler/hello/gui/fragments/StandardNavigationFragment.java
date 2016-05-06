@@ -17,6 +17,8 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.MainState;
 import me.ilich.juggler.hello.states.NoTitleNavagationState;
+import me.ilich.juggler.hello.states.StateA;
+import me.ilich.juggler.hello.states.StateB;
 
 public class StandardNavigationFragment extends JugglerNavigationFragment {
 
@@ -47,6 +49,14 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                         navigateTo().state(Remove.dig(MainState.TAG));
                         b = true;
                         break;
+                    case R.id.menu_state_a:
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new StateA()));
+                        b = true;
+                        break;
+                    case R.id.menu_state_b:
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new StateB()));
+                        b = true;
+                        break;
                     case R.id.menu_about:
                         navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new AboutState()));
                         b = true;
@@ -63,7 +73,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                 return b;
             }
         });
-        navigationView.getMenu().getItem(getDefaultSelectedItem()).setChecked(true);
+        //navigationView.getMenu().getItem(getDefaultSelectedItem()).setChecked(true);
 
         getDrawerLayout().addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override

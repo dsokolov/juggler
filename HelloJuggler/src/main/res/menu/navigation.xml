@@ -10,6 +10,18 @@
             android:title="@string/menu_main"/>
 
         <item
+            android:id="@+id/menu_state_a"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/menu_state_a"/>
+
+        <item
+            android:id="@+id/menu_state_b"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/menu_state_b"/>
+
+        <item
             android:id="@+id/menu_about"
             android:checked="false"
             android:icon="@android:drawable/ic_menu_send"
