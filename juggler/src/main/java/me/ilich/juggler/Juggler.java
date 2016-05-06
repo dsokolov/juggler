@@ -136,7 +136,9 @@ public class Juggler implements Navigable, Serializable {
 
     private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
         final Transition transition = Transition.custom(null, pop, add);
+        Log.v(Juggler.TAG, "point A " + currentState + " " + transition + " " + pop + " " + add);
         currentState = transition.execute(activity, stateChanger);
+        Log.v(Juggler.TAG, "point B " + currentState);
         newStateStarted.clear();
         if (currentState != null) {
             for (Cell cell : currentState.getGrid().getCells()) {
@@ -184,7 +186,8 @@ public class Juggler implements Navigable, Serializable {
         return stateChanger.getStackLength();
     }
 
-    public void onFragmentStart(JugglerFragment jugglerFragment) {
+    public void onFragmentResume(JugglerFragment jugglerFragment) {
+        Log.v(Juggler.TAG, "onFragmentResume " + jugglerFragment + " for " + currentState);
         if (activity == null) {
             throw new NullPointerException("activity == null");
         }
@@ -198,13 +201,14 @@ public class Juggler implements Navigable, Serializable {
             }
         }
         if (allCellAttached) {
+            Log.v(Juggler.TAG, "point C " + currentState);
             if (currentState != null) {
                 currentState.onActivate(activity);
             }
         }
     }
 
-    public void onFragmentStop(JugglerFragment jugglerFragment) {
+    public void onFragmentPause(JugglerFragment jugglerFragment) {
 
     }
 

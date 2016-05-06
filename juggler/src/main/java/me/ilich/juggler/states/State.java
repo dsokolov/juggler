@@ -14,6 +14,7 @@ import android.util.Log;
 
 import java.io.Serializable;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.R;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
@@ -57,7 +58,7 @@ public abstract class State<P extends State.Params> implements Serializable {
 
     @CallSuper
     public void onActivate(JugglerActivity activity) {
-        Log.v("Sokolov", "state activated " + this);
+        Log.v(Juggler.TAG, "point D " + this);
         processTitle(activity);
         processUpIcon(activity);
     }
@@ -72,6 +73,7 @@ public abstract class State<P extends State.Params> implements Serializable {
 
     protected void processTitle(JugglerActivity activity) {
         String title = getTitle(activity, params);
+        Log.v(Juggler.TAG, "point E " + title);
         if (!TextUtils.isEmpty(title)) {
             activity.setTitle(title);
         }
@@ -79,7 +81,7 @@ public abstract class State<P extends State.Params> implements Serializable {
 
     @CallSuper
     public void onDeactivate(JugglerActivity activity) {
-        Log.v("Sokolov", "state deactivated " + this);
+        Log.v(Juggler.TAG, "state deactivated " + this);
     }
 
     @NonNull

@@ -22,7 +22,6 @@ public class JugglerFragment extends Fragment {
     @CallSuper
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.v(Juggler.TAG, "onAttach " + this);
         if (!(getActivity() instanceof JugglerActivity)) {
             throw new RuntimeException("JugglerFragment can be attached only to JugglerActivity");
         }
@@ -30,32 +29,25 @@ public class JugglerFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.v(Juggler.TAG, "onCreate " + this);
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.v(Juggler.TAG, "onActivityCreated " + this);
         if (savedInstanceState != null) {
             targetCellType = savedInstanceState.getInt(STATE_TARGET_CELL_TYPE);
         }
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.v(Juggler.TAG, "onStart " + this);
-        getJugglerActivity().getJuggler().onFragmentStart(this);
+    public void onResume() {
+        super.onResume();
+        Log.v(Juggler.TAG, "onResume " + this);
+        getJugglerActivity().getJuggler().onFragmentResume(this);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        Log.v(Juggler.TAG, "onStop " + this);
-        getJugglerActivity().getJuggler().onFragmentStop(this);
+    public void onPause() {
+        super.onPause();
+        Log.v(Juggler.TAG, "onPause " + this);
+        getJugglerActivity().getJuggler().onFragmentPause(this);
     }
 
     @Override

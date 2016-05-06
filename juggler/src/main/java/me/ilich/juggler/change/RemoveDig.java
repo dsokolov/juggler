@@ -39,7 +39,8 @@ class RemoveDig implements Remove.Interface {
             if (oldItem.getLayoutId() != newItem.getLayoutId()) {
                 activity.setContentView(newItem.getLayoutId());
             }
-            activity.getSupportFragmentManager().popBackStackImmediate(newItem.getTransactionName(), 0);
+            //activity.getSupportFragmentManager().popBackStackImmediate(newItem.getTransactionName(), 0);
+            activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         return newItem;
     }

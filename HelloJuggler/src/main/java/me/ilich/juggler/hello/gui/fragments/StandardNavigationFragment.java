@@ -68,22 +68,22 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
         getDrawerLayout().addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                //Log.v("Sokolov", "onDrawerSlide " + drawerView + " " + slideOffset);
+
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                Log.v("Sokolov", "onDrawerOpened " + drawerView);
+
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                Log.v("Sokolov", "onDrawerClosed " + drawerView);
+
             }
 
             @Override
             public void onDrawerStateChanged(int newState) {
-                Log.v("Sokolov", "onDrawerStateChanged " + newState);
+
             }
         });
     }
