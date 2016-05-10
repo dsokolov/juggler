@@ -16,4 +16,10 @@ public class Log {
         }
     }
 
+    public static void i(Class<?> cls, String s) {
+        if (SHOW_LOG) {
+            android.util.Log.i(Juggler.TAG, cls.getSimpleName() + " " + s);
+        }
+    }
+
 }

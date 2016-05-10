@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationManagerCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
@@ -146,4 +146,11 @@ public class MainFragment extends JugglerFragment {
         }
         return b;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
+    }
+
 }

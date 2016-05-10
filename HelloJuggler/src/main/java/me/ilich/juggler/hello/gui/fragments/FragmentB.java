@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
@@ -32,6 +33,13 @@ public class FragmentB extends JugglerFragment {
                 navigateTo().state(Remove.dig(StateA.TAG));
             }
         });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
     }
 
 }

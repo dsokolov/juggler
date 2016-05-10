@@ -55,11 +55,23 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
                 getSupportFragmentManager().popBackStackImmediate();
                 Log.v("Sokolov", "popBackStackImmediate end");
                 break;
-            case R.id.menu_replace_last:
-                Log.v("Sokolov", "replace last start");
+            case R.id.menu_replace_last_1:
+                Log.v("Sokolov", "replace last 1 start");
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new Fragment1()).addToBackStack("A").commit();
+                Log.v("Sokolov", "replace last 1 end");
+                break;
+            case R.id.menu_replace_last_2:
+                Log.v("Sokolov", "replace last 2 start");
                 getSupportFragmentManager().popBackStack();
                 getSupportFragmentManager().beginTransaction().replace(R.id.container2, new Fragment2()).addToBackStack("B").commit();
-                Log.v("Sokolov", "replace last end");
+                Log.v("Sokolov", "replace last 2 end");
+                break;
+            case R.id.menu_replace_last_3:
+                Log.v("Sokolov", "replace last 3 start");
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new Fragment3()).addToBackStack("C").commit();
+                Log.v("Sokolov", "replace last 3 end");
                 break;
         }
         return super.onOptionsItemSelected(item);
