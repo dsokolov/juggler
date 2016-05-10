@@ -16,7 +16,7 @@ class RemoveClear implements Remove.Interface {
             String firstTransactionName = items.get(0).getTransactionName();
             items.clear();
             FragmentManager fm = activity.getSupportFragmentManager();
-            fm.popBackStackImmediate(firstTransactionName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fm.popBackStack(firstTransactionName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         return null;
     }

@@ -2,21 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#bbb"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="64dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="simple activity 2" />
+    <!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="simple activity 2" />-->
 
     <FrameLayout
         android:id="@+id/container2"
         android:layout_width="match_parent"
-        android:layout_height="600dp" />
+        android:layout_height="600dp"
+        android:background="#fff" />
 
 </LinearLayout>

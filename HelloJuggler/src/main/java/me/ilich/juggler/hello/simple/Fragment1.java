@@ -46,6 +46,30 @@ public class Fragment1 extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("Sokolov", getClass().getSimpleName() + " onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v("Sokolov", getClass().getSimpleName() + " onPause");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStart");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStop");
+    }
+
+    @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         editText.setText(s);

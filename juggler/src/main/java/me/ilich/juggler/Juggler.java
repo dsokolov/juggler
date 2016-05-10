@@ -4,18 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Item;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
-import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
@@ -27,7 +24,7 @@ public class Juggler implements Navigable, Serializable {
     @Nullable
     private State currentState = null;
     private transient JugglerActivity activity;
-    private Map<Integer, Boolean> newStateStarted = new HashMap<>();
+    //private Map<Integer, Boolean> newStateStarted = new HashMap<>();
 
     @Override
     public boolean backState() {
@@ -135,20 +132,52 @@ public class Juggler implements Navigable, Serializable {
     }
 
     private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
-        final Transition transition = Transition.custom(null, pop, add);
-        Log.v(Juggler.TAG, "point A " + currentState + " " + transition + " " + pop + " " + add);
+        if (currentState != null) {
+            currentState.onDeactivate(activity);
+        }
+        currentState = null;
+        Item newItem = null;
+        if (pop != null) {
+            newItem = pop.pop(activity, stateChanger.getItems());
+        }
+        if (add != null) {
+            newItem = add.add(activity, stateChanger.getItems());
+        }
+        if (newItem != null) {
+            currentState = newItem.getState();
+        }
+
+        //activity.getSupportFragmentManager().removeOnBackStackChangedListener(onBackStackChangedListener);
+
+/*        final Transition transition = Transition.custom(null, pop, add);
+        Log.v(getClass(), "point A");
         currentState = transition.execute(activity, stateChanger);
-        Log.v(Juggler.TAG, "point B " + currentState);
+        Log.v(getClass(), "point B " + currentState);
         newStateStarted.clear();
         if (currentState != null) {
             for (Cell cell : currentState.getGrid().getCells()) {
                 newStateStarted.put(cell.getType(), false);
             }
-        }
+        }*/
     }
 
+    private FragmentManager.OnBackStackChangedListener onBackStackChangedListener = null;
+
     public void setActivity(JugglerActivity activity) {
+        if (activity != null) {
+            activity.getSupportFragmentManager().removeOnBackStackChangedListener(onBackStackChangedListener);
+        }
         this.activity = activity;
+        onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Log.v(getClass(), "onBackStackChanged " + currentState);
+                if (currentState != null) {
+                    currentState.onActivate(Juggler.this.activity);
+                }
+            }
+        };
+        this.activity.getSupportFragmentManager().addOnBackStackChangedListener(onBackStackChangedListener);
     }
 
     public void onPostCreate(Bundle savedInstanceState) {
@@ -186,8 +215,7 @@ public class Juggler implements Navigable, Serializable {
         return stateChanger.getStackLength();
     }
 
-    public void onFragmentResume(JugglerFragment jugglerFragment) {
-        Log.v(Juggler.TAG, "onFragmentResume " + jugglerFragment + " for " + currentState);
+/*    public void onFragmentResume(JugglerFragment jugglerFragment) {
         if (activity == null) {
             throw new NullPointerException("activity == null");
         }
@@ -201,15 +229,14 @@ public class Juggler implements Navigable, Serializable {
             }
         }
         if (allCellAttached) {
-            Log.v(Juggler.TAG, "point C " + currentState);
             if (currentState != null) {
                 currentState.onActivate(activity);
             }
         }
-    }
+    }*/
 
-    public void onFragmentPause(JugglerFragment jugglerFragment) {
+/*    public void onFragmentPause(JugglerFragment jugglerFragment) {
 
-    }
+    }*/
 
 }

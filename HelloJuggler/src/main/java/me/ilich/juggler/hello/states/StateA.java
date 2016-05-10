@@ -1,6 +1,7 @@
 package me.ilich.juggler.hello.states;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
@@ -11,6 +12,8 @@ import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 
 public class StateA extends ContentToolbarNavigationState<VoidParams> {
+
+    public static final String TAG = "State_A";
 
     public StateA() {
         super(VoidParams.instance());
@@ -34,6 +37,11 @@ public class StateA extends ContentToolbarNavigationState<VoidParams> {
     @Override
     protected JugglerFragment onCreateNavigation(VoidParams params) {
         return StandardNavigationFragment.create(R.id.menu_state_a);
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
 }

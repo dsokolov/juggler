@@ -3,7 +3,6 @@ package me.ilich.juggler.change;
 import java.util.Stack;
 
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.states.State;
 
 class RemoveDig implements Remove.Interface {
 
@@ -31,15 +30,10 @@ class RemoveDig implements Remove.Interface {
                 }
             }
         }
-        final State newState;
-        if (newItem == null) {
-            newState = null;
-        } else {
-            newState = newItem.getState();
+        if (newItem != null) {
             if (oldItem.getLayoutId() != newItem.getLayoutId()) {
                 activity.setContentView(newItem.getLayoutId());
             }
-            //activity.getSupportFragmentManager().popBackStackImmediate(newItem.getTransactionName(), 0);
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         return newItem;

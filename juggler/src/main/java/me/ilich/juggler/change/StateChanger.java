@@ -25,6 +25,10 @@ public class StateChanger implements Serializable {
         return doChange(activity, pop, add);
     }
 
+    public Stack<Item> getItems() {
+        return items;
+    }
+
     @VisibleForTesting
     public int getStackLength(){
         return items.size();

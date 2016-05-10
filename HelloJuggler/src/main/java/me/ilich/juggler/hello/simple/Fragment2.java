@@ -55,4 +55,28 @@ public class Fragment2 extends Fragment {
         Log.v("Sokolov", "Fragment2 " + requestCode + " " + resultCode + " " + data);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("Sokolov", getClass().getSimpleName() + " onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v("Sokolov", getClass().getSimpleName() + " onPause");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStart");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStop");
+    }
+
 }

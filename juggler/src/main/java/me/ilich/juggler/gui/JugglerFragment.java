@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
-import me.ilich.juggler.Juggler;
+import me.ilich.juggler.Log;
 import me.ilich.juggler.Navigable;
 
 public class JugglerFragment extends Fragment {
@@ -17,11 +16,49 @@ public class JugglerFragment extends Fragment {
     private JugglerActivity activity;
     private int targetCellType;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.v(getClass(), "onCreate");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v(getClass(), "onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v(getClass(), "onResume");
+        //getJugglerActivity().getJuggler().onFragmentResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v(getClass(), "onPause");
+        //getJugglerActivity().getJuggler().onFragmentPause(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v(getClass(), "onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.v(getClass(), "onDestroy");
+    }
 
     @Override
     @CallSuper
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.v(getClass(), "onAttach");
         if (!(getActivity() instanceof JugglerActivity)) {
             throw new RuntimeException("JugglerFragment can be attached only to JugglerActivity");
         }
@@ -31,23 +68,10 @@ public class JugglerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.v(getClass(), "onActivityCreated");
         if (savedInstanceState != null) {
             targetCellType = savedInstanceState.getInt(STATE_TARGET_CELL_TYPE);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.v(Juggler.TAG, "onResume " + this);
-        getJugglerActivity().getJuggler().onFragmentResume(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.v(Juggler.TAG, "onPause " + this);
-        getJugglerActivity().getJuggler().onFragmentPause(this);
     }
 
     @Override
