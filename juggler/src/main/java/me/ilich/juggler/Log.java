@@ -10,6 +10,12 @@ public class Log {
         }
     }
 
+    public static void v(Object object, String s) {
+        if (SHOW_LOG) {
+            android.util.Log.v(Juggler.TAG, object + " " + s);
+        }
+    }
+
     public static void v(String s) {
         if (SHOW_LOG) {
             android.util.Log.v(Juggler.TAG, s);

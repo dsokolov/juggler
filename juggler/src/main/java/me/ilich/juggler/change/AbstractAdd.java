@@ -72,7 +72,7 @@ public abstract class AbstractAdd implements Add.Interface {
                     }
                 }
                 if (needToSetLayout) {
-                    fragmentTransaction.remove(fragment);
+                    //fragmentTransaction.remove(fragment); //TODO wtf???
                 }
             }
         }

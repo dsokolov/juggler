@@ -5,8 +5,8 @@ import android.content.Context;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.FragmentC;
-import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
-import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragmentC;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragmentC;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 
@@ -28,12 +28,12 @@ public class StateC extends ContentToolbarNavigationState<VoidParams> {
 
     @Override
     protected JugglerFragment onCreateToolbar(VoidParams params) {
-        return StandardToolbarFragment.createTitleBack();
+        return StandardToolbarFragmentC.createTitleBack();
     }
 
     @Override
     protected JugglerFragment onCreateNavigation(VoidParams params) {
-        return StandardNavigationFragment.create(R.id.menu_state_c);
+        return StandardNavigationFragmentC.create(R.id.menu_state_c);
     }
 
 }

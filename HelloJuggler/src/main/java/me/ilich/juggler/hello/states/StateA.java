@@ -7,7 +7,9 @@ import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.FragmentA;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragmentA;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
+import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragmentA;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 
@@ -31,12 +33,12 @@ public class StateA extends ContentToolbarNavigationState<VoidParams> {
 
     @Override
     protected JugglerFragment onCreateToolbar(VoidParams params) {
-        return StandardToolbarFragment.createTitleBack();
+        return StandardToolbarFragmentA.createTitleBack();
     }
 
     @Override
     protected JugglerFragment onCreateNavigation(VoidParams params) {
-        return StandardNavigationFragment.create(R.id.menu_state_a);
+        return StandardNavigationFragmentA.create(R.id.menu_state_a);
     }
 
     @Override

@@ -171,7 +171,7 @@ public class Juggler implements Navigable, Serializable {
         onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Log.v(getClass(), "onBackStackChanged " + currentState);
+                //Log.v(getClass(), "onBackStackChanged " + currentState);
                 if (currentState != null) {
                     currentState.onActivate(Juggler.this.activity);
                 }

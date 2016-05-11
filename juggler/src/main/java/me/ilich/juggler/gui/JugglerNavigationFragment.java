@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.R;
 
 public abstract class JugglerNavigationFragment extends JugglerFragment {
@@ -29,6 +30,11 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     private int defaultSelectedItem = 0;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
+
+    public JugglerNavigationFragment() {
+        super();
+        Log.v(this, "constructor");
+    }
 
     @Override
     @CallSuper

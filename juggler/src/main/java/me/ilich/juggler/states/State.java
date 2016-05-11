@@ -72,7 +72,7 @@ public abstract class State<P extends State.Params> implements Serializable {
 
     protected void processTitle(JugglerActivity activity) {
         String title = getTitle(activity, params);
-        me.ilich.juggler.Log.v(getClass(), "processTitle " + title);
+        //me.ilich.juggler.Log.v(getClass(), "processTitle " + title);
         if (!TextUtils.isEmpty(title)) {
             activity.setTitle(title);
         }

@@ -22,46 +22,46 @@ public class JugglerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(getClass(), "onCreate");
+        Log.v(this, "onCreate");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.v(getClass(), "onStart");
+        //Log.v(this, "onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.v(getClass(), "onResume");
+        //Log.v(getClass(), "onResume");
         //getJugglerActivity().getJuggler().onFragmentResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.v(getClass(), "onPause");
+        //Log.v(getClass(), "onPause");
         //getJugglerActivity().getJuggler().onFragmentPause(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.v(getClass(), "onStop");
+        //Log.v(getClass(), "onStop");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v(getClass(), "onDestroy");
+        //Log.v(getClass(), "onDestroy");
     }
 
     @Override
     @CallSuper
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.v(getClass(), "onAttach");
+        //Log.v(getClass(), "onAttach");
         if (!(getActivity() instanceof JugglerActivity)) {
             throw new RuntimeException("JugglerFragment can be attached only to JugglerActivity");
         }
@@ -71,7 +71,7 @@ public class JugglerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.v(getClass(), "onActivityCreated");
+        //Log.v(getClass(), "onActivityCreated");
         if (savedInstanceState != null) {
             targetCellType = savedInstanceState.getInt(STATE_TARGET_CELL_TYPE);
         }
@@ -80,20 +80,20 @@ public class JugglerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.v(getClass(), "onViewCreated");
+        //Log.v(getClass(), "onViewCreated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.v(getClass(), "onCreateView");
+        //Log.v(getClass(), "onCreateView");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.v(getClass(), "onDestroyView");
+        //Log.v(getClass(), "onDestroyView");
     }
 
     @Override
