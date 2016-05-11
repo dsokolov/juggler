@@ -23,8 +23,8 @@ public class Juggler implements Navigable, Serializable {
     private StateChanger stateChanger = new StateChanger();
     @Nullable
     private State currentState = null;
-    private transient JugglerActivity activity;
-    //private Map<Integer, Boolean> newStateStarted = new HashMap<>();
+    private transient JugglerActivity activity = null;
+    private transient FragmentManager.OnBackStackChangedListener onBackStackChangedListener = null;
 
     @Override
     public boolean backState() {
@@ -146,22 +146,7 @@ public class Juggler implements Navigable, Serializable {
         if (newItem != null) {
             currentState = newItem.getState();
         }
-
-        //activity.getSupportFragmentManager().removeOnBackStackChangedListener(onBackStackChangedListener);
-
-/*        final Transition transition = Transition.custom(null, pop, add);
-        Log.v(getClass(), "point A");
-        currentState = transition.execute(activity, stateChanger);
-        Log.v(getClass(), "point B " + currentState);
-        newStateStarted.clear();
-        if (currentState != null) {
-            for (Cell cell : currentState.getGrid().getCells()) {
-                newStateStarted.put(cell.getType(), false);
-            }
-        }*/
     }
-
-    private FragmentManager.OnBackStackChangedListener onBackStackChangedListener = null;
 
     public void setActivity(JugglerActivity activity) {
         if (activity != null) {
@@ -214,29 +199,5 @@ public class Juggler implements Navigable, Serializable {
     public int getStackLength() {
         return stateChanger.getStackLength();
     }
-
-/*    public void onFragmentResume(JugglerFragment jugglerFragment) {
-        if (activity == null) {
-            throw new NullPointerException("activity == null");
-        }
-        int cellType = jugglerFragment.getTargetCell();
-        newStateStarted.put(cellType, true);
-        boolean allCellAttached = true;
-        for (Boolean bool : newStateStarted.values()) {
-            if (!bool) {
-                allCellAttached = false;
-                break;
-            }
-        }
-        if (allCellAttached) {
-            if (currentState != null) {
-                currentState.onActivate(activity);
-            }
-        }
-    }*/
-
-/*    public void onFragmentPause(JugglerFragment jugglerFragment) {
-
-    }*/
 
 }

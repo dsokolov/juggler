@@ -48,14 +48,33 @@ public abstract class AbstractAdd implements Add.Interface {
             newItem = new Item(newLayoutId, transactionName, newState, tag);
             onProcessBackUp(oldItem, newItem);
         }
-        if (needToSetLayout) {
-            activity.setContentView(newLayoutId);
-        }
 
 
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(transactionName);
+
+        if (needToSetLayout) {
+            activity.setContentView(newLayoutId);
+            if (!items.empty()) {
+                //FragmentTransaction ft = fragmentManager.beginTransaction();
+                Item oldItem = items.peek();
+                State oldState = oldItem.getState();
+                for (Cell cell : oldState.getGrid().getCells()) {
+                    int containerId = cell.getContainerId();
+                    Fragment fragment = fragmentManager.findFragmentById(containerId);
+
+                    //TODO
+                    // если эта строка есть - фрагменты восстанавливаются из бекстека, получается по 2 фрагмента и следовательное не работает тулбар
+                    // если нет - не работае навигация через up, пропадает навигейшен вью
+
+                    fragmentTransaction.remove(fragment);
+                    //ft.remove(fragment);
+                }
+                //ft.commit();
+                //fragmentManager.executePendingTransactions();
+            }
+        }
 
         Map<TargetBound, Fragment> bounds = new HashMap<>();
 
@@ -70,9 +89,6 @@ public abstract class AbstractAdd implements Add.Interface {
                         bounds.put(targetBound, fragment);
                         break;
                     }
-                }
-                if (needToSetLayout) {
-                    //fragmentTransaction.remove(fragment); //TODO wtf???
                 }
             }
         }

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerNavigationFragment;
@@ -43,6 +44,7 @@ public class StandardNavigationFragmentC extends JugglerNavigationFragment {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                Log.v(StandardNavigationFragmentC.this, "click!");
                 final boolean b;
                 switch (item.getItemId()) {
                     case R.id.menu_main:
