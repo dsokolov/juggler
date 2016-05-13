@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9f9"
+    android:background="#99f"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="container 2" />
+        android:text="container 3" />
 
     <FrameLayout
-        android:id="@+id/container2"
+        android:id="@+id/container3"
         android:layout_width="340dp"
         android:layout_height="350dp"
         android:background="#999" />

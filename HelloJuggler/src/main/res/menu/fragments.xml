@@ -3,18 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_add_fragment_1"
-        android:title="fragment 1"
+        android:id="@+id/menu_info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="info"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_content_view_1"
+        android:title="content view 1"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_add_fragment_2"
-        android:title="fragment 2"
+        android:id="@+id/menu_content_view_2"
+        android:title="content view 2"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_content_view_3"
+        android:title="content view 3"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_replace_A_to_1"
+        android:title="replace A 1"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_replace_B_to_1"
+        android:title="replace B 1"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_replace_A_to_2"
+        android:title="replace A 2"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_replace_B_to_2"
+        android:title="replace B 2"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_pop"
         android:title="pop"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_find_A_replace_to_1"
+        android:title="find A replace to 1"
         app:showAsAction="never" />
 
     <item

@@ -12,47 +12,37 @@ import android.widget.EditText;
 
 import me.ilich.juggler.hello.R;
 
-public class Fragment2 extends Fragment {
+public class FragmentA extends Fragment {
 
+    private String s;
     private EditText editText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onCreate");
+        Log.v("Sokolov", "Fragment1 onCreate");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onActivityCreated");
+        Log.v("Sokolov", "Fragment1 onActivityCreated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.v("Sokolov", "Fragment2 onCreateView");
-        return inflater.inflate(R.layout.framgment_simple_2, container, false);
+        Log.v("Sokolov", "Fragment1 onCreateView");
+        return inflater.inflate(R.layout.framgment_simple_1, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onViewCreated");
-        editText = (EditText) view.findViewById(R.id.edit2);
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = editText.getText().toString();
-                getTargetFragment().onActivityResult(getTargetRequestCode(), 0, new Intent().putExtra("A", s));
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.v("Sokolov", "Fragment2 " + requestCode + " " + resultCode + " " + data);
+        Log.v("Sokolov", "Fragment1 onViewCreated");
+        editText = (EditText) view.findViewById(R.id.edit1);
+        editText.setText(s);
+        editText.setText("213f");
     }
 
     @Override
@@ -77,6 +67,25 @@ public class Fragment2 extends Fragment {
     public void onStop() {
         super.onStop();
         Log.v("Sokolov", getClass().getSimpleName() + " onStop");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        editText.setText(s);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        s = data.getStringExtra("A");
+        editText.setText(s);
+        Log.v("Sokolov", "Fragment1 " + requestCode + " " + resultCode + " " + data);
     }
 
 }

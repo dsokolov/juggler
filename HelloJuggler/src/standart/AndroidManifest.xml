@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.ilich.juggler.hello">
 
-    <application>
+    <application
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
 
         <activity android:name=".simple.SimpleFragmentsActivity">
             <intent-filter>
