@@ -59,6 +59,12 @@
         android:text="activity" />
 
     <Button
+        android:id="@+id/navigate_to_activity_param"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="activity param" />
+
+    <Button
         android:id="@+id/show_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

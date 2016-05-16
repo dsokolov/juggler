@@ -1,6 +1,7 @@
 package me.ilich.juggler;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -19,10 +20,13 @@ import me.ilich.juggler.states.TargetBound;
 public class Juggler implements Navigable, Serializable {
 
     public static final String TAG = "Juggler";
+    private static final int NOT_SET = -1;
 
     private StateChanger stateChanger = new StateChanger();
     @Nullable
     private State currentState = null;
+    @LayoutRes
+    private int layoutId = NOT_SET;
     private transient JugglerActivity activity = null;
     private transient FragmentManager.OnBackStackChangedListener onBackStackChangedListener = null;
 
@@ -198,6 +202,19 @@ public class Juggler implements Navigable, Serializable {
     @VisibleForTesting
     public int getStackLength() {
         return stateChanger.getStackLength();
+    }
+
+    public boolean hasLayoutId() {
+        return layoutId != NOT_SET;
+    }
+
+    @LayoutRes
+    public int getLayoutId() {
+        return layoutId;
+    }
+
+    public void setLayoutId(@LayoutRes int layoutId) {
+        this.layoutId = layoutId;
     }
 
 }

@@ -13,8 +13,7 @@ import me.ilich.juggler.states.ContentNavigationState;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 
-//public class MainState extends ContentToolbarNavigationState<VoidParams> {
-public class MainState extends ContentNavigationState<VoidParams> {
+public class MainState extends ContentToolbarNavigationState<VoidParams> {
 
     public static final String TAG = "main";
 
@@ -27,10 +26,10 @@ public class MainState extends ContentNavigationState<VoidParams> {
         return MainFragment.newInstance();
     }
 
-/*    @Override
+    @Override
     protected JugglerFragment onCreateToolbar(VoidParams params) {
         return StandardToolbarFragment.createTitleBack();
-    }*/
+    }
 
     @Override
     protected JugglerFragment onCreateNavigation(VoidParams params) {

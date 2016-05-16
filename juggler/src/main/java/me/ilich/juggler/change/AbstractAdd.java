@@ -30,6 +30,15 @@ public abstract class AbstractAdd implements Add.Interface {
     @Override
     public Item add(JugglerActivity activity, Stack<Item> items) {
         int newLayoutId = newState.getGrid().getLayoutId();
+        if (activity.getJuggler().hasLayoutId()) {
+            if (newLayoutId != activity.getJuggler().getLayoutId()) {
+                throw new RuntimeException("Cant add state to activity with different layout id");
+                //TODO может быть новое активити?
+            }
+        } else {
+            activity.getJuggler().setLayoutId(newLayoutId);
+            activity.setContentView(newLayoutId);
+        }
 
         final Item newItem;
         final boolean needToSetLayout;
@@ -38,14 +47,14 @@ public abstract class AbstractAdd implements Add.Interface {
         if (items.empty()) {
             needToSetLayout = true;
             transactionName = StateChanger.generateTransactionName(null, newState);
-            newItem = new Item(newLayoutId, transactionName, newState, tag);
+            newItem = new Item(transactionName, newState, tag);
         } else {
             Item oldItem = items.peek();
             State oldState = oldItem.getState();
             transactionName = StateChanger.generateTransactionName(oldState, newState);
             int oldLayoutId = oldState.getGrid().getLayoutId();
             needToSetLayout = oldLayoutId != newLayoutId;
-            newItem = new Item(newLayoutId, transactionName, newState, tag);
+            newItem = new Item(transactionName, newState, tag);
             onProcessBackUp(oldItem, newItem);
         }
 

@@ -1,6 +1,5 @@
 package me.ilich.juggler.change;
 
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
@@ -9,15 +8,12 @@ import me.ilich.juggler.states.State;
 
 public class Item implements Serializable {
 
-    @LayoutRes
-    private final int layoutId;
     private final String transactionName;
     private final State state;
     @Nullable
     private final String tag;
 
-    Item(int layoutId, String transactionName, State state, String tag) {
-        this.layoutId = layoutId;
+    Item(String transactionName, State state, String tag) {
         this.transactionName = transactionName;
         this.state = state;
         this.tag = tag;
@@ -25,15 +21,11 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return transactionName + " " + layoutId + " " + state;
+        return transactionName + " " + state;
     }
 
     public State getState() {
         return state;
-    }
-
-    public int getLayoutId() {
-        return layoutId;
     }
 
     public String getTransactionName() {

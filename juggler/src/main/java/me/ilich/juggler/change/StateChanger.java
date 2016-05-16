@@ -100,9 +100,6 @@ public class StateChanger implements Serializable {
             newState = null;
         } else {
             newState = newItem.getState();
-            if (oldItem.getLayoutId() != newItem.getLayoutId()) {
-                activity.setContentView(newItem.getLayoutId());
-            }
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         processStateChange(activity, oldItem.getState(), newState);
@@ -111,7 +108,7 @@ public class StateChanger implements Serializable {
 
     public State restore(JugglerActivity activity) {
         Item item = items.peek();
-        activity.setContentView(item.getLayoutId());
+        activity.setContentView(activity.getJuggler().getLayoutId());
         processStateChange(activity, null, item.getState());
         return item.getState();
     }

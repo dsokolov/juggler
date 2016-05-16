@@ -18,12 +18,14 @@ import android.widget.Toast;
 import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
+import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.activities.SlaveActivity;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.InfinityState;
 import me.ilich.juggler.hello.states.ItemsListState;
+import me.ilich.juggler.hello.states.LoginState;
 import me.ilich.juggler.hello.states.PreviewState;
 import me.ilich.juggler.hello.states.WizardOneState;
 
@@ -94,6 +96,13 @@ public class MainFragment extends JugglerFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), SlaveActivity.class));
+            }
+        });
+        view.findViewById(R.id.navigate_to_activity_param).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = JugglerActivity.state(getContext(), new LoginState());
+                startActivity(intent);
             }
         });
         view.findViewById(R.id.show_notification).setOnClickListener(new View.OnClickListener() {

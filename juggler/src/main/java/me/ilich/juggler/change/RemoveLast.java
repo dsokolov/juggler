@@ -17,9 +17,6 @@ class RemoveLast implements Remove.Interface {
         } else {
             newItem = items.peek();
         }
-        if (newItem != null && newItem.getLayoutId() != oldItem.getLayoutId()) {
-            activity.setContentView(newItem.getLayoutId());
-        }
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.popBackStack();
         return newItem;
