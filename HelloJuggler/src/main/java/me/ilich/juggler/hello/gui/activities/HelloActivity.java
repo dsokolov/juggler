@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.hello.states.MainState;
+import me.ilich.juggler.hello.states.StateA;
 import me.ilich.juggler.hello.states.WizardOneState;
 
 public class HelloActivity extends JugglerActivity {
@@ -14,6 +16,7 @@ public class HelloActivity extends JugglerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
+            //navigateTo().state(Remove.none(), Add.deeper(new StateA()));
 
             //navigateTo().state(Remove.clear(), Add.deeper(new TabsState()));
             //navigateTo().clearState(new WizardOneState());

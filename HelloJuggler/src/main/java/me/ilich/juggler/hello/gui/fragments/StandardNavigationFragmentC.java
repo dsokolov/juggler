@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerNavigationFragment;
@@ -21,10 +21,10 @@ import me.ilich.juggler.hello.states.StateA;
 import me.ilich.juggler.hello.states.StateB;
 import me.ilich.juggler.hello.states.StateC;
 
-public class StandardNavigationFragment extends JugglerNavigationFragment {
+public class StandardNavigationFragmentC extends JugglerNavigationFragment {
 
-    public static StandardNavigationFragment create(int itemId) {
-        StandardNavigationFragment f = new StandardNavigationFragment();
+    public static StandardNavigationFragmentC create(int itemId) {
+        StandardNavigationFragmentC f = new StandardNavigationFragmentC();
         Bundle b = new Bundle();
         addSelectedItemToBundle(b, itemId);
         f.setArguments(b);
@@ -44,6 +44,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                Log.v(StandardNavigationFragmentC.this, "click!");
                 final boolean b;
                 switch (item.getItemId()) {
                     case R.id.menu_main:

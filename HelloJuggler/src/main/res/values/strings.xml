@@ -7,4 +7,10 @@
     <string name="title_main">main screen</string>
     <string name="stub">Stub</string>
     <string name="title_toolbar_only">Toolbar only</string>
+    <string name="menu_state_a">state a</string>
+    <string name="menu_state_b">state b</string>
+    <string name="title_state_a">State A</string>
+    <string name="title_state_b">State B</string>
+    <string name="title_state_c">State C</string>
+    <string name="menu_state_c">state C</string>
 </resources>

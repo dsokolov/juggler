@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.ilich.juggler.hello">
 
-    <application>
+    <application
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
 
         <activity android:name=".simple.SimpleFragmentsActivity">
             <intent-filter>
@@ -9,6 +12,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--        <activity android:name=".simple.ViewFlipperActivity">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>-->
 
     </application>
 

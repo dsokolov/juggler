@@ -21,7 +21,7 @@ class RemoveLast implements Remove.Interface {
             activity.setContentView(newItem.getLayoutId());
         }
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.popBackStackImmediate();
+        fm.popBackStack();
         return newItem;
     }
 

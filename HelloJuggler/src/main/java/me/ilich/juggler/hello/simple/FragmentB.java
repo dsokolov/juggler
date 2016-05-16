@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import me.ilich.juggler.hello.R;
 
-public class Fragment2 extends Fragment {
+public class FragmentB extends Fragment {
 
     private EditText editText;
 
@@ -53,6 +53,30 @@ public class Fragment2 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.v("Sokolov", "Fragment2 " + requestCode + " " + resultCode + " " + data);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("Sokolov", getClass().getSimpleName() + " onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v("Sokolov", getClass().getSimpleName() + " onPause");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStart");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStop");
     }
 
 }

@@ -1,40 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f99"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="container 1" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+    <FrameLayout
+        android:id="@+id/container1"
+        android:layout_width="340dp"
+        android:layout_height="350dp"
+        android:background="#999" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="simple activity 1"/>
-
-        <FrameLayout
-            android:id="@+id/container1"
-            android:layout_width="340dp"
-            android:layout_height="350dp"/>
-
-    </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/navigation"/>
-
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

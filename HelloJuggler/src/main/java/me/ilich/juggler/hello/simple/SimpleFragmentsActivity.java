@@ -1,102 +1,201 @@
 package me.ilich.juggler.hello.simple;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.os.Parcelable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import me.ilich.juggler.hello.R;
 
 public class SimpleFragmentsActivity extends AppCompatActivity {
 
+    private final Map<Integer, View> rootViewsMap = new HashMap<>();
+    private int currentContentViewId;
+
+    private ViewGroup rootView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_1);
+        rootView = new FrameLayout(this);
+        setContentView(rootView);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    replace(R.id.container1, new Fragment1()).
-                    addToBackStack("A").
-                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
-                    commit();
-            showBackstack();
+            processRooView(R.layout.activity_simple_1);
+        } else {
+            for (String key : savedInstanceState.keySet()) {
+                if (key.startsWith("view_")) {
+                    String s = key.substring("view_".length());
+                    int id = Integer.parseInt(s);
+                    SparseArray<Parcelable> a = savedInstanceState.getSparseParcelableArray(key);
+                    View v = LayoutInflater.from(this).inflate(id, null);
+                    v.restoreHierarchyState(a);
+                    rootViewsMap.put(id, v);
+                    /*Fragment f = getSupportFragmentManager().findFragmentById(id);
+                    f.resto*/
+                } /*else if (key.startsWith("fragment_")) {
+                    String s = key.substring("fragment_".length());
+                    int sep = s.indexOf("_");
+                    String layoutIdStr = s.substring(0, sep);
+                    String resIdStr = s.substring(sep + 1);
+                    int layoutId = Integer.parseInt(layoutIdStr);
+                    int viewId = Integer.parseInt(resIdStr);
+                    Fragment.SavedState savedState = savedInstanceState.getParcelable(key);
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(viewId);
+                    fragment.onViewStateRestored(null);
+                    fragment.setInitialSavedState(savedState);
+                }*/
+            }
+            int id = savedInstanceState.getInt("cv");
+            processRooView(id);
+
         }
-
-        new AsyncTask<Void, Void, Void>() {
-
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
+            public void onBackStackChanged() {
+                Log.v("Sokolov", "onBackStackChanged");
             }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                //getSupportFragmentManager().popBackStackImmediate();
-                getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.container1, new Fragment2()).
-                        addToBackStack("B").
-                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).
-                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
-                        commit();
-                showBackstack();
-            }
-
-        }.execute();
-
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Thread.sleep(6000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                getSupportFragmentManager().popBackStack();
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.container1, new Fragment3()).
-                        addToBackStack("C").
-                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).
-                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out).
-                        commit();
-                showBackstack();
-            }
-
-        }.execute();
-    }
-
-    private void showBackstack() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("backstack: ");
-        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
-            if (i != 0) {
-                sb.append(" -> ");
-            }
-            sb.append(getSupportFragmentManager().getBackStackEntryAt(i).getName());
-        }
-        Log.v("Sokolov", sb.toString());
+        });
     }
 
     @Override
-    public void onBackPressed() {
-        /*showBackstack();
-        getSupportFragmentManager().popBackStack();*/
-        super.onBackPressed();
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("cv", currentContentViewId);
+        for (int layoutId : rootViewsMap.keySet()) {
+            View v = rootViewsMap.get(layoutId);
+            if (rootView.findViewById(v.getId()) == null) {
+                rootView.addView(v);
+            }
+            SparseArray<Parcelable> a = new SparseArray<>();
+            v.saveHierarchyState(a);
+            outState.putSparseParcelableArray("view_" + layoutId, a);
+
+            /*for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
+                View cv = ((ViewGroup) v).getChildAt(i);
+                Fragment fragment = getSupportFragmentManager().findFragmentById(cv.getId());
+                if (fragment != null) {
+                    Fragment.SavedState savedState = getSupportFragmentManager().saveFragmentInstanceState(fragment);
+                    outState.putParcelable("fragment_" + layoutId + "_" + cv.getId(), savedState);
+                }
+            }*/
+
+        }
     }
 
+    private void processRooView(int layoutId) {
+        if (rootViewsMap.containsKey(layoutId)) {
+            View v = rootViewsMap.get(layoutId);
+            //setContentView(v);
+            rootView.removeAllViews();
+            rootView.addView(v);
+        } else {
+            View v = LayoutInflater.from(this).inflate(layoutId, null);
+            rootViewsMap.put(layoutId, v);
+            //setContentView(v);
+            rootView.removeAllViews();
+            rootView.addView(v);
+        }
+        currentContentViewId = layoutId;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fragments, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_info:
+                int count = getSupportFragmentManager().getBackStackEntryCount();
+                Log.v("Sokolov", "backstack size = " + count);
+                for (int i = 0; i < count; i++) {
+                    FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(i);
+                    Log.v("Sokolov", i + ") " + backStackEntry.getId() + " " + backStackEntry.getName());
+                }
+                break;
+            case R.id.menu_content_view_1:
+                processRooView(R.layout.activity_simple_1);
+                break;
+            case R.id.menu_content_view_2:
+                processRooView(R.layout.activity_simple_2);
+                break;
+            case R.id.menu_content_view_3:
+                processRooView(R.layout.activity_simple_3);
+                break;
+            case R.id.menu_content_view_1_2:
+                processRooView(R.layout.activity_simple_1_2);
+                break;
+            case R.id.menu_replace_A_to_1:
+                Log.v("Sokolov", "replace fragmentA 1 start");
+                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new FragmentA(), "A").addToBackStack("A_1").commit();
+                Log.v("Sokolov", "replace fragmentA 1 end");
+                break;
+            case R.id.menu_replace_B_to_1:
+                Log.v("Sokolov", "replace fragmentB 1 start");
+                getSupportFragmentManager().beginTransaction().replace(R.id.container1, new FragmentB(), "B").addToBackStack("B_1").commit();
+                Log.v("Sokolov", "replace fragmentB 1 end");
+                break;
+            case R.id.menu_replace_A_to_2:
+                Log.v("Sokolov", "replace fragmentA 2 start");
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new FragmentA(), "A").addToBackStack("A_2").commit();
+                Log.v("Sokolov", "replace fragmentA 2 end");
+                break;
+            case R.id.menu_replace_B_to_2:
+                Log.v("Sokolov", "replace fragmentB 2 start");
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new FragmentB(), "B").addToBackStack("B_2").commit();
+                Log.v("Sokolov", "replace fragmentB 2 end");
+                break;
+            case R.id.menu_pop:
+                Log.v("Sokolov", "popBackStack start");
+                getSupportFragmentManager().popBackStack();
+                Log.v("Sokolov", "popBackStack end");
+                break;
+            case R.id.menu_pop_imm:
+                Log.v("Sokolov", "popBackStackImmediate start");
+                getSupportFragmentManager().popBackStackImmediate();
+                Log.v("Sokolov", "popBackStackImmediate end");
+                break;
+            case R.id.menu_find_A_replace_to_1:
+                Log.v("Sokolov", "find start");
+                Fragment f = getSupportFragmentManager().findFragmentByTag("A");
+                Log.v("Sokolov", "found " + f);
+                getSupportFragmentManager().beginTransaction().detach(f).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container1, f).commit();
+                Log.v("Sokolov", "find end");
+                break;
+            case R.id.menu_replace_last_1:
+                Log.v("Sokolov", "replace last 1 start");
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new FragmentA()).addToBackStack("A").commit();
+                Log.v("Sokolov", "replace last 1 end");
+                break;
+            case R.id.menu_replace_last_2:
+                Log.v("Sokolov", "replace last 2 start");
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new FragmentB()).addToBackStack("B").commit();
+                Log.v("Sokolov", "replace last 2 end");
+                break;
+            case R.id.menu_replace_last_3:
+                Log.v("Sokolov", "replace last 3 start");
+                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new Fragment3()).addToBackStack("C").commit();
+                Log.v("Sokolov", "replace last 3 end");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

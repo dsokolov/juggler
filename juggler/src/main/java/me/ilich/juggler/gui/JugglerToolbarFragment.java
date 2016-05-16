@@ -45,6 +45,16 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+/*        ActionBar actionBar = getJugglerActivity().getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+        getJugglerActivity().setSupportActionBar(null);*/
+    }
+
     @IdRes
     protected abstract int getToolbarId();
 

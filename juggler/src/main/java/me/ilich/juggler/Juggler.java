@@ -4,18 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Item;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
-import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
@@ -26,8 +23,8 @@ public class Juggler implements Navigable, Serializable {
     private StateChanger stateChanger = new StateChanger();
     @Nullable
     private State currentState = null;
-    private transient JugglerActivity activity;
-    private Map<Integer, Boolean> newStateStarted = new HashMap<>();
+    private transient JugglerActivity activity = null;
+    private transient FragmentManager.OnBackStackChangedListener onBackStackChangedListener = null;
 
     @Override
     public boolean backState() {
@@ -135,18 +132,37 @@ public class Juggler implements Navigable, Serializable {
     }
 
     private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
-        final Transition transition = Transition.custom(null, pop, add);
-        currentState = transition.execute(activity, stateChanger);
-        newStateStarted.clear();
         if (currentState != null) {
-            for (Cell cell : currentState.getGrid().getCells()) {
-                newStateStarted.put(cell.getType(), false);
-            }
+            currentState.onDeactivate(activity);
+        }
+        currentState = null;
+        Item newItem = null;
+        if (pop != null) {
+            newItem = pop.pop(activity, stateChanger.getItems());
+        }
+        if (add != null) {
+            newItem = add.add(activity, stateChanger.getItems());
+        }
+        if (newItem != null) {
+            currentState = newItem.getState();
         }
     }
 
     public void setActivity(JugglerActivity activity) {
+        if (activity != null) {
+            activity.getSupportFragmentManager().removeOnBackStackChangedListener(onBackStackChangedListener);
+        }
         this.activity = activity;
+        onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                //Log.v(getClass(), "onBackStackChanged " + currentState);
+                if (currentState != null) {
+                    currentState.onActivate(Juggler.this.activity);
+                }
+            }
+        };
+        this.activity.getSupportFragmentManager().addOnBackStackChangedListener(onBackStackChangedListener);
     }
 
     public void onPostCreate(Bundle savedInstanceState) {
@@ -182,30 +198,6 @@ public class Juggler implements Navigable, Serializable {
     @VisibleForTesting
     public int getStackLength() {
         return stateChanger.getStackLength();
-    }
-
-    public void onFragmentStart(JugglerFragment jugglerFragment) {
-        if (activity == null) {
-            throw new NullPointerException("activity == null");
-        }
-        int cellType = jugglerFragment.getTargetCell();
-        newStateStarted.put(cellType, true);
-        boolean allCellAttached = true;
-        for (Boolean bool : newStateStarted.values()) {
-            if (!bool) {
-                allCellAttached = false;
-                break;
-            }
-        }
-        if (allCellAttached) {
-            if (currentState != null) {
-                currentState.onActivate(activity);
-            }
-        }
-    }
-
-    public void onFragmentStop(JugglerFragment jugglerFragment) {
-
     }
 
 }

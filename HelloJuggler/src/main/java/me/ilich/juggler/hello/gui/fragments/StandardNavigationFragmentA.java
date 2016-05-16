@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +20,10 @@ import me.ilich.juggler.hello.states.StateA;
 import me.ilich.juggler.hello.states.StateB;
 import me.ilich.juggler.hello.states.StateC;
 
-public class StandardNavigationFragment extends JugglerNavigationFragment {
+public class StandardNavigationFragmentA extends JugglerNavigationFragment {
 
-    public static StandardNavigationFragment create(int itemId) {
-        StandardNavigationFragment f = new StandardNavigationFragment();
+    public static StandardNavigationFragmentA create(int itemId) {
+        StandardNavigationFragmentA f = new StandardNavigationFragmentA();
         Bundle b = new Bundle();
         addSelectedItemToBundle(b, itemId);
         f.setArguments(b);

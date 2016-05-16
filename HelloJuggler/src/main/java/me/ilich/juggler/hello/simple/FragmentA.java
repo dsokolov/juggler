@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import me.ilich.juggler.hello.R;
 
-public class Fragment1 extends Fragment {
+public class FragmentA extends Fragment {
 
     private String s;
     private EditText editText;
@@ -43,6 +43,30 @@ public class Fragment1 extends Fragment {
         editText = (EditText) view.findViewById(R.id.edit1);
         editText.setText(s);
         editText.setText("213f");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("Sokolov", getClass().getSimpleName() + " onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.v("Sokolov", getClass().getSimpleName() + " onPause");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStart");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.v("Sokolov", getClass().getSimpleName() + " onStop");
     }
 
     @Override
