@@ -24,6 +24,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/menu_content_view_1_2"
+        android:title="content view 1 2"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/menu_replace_A_to_1"
         android:title="replace A 1"
         app:showAsAction="never" />

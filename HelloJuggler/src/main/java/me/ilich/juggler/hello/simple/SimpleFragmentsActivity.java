@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTool;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
@@ -13,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +24,13 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
     private final Map<Integer, View> rootViewsMap = new HashMap<>();
     private int currentContentViewId;
 
+    private ViewGroup rootView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rootView = new FrameLayout(this);
+        setContentView(rootView);
         if (savedInstanceState == null) {
             processRooView(R.layout.activity_simple_1);
         } else {
@@ -40,7 +44,7 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
                     rootViewsMap.put(id, v);
                     /*Fragment f = getSupportFragmentManager().findFragmentById(id);
                     f.resto*/
-                } else if (key.startsWith("fragment_")) {
+                } /*else if (key.startsWith("fragment_")) {
                     String s = key.substring("fragment_".length());
                     int sep = s.indexOf("_");
                     String layoutIdStr = s.substring(0, sep);
@@ -49,12 +53,13 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
                     int viewId = Integer.parseInt(resIdStr);
                     Fragment.SavedState savedState = savedInstanceState.getParcelable(key);
                     Fragment fragment = getSupportFragmentManager().findFragmentById(viewId);
-                    //fragment.onViewStateRestored(null);
-                    //FragmentTool.dropIndex(fragment);
-                    //fragment.setInitialSavedState(savedState);
-                }
+                    fragment.onViewStateRestored(null);
+                    fragment.setInitialSavedState(savedState);
+                }*/
             }
-            processRooView(savedInstanceState.getInt("cv"));
+            int id = savedInstanceState.getInt("cv");
+            processRooView(id);
+
         }
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -70,18 +75,21 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
         outState.putInt("cv", currentContentViewId);
         for (int layoutId : rootViewsMap.keySet()) {
             View v = rootViewsMap.get(layoutId);
+            if (rootView.findViewById(v.getId()) == null) {
+                rootView.addView(v);
+            }
             SparseArray<Parcelable> a = new SparseArray<>();
             v.saveHierarchyState(a);
             outState.putSparseParcelableArray("view_" + layoutId, a);
 
-            for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
+            /*for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
                 View cv = ((ViewGroup) v).getChildAt(i);
                 Fragment fragment = getSupportFragmentManager().findFragmentById(cv.getId());
                 if (fragment != null) {
                     Fragment.SavedState savedState = getSupportFragmentManager().saveFragmentInstanceState(fragment);
                     outState.putParcelable("fragment_" + layoutId + "_" + cv.getId(), savedState);
                 }
-            }
+            }*/
 
         }
     }
@@ -89,11 +97,15 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
     private void processRooView(int layoutId) {
         if (rootViewsMap.containsKey(layoutId)) {
             View v = rootViewsMap.get(layoutId);
-            setContentView(v);
+            //setContentView(v);
+            rootView.removeAllViews();
+            rootView.addView(v);
         } else {
             View v = LayoutInflater.from(this).inflate(layoutId, null);
             rootViewsMap.put(layoutId, v);
-            setContentView(v);
+            //setContentView(v);
+            rootView.removeAllViews();
+            rootView.addView(v);
         }
         currentContentViewId = layoutId;
     }
@@ -123,6 +135,9 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
                 break;
             case R.id.menu_content_view_3:
                 processRooView(R.layout.activity_simple_3);
+                break;
+            case R.id.menu_content_view_1_2:
+                processRooView(R.layout.activity_simple_1_2);
                 break;
             case R.id.menu_replace_A_to_1:
                 Log.v("Sokolov", "replace fragmentA 1 start");
