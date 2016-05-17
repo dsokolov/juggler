@@ -68,12 +68,12 @@ public class ToolbarTest extends ActivityInstrumentationTestCase2<TestActivity> 
         }
 
         @Override
-        protected JugglerFragment onCreateContent(VoidParams params) {
+        protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
             return StubContentFragment.create();
         }
 
         @Override
-        protected JugglerFragment onCreateToolbar(VoidParams params) {
+        protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
             return StandardToolbarFragment.createTitleBack();
         }
 

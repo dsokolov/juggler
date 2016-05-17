@@ -1,5 +1,7 @@
 package me.ilich.juggler.hello.states;
 
+import android.support.annotation.Nullable;
+
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.fragments.TabsFragment;
@@ -13,12 +15,12 @@ public class TabsState extends ContentBelowToolbarState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
         return TabsFragment.newInstance();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(VoidParams params) {
+    protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
         return StandardToolbarFragment.create();
     }
 

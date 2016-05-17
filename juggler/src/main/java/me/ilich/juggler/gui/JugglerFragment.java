@@ -138,8 +138,4 @@ public class JugglerFragment extends Fragment {
         this.targetCellType = cellType;
     }
 
-    public boolean isReusable() {
-        return false;
-    }
-
 }

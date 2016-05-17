@@ -18,12 +18,12 @@ public class ItemDetailsState extends ContentBelowToolbarState<ItemDetailsState.
     }
 
     @Override
-    protected JugglerFragment onCreateContent(ItemDetailsState.Params params) {
+    protected JugglerFragment onConvertContent(ItemDetailsState.Params params, @Nullable JugglerFragment fragment) {
         return ItemDetailsFragment.newInstance(params.id);
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(Params params) {
+    protected JugglerFragment onConvertToolbar(Params params, @Nullable JugglerFragment fragment) {
         return StandardToolbarFragment.createTitleBack();
     }
 
@@ -35,7 +35,7 @@ public class ItemDetailsState extends ContentBelowToolbarState<ItemDetailsState.
 
     @Override
     public Drawable getUpNavigationIcon(Context context, Params params) {
-        return context.getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        return context.getResources().getDrawable(android.R.drawable.ic_menu_zoom);
     }
 
     public static class Params extends State.Params {

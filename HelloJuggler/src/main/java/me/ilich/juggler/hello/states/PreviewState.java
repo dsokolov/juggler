@@ -15,7 +15,7 @@ public class PreviewState extends ContentOnlyState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
         return PreviewFragment.create();
     }
 

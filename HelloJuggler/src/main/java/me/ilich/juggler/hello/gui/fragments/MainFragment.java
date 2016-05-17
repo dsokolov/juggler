@@ -71,7 +71,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Add.deeper(new WizardOneState()));
+                navigateTo().state(Add.activity(new WizardOneState()));
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {
@@ -131,7 +131,6 @@ public class MainFragment extends JugglerFragment {
                 notificationManager.notify(123, notification);
             }
         });
-        getActivity().setTitle("main screen");
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.ilich.juggler.hello.states;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 
 import me.ilich.juggler.gui.JugglerFragment;
@@ -23,12 +24,12 @@ public class WizardOneState extends ContentBelowToolbarState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
         return new WizardOneFragment();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(VoidParams params) {
+    protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
         return StandardToolbarFragment.createTitleBack();
     }
 

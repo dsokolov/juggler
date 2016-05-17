@@ -22,11 +22,6 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
     private Toolbar toolbar;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     @SuppressWarnings("all")
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -43,16 +38,6 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
             actionBar.setDisplayOptions(opt);
             actionBar.show();
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-/*        ActionBar actionBar = getJugglerActivity().getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        getJugglerActivity().setSupportActionBar(null);*/
     }
 
     @IdRes

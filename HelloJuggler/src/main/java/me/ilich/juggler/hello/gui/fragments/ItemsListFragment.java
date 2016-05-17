@@ -44,7 +44,6 @@ public class ItemsListFragment extends JugglerFragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setAdapter(new Adapter());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        getActivity().setTitle("list");
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {

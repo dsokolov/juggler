@@ -13,14 +13,13 @@ public abstract class ContentNavigationState<P extends State.Params> extends Sta
     }
 
     @Override
-    protected JugglerFragment onCreateFragment(int cellType, P params) {
-        final JugglerFragment fragment;
+    protected JugglerFragment onConvertFragment(int cellType, P params, @Nullable JugglerFragment fragment) {
         switch (cellType) {
             case Cell.CELL_TYPE_CONTENT:
-                fragment = onCreateContent(params);
+                fragment = onConvertContent(params, fragment);
                 break;
             case Cell.CELL_TYPE_NAVIGATION:
-                fragment = onCreateNavigation(params);
+                fragment = onConvertNavigation(params, fragment);
                 break;
             default:
                 fragment = null;
@@ -29,8 +28,8 @@ public abstract class ContentNavigationState<P extends State.Params> extends Sta
         return fragment;
     }
 
-    protected abstract JugglerFragment onCreateContent(P params);
+    protected abstract JugglerFragment onConvertContent(P params, @Nullable JugglerFragment fragment);
 
-    protected abstract JugglerFragment onCreateNavigation(P params);
+    protected abstract JugglerFragment onConvertNavigation(P params, @Nullable JugglerFragment fragment);
 
 }

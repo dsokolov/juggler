@@ -1,5 +1,7 @@
 package me.ilich.juggler.hello.states;
 
+import android.support.annotation.Nullable;
+
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.fragments.HelloFragment;
 import me.ilich.juggler.states.ContentOnlyState;
@@ -12,7 +14,7 @@ public class HelloState extends ContentOnlyState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
         return HelloFragment.create();
     }
 

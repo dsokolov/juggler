@@ -15,7 +15,6 @@ import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
-import me.ilich.juggler.states.TargetBound;
 
 public class Juggler implements Navigable, Serializable {
 
@@ -120,6 +119,12 @@ public class Juggler implements Navigable, Serializable {
         currentState = stateChanger.restore(activity);
     }
 
+    public void activateCurrentState() {
+        if (currentState != null) {
+            currentState.onActivate(activity);
+        }
+    }
+
     @Override
     public void state(@NonNull Remove.Interface pop) {
         doState(pop, null);
@@ -160,7 +165,7 @@ public class Juggler implements Navigable, Serializable {
         onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                //Log.v(getClass(), "onBackStackChanged " + currentState);
+                Log.v(getClass(), "onBackStackChanged " + currentState);
                 if (currentState != null) {
                     currentState.onActivate(Juggler.this.activity);
                 }

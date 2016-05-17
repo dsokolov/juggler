@@ -2,9 +2,9 @@ package me.ilich.juggler.states;
 
 import android.support.annotation.Nullable;
 
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
+import me.ilich.juggler.gui.JugglerFragment;
 
 public abstract class ContentOnlyState<P extends State.Params> extends State<P> {
 
@@ -13,11 +13,10 @@ public abstract class ContentOnlyState<P extends State.Params> extends State<P> 
     }
 
     @Override
-    protected JugglerFragment onCreateFragment(int cellType, P params) {
-        final JugglerFragment fragment;
+    protected JugglerFragment onConvertFragment(int cellType, P params, @Nullable JugglerFragment fragment) {
         switch (cellType) {
             case Cell.CELL_TYPE_CONTENT:
-                fragment = onCreateContent(params);
+                fragment = onConvertContent(params, fragment);
                 break;
             default:
                 fragment = null;
@@ -26,6 +25,6 @@ public abstract class ContentOnlyState<P extends State.Params> extends State<P> 
         return fragment;
     }
 
-    protected abstract JugglerFragment onCreateContent(P params);
+    protected abstract JugglerFragment onConvertContent(P params, @Nullable JugglerFragment fragment);
 
 }

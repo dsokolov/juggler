@@ -10,11 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.Serializable;
 
-import me.ilich.juggler.Juggler;
 import me.ilich.juggler.R;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
@@ -82,24 +80,16 @@ public abstract class State<P extends State.Params> implements Serializable {
     public void onDeactivate(JugglerActivity activity) {
     }
 
-    @NonNull
-    public final JugglerFragment createFragment(int cellType) {
-        JugglerFragment f = onCreateFragment(cellType, params);
-        if (f == null) {
-            throw new NullPointerException("Fragment " + cellType + " is null");
+    @Nullable
+    public final JugglerFragment convertFragment(int cellType, @Nullable JugglerFragment fragment) {
+        JugglerFragment f = onConvertFragment(cellType, params, fragment);
+        if (f != null) {
+            f.setTargetCellType(cellType);
         }
-        f.setTargetCellType(cellType);
         return f;
     }
 
-    protected abstract JugglerFragment onCreateFragment(int cellType, P params);
-
-    public final void convertFragment(int cellType, JugglerFragment fragment) {
-        onConvertFragment(cellType, fragment, params);
-    }
-
-    protected void onConvertFragment(int cellType, JugglerFragment fragment, P params) {
-    }
+    protected abstract JugglerFragment onConvertFragment(int cellType, P params, @Nullable JugglerFragment fragment);
 
     public void onFragmentTransitionBeforeCommit(FragmentTransaction fragmentTransaction) {
 

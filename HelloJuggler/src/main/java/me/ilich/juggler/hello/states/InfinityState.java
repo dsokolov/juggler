@@ -16,12 +16,12 @@ public class InfinityState extends ContentBelowToolbarState<InfinityState.Params
     }
 
     @Override
-    protected JugglerFragment onCreateContent(Params params) {
+    protected JugglerFragment onConvertContent(Params params, @Nullable JugglerFragment fragment) {
         return InfinityFragment.create(params.i);
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(Params params) {
+    protected JugglerFragment onConvertToolbar(Params params, @Nullable JugglerFragment fragment) {
         return StandardToolbarFragment.createTitleBack();
     }
 

@@ -22,17 +22,17 @@ public class MainState extends ContentToolbarNavigationState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
         return MainFragment.newInstance();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(VoidParams params) {
+    protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
         return StandardToolbarFragment.createTitleBack();
     }
 
     @Override
-    protected JugglerFragment onCreateNavigation(VoidParams params) {
+    protected JugglerFragment onConvertNavigation(VoidParams params, @Nullable JugglerFragment fragment) {
         return StandardNavigationFragment.create(0);
     }
 
