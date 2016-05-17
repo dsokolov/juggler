@@ -16,10 +16,6 @@ public abstract class Transition implements Serializable {
         return new Transaction(transition, tag);
     }
 
-    public static Transition custom(String tag, Remove.Interface pop, Add.Interface add) {
-        return new CustomTransition(tag, pop, add);
-    }
-
     @Nullable
     private final String tag;
 
@@ -48,24 +44,5 @@ public abstract class Transition implements Serializable {
         }
 
     }
-
-    private static class CustomTransition extends Transition {
-
-        private final Remove.Interface pop;
-        private final Add.Interface addCondition;
-
-        protected CustomTransition(String tag, Remove.Interface pop, Add.Interface addCondition) {
-            super(tag);
-            this.pop = pop;
-            this.addCondition = addCondition;
-        }
-
-        @Override
-        protected State onExecute(JugglerActivity activity, StateChanger stateChanger, String tag) {
-            return stateChanger.change(activity, pop, addCondition);
-        }
-
-    }
-
 
 }

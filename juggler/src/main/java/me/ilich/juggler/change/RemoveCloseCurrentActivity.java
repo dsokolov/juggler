@@ -7,10 +7,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.gui.JugglerActivity;
 
-class RemoveNone implements Remove.Interface {
+public class RemoveCloseCurrentActivity implements Remove.Interface {
 
     @Override
     public Item remove(JugglerActivity activity, Stack<Item> items, Intent intent, AtomicBoolean closeCurrentActivity) {
+        closeCurrentActivity.set(true);
         return null;
     }
 

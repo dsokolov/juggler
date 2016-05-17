@@ -1,11 +1,12 @@
 package me.ilich.juggler.change;
 
+import android.content.Intent;
+
 import java.util.Stack;
 
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
-import me.ilich.juggler.states.VoidParams;
 
 public final class Add {
 
@@ -37,8 +38,12 @@ public final class Add {
         return new LinearAdd(state, null, targetBounds);
     }
 
-    public static Interface activity(State state) {
-        return new ActivityAdd(state);
+    public static Interface newActivity(State state) {
+        return new NewActivityAdd(state);
+    }
+
+    public static Interface newActivity(State state, Class<? extends JugglerActivity> activityClass) {
+        return new NewActivityAdd(state, activityClass);
     }
 
     private Add() {
@@ -47,7 +52,7 @@ public final class Add {
 
     public interface Interface {
 
-        Item add(JugglerActivity activity, Stack<Item> items);
+        Item add(JugglerActivity activity, Stack<Item> items, Intent intent);
 
     }
 

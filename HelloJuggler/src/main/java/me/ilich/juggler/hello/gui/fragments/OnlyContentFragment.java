@@ -31,7 +31,7 @@ public class OnlyContentFragment extends JugglerFragment {
 /*        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                navigateTo().state(Remove.clear(), Add.deeper(new MainState()));
+                navigateTo().state(Remove.all(), Add.deeper(new MainState()));
             }
         }, 1000);*/
     }

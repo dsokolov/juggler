@@ -53,7 +53,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Add.activity(new ItemsListState()));
+                navigateTo().state(Add.newActivity(new ItemsListState()));
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class MainFragment extends JugglerFragment {
         view.findViewById(R.id.navigate_to_wizzard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Add.activity(new WizardOneState()));
+                navigateTo().state(Add.newActivity(new WizardOneState()));
             }
         });
         view.findViewById(R.id.navigate_to_toolbar_explain).setOnClickListener(new View.OnClickListener() {

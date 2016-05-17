@@ -39,7 +39,13 @@ public class JugglerActivity extends AppCompatActivity {
             }
         }
         juggler.setActivity(this);
-        State<?> state = (State<?>) getIntent().getSerializableExtra(EXTRA_STATE);
+
+        final State<?> state;
+        if (getIntent().hasExtra(EXTRA_STATE)) {
+            state = (State<?>) getIntent().getSerializableExtra(EXTRA_STATE);
+        } else {
+            state = createState();
+        }
         if (state != null) {
             if (savedInstanceState == null) {
                 navigateTo().state(Add.deeper(state));
@@ -47,6 +53,10 @@ public class JugglerActivity extends AppCompatActivity {
                 navigateTo().restore();
             }
         }
+    }
+
+    protected State createState() {
+        return null;
     }
 
     @Override

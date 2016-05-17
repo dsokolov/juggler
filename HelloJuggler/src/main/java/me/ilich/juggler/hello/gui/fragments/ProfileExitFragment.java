@@ -13,26 +13,27 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.activities.HelloActivity;
 import me.ilich.juggler.hello.states.LoginState;
 
-public class SplashFragment extends JugglerFragment {
-
-    public static SplashFragment create() {
-        return new SplashFragment();
-    }
+public class ProfileExitFragment extends JugglerFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_splash, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile_exit, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //navigateTo().state(Remove.all(), Add.deeper(new HelloState()));
-                navigateTo().state(Remove.closeCurrentActivity(), Add.newActivity(new LoginState(), HelloActivity.class));
+                navigateTo().state(Remove.closeAllActivities(), Add.newActivity(new LoginState(), HelloActivity.class));
+            }
+        });
+        view.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo().state(Remove.closeCurrentActivity());
             }
         });
     }

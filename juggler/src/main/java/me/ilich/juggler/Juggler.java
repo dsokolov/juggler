@@ -1,5 +1,6 @@
 package me.ilich.juggler;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Item;
@@ -91,12 +93,12 @@ public class Juggler implements Navigable, Serializable {
 
     @Override
     public void clearState(State state) {
-        doState(Remove.clear(), Add.deeper(state));
+        doState(Remove.all(), Add.deeper(state));
     }
 
     @Override
     public void clearState(State state, String tag) {
-        doState(Remove.clear(), Add.deeper(state, tag));
+        doState(Remove.all(), Add.deeper(state, tag));
     }
 
     @Override
@@ -126,8 +128,8 @@ public class Juggler implements Navigable, Serializable {
     }
 
     @Override
-    public void state(@NonNull Remove.Interface pop) {
-        doState(pop, null);
+    public void state(@NonNull Remove.Interface remove) {
+        doState(remove, null);
     }
 
     @Override
@@ -136,24 +138,32 @@ public class Juggler implements Navigable, Serializable {
     }
 
     @Override
-    public void state(@NonNull Remove.Interface pop, @NonNull Add.Interface add) {
-        doState(pop, add);
+    public void state(@NonNull Remove.Interface remove, @NonNull Add.Interface add) {
+        doState(remove, add);
     }
 
-    private void doState(@Nullable Remove.Interface pop, @Nullable Add.Interface add) {
+    private void doState(@Nullable Remove.Interface remove, @Nullable Add.Interface add) {
+        Intent intent = new Intent();
+        AtomicBoolean closeCurrentActivity = new AtomicBoolean(false);
         if (currentState != null) {
             currentState.onDeactivate(activity);
         }
         currentState = null;
         Item newItem = null;
-        if (pop != null) {
-            newItem = pop.pop(activity, stateChanger.getItems());
+        if (remove != null) {
+            newItem = remove.remove(activity, stateChanger.getItems(), intent, closeCurrentActivity);
         }
         if (add != null) {
-            newItem = add.add(activity, stateChanger.getItems());
+            newItem = add.add(activity, stateChanger.getItems(), intent);
         }
         if (newItem != null) {
             currentState = newItem.getState();
+        }
+        if (intent.getComponent() != null) {
+            activity.startActivity(intent);
+        }
+        if (closeCurrentActivity.get()) {
+            activity.finish();
         }
     }
 

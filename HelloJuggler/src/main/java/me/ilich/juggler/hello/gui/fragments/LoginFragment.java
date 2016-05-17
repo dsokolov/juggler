@@ -31,7 +31,7 @@ public class LoginFragment extends JugglerFragment {
         view.findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Remove.clear(), Add.deeper(new MainState()));
+                navigateTo().state(Remove.closeCurrentActivity(), Add.newActivity(new MainState()));
             }
         });
         view.findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {

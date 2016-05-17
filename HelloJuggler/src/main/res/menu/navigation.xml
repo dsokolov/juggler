@@ -10,6 +10,12 @@
             android:title="@string/menu_main"/>
 
         <item
+            android:id="@+id/menu_profile"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="профиль"/>
+
+        <item
             android:id="@+id/menu_state_a"
             android:checked="false"
             android:icon="@android:drawable/ic_menu_manage"

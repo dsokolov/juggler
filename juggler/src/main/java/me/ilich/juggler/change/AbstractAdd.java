@@ -1,5 +1,6 @@
 package me.ilich.juggler.change;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,7 +29,7 @@ public abstract class AbstractAdd implements Add.Interface {
     }
 
     @Override
-    public Item add(JugglerActivity activity, Stack<Item> items) {
+    public Item add(JugglerActivity activity, Stack<Item> items, Intent intent) {
         int newLayoutId = newState.getGrid().getLayoutId();
         if (activity.getJuggler().hasLayoutId()) {
             if (newLayoutId != activity.getJuggler().getLayoutId()) {

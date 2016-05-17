@@ -21,10 +21,6 @@ public class StateChanger implements Serializable {
 
     private Stack<Item> items = new Stack<>();
 
-    public State change(JugglerActivity activity, Remove.Interface pop, Add.Interface add) {
-        return doChange(activity, pop, add);
-    }
-
     public Stack<Item> getItems() {
         return items;
     }
@@ -32,50 +28,6 @@ public class StateChanger implements Serializable {
     @VisibleForTesting
     public int getStackLength(){
         return items.size();
-    }
-
-    @Nullable
-    private State doChange(JugglerActivity activity, Remove.Interface pop, Add.Interface add) {
-        if (activity == null) {
-            throw new NullPointerException("activity");
-        }
-
-        final Item resultItem;
-        final Item oldItem;
-        if (items.empty()) {
-            oldItem = null;
-        } else {
-            oldItem = items.peek();
-        }
-        State oldState = oldItem == null ? null : oldItem.getState();
-
-        boolean hasPop = pop != null;
-        boolean hasAdd = add != null;
-
-        if (hasPop && hasAdd) {
-            pop.pop(activity, items);
-            resultItem = add.add(activity, items);
-        } else if (hasPop) {
-            resultItem = pop.pop(activity, items);
-        } else if (hasAdd) {
-            resultItem = add.add(activity, items);
-        } else {
-            if (items.empty()) {
-                resultItem = null;
-            } else {
-                resultItem = items.peek();
-            }
-        }
-
-        final State resultState;
-        if (resultItem == null) {
-            resultState = null;
-        } else {
-            resultState = resultItem.getState();
-        }
-        processStateChange(activity, oldState, resultState);
-
-        return resultState;
     }
 
     public State transaction(String transactionName, JugglerActivity activity, @Nullable String tag) {

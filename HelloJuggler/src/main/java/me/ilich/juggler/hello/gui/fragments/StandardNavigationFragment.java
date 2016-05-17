@@ -17,6 +17,7 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.MainState;
 import me.ilich.juggler.hello.states.NoTitleNavagationState;
+import me.ilich.juggler.hello.states.ProfileState;
 import me.ilich.juggler.hello.states.StateA;
 import me.ilich.juggler.hello.states.StateB;
 import me.ilich.juggler.hello.states.StateC;
@@ -48,6 +49,10 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                 switch (item.getItemId()) {
                     case R.id.menu_main:
                         navigateTo().state(Remove.dig(MainState.TAG));
+                        b = true;
+                        break;
+                    case R.id.menu_profile:
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new ProfileState()));
                         b = true;
                         break;
                     case R.id.menu_state_a:

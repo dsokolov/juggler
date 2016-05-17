@@ -7,30 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.states.LoginState;
+import me.ilich.juggler.hello.states.ProfileExitState;
 
-public class HelloFragment extends JugglerFragment {
-
-    public static HelloFragment create() {
-        return new HelloFragment();
-    }
+public class ProfileFragment extends JugglerFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_hello, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Remove.all(), Add.deeper(new LoginState()));
+                navigateTo().state(Add.newActivity(new ProfileExitState()));
             }
         });
     }
