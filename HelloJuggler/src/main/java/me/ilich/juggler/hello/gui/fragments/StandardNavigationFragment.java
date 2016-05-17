@@ -67,7 +67,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                         b = true;
                         break;
                     case R.id.menu_only_content:
-                        navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new NoTitleNavagationState()));
+                        navigateTo().state(Remove.dig(MainState.TAG), Add.activity(new NoTitleNavagationState()));
                         b = true;
                         break;
                     default:

@@ -5,6 +5,7 @@ import java.util.Stack;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
+import me.ilich.juggler.states.VoidParams;
 
 public final class Add {
 
@@ -34,6 +35,10 @@ public final class Add {
 
     public static Add.Interface linear(State state, TargetBound... targetBounds) {
         return new LinearAdd(state, null, targetBounds);
+    }
+
+    public static Interface activity(State state) {
+        return new ActivityAdd(state);
     }
 
     private Add() {

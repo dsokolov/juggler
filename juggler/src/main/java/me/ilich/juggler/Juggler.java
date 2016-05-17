@@ -70,7 +70,7 @@ public class Juggler implements Navigable, Serializable {
         return b;
     }
 
-    @Override
+/*    @Override
     public void linearState(State state, TargetBound... targetBounds) {
         doState(null, Add.linear(state, targetBounds));
     }
@@ -113,7 +113,7 @@ public class Juggler implements Navigable, Serializable {
     @Override
     public void digDeeperState(String tag, State state) {
         doState(Remove.dig(tag), Add.deeper(state, tag));
-    }
+    }*/
 
     @Override
     public void restore() {

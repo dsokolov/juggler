@@ -33,7 +33,6 @@ public abstract class AbstractAdd implements Add.Interface {
         if (activity.getJuggler().hasLayoutId()) {
             if (newLayoutId != activity.getJuggler().getLayoutId()) {
                 throw new RuntimeException("Cant add state to activity with different layout id");
-                //TODO может быть новое активити?
             }
         } else {
             activity.getJuggler().setLayoutId(newLayoutId);

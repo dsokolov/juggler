@@ -38,7 +38,7 @@ public class MainState extends ContentToolbarNavigationState<VoidParams> {
 
     @Override
     public Drawable getUpNavigationIcon(Context context, VoidParams params) {
-        return context.getResources().getDrawable(android.R.drawable.ic_menu_add);
+        return context.getResources().getDrawable(R.drawable.ic_menu_black_24dp);
     }
 
     @Nullable

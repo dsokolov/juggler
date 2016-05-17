@@ -3,6 +3,7 @@ package me.ilich.juggler.gui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,8 +17,10 @@ public class JugglerActivity extends AppCompatActivity {
     private static final String STATE_JUGGLER = "state_juggler";
     private static final String EXTRA_STATE = "extra_state";
 
-    public static Intent state(Context context, State<?> state) {
-        Intent intent = new Intent(context, JugglerActivity.class);
+    public static Intent state(Context context, State<?> state, @Nullable Intent intent) {
+        if (intent == null) {
+            intent = new Intent(context, JugglerActivity.class);
+        }
         intent.putExtra(EXTRA_STATE, state);
         return intent;
     }
@@ -81,6 +84,9 @@ public class JugglerActivity extends AppCompatActivity {
             b = juggler.upState();
             if (!b) {
                 b = super.onSupportNavigateUp();
+                if (!b) {
+                    finish();
+                }
             }
         }
         return b;

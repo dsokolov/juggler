@@ -28,12 +28,12 @@ public class OnlyContentFragment extends JugglerFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new Handler().postDelayed(new Runnable() {
+/*        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 navigateTo().state(Remove.clear(), Add.deeper(new MainState()));
             }
-        }, 1000);
+        }, 1000);*/
     }
 
 }
