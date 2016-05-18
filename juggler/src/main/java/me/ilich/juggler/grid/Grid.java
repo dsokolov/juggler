@@ -43,6 +43,10 @@ public class Grid implements Serializable {
         return new Grid(R.layout.juggler_layout_content_navigation, Cell.content(), Cell.navigation());
     }
 
+    public static Grid custom(@LayoutRes int layoutId, Cell... cells) {
+        return new Grid(layoutId, cells);
+    }
+
     @LayoutRes
     private final int layoutId;
     private List<Cell> cells = new ArrayList<>();
