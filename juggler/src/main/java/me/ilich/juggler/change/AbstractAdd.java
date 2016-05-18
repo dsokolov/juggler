@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,11 +108,19 @@ public abstract class AbstractAdd implements Add.Interface {
             int cellType = cell.getType();
             JugglerFragment fragment = newState.convertFragment(cellType, oldFragment);
             if (fragment == null) {
+                View v = activity.findViewById(containerId);
+                if (v != null) {
+                    v.setVisibility(View.GONE);
+                }
                 Fragment f = fragmentManager.findFragmentById(containerId);
                 if (f != null) {
                     fragmentTransaction.remove(f);
                 }
             } else {
+                View v = activity.findViewById(containerId);
+                if (v != null) {
+                    v.setVisibility(View.VISIBLE);
+                }
                 for (TargetBound targetBound : bounds.keySet()) {
                     if (targetBound.getCellIdTo() == cellType) {
                         Fragment targetFragment = bounds.get(targetBound);

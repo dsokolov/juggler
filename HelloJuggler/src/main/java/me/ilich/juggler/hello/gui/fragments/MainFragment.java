@@ -28,6 +28,7 @@ import me.ilich.juggler.hello.states.ItemsListState;
 import me.ilich.juggler.hello.states.LoginState;
 import me.ilich.juggler.hello.states.PreviewState;
 import me.ilich.juggler.hello.states.WizardOneState;
+import me.ilich.juggler.hello.states.toolbarpos.ToolbarStateB;
 
 public class MainFragment extends JugglerFragment {
 
@@ -129,6 +130,12 @@ public class MainFragment extends JugglerFragment {
 
                 NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(123, notification);
+            }
+        });
+        view.findViewById(R.id.navigate_to_toolbars).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo().state(Add.newActivity(new ToolbarStateB()));
             }
         });
     }

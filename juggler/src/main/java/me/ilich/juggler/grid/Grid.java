@@ -1,6 +1,5 @@
 package me.ilich.juggler.grid;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 
 import java.io.Serializable;
@@ -13,35 +12,31 @@ import me.ilich.juggler.R;
 public class Grid implements Serializable {
 
     public static Grid contentOnly() {
-        return new Grid(R.layout.juggler_layout_content_only, Cell.content(R.id.container_content));
+        return new Grid(R.layout.juggler_layout_content_only, Cell.content());
     }
 
     public static Grid contentBelowToolbar() {
-        return new Grid(R.layout.juggler_layout_content_below_toolbar, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar));
+        return new Grid(R.layout.juggler_layout_content_below_toolbar, Cell.content(), Cell.toolbar());
     }
 
     public static Grid contentUnderToolbar() {
-        return new Grid(R.layout.juggler_layout_content_under_toolbar, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar));
+        return new Grid(R.layout.juggler_layout_content_under_toolbar, Cell.content(), Cell.toolbar());
+    }
+
+    public static Grid contentDoubleToolbar() {
+        return new Grid(R.layout.juggler_layout_content_double_toolbar, Cell.contentBelow(), Cell.contentUnder(), Cell.toolbar());
     }
 
     public static Grid contentToolbarNavigation() {
-        return new Grid(R.layout.juggler_layout_content_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
+        return new Grid(R.layout.juggler_layout_content_toolbar_navigation, Cell.content(), Cell.toolbar(), Cell.navigation());
     }
 
     public static Grid contentUnderToolbarNavigation() {
-        return new Grid(R.layout.juggler_layout_content_under_toolbar_navigation, Cell.content(R.id.container_content), Cell.toolbar(R.id.container_toolbar), Cell.navigation(R.id.container_navigation));
+        return new Grid(R.layout.juggler_layout_content_under_toolbar_navigation, Cell.content(), Cell.toolbar(), Cell.navigation());
     }
 
     public static Grid contentNavigation() {
-        return new Grid(R.layout.juggler_layout_content_navigation, Cell.content(R.id.container_content), Cell.navigation(R.id.container_navigation));
-    }
-
-    public static Grid content(@LayoutRes int layoutId, @IdRes int contentId){
-        return new Grid(layoutId, Cell.content(contentId));
-    }
-
-    public static Grid contentWithToolbar(@LayoutRes int layoutId, @IdRes int contentId, @IdRes int toolbarId){
-        return new Grid(layoutId, Cell.content(contentId), Cell.toolbar(toolbarId));
+        return new Grid(R.layout.juggler_layout_content_navigation, Cell.content(), Cell.navigation());
     }
 
     @LayoutRes

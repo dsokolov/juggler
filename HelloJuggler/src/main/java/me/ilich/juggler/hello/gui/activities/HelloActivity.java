@@ -34,6 +34,7 @@ public class HelloActivity extends JugglerActivity {
 
     @Override
     protected State createState() {
-        return new SplashState();
+        return //new SplashState();
+        new MainState();
     }
 }
