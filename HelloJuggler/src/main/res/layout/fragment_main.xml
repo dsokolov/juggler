@@ -1,78 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="main" />
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:foregroundGravity="center"
+        android:background="#999"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    <Button
-        android:id="@+id/navigate_to_list"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="list" />
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/toolbar">
 
-    <Button
-        android:id="@+id/navigate_to_about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="about" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/navigate_to_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="login" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="main" />
 
-    <Button
-        android:id="@+id/navigate_to_wizzard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="wizzard" />
+            <Button
+                android:id="@+id/navigate_to_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="list" />
 
-    <Button
-        android:id="@+id/navigate_to_toolbar_explain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="toolbar expalain" />
+            <Button
+                android:id="@+id/navigate_to_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="about" />
 
-    <Button
-        android:id="@+id/navigate_to_infinity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="infinity" />
+            <Button
+                android:id="@+id/navigate_to_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="login" />
+
+            <Button
+                android:id="@+id/navigate_to_wizzard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="wizzard" />
+
+            <Button
+                android:id="@+id/navigate_to_toolbar_explain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="toolbar expalain" />
+
+            <Button
+                android:id="@+id/navigate_to_infinity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="infinity" />
 
 
-    <Button
-        android:id="@+id/navigate_to_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="preview" />
+            <Button
+                android:id="@+id/navigate_to_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="preview" />
 
-    <Button
-        android:id="@+id/navigate_to_slave_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="activity" />
+            <Button
+                android:id="@+id/navigate_to_slave_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="activity" />
 
-    <Button
-        android:id="@+id/navigate_to_activity_param"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="activity param" />
+            <Button
+                android:id="@+id/navigate_to_activity_param"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="activity param" />
 
-    <Button
-        android:id="@+id/show_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="notofication" />
+            <Button
+                android:id="@+id/show_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="notofication" />
 
-    <Button
-        android:id="@+id/navigate_to_toolbars"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/navigate_to_toolbars"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-</LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

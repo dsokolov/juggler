@@ -12,9 +12,9 @@ import me.ilich.juggler.hello.R;
 
 public class ToolbarposAFragment extends JugglerToolbarFragment {
 
-    public static ToolbarposAFragment create(){
+    public static ToolbarposAFragment create() {
         ToolbarposAFragment f = new ToolbarposAFragment();
-        f.setArguments(addDisplayOptionsToBundle(null, ActionBar.DISPLAY_SHOW_TITLE));
+        f.setArguments(addDisplayOptionsToBundle(null, ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP));
         return f;
     }
 

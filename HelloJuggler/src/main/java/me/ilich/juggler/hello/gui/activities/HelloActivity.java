@@ -37,4 +37,10 @@ public class HelloActivity extends JugglerActivity {
         return //new SplashState();
         new MainState();
     }
+
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+    }
+
 }

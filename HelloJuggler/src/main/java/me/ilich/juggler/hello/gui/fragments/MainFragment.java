@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,7 @@ import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.activities.SlaveActivity;
 import me.ilich.juggler.hello.states.AboutState;
@@ -30,16 +32,23 @@ import me.ilich.juggler.hello.states.PreviewState;
 import me.ilich.juggler.hello.states.WizardOneState;
 import me.ilich.juggler.hello.states.toolbarpos.ToolbarStateB;
 
-public class MainFragment extends JugglerFragment {
+public class MainFragment extends JugglerToolbarFragment {
 
     public static MainFragment newInstance() {
-        return new MainFragment();
+        MainFragment f = new MainFragment();
+        f.setArguments(addDisplayOptionsToBundle(null, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE));
+        return f;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    //@Override
+    protected int getToolbarId() {
+        return R.id.toolbar;
     }
 
     @Nullable

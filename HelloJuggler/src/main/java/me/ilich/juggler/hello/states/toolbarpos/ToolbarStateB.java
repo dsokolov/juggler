@@ -1,9 +1,11 @@
 package me.ilich.juggler.hello.states.toolbarpos;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.hello.gui.fragments.toolbarpos.ToolbarposBFragment;
 import me.ilich.juggler.states.ContentDoubleToolbarState;
@@ -27,12 +29,17 @@ public class ToolbarStateB extends ContentDoubleToolbarState<VoidParams> {
 
     @Override
     protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
-        return StandardToolbarFragment.create();
+        return StandardToolbarFragment.createTitleBack();
     }
 
     @Override
     public String getTitle(Context context, VoidParams params) {
         return "B";
+    }
+
+    @Override
+    public Drawable getUpNavigationIcon(Context context, VoidParams params) {
+        return context.getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
     }
 
 }

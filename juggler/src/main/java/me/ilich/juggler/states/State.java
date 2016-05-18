@@ -110,7 +110,7 @@ public abstract class State<P extends State.Params> implements Serializable {
     }
 
     @Nullable
-    public Transition getUpTransition() {
+    public final Transition getUpTransition() {
         return upTransition;
     }
 
