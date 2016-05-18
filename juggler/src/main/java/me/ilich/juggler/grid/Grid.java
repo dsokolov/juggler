@@ -27,6 +27,10 @@ public class Grid implements Serializable {
         return new Grid(R.layout.juggler_layout_content_double_toolbar, Cell.contentBelow(), Cell.contentUnder(), Cell.toolbar());
     }
 
+    public static Grid contentDoubleToolbarNavigation() {
+        return new Grid(R.layout.juggler_layout_content_double_toolbar, Cell.contentBelow(), Cell.contentUnder(), Cell.toolbar(), Cell.navigation());
+    }
+
     public static Grid contentToolbarNavigation() {
         return new Grid(R.layout.juggler_layout_content_toolbar_navigation, Cell.content(), Cell.toolbar(), Cell.navigation());
     }
