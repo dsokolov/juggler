@@ -36,7 +36,9 @@ public class MainFragment extends JugglerToolbarFragment {
 
     public static MainFragment newInstance() {
         MainFragment f = new MainFragment();
-        f.setArguments(addDisplayOptionsToBundle(null, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE));
+        Bundle b = new Bundle();
+        addDisplayOptionsToBundle(b, ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        f.setArguments(b);
         return f;
     }
 

@@ -22,10 +22,11 @@ import me.ilich.juggler.hello.states.StateC;
 
 public class StandardNavigationFragmentA extends JugglerNavigationFragment {
 
-    public static StandardNavigationFragmentA create(int itemId) {
+    public static StandardNavigationFragmentA create(int itemId, boolean die) {
         StandardNavigationFragmentA f = new StandardNavigationFragmentA();
         Bundle b = new Bundle();
         addSelectedItemToBundle(b, itemId);
+        addDrawerIndicatorEnabled(b, die);
         f.setArguments(b);
         return f;
     }

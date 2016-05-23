@@ -2,6 +2,7 @@ package me.ilich.juggler.change;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.Stack;
@@ -26,7 +27,7 @@ public class StateChanger implements Serializable {
     }
 
     @VisibleForTesting
-    public int getStackLength(){
+    public int getStackLength() {
         return items.size();
     }
 
@@ -52,10 +53,26 @@ public class StateChanger implements Serializable {
             newState = null;
         } else {
             newState = newItem.getState();
+            processContainersVisibility(activity, newItem);
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         processStateChange(activity, oldItem.getState(), newState);
         return newState;
+    }
+
+    public static void processContainersVisibility(JugglerActivity activity, Item newItem) {
+        for (int id : newItem.getVisibleIds()) {
+            View v = activity.findViewById(id);
+            if (v != null) {
+                v.setVisibility(View.VISIBLE);
+            }
+        }
+        for (int id : newItem.getGoneIds()) {
+            View v = activity.findViewById(id);
+            if (v != null) {
+                v.setVisibility(View.GONE);
+            }
+        }
     }
 
     public State restore(JugglerActivity activity) {

@@ -18,6 +18,7 @@ import me.ilich.juggler.R;
 public abstract class JugglerNavigationFragment extends JugglerFragment {
 
     private static final String ARG_SELECTED_ITEM = "selected_item";
+    private static final String ARG_DRAWER_INDICATOR_ENABLED = "drawer_indicator_enabled";
 
     protected static Bundle addSelectedItemToBundle(@Nullable Bundle bundle, int itemIndex) {
         if (bundle == null) {
@@ -27,7 +28,16 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return bundle;
     }
 
+    protected static Bundle addDrawerIndicatorEnabled(@Nullable Bundle bundle, boolean b) {
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putBoolean(ARG_DRAWER_INDICATOR_ENABLED, b);
+        return bundle;
+    }
+
     private int defaultSelectedItem = 0;
+    private boolean drawerIndicatorEnabled = true;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
 
@@ -43,6 +53,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM, 0);
+            drawerIndicatorEnabled = getArguments().getBoolean(ARG_DRAWER_INDICATOR_ENABLED, true);
         }
     }
 
@@ -58,6 +69,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        drawerToggle.setDrawerIndicatorEnabled(drawerIndicatorEnabled);
     }
 
     protected DrawerLayout getDrawerLayout() {

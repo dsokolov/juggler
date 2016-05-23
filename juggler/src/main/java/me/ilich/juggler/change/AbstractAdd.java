@@ -108,6 +108,7 @@ public abstract class AbstractAdd implements Add.Interface {
             int cellType = cell.getType();
             JugglerFragment fragment = newState.convertFragment(cellType, oldFragment);
             if (fragment == null) {
+                newItem.addGoneId(containerId);
                 View v = activity.findViewById(containerId);
                 if (v != null) {
                     v.setVisibility(View.GONE);
@@ -117,6 +118,7 @@ public abstract class AbstractAdd implements Add.Interface {
                     fragmentTransaction.remove(f);
                 }
             } else {
+                newItem.addVisibleId(containerId);
                 View v = activity.findViewById(containerId);
                 if (v != null) {
                     v.setVisibility(View.VISIBLE);

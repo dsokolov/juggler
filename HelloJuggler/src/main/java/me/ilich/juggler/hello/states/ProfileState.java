@@ -10,16 +10,22 @@ import me.ilich.juggler.hello.gui.fragments.ProfileFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
+import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;
 
-public class ProfileState extends ContentToolbarNavigationState<VoidParams> {
+public class ProfileState extends NavigationContentDoubleToolbarState<VoidParams> {
 
     public ProfileState() {
         super(VoidParams.instance());
     }
 
     @Override
-    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
+    protected JugglerFragment onConvertContentBelow(VoidParams params, @Nullable JugglerFragment fragment) {
+        return null;
+    }
+
+    @Override
+    protected JugglerFragment onConvertContentUnder(VoidParams params, @Nullable JugglerFragment fragment) {
         return new ProfileFragment();
     }
 

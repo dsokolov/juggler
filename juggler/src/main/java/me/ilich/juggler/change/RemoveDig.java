@@ -34,6 +34,7 @@ class RemoveDig implements Remove.Interface {
             }
         }
         if (newItem != null) {
+            StateChanger.processContainersVisibility(activity, newItem);
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         return newItem;

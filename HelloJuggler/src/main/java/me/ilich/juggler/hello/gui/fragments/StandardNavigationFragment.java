@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +27,7 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
         StandardNavigationFragment f = new StandardNavigationFragment();
         Bundle b = new Bundle();
         addSelectedItemToBundle(b, itemId);
+        addDrawerIndicatorEnabled(b, true);
         f.setArguments(b);
         return f;
     }
