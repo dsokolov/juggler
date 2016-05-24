@@ -20,7 +20,6 @@ import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.activities.SlaveActivity;
@@ -177,6 +176,7 @@ public class MainFragment extends JugglerToolbarFragment {
     public void onResume() {
         super.onResume();
         Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
+        getJugglerActivity().getJuggler().dump();
     }
 
 }

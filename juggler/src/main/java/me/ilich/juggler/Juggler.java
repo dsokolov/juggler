@@ -232,4 +232,20 @@ public class Juggler implements Navigable, Serializable {
         this.layoutId = layoutId;
     }
 
+    public void dump() {
+        Log.v(this, "*** begin Juggler dump ***");
+        int backstackSize = activity.getSupportFragmentManager().getBackStackEntryCount();
+        Log.v(this, activity + " backstack size = " + backstackSize);
+        for (int i = 0; i < backstackSize; i++) {
+            FragmentManager.BackStackEntry backStackEntry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
+            Log.v(this, i + ") " + backStackEntry.getId() + " " + backStackEntry.getName() + " " + backStackEntry);
+        }
+        Log.v(this, "stack size = " + stateChanger.getItems().size());
+        for (int i = 0; i < stateChanger.getItems().size(); i++) {
+            Item item = stateChanger.getItems().get(i);
+            Log.v(this, i + ") " + item);
+        }
+        Log.v(this, "*** end Juggler dump ***");
+    }
+
 }
