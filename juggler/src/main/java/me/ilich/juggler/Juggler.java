@@ -148,9 +148,9 @@ public class Juggler implements Navigable, Serializable {
         if (currentState != null) {
             currentState.onDeactivate(activity);
         }
-        currentState = null;
         Item newItem = null;
         if (remove != null) {
+            currentState = null;
             newItem = remove.remove(activity, stateChanger.getItems(), intent, closeCurrentActivity);
         }
         if (add != null) {
@@ -235,7 +235,9 @@ public class Juggler implements Navigable, Serializable {
     public void dump() {
         Log.v(this, "*** begin Juggler dump ***");
         int backstackSize = activity.getSupportFragmentManager().getBackStackEntryCount();
-        Log.v(this, activity + " backstack size = " + backstackSize);
+        Log.v(this, "activity = " + activity);
+        Log.v(this, "currentState = " + currentState);
+        Log.v(this, "backstack size = " + backstackSize);
         for (int i = 0; i < backstackSize; i++) {
             FragmentManager.BackStackEntry backStackEntry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
             Log.v(this, i + ") " + backStackEntry.getId() + " " + backStackEntry.getName() + " " + backStackEntry);
