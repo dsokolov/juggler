@@ -130,17 +130,17 @@ public class Juggler implements Navigable, Serializable {
     }
 
     @Override
-    public void state(@NonNull Remove.Interface remove) {
+    public void state(@Nullable Remove.Interface remove) {
         doState(remove, null);
     }
 
     @Override
-    public void state(@NonNull Add.Interface add) {
+    public void state(@Nullable Add.Interface add) {
         doState(null, add);
     }
 
     @Override
-    public void state(@NonNull Remove.Interface remove, @NonNull Add.Interface add) {
+    public void state(@Nullable Remove.Interface remove, @Nullable Add.Interface add) {
         doState(remove, add);
     }
 

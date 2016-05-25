@@ -1,6 +1,7 @@
 package me.ilich.juggler;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
@@ -15,10 +16,10 @@ public interface Navigable {
 
     void restore();
 
-    void state(@NonNull Remove.Interface pop);
+    void state(@Nullable Remove.Interface remove);
 
-    void state(@NonNull Add.Interface add);
+    void state(@Nullable Add.Interface add);
 
-    void state(@NonNull Remove.Interface pop, @NonNull Add.Interface add);
+    void state(@Nullable Remove.Interface remove, @Nullable Add.Interface add);
 
 }

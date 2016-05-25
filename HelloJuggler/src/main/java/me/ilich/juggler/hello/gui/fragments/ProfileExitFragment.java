@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.CrossActivity;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.activities.HelloActivity;
 import me.ilich.juggler.hello.states.LoginState;
+import me.ilich.juggler.hello.states.MainState;
 
 public class ProfileExitFragment extends JugglerFragment {
 
@@ -33,6 +35,13 @@ public class ProfileExitFragment extends JugglerFragment {
         view.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                navigateTo().state(Remove.closeCurrentActivity());
+            }
+        });
+        view.findViewById(R.id.dig_prev_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CrossActivity.getInstance().addRemove(Remove.dig(MainState.TAG));
                 navigateTo().state(Remove.closeCurrentActivity());
             }
         });

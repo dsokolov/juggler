@@ -14,4 +14,5 @@
     <string name="title_state_c">State C</string>
     <string name="menu_state_c">state C</string>
     <string name="title_list">List!</string>
+    <string name="title_profile">Профиль</string>
 </resources>

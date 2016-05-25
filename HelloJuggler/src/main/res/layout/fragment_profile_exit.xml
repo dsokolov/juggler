@@ -21,4 +21,11 @@
         android:layout_height="wrap_content"
         android:text="нет" />
 
+
+    <Button
+        android:id="@+id/dig_prev_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dig" />
+
 </LinearLayout>

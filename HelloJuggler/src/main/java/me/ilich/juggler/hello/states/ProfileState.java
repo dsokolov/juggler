@@ -9,7 +9,6 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.ProfileFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
-import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;
 
@@ -21,12 +20,12 @@ public class ProfileState extends NavigationContentDoubleToolbarState<VoidParams
 
     @Override
     protected JugglerFragment onConvertContentBelow(VoidParams params, @Nullable JugglerFragment fragment) {
-        return null;
+        return new ProfileFragment();
     }
 
     @Override
     protected JugglerFragment onConvertContentUnder(VoidParams params, @Nullable JugglerFragment fragment) {
-        return new ProfileFragment();
+        return null;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class ProfileState extends NavigationContentDoubleToolbarState<VoidParams
     @Nullable
     @Override
     public String getTitle(Context context, VoidParams params) {
-        return context.getString(R.string.title_main);
+        return context.getString(R.string.title_profile);
     }
 
 }

@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
+import me.ilich.juggler.CrossActivity;
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Navigable;
 import me.ilich.juggler.change.Add;
+import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.states.State;
 
 public class JugglerActivity extends AppCompatActivity {
@@ -53,6 +55,24 @@ public class JugglerActivity extends AppCompatActivity {
                 navigateTo().restore();
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final Remove.Interface remove;
+        final Add.Interface add;
+        if (CrossActivity.getInstance().hasRemove()) {
+            remove = CrossActivity.getInstance().getRemove();
+        } else {
+            remove = null;
+        }
+        if (CrossActivity.getInstance().hasAdd()) {
+            add = CrossActivity.getInstance().getAdd();
+        } else {
+            add = null;
+        }
+        navigateTo().state(remove, add);
     }
 
     protected State createState() {
