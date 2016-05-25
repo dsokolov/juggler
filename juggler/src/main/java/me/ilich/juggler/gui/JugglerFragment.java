@@ -22,7 +22,6 @@ public class JugglerFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(this, "onCreate");
     }
 
     @Override
@@ -128,6 +127,7 @@ public class JugglerFragment extends Fragment {
     @CallSuper
     public void onDetach() {
         super.onDetach();
+        activity = null;
     }
 
     public int getTargetCell() {

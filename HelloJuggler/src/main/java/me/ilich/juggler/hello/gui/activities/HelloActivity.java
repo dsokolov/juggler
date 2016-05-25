@@ -1,15 +1,11 @@
 package me.ilich.juggler.hello.gui.activities;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 
-import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.Remove;
+import me.ilich.juggler.Log;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.hello.states.MainState;
-import me.ilich.juggler.hello.states.SplashState;
-import me.ilich.juggler.hello.states.StateA;
-import me.ilich.juggler.hello.states.WizardOneState;
 import me.ilich.juggler.states.State;
 
 public class HelloActivity extends JugglerActivity {
@@ -17,6 +13,13 @@ public class HelloActivity extends JugglerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                Log.v(this, "onBackStackChanged");
+                getJuggler().dump();
+            }
+        });
 /*        if (savedInstanceState == null) {
             //navigateTo().state(Remove.none(), Add.deeper(new StateA()));
 
@@ -35,7 +38,7 @@ public class HelloActivity extends JugglerActivity {
     @Override
     protected State createState() {
         return //new SplashState();
-        new MainState();
+                new MainState();
     }
 
     @Override

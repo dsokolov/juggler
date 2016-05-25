@@ -10,7 +10,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:foregroundGravity="center"
-        android:background="#999"
+        android:background="#F90"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <ScrollView

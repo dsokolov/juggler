@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
@@ -39,7 +38,6 @@ public class FragmentA extends JugglerFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
         getJugglerActivity().getJuggler().dump();
     }
 

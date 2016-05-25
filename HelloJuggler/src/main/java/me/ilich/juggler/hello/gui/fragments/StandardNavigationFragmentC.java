@@ -44,7 +44,6 @@ public class StandardNavigationFragmentC extends JugglerNavigationFragment {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                Log.v(StandardNavigationFragmentC.this, "click!");
                 final boolean b;
                 switch (item.getItemId()) {
                     case R.id.menu_main:

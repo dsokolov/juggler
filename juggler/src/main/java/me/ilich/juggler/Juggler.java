@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Item;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
+import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 
@@ -175,7 +177,6 @@ public class Juggler implements Navigable, Serializable {
         onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Log.v(getClass(), "onBackStackChanged " + currentState);
                 if (currentState != null) {
                     currentState.onActivate(Juggler.this.activity);
                 }
@@ -236,7 +237,6 @@ public class Juggler implements Navigable, Serializable {
         Log.v(this, "*** begin Juggler dump ***");
         int backstackSize = activity.getSupportFragmentManager().getBackStackEntryCount();
         Log.v(this, "activity = " + activity);
-        Log.v(this, "currentState = " + currentState);
         Log.v(this, "backstack size = " + backstackSize);
         for (int i = 0; i < backstackSize; i++) {
             FragmentManager.BackStackEntry backStackEntry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
@@ -246,6 +246,15 @@ public class Juggler implements Navigable, Serializable {
         for (int i = 0; i < stateChanger.getItems().size(); i++) {
             Item item = stateChanger.getItems().get(i);
             Log.v(this, i + ") " + item);
+        }
+        Log.v(this, "currentState = " + currentState);
+        if (currentState != null) {
+            Log.v(this, "grid size = " + currentState.getGrid().getCells().size());
+            for (int i = 0; i < currentState.getGrid().getCells().size(); i++) {
+                Cell cell = currentState.getGrid().getCells().get(i);
+                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
+                Log.v(this, i + ") " + cell.getContainerId() + " " + cell.getType() + " " + fragment);
+            }
         }
         Log.v(this, "*** end Juggler dump ***");
     }

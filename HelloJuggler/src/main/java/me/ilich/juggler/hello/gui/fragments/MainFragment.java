@@ -175,8 +175,7 @@ public class MainFragment extends JugglerToolbarFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
-        getJugglerActivity().getJuggler().dump();
+        //getJugglerActivity().getJuggler().dump();
     }
 
 }

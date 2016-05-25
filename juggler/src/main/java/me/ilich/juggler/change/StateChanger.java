@@ -53,14 +53,14 @@ public class StateChanger implements Serializable {
             newState = null;
         } else {
             newState = newItem.getState();
-            processContainersVisibility(activity, newItem);
+//            processContainersVisibility(activity, newItem);
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
         processStateChange(activity, oldItem.getState(), newState);
         return newState;
     }
 
-    public static void processContainersVisibility(JugglerActivity activity, Item newItem) {
+/*    public static void processContainersVisibility(JugglerActivity activity, Item newItem) {
         for (int id : newItem.getVisibleIds()) {
             View v = activity.findViewById(id);
             if (v != null) {
@@ -73,7 +73,7 @@ public class StateChanger implements Serializable {
                 v.setVisibility(View.GONE);
             }
         }
-    }
+    }*/
 
     public State restore(JugglerActivity activity) {
         Item item = items.peek();

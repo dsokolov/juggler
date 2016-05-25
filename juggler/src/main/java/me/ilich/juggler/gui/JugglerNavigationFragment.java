@@ -43,7 +43,6 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
 
     public JugglerNavigationFragment() {
         super();
-        Log.v(this, "constructor");
     }
 
     @Override

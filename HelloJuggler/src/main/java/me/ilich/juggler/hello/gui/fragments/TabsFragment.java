@@ -60,10 +60,6 @@ public class TabsFragment extends JugglerFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentIndex = viewPager.getCurrentItem();
-                TabFragment tabFragment = adapter.getFragment(currentIndex);
-                String s = tabFragment.getText();
-                Log.v("Sokolov", s);
                 navigateTo().state(Add.deeper(new InfinityState(123)));
             }
         });

@@ -8,10 +8,10 @@ import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.FragmentC;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragmentC;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragmentC;
-import me.ilich.juggler.states.ContentToolbarNavigationState;
+import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;
 
-public class StateC extends ContentToolbarNavigationState<VoidParams> {
+public class StateC extends NavigationContentDoubleToolbarState<VoidParams> {
 
     public StateC() {
         super(VoidParams.instance());
@@ -23,8 +23,15 @@ public class StateC extends ContentToolbarNavigationState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
+    protected JugglerFragment onConvertContentBelow(VoidParams params, @Nullable JugglerFragment fragment) {
         return FragmentC.newInstance();
+        //return null;
+    }
+
+    @Override
+    protected JugglerFragment onConvertContentUnder(VoidParams params, @Nullable JugglerFragment fragment) {
+        return null;
+        //return FragmentC.newInstance();
     }
 
     @Override

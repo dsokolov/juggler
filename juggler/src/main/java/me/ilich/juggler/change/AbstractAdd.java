@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import me.ilich.juggler.Log;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
@@ -107,13 +108,15 @@ public abstract class AbstractAdd implements Add.Interface {
             JugglerFragment oldFragment = (JugglerFragment) fragmentManager.findFragmentById(containerId);
             int cellType = cell.getType();
             JugglerFragment fragment = newState.convertFragment(cellType, oldFragment);
+            Log.i(getClass(), "cellType = " + cellType + " fragment = " + fragment);
             if (fragment == null) {
                 newItem.addGoneId(containerId);
                 View v = activity.findViewById(containerId);
                 if (v != null) {
-                    v.setVisibility(View.GONE);
+                    //v.setVisibility(View.GONE);
                 }
                 Fragment f = fragmentManager.findFragmentById(containerId);
+                Log.i(getClass(), "f = " + f);
                 if (f != null) {
                     fragmentTransaction.remove(f);
                 }
@@ -121,7 +124,7 @@ public abstract class AbstractAdd implements Add.Interface {
                 newItem.addVisibleId(containerId);
                 View v = activity.findViewById(containerId);
                 if (v != null) {
-                    v.setVisibility(View.VISIBLE);
+                    //v.setVisibility(View.VISIBLE);
                 }
                 for (TargetBound targetBound : bounds.keySet()) {
                     if (targetBound.getCellIdTo() == cellType) {

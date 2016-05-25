@@ -19,26 +19,22 @@ public class FragmentB extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onCreate");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onActivityCreated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.v("Sokolov", "Fragment2 onCreateView");
         return inflater.inflate(R.layout.framgment_simple_2, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.v("Sokolov", "Fragment2 onViewCreated");
         editText = (EditText) view.findViewById(R.id.edit2);
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,31 +48,26 @@ public class FragmentB extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("Sokolov", "Fragment2 " + requestCode + " " + resultCode + " " + data);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.v("Sokolov", getClass().getSimpleName() + " onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.v("Sokolov", getClass().getSimpleName() + " onPause");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.v("Sokolov", getClass().getSimpleName() + " onStart");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.v("Sokolov", getClass().getSimpleName() + " onStop");
     }
 
 }

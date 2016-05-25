@@ -64,7 +64,6 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                Log.v("Sokolov", "onBackStackChanged");
             }
         });
     }
@@ -121,10 +120,9 @@ public class SimpleFragmentsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_info:
                 int count = getSupportFragmentManager().getBackStackEntryCount();
-                Log.v("Sokolov", "backstack size = " + count);
                 for (int i = 0; i < count; i++) {
                     FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(i);
-                    Log.v("Sokolov", i + ") " + backStackEntry.getId() + " " + backStackEntry.getName());
+
                 }
                 break;
             case R.id.menu_content_view_1:

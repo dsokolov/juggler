@@ -19,26 +19,22 @@ public class Fragment3 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("Sokolov", "Fragment3 onCreate");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.v("Sokolov", "Fragment3 onActivityCreated");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.v("Sokolov", "Fragment3 onCreateView");
         return inflater.inflate(R.layout.framgment_simple_3, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.v("Sokolov", "Fragment3 onViewCreated");
         editText = (EditText) view.findViewById(R.id.edit2);
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +48,6 @@ public class Fragment3 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("Sokolov", "Fragment3 " + requestCode + " " + resultCode + " " + data);
     }
 
 }

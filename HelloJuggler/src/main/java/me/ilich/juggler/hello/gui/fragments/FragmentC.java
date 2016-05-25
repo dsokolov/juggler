@@ -25,7 +25,6 @@ public class FragmentC extends JugglerFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.v(getClass(), "actionbar = " + getJugglerActivity().getSupportActionBar());
     }
 
 }
