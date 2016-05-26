@@ -20,7 +20,7 @@ class RemoveLast implements Remove.Interface {
             newItem = items.peek();
         }
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.popBackStack();
+        fm.popBackStackImmediate();
         return newItem;
     }
 

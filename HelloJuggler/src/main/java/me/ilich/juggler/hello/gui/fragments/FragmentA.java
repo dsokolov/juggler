@@ -36,6 +36,12 @@ public class FragmentA extends JugglerFragment {
     }
 
     @Override
+    public boolean onBackPressed() {
+        navigateTo().backState();
+        return true;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getJugglerActivity().getJuggler().dump();
