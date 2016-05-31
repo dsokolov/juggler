@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 
 public final class Remove {
@@ -39,7 +40,7 @@ public final class Remove {
 
     public interface Interface {
 
-        Item remove(JugglerActivity activity, Stack<Item> items, Intent intent, AtomicBoolean closeCurrentActivity);
+        Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Intent intent, AtomicBoolean closeCurrentActivity);
 
     }
 

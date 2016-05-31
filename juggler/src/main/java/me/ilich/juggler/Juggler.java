@@ -3,7 +3,6 @@ package me.ilich.juggler;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
@@ -26,8 +25,7 @@ public class Juggler implements Navigable, Serializable {
     private static final int NOT_SET = -1;
 
     private StateChanger stateChanger = new StateChanger();
-    @Nullable
-    private State currentState = null;
+    private StateHolder currentStateHolder = new StateHolder();
     @LayoutRes
     private int layoutId = NOT_SET;
     private transient JugglerActivity activity = null;
@@ -39,15 +37,17 @@ public class Juggler implements Navigable, Serializable {
             throw new NullPointerException("activity == null");
         }
         final boolean b;
-        if (currentState == null) {
+        State state = currentStateHolder.get();
+        if (state == null) {
             b = false;
         } else {
-            Transition transition = currentState.getBackTransition();
+            Transition transition = state.getBackTransition();
             if (transition == null) {
                 b = false;
             } else {
-                currentState = transition.execute(activity, stateChanger);
-                b = currentState != null;
+                State st = transition.execute(activity, stateChanger);
+                currentStateHolder.set(st);
+                b = currentStateHolder.get() != null;
             }
         }
         return b;
@@ -59,15 +59,17 @@ public class Juggler implements Navigable, Serializable {
             throw new NullPointerException("activity == null");
         }
         final boolean b;
-        if (currentState == null) {
+        State state = currentStateHolder.get();
+        if (state == null) {
             b = false;
         } else {
-            Transition transition = currentState.getUpTransition();
+            Transition transition = state.getUpTransition();
             if (transition == null) {
                 b = false;
             } else {
-                currentState = transition.execute(activity, stateChanger);
-                b = currentState != null;
+                state = transition.execute(activity, stateChanger);
+                currentStateHolder.set(state);
+                b = state != null;
             }
         }
         return b;
@@ -120,12 +122,13 @@ public class Juggler implements Navigable, Serializable {
 
     @Override
     public void restore() {
-        currentState = stateChanger.restore(activity);
+        currentStateHolder.set(stateChanger.restore(activity));
     }
 
     public void activateCurrentState() {
-        if (currentState != null) {
-            currentState.onActivate(activity);
+        State state = currentStateHolder.get();
+        if (state != null) {
+            state.onActivate(activity);
         }
     }
 
@@ -147,19 +150,20 @@ public class Juggler implements Navigable, Serializable {
     private void doState(@Nullable Remove.Interface remove, @Nullable Add.Interface add) {
         Intent intent = new Intent();
         AtomicBoolean closeCurrentActivity = new AtomicBoolean(false);
-        if (currentState != null) {
-            currentState.onDeactivate(activity);
+        State state = currentStateHolder.get();
+        if (state != null) {
+            state.onDeactivate(activity);
         }
         Item newItem = null;
         if (remove != null) {
-            currentState = null;
-            newItem = remove.remove(activity, stateChanger.getItems(), intent, closeCurrentActivity);
+            currentStateHolder.set(null);
+            newItem = remove.remove(activity, stateChanger.getItems(), currentStateHolder, intent, closeCurrentActivity);
         }
         if (add != null) {
             newItem = add.add(activity, stateChanger.getItems(), intent);
         }
         if (newItem != null) {
-            currentState = newItem.getState();
+            currentStateHolder.set(newItem.getState());
         }
         if (intent.getComponent() != null) {
             activity.startActivity(intent);
@@ -177,8 +181,9 @@ public class Juggler implements Navigable, Serializable {
         onBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if (currentState != null) {
-                    currentState.onActivate(Juggler.this.activity);
+                State state = currentStateHolder.get();
+                if (state != null) {
+                    state.onActivate(Juggler.this.activity);
                 }
             }
         };
@@ -186,8 +191,9 @@ public class Juggler implements Navigable, Serializable {
     }
 
     public void onPostCreate(Bundle savedInstanceState) {
-        if (currentState != null) {
-            currentState.onPostCreate(activity, savedInstanceState);
+        State state = currentStateHolder.get();
+        if (state != null) {
+            state.onPostCreate(activity, savedInstanceState);
         }
     }
 
@@ -197,20 +203,22 @@ public class Juggler implements Navigable, Serializable {
      */
     public boolean onBackPressed() {
         final boolean b;
-        if (currentState == null) {
+        State state = currentStateHolder.get();
+        if (state == null) {
             b = false;
         } else {
-            b = currentState.onBackPressed(activity);
+            b = state.onBackPressed(activity);
         }
         return b;
     }
 
     public boolean onUpPressed() {
         final boolean b;
-        if (currentState == null) {
+        State state = currentStateHolder.get();
+        if (state == null) {
             b = false;
         } else {
-            b = currentState.onUpPressed(activity);
+            b = state.onUpPressed(activity);
         }
         return b;
     }
@@ -247,16 +255,33 @@ public class Juggler implements Navigable, Serializable {
             Item item = stateChanger.getItems().get(i);
             Log.v(this, i + ") " + item);
         }
-        Log.v(this, "currentState = " + currentState);
-        if (currentState != null) {
-            Log.v(this, "grid size = " + currentState.getGrid().getCells().size());
-            for (int i = 0; i < currentState.getGrid().getCells().size(); i++) {
-                Cell cell = currentState.getGrid().getCells().get(i);
+        State state = currentStateHolder.get();
+        Log.v(this, "currentState = " + state);
+        if (state != null) {
+            Log.v(this, "grid size = " + state.getGrid().getCells().size());
+            for (int i = 0; i < state.getGrid().getCells().size(); i++) {
+                Cell cell = state.getGrid().getCells().get(i);
                 Fragment fragment = activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
                 Log.v(this, i + ") " + cell.getContainerId() + " " + cell.getType() + " " + fragment);
             }
         }
         Log.v(this, "*** end Juggler dump ***");
+    }
+
+    public static class StateHolder implements Serializable {
+
+        @Nullable
+        private State state = null;
+
+        @Nullable
+        public State get() {
+            return state;
+        }
+
+        public void set(@Nullable State state) {
+            this.state = state;
+        }
+
     }
 
 }

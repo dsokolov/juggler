@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.StateA;
 
-public class AboutFragment extends JugglerFragment {
+public class AboutFragment extends JugglerToolbarFragment {
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
@@ -33,6 +34,11 @@ public class AboutFragment extends JugglerFragment {
                 navigateTo().state(Remove.last(), Add.deeper(new StateA()));
             }
         });
+    }
+
+    @Override
+    protected int getToolbarId() {
+        return R.id.toolbar;
     }
 
 }

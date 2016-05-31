@@ -108,7 +108,6 @@ public abstract class AbstractAdd implements Add.Interface {
             JugglerFragment oldFragment = (JugglerFragment) fragmentManager.findFragmentById(containerId);
             int cellType = cell.getType();
             JugglerFragment fragment = newState.convertFragment(cellType, oldFragment);
-            Log.i(getClass(), "cellType = " + cellType + " fragment = " + fragment);
             if (fragment == null) {
                 newItem.addGoneId(containerId);
                 View v = activity.findViewById(containerId);

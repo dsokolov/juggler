@@ -70,7 +70,7 @@ public class MainFragment extends JugglerToolbarFragment {
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Remove.none(), Add.deeper(new AboutState()));
+                navigateTo().state(Add.deeper(new AboutState()));
             }
         });
         view.findViewById(R.id.navigate_to_login).setOnClickListener(new View.OnClickListener() {

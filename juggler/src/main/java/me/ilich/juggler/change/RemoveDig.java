@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 
 class RemoveDig implements Remove.Interface {
@@ -16,7 +17,7 @@ class RemoveDig implements Remove.Interface {
     }
 
     @Override
-    public Item remove(JugglerActivity activity, Stack<Item> items, Intent intent, AtomicBoolean closeCurrentActivity) {
+    public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Intent intent, AtomicBoolean closeCurrentActivity) {
         Item oldItem = items.peek();
         Item newItem = null;
         boolean work = true;
@@ -35,6 +36,7 @@ class RemoveDig implements Remove.Interface {
         }
         if (newItem != null) {
 //            StateChanger.processContainersVisibility(activity, newItem);
+            currentStateHolder.set(newItem.getState());
             activity.getSupportFragmentManager().popBackStackImmediate(newItem.getTransactionName(), 0);
         }
         return newItem;

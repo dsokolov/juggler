@@ -25,13 +25,11 @@ public class MainState extends NavigationContentDoubleToolbarState<VoidParams> {
     @Override
     protected JugglerFragment onConvertContentUnder(VoidParams params, @Nullable JugglerFragment fragment) {
         return MainFragment.newInstance();
-        //return null;
     }
 
     @Override
     protected JugglerFragment onConvertContentBelow(VoidParams params, @Nullable JugglerFragment fragment) {
         return null;
-        //return MainFragment.newInstance();
     }
 
     @Override
