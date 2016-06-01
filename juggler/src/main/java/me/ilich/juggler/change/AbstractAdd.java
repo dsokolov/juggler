@@ -1,6 +1,6 @@
 package me.ilich.juggler.change;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Log;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
@@ -31,7 +32,7 @@ public abstract class AbstractAdd implements Add.Interface {
     }
 
     @Override
-    public Item add(JugglerActivity activity, Stack<Item> items, Intent intent) {
+    public Item add(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle bundle) {
         int newLayoutId = newState.getGrid().getLayoutId();
         if (activity.getJuggler().hasLayoutId()) {
             if (newLayoutId != activity.getJuggler().getLayoutId()) {
@@ -136,6 +137,10 @@ public abstract class AbstractAdd implements Add.Interface {
         }
         newState.onFragmentTransitionBeforeCommit(fragmentTransaction);
         fragmentTransaction.commit();
+
+        currentStateHolder.set(newItem.getState());
+
+        fragmentManager.executePendingTransactions();
 
         items.push(newItem);
         return newItem;

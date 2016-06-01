@@ -43,7 +43,8 @@ public class StateA extends NavigationContentDoubleToolbarState<VoidParams> {
 
     @Override
     protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
-        return StandardToolbarFragmentA.createTitleBack();
+        //return StandardToolbarFragmentA.createTitleBack();
+        return null;
     }
 
     @Override

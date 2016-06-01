@@ -41,10 +41,4 @@ public class FragmentA extends JugglerFragment {
         return true;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getJugglerActivity().getJuggler().dump();
-    }
-
 }

@@ -1,9 +1,8 @@
 package me.ilich.juggler.change;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
@@ -11,8 +10,8 @@ import me.ilich.juggler.gui.JugglerActivity;
 public class RemoveCloseCurrentActivity implements Remove.Interface {
 
     @Override
-    public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Intent intent, AtomicBoolean closeCurrentActivity) {
-        closeCurrentActivity.set(true);
+    public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle data) {
+        data.putBoolean(Juggler.DATA_CLOSE_CURRENT_ACTIVITY, true);
         return null;
     }
 

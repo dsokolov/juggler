@@ -1,10 +1,9 @@
 package me.ilich.juggler.change;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
@@ -12,7 +11,7 @@ import me.ilich.juggler.gui.JugglerActivity;
 class RemoveAll implements Remove.Interface {
 
     @Override
-    public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Intent intent, AtomicBoolean closeCurrentActivity) {
+    public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle data) {
         if (items.empty()) {
             currentStateHolder.set(null);
         } else {

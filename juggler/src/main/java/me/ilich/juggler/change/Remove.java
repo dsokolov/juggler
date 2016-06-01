@@ -1,9 +1,8 @@
 package me.ilich.juggler.change;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
@@ -40,7 +39,7 @@ public final class Remove {
 
     public interface Interface {
 
-        Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Intent intent, AtomicBoolean closeCurrentActivity);
+        Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle data);
 
     }
 

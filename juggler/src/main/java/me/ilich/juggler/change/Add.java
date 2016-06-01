@@ -1,9 +1,11 @@
 package me.ilich.juggler.change;
 
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.AnimRes;
 
 import java.util.Stack;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
@@ -46,13 +48,17 @@ public final class Add {
         return new NewActivityAdd(state, activityClass);
     }
 
+    public static Interface newActivity(State state, Class<? extends JugglerActivity> activityClass, @AnimRes int enterAnimationId, @AnimRes int exitAnimationId) {
+        return new NewActivityAdd(state, activityClass, enterAnimationId, exitAnimationId);
+    }
+
     private Add() {
 
     }
 
     public interface Interface {
 
-        Item add(JugglerActivity activity, Stack<Item> items, Intent intent);
+        Item add(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle bundle);
 
     }
 

@@ -16,12 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.ilich.juggler.Log;
 import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.gui.activities.HelloActivity;
 import me.ilich.juggler.hello.gui.activities.SlaveActivity;
 import me.ilich.juggler.hello.states.AboutState;
 import me.ilich.juggler.hello.states.InfinityState;
@@ -64,7 +63,7 @@ public class MainFragment extends JugglerToolbarFragment {
         view.findViewById(R.id.navigate_to_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo().state(Add.newActivity(new ItemsListState()));
+                navigateTo().state(Add.newActivity(new ItemsListState(), HelloActivity.class, R.anim.fade_in, 0));
             }
         });
         view.findViewById(R.id.navigate_to_about).setOnClickListener(new View.OnClickListener() {

@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Item;
@@ -21,8 +20,16 @@ import me.ilich.juggler.states.State;
 
 public class Juggler implements Navigable, Serializable {
 
-    public static final String TAG = "Juggler";
     private static final int NOT_SET = -1;
+
+    public static final String TAG = "Juggler";
+
+    public static final String DATA_NEW_ACTIVITY_INTENT = "new_activity_intent";
+    public static final String DATA_CLOSE_CURRENT_ACTIVITY = "close_current_activity";
+    public static final String DATA_ANIMATION_START_ENTER = "animation start enter";
+    public static final String DATA_ANIMATION_START_EXIT = "animation start exit";
+    public static final String DATA_ANIMATION_FINISH_ENTER = "animation finish enter";
+    public static final String DATA_ANIMATION_FINISH_EXIT = "animation finish exit";
 
     private StateChanger stateChanger = new StateChanger();
     private StateHolder currentStateHolder = new StateHolder();
@@ -148,28 +155,33 @@ public class Juggler implements Navigable, Serializable {
     }
 
     private void doState(@Nullable Remove.Interface remove, @Nullable Add.Interface add) {
-        Intent intent = new Intent();
-        AtomicBoolean closeCurrentActivity = new AtomicBoolean(false);
+        Bundle bundle = new Bundle();
         State state = currentStateHolder.get();
         if (state != null) {
             state.onDeactivate(activity);
         }
         Item newItem = null;
         if (remove != null) {
-            currentStateHolder.set(null);
-            newItem = remove.remove(activity, stateChanger.getItems(), currentStateHolder, intent, closeCurrentActivity);
+            newItem = remove.remove(activity, stateChanger.getItems(), currentStateHolder, bundle);
         }
         if (add != null) {
-            newItem = add.add(activity, stateChanger.getItems(), intent);
+            newItem = add.add(activity, stateChanger.getItems(), currentStateHolder, bundle);
         }
-        if (newItem != null) {
-            currentStateHolder.set(newItem.getState());
+        Intent newActivityIntent = bundle.getParcelable(DATA_NEW_ACTIVITY_INTENT);
+        int enterAnimation = bundle.getInt(DATA_ANIMATION_START_ENTER, 0);
+        int exitAnimation = bundle.getInt(DATA_ANIMATION_START_EXIT, 0);
+        int finishEnterAnimation = bundle.getInt(DATA_ANIMATION_FINISH_ENTER, 0);
+        int finishExitAnimation = bundle.getInt(DATA_ANIMATION_FINISH_EXIT, 0);
+        if (newActivityIntent != null) {
+            newActivityIntent.putExtra(DATA_ANIMATION_FINISH_ENTER, finishEnterAnimation);
+            newActivityIntent.putExtra(DATA_ANIMATION_FINISH_EXIT, finishExitAnimation);
+            activity.startActivity(newActivityIntent);
+            activity.overridePendingTransition(enterAnimation, exitAnimation);
         }
-        if (intent.getComponent() != null) {
-            activity.startActivity(intent);
-        }
-        if (closeCurrentActivity.get()) {
+        boolean closeCurrentActivity = bundle.getBoolean(DATA_CLOSE_CURRENT_ACTIVITY, false);
+        if (closeCurrentActivity) {
             activity.finish();
+            activity.overridePendingTransition(finishEnterAnimation, finishExitAnimation);
         }
     }
 

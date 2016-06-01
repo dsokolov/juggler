@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import me.ilich.juggler.CrossActivity;
 import me.ilich.juggler.Juggler;
@@ -30,10 +28,14 @@ public class JugglerActivity extends AppCompatActivity {
     }
 
     private Juggler juggler;
+    private int animationFinishEnter;
+    private int animationFinishExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        animationFinishEnter = getIntent().getIntExtra(Juggler.DATA_ANIMATION_FINISH_ENTER, 0);
+        animationFinishExit = getIntent().getIntExtra(Juggler.DATA_ANIMATION_FINISH_EXIT, 0);
         if (savedInstanceState == null) {
             juggler = new Juggler();
         } else {
@@ -111,6 +113,7 @@ public class JugglerActivity extends AppCompatActivity {
             b = juggler.backState();
             if (!b) {
                 finish();
+                overridePendingTransition(animationFinishEnter, animationFinishExit);
             }
         }
     }
@@ -124,6 +127,7 @@ public class JugglerActivity extends AppCompatActivity {
                 b = super.onSupportNavigateUp();
                 if (!b) {
                     finish();
+                    overridePendingTransition(animationFinishEnter, animationFinishExit);
                 }
             }
         }
