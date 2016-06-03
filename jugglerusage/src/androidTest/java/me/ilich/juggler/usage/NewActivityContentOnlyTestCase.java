@@ -9,9 +9,9 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.usage.fragments.StubContentFragment;
 import me.ilich.juggler.states.ContentOnlyState;
 import me.ilich.juggler.states.VoidParams;
+import me.ilich.juggler.usage.fragments.StubContentFragment;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -49,11 +49,15 @@ public class NewActivityContentOnlyTestCase extends ActivityInstrumentationTestC
         onView(withText(R.string.stub_text_navigation)).check(ViewAssertions.doesNotExist());
     }
 
-    private static class NullState extends ContentOnlyState<VoidParams> {
+    private abstract static class State extends ContentOnlyState<VoidParams> {
 
-        public NullState() {
+        public State() {
             super(VoidParams.instance());
         }
+
+    }
+
+    private static class NullState extends State {
 
         @Override
         protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
@@ -61,11 +65,7 @@ public class NewActivityContentOnlyTestCase extends ActivityInstrumentationTestC
         }
     }
 
-    private static class ContentState extends ContentOnlyState<VoidParams> {
-
-        public ContentState() {
-            super(VoidParams.instance());
-        }
+    private static class ContentState extends State {
 
         @Override
         protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
