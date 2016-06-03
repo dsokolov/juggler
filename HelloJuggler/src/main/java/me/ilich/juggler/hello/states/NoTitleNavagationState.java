@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.fragments.OnlyContentFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
-import me.ilich.juggler.states.ContentNavigationState;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 

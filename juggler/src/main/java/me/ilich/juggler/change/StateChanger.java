@@ -2,7 +2,6 @@ package me.ilich.juggler.change;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.view.View;
 
 import java.io.Serializable;
 import java.util.Stack;

@@ -1,6 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.ilich.juggler">
-
-    <application android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-</manifest>

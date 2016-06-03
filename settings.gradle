@@ -1,1 +1,1 @@
-include ':juggler', ':HelloJuggler'
+include ':juggler', ':HelloJuggler', ':jugglerusage'

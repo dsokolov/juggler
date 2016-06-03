@@ -1,9 +1,10 @@
-package me.ilich.juggler;
+package me.ilich.juggler.usage;
 
 import android.support.annotation.Nullable;
 
 import junit.framework.TestCase;
 
+import me.ilich.juggler.Juggler;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.states.State;

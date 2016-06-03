@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
-import me.ilich.juggler.hello.gui.fragments.toolbarpos.ToolbarposBFragment;
 import me.ilich.juggler.hello.gui.fragments.toolbarpos.ToolbarposCFragment;
 import me.ilich.juggler.states.ContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;

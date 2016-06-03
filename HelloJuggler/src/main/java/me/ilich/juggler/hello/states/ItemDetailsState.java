@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.ItemDetailsFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;

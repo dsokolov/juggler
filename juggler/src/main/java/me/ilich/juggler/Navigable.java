@@ -1,12 +1,9 @@
 package me.ilich.juggler;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
-import me.ilich.juggler.states.State;
-import me.ilich.juggler.states.TargetBound;
 
 public interface Navigable {
 

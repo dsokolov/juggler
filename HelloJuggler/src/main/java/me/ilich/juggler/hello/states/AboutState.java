@@ -7,8 +7,6 @@ import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.AboutFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
-import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;
-import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;
 
