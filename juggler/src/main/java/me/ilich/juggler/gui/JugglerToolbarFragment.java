@@ -11,7 +11,7 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
 
     private static final String EXTRA_OPTIONS = "options";
 
-    protected static Bundle addDisplayOptionsToBundle(Bundle bundle, @ActionBar.DisplayOptions int displayOptions) {
+    public static Bundle addDisplayOptionsToBundle(Bundle bundle, @ActionBar.DisplayOptions int displayOptions) {
         if (bundle == null) {
             bundle = new Bundle();
         }

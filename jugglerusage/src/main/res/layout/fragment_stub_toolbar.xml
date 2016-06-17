@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:foregroundGravity="center"
+    android:background="#9f9"
     app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
     <TextView
