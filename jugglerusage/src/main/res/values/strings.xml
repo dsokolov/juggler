@@ -5,4 +5,5 @@
     <string name="stub_text_content_below">stub content below</string>
     <string name="stub_text_title">stub title</string>
     <string name="stub_text_navigation">stub navigation</string>
+    <string name="orientation">defaul</string>
 </resources>

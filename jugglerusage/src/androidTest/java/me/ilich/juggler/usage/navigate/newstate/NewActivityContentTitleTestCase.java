@@ -16,12 +16,14 @@ import me.ilich.juggler.usage.R;
 import me.ilich.juggler.usage.StateFactory;
 import me.ilich.juggler.usage.fragments.StubContentFragment;
 import me.ilich.juggler.usage.fragments.StubToolbarFragment;
+import me.ilich.juggler.usage.navigate.Tools;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static me.ilich.juggler.usage.EspressoTestsMatchers.withDrawable;
@@ -79,27 +81,23 @@ public class NewActivityContentTitleTestCase extends ActivityInstrumentationTest
         setActivityIntent(intent);
         getActivity();
 
-        onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_navigation)).check(doesNotExist());
+        Tools.check(true, true, false);
         onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)), withText(title))).check(matches(isDisplayed()));
         onView(allOf(isAssignableFrom(ImageView.class), withParent(isAssignableFrom(Toolbar.class)), withDrawable(icon))).check(matches(isDisplayed()));
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_navigation)).check(doesNotExist());
+        Tools.check(true, true, false);
         onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)), withText(title))).check(matches(isDisplayed()));
         onView(allOf(isAssignableFrom(ImageView.class), withParent(isAssignableFrom(Toolbar.class)), withDrawable(icon))).check(matches(isDisplayed()));
+        onView(withId(R.id.orientation)).check(matches(withText("landscape")));
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_navigation)).check(doesNotExist());
+        Tools.check(true, true, false);
         onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)), withText(title))).check(matches(isDisplayed()));
         onView(allOf(isAssignableFrom(ImageView.class), withParent(isAssignableFrom(Toolbar.class)), withDrawable(icon))).check(matches(isDisplayed()));
+        onView(withId(R.id.orientation)).check(matches(withText("portrait")));
 
     }
 

@@ -9,6 +9,12 @@
         android:layout_height="wrap_content"
         android:text="@string/stub_text_content" />
 
+    <TextView
+        android:id="@+id/orientation"
+        android:text="@string/orientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/img1"
         android:layout_width="wrap_content"
