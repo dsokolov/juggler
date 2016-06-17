@@ -7,9 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import me.ilich.juggler.CrossActivity;
 import me.ilich.juggler.Juggler;
+import me.ilich.juggler.Log;
 import me.ilich.juggler.Navigable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
@@ -136,6 +138,22 @@ public class JugglerActivity extends AppCompatActivity {
                     overridePendingTransition(animationFinishEnter, animationFinishExit);
                 }
             }
+        }
+        return b;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final boolean b;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Log.v("Sokolov", "home");
+                onSupportNavigateUp();
+                b = true;
+                break;
+            default:
+                b = super.onOptionsItemSelected(item);
+                break;
         }
         return b;
     }

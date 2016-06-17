@@ -17,19 +17,21 @@ class RemoveDig implements Remove.Interface {
 
     @Override
     public Item remove(JugglerActivity activity, Stack<Item> items, Juggler.StateHolder currentStateHolder, Bundle data) {
-        Item oldItem = items.peek();
         Item newItem = null;
-        boolean work = true;
-        while (work) {
-            if (items.isEmpty()) {
-                work = false;
-            } else {
-                Item item = items.peek();
-                if (item.getTag() != null && item.getTag().equals(tag)) {
-                    newItem = item;
+        if (!items.isEmpty()) {
+            Item oldItem = items.peek();
+            boolean work = true;
+            while (work) {
+                if (items.isEmpty()) {
                     work = false;
                 } else {
-                    items.pop();
+                    Item item = items.peek();
+                    if (item.getTag() != null && item.getTag().equals(tag)) {
+                        newItem = item;
+                        work = false;
+                    } else {
+                        items.pop();
+                    }
                 }
             }
         }

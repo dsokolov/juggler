@@ -31,20 +31,26 @@ public class StateChanger implements Serializable {
     }
 
     public State transaction(String transactionName, JugglerActivity activity, @Nullable String tag) {
-        Item oldItem = items.peek();
         Item newItem = null;
-        boolean work = true;
-        while (work) {
-            if (items.isEmpty()) {
-                work = false;
-            } else {
-                Item item = items.peek();
-                if (item.getTransactionName().equals(transactionName)) {
-                    newItem = item;
+        State oldState = null;
+        if (!items.isEmpty()) {
+            Item oldItem = items.peek();
+            boolean work = true;
+            while (work) {
+                if (items.isEmpty()) {
                     work = false;
                 } else {
-                    items.pop();
+                    Item item = items.peek();
+                    if (item.getTransactionName().equals(transactionName)) {
+                        newItem = item;
+                        work = false;
+                    } else {
+                        items.pop();
+                    }
                 }
+            }
+            if (oldItem != null) {
+                oldState = oldItem.getState();
             }
         }
         final State newState;
@@ -55,7 +61,7 @@ public class StateChanger implements Serializable {
 //            processContainersVisibility(activity, newItem);
             activity.getSupportFragmentManager().popBackStack(newItem.getTransactionName(), 0);
         }
-        processStateChange(activity, oldItem.getState(), newState);
+        processStateChange(activity, oldState, newState);
         return newState;
     }
 

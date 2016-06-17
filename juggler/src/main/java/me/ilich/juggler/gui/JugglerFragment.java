@@ -9,19 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.Log;
 import me.ilich.juggler.Navigable;
+import me.ilich.juggler.states.State;
 
 public class JugglerFragment extends Fragment {
 
     private static final String STATE_TARGET_CELL_TYPE = "target_cell_type";
+    private static final String STATE_STATE = "state";
 
     private JugglerActivity activity;
     private int targetCellType;
+    @Nullable
+    private State<?> state = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            state = (State<?>) savedInstanceState.getSerializable(STATE_STATE);
+        }
     }
 
     @Override
@@ -99,6 +105,7 @@ public class JugglerFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(STATE_TARGET_CELL_TYPE, targetCellType);
+        outState.putSerializable(STATE_STATE, state);
     }
 
     protected JugglerActivity getJugglerActivity() {
@@ -136,6 +143,15 @@ public class JugglerFragment extends Fragment {
 
     public void setTargetCellType(int cellType) {
         this.targetCellType = cellType;
+    }
+
+    public void setState(@Nullable State<?> state) {
+        this.state = state;
+    }
+
+    @Nullable
+    public State<? extends State.Params> getState() {
+        return state;
     }
 
 }

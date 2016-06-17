@@ -16,6 +16,7 @@ import me.ilich.juggler.Log;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
+import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 

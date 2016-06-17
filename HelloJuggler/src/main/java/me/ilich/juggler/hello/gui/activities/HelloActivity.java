@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentManager;
 
 import me.ilich.juggler.Log;
 import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.hello.states.LoginState;
 import me.ilich.juggler.hello.states.MainState;
+import me.ilich.juggler.hello.states.StateB;
 import me.ilich.juggler.states.State;
 
 public class HelloActivity extends JugglerActivity {
@@ -39,6 +41,9 @@ public class HelloActivity extends JugglerActivity {
     protected State createState() {
         return //new SplashState();
                 new MainState();
+        //new LoginState();
+        //new StateB();
+        //new Main2State();
     }
 
     @Override

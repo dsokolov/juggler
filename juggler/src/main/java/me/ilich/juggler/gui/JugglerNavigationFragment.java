@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 
-import me.ilich.juggler.Log;
 import me.ilich.juggler.R;
 
 public abstract class JugglerNavigationFragment extends JugglerFragment {
@@ -35,6 +34,8 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         bundle.putBoolean(ARG_DRAWER_INDICATOR_ENABLED, b);
         return bundle;
     }
+
+    private final int gravity = GravityCompat.START;
 
     private int defaultSelectedItem = 0;
     private boolean drawerIndicatorEnabled = true;
@@ -61,14 +62,27 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     }
 
     @Override
+    public boolean onUpPressed() {
+        final boolean b;
+        if (drawerLayout.isDrawerOpen(gravity)) {
+            b = false;
+        } else {
+            b = true;
+            drawerLayout.openDrawer(gravity);
+        }
+        return b;
+    }
+
+    @Override
     @CallSuper
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = (DrawerLayout) getActivity().findViewById(getDrawerLayoutId());
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
-        drawerLayout.addDrawerListener(drawerToggle);
+        drawerLayout.setDrawerListener(drawerToggle);
+        //drawerToggle.setDrawerIndicatorEnabled(drawerIndicatorEnabled);
+        drawerToggle.setDrawerIndicatorEnabled(false);
         drawerToggle.syncState();
-        drawerToggle.setDrawerIndicatorEnabled(drawerIndicatorEnabled);
     }
 
     protected DrawerLayout getDrawerLayout() {
@@ -108,7 +122,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
     }
 
     public void close() {
-        drawerLayout.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(gravity);
     }
 
 }

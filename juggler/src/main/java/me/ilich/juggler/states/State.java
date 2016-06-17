@@ -13,7 +13,6 @@ import android.text.TextUtils;
 
 import java.io.Serializable;
 
-import me.ilich.juggler.R;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
@@ -50,27 +49,21 @@ public abstract class State<P extends State.Params> implements Serializable {
         return null;
     }
 
-    public Drawable getUpNavigationIcon(Context context, P params) {
+    protected Drawable getUpNavigationIcon(Context context, P params) {
         return null;
+    }
+
+    public final Drawable getUpNavigationIcon(Context context) {
+        return getUpNavigationIcon(context, params);
     }
 
     @CallSuper
     public void onActivate(JugglerActivity activity) {
         processTitle(activity);
-        processUpIcon(activity);
-    }
-
-    private void processUpIcon(final JugglerActivity activity) {
-        final android.support.v7.app.ActionBarDrawerToggle.Delegate delegate = activity.getDrawerToggleDelegate();
-        if (delegate != null) {
-            Drawable upIcon = getUpNavigationIcon(activity, params);
-            delegate.setActionBarUpIndicator(upIcon, R.string.empty);
-        }
     }
 
     protected void processTitle(JugglerActivity activity) {
         String title = getTitle(activity, params);
-        //me.ilich.juggler.Log.v(getClass(), "processTitle " + title);
         if (!TextUtils.isEmpty(title)) {
             activity.setTitle(title);
         }
@@ -85,6 +78,7 @@ public abstract class State<P extends State.Params> implements Serializable {
         JugglerFragment f = onConvertFragment(cellType, params, fragment);
         if (f != null) {
             f.setTargetCellType(cellType);
+            f.setState(this);
         }
         return f;
     }
@@ -164,6 +158,11 @@ public abstract class State<P extends State.Params> implements Serializable {
             }
         }
         return b;
+    }
+
+    @Nullable
+    public P getParams() {
+        return params;
     }
 
     public static class Params implements Serializable {

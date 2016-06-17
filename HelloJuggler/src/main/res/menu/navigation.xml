@@ -45,6 +45,12 @@
             android:icon="@android:drawable/ic_menu_send"
             android:title="content only"/>
 
+        <item
+            android:id="@+id/menu_new_activity"
+            android:checked="false"
+            android:icon="@android:drawable/ic_menu_send"
+            android:title="new activity"/>
+
     </group>
 
 </menu>

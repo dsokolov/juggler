@@ -7,8 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.Log;
-
 public abstract class JugglerToolbarFragment extends JugglerFragment {
 
     private static final String EXTRA_OPTIONS = "options";
@@ -34,6 +32,9 @@ public abstract class JugglerToolbarFragment extends JugglerFragment {
             opt = 0;
         }
         toolbar = (Toolbar) view.findViewById(getToolbarId());
+        if (getState() != null) {
+            toolbar.setNavigationIcon(getState().getUpNavigationIcon(getContext()));
+        }
         getJugglerActivity().setSupportActionBar(toolbar);
         ActionBar actionBar = getJugglerActivity().getSupportActionBar();
         if (actionBar != null) {

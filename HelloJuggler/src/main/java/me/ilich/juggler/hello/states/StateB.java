@@ -1,11 +1,13 @@
 package me.ilich.juggler.hello.states;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.FragmentB;
+import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragmentB;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragmentB;
 import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
@@ -39,7 +41,12 @@ public class StateB extends NavigationContentDoubleToolbarState<VoidParams> {
 
     @Override
     protected JugglerFragment onConvertNavigation(VoidParams params, @Nullable JugglerFragment fragment) {
-        return StandardNavigationFragmentB.create(R.id.menu_state_b);
+        return StandardNavigationFragment.create(R.id.menu_state_b);
+    }
+
+    @Override
+    protected Drawable getUpNavigationIcon(Context context, VoidParams params) {
+        return context.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
     }
 
 }

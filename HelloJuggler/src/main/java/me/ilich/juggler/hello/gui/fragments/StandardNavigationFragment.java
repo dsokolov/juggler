@@ -13,7 +13,9 @@ import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.gui.JugglerNavigationFragment;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.gui.activities.HelloActivity;
 import me.ilich.juggler.hello.states.AboutState;
+import me.ilich.juggler.hello.states.LoginState;
 import me.ilich.juggler.hello.states.MainState;
 import me.ilich.juggler.hello.states.NoTitleNavagationState;
 import me.ilich.juggler.hello.states.ProfileState;
@@ -73,6 +75,10 @@ public class StandardNavigationFragment extends JugglerNavigationFragment {
                         break;
                     case R.id.menu_only_content:
                         navigateTo().state(Remove.dig(MainState.TAG), Add.deeper(new NoTitleNavagationState()));
+                        b = true;
+                        break;
+                    case R.id.menu_new_activity:
+                        navigateTo().state(Add.newActivity(new LoginState(), HelloActivity.class));
                         b = true;
                         break;
                     default:
