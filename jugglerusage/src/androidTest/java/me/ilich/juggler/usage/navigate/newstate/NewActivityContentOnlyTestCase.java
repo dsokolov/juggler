@@ -9,6 +9,7 @@ import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.usage.R;
 import me.ilich.juggler.usage.StateFactory;
 import me.ilich.juggler.usage.fragments.StubContentFragment;
+import me.ilich.juggler.usage.navigate.Tools;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -45,9 +46,7 @@ public class NewActivityContentOnlyTestCase extends ActivityInstrumentationTestC
         JugglerActivity.addState(intent, StateFactory.contentOnlyState(StubContentFragment.class));
         setActivityIntent(intent);
         getActivity();
-        onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_title)).check(doesNotExist());
-        onView(withText(R.string.stub_text_navigation)).check(doesNotExist());
+        Tools.check(true, false, false);
     }
 
 }

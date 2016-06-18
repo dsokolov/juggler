@@ -14,8 +14,8 @@ public class MainActivity extends JugglerActivity {
         String title = "12345";
         int icon = android.R.drawable.ic_menu_help;
         //State state = StateFactory.contentToolbarNavigationState(title, icon, StubToolbarFragment.class, StubNavigationFragment.class, StubContentFragment.class);
-        State state = StateFactory.contentBelowToolbarState(title, icon, StubToolbarFragment.class, StubContentFragment.class);
-        return state;
+        //State state = StateFactory.contentBelowToolbarState(title, icon, StubToolbarFragment.class, StubContentFragment.class);
+        return StateFactory.contentOnlyState(StubContentFragment.class);
     }
 
 }

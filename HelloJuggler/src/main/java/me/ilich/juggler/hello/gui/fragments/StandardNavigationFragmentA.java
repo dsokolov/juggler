@@ -26,7 +26,7 @@ public class StandardNavigationFragmentA extends JugglerNavigationFragment {
         StandardNavigationFragmentA f = new StandardNavigationFragmentA();
         Bundle b = new Bundle();
         addSelectedItemToBundle(b, itemId);
-        addDrawerIndicatorEnabled(b, die);
+        //addDrawerIndicatorEnabled(b, die);
         f.setArguments(b);
         return f;
     }

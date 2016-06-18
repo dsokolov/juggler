@@ -16,6 +16,7 @@ import me.ilich.juggler.usage.StateFactory;
 import me.ilich.juggler.usage.fragments.StubContentFragment;
 import me.ilich.juggler.usage.fragments.StubNavigationFragment;
 import me.ilich.juggler.usage.fragments.StubToolbarFragment;
+import me.ilich.juggler.usage.navigate.Tools;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -108,10 +109,8 @@ public class NewActivityContentTitleNavigationTestCase extends ActivityInstrumen
         JugglerActivity.addState(intent, StateFactory.contentToolbarNavigationState(StubToolbarFragment.class, StubNavigationFragment.class, null));
         setActivityIntent(intent);
         getActivity();
-        onView(withText(R.string.stub_text_content)).check(doesNotExist());
-        onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withText(R.string.stub_text_navigation)).check(matches(isDisplayed()));
+
+        Tools.check(false, true, true);
     }
 
     public void testContentToolbarNavigation() {
@@ -122,15 +121,9 @@ public class NewActivityContentTitleNavigationTestCase extends ActivityInstrumen
         JugglerActivity.addState(intent, state);
         setActivityIntent(intent);
         getActivity();
-        onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
-        onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withText(R.string.stub_text_navigation)).check(matches(isDisplayed()));
 
-        onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)), withText(title))).check(matches(isDisplayed()));
-
-        onView(allOf(isAssignableFrom(ImageView.class), withParent(isAssignableFrom(Toolbar.class)), withDrawable(icon))).check(matches(isDisplayed()));
-
+        Tools.check(true, true, true);
+        Tools.check(title, icon);
     }
 
 
