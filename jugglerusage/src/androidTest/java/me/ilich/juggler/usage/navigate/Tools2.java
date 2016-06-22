@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.ilich.juggler.usage.R;
-import me.ilich.juggler.usage.navigate.newstate.NewActivityContentOnlyTestCase;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -24,24 +23,24 @@ import static org.hamcrest.core.AllOf.allOf;
 /**
  * Created by ilich on 17.06.16.
  */
-public class Tools {
+public class Tools2 {
 
     public static void check(boolean hasContent, boolean hasToolbar, boolean hasNavigation) {
         if (hasContent) {
-            onView(withText(R.string.stub_text_content)).check(matches(isDisplayed()));
+            onView(withText(R.string.stub_2_text_content)).check(matches(isDisplayed()));
         } else {
-            onView(withText(R.string.stub_text_content)).check(doesNotExist());
+            onView(withText(R.string.stub_2_text_content)).check(doesNotExist());
         }
         if (hasToolbar) {
-            onView(withText(R.string.stub_text_title)).check(matches(isDisplayed()));
+            onView(withText(R.string.stub_2_text_title)).check(matches(isDisplayed()));
         } else {
-            onView(withText(R.string.stub_text_title)).check(doesNotExist());
+            onView(withText(R.string.stub_2_text_title)).check(doesNotExist());
         }
         if (hasNavigation) {
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-            onView(withText(R.string.stub_text_navigation)).check(matches(isDisplayed()));
+            onView(withText(R.string.stub_2_text_navigation)).check(matches(isDisplayed()));
         } else {
-            onView(withText(R.string.stub_text_navigation)).check(doesNotExist());
+            onView(withText(R.string.stub_2_text_navigation)).check(doesNotExist());
         }
     }
 

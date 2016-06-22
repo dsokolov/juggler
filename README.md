@@ -30,7 +30,7 @@ In your project build.gradle (usually app/build.gralde or mobile/build.gralde):
 ``` groovy
 dependencies {
     ...
-    compile 'me.ilich:juggler:0.0.16'
+    compile 'me.ilich:juggler:0.1.18'
 }
 ```
 
@@ -113,17 +113,17 @@ public class MainState extends ContentToolbarNavigationState<VoidParams> {
     }
 
     @Override
-    protected JugglerFragment onCreateContent(VoidParams params) {
+    protected JugglerFragment onConvertContent(VoidParams params, JugglerFragment fragment) {
         return MainFragment.newInstance();
     }
 
     @Override
-    protected JugglerFragment onCreateToolbar(VoidParams params) {
+    protected JugglerFragment onConvertToolbar(VoidParams params, JugglerFragment fragment) {
         return StandardToolbarFragment.create();
     }
 
     @Override
-    protected JugglerFragment onCreateNavigation(VoidParams params) {
+    protected JugglerFragment onConvertNavigation(VoidParams params, JugglerFragment fragment) {
         return StandardNavigationFragment.create(0);
     }
 
@@ -136,13 +136,8 @@ You have to had only one activity extends `java JugglerActivity`. Probably it sh
 public class HelloActivity extends JugglerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            navigateTo().state(Add.deeper(new MainState()));
-        } else {
-            navigateTo().restore();
-        }
+    protected State createState() {
+        return new MainState();
     }
     
 }

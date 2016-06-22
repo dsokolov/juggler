@@ -3,7 +3,6 @@ package me.ilich.juggler.gui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +29,10 @@ public class JugglerActivity extends AppCompatActivity {
         return intent;
     }
 
-    public static Intent addState(@NonNull Intent intent, State<?> state) {
+    public static Intent addState(@Nullable Intent intent, State<?> state) {
+        if (intent == null) {
+            intent = new Intent();
+        }
         intent.putExtra(EXTRA_STATE, state);
         return intent;
     }

@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">JugglerUsage</string>
     <string name="stub_text_content">stub content</string>
+    <string name="stub_2_text_content">stub 2 content</string>
     <string name="stub_text_content_under">stub content under</string>
+    <string name="stub_2_text_content_under">stub 2 content under</string>
     <string name="stub_text_content_below">stub content below</string>
+    <string name="stub_2_text_content_below">stub 2 content below</string>
     <string name="stub_text_title">stub title</string>
+    <string name="stub_2_text_title">stub 2 title</string>
     <string name="stub_text_navigation">stub navigation</string>
+    <string name="stub_2_text_navigation">stub 2 navigation</string>
     <string name="orientation">defaul</string>
 </resources>
