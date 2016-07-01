@@ -52,6 +52,10 @@ public final class Add {
         return new NewActivityAdd(state, activityClass, enterAnimationId, exitAnimationId);
     }
 
+    public static Interface newActivityForResult(State state, Class<? extends JugglerActivity> activityClass, int requestCode) {
+        return NewActivityAdd.forResult(state, activityClass, requestCode);
+    }
+
     private Add() {
 
     }

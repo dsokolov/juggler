@@ -19,7 +19,7 @@ import me.ilich.juggler.states.State;
 public class JugglerActivity extends AppCompatActivity {
 
     private static final String STATE_JUGGLER = "state_juggler";
-    private static final String EXTRA_STATE = "extra_state";
+    public static final String EXTRA_STATE = "extra_state";
 
     public static Intent state(Context context, State<?> state, @Nullable Intent intent) {
         if (intent == null) {
@@ -142,6 +142,12 @@ public class JugglerActivity extends AppCompatActivity {
             }
         }
         return b;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        juggler.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

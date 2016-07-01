@@ -30,6 +30,8 @@ public class Juggler implements Navigable, Serializable {
     public static final String DATA_ANIMATION_START_EXIT = "animation start exit";
     public static final String DATA_ANIMATION_FINISH_ENTER = "animation finish enter";
     public static final String DATA_ANIMATION_FINISH_EXIT = "animation finish exit";
+    public static final String DATA_IS_FOR_RESULT = "start for result";
+    public static final String DATA_REQUEST_CODE = "request code";
 
     private StateChanger stateChanger = new StateChanger();
     private StateHolder currentStateHolder = new StateHolder();
@@ -172,10 +174,16 @@ public class Juggler implements Navigable, Serializable {
         int exitAnimation = bundle.getInt(DATA_ANIMATION_START_EXIT, 0);
         int finishEnterAnimation = bundle.getInt(DATA_ANIMATION_FINISH_ENTER, 0);
         int finishExitAnimation = bundle.getInt(DATA_ANIMATION_FINISH_EXIT, 0);
+        boolean isForResult = bundle.getBoolean(DATA_IS_FOR_RESULT, false);
+        int requestCode = bundle.getInt(DATA_REQUEST_CODE, 0);
         if (newActivityIntent != null) {
             newActivityIntent.putExtra(DATA_ANIMATION_FINISH_ENTER, finishEnterAnimation);
             newActivityIntent.putExtra(DATA_ANIMATION_FINISH_EXIT, finishExitAnimation);
-            activity.startActivity(newActivityIntent);
+            if (isForResult) {
+                activity.startActivityForResult(newActivityIntent, requestCode);
+            } else {
+                activity.startActivity(newActivityIntent);
+            }
             activity.overridePendingTransition(enterAnimation, exitAnimation);
         }
         boolean closeCurrentActivity = bundle.getBoolean(DATA_CLOSE_CURRENT_ACTIVITY, false);
@@ -278,6 +286,16 @@ public class Juggler implements Navigable, Serializable {
             }
         }
         Log.v(this, "*** end Juggler dump ***");
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        State state = currentStateHolder.state;
+        if (state != null) {
+            for (Cell cell : state.getGrid().getCells()) {
+                Fragment f = activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
+                f.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 
     public static class StateHolder implements Serializable {
