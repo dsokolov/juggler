@@ -30,17 +30,7 @@ import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class DrawerTestCases {
-
-    @Before
-    public void setUp() {
-
-    }
-
-    @After
-    public void tearDown() {
-        activityTestRule.getActivity().finish();
-    }
+public class OpenCloseTestCases {
 
     @Rule
     public final ActivityTestRule<JugglerActivity> activityTestRule = new ActivityTestRule<>(JugglerActivity.class, true);

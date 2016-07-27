@@ -18,7 +18,10 @@ import me.ilich.juggler.states.State;
 public abstract class JugglerNavigationFragment extends JugglerFragment {
 
     private static final String ARG_SELECTED_ITEM = "selected_item";
-    private final int gravity = GravityCompat.START;
+    private static final String ARG_DRAWER_GRAVITY = "drawer_gravity";
+
+
+    private int gravity = GravityCompat.START;
     private int defaultSelectedItem = 0;
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
@@ -35,6 +38,14 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return bundle;
     }
 
+    public static Bundle addDrawerGravityToBundle(@Nullable Bundle bundle, int gravity) {
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putInt(ARG_DRAWER_GRAVITY, gravity);
+        return bundle;
+    }
+
     @Override
     @CallSuper
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +53,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             defaultSelectedItem = getArguments().getInt(ARG_SELECTED_ITEM, 0);
+            gravity = getArguments().getInt(ARG_DRAWER_GRAVITY, GravityCompat.START);
         }
     }
 
@@ -76,10 +88,10 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
             drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
-                        drawerLayout.closeDrawer(GravityCompat.START);
+                    if (drawerLayout.isDrawerVisible(gravity)) {
+                        drawerLayout.closeDrawer(gravity);
                     } else {
-                        drawerLayout.openDrawer(GravityCompat.START);
+                        drawerLayout.openDrawer(gravity);
                     }
                 }
             });
@@ -124,7 +136,19 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         return b;
     }
 
+    /**
+     * Use {@link #closeDrawer() closeDrawer()} instead.
+     */
+    @Deprecated
     public void close() {
+        drawerLayout.closeDrawer(gravity);
+    }
+
+    public void openDrawer() {
+        drawerLayout.openDrawer(gravity);
+    }
+
+    public void closeDrawer() {
         drawerLayout.closeDrawer(gravity);
     }
 

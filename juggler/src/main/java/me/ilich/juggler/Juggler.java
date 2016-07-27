@@ -313,7 +313,7 @@ public class Juggler implements Navigable, Serializable {
                 throw new IllegalStateException("State has no drawer");
             } else {
                 JugglerNavigationFragment f = (JugglerNavigationFragment) activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
-                f.getDrawerLayout().openDrawer(GravityCompat.START);
+                f.openDrawer();
             }
         } else {
             throw new NullPointerException("State not initialized");
@@ -333,7 +333,7 @@ public class Juggler implements Navigable, Serializable {
                 throw new IllegalStateException("State has no drawer");
             } else {
                 JugglerNavigationFragment f = (JugglerNavigationFragment) activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
-                f.getDrawerLayout().closeDrawer(GravityCompat.START);
+                f.closeDrawer();
             }
         } else {
             throw new NullPointerException("State not initialized");

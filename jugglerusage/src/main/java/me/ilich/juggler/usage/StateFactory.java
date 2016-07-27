@@ -10,6 +10,7 @@ import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;
 import me.ilich.juggler.states.ContentOnlyState;
+import me.ilich.juggler.states.ContentToolbarNavigationEndState;
 import me.ilich.juggler.states.ContentToolbarNavigationState;
 import me.ilich.juggler.states.VoidParams;
 
@@ -56,6 +57,25 @@ public class StateFactory {
 
     public static ContentToolbarNavigationState<VoidParams> contentToolbarNavigationState(final Class<? extends JugglerFragment> toolbar, final Class<? extends JugglerFragment> navigation, final Class<? extends JugglerFragment> content) {
         return new ContentToolbarNavigationState<VoidParams>(VoidParams.instance()) {
+            @Override
+            protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
+                return instanceFragment(content);
+            }
+
+            @Override
+            protected JugglerFragment onConvertToolbar(VoidParams params, @Nullable JugglerFragment fragment) {
+                return instanceFragment(toolbar);
+            }
+
+            @Override
+            protected JugglerFragment onConvertNavigation(VoidParams params, @Nullable JugglerFragment fragment) {
+                return instanceFragment(navigation);
+            }
+        };
+    }
+
+    public static ContentToolbarNavigationEndState<VoidParams> contentToolbarNavigationEndState(final Class<? extends JugglerFragment> toolbar, final Class<? extends JugglerFragment> navigation, final Class<? extends JugglerFragment> content) {
+        return new ContentToolbarNavigationEndState<VoidParams>(VoidParams.instance()) {
             @Override
             protected JugglerFragment onConvertContent(VoidParams params, @Nullable JugglerFragment fragment) {
                 return instanceFragment(content);

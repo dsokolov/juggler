@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 def groupId = "me.ilich"
 def artifactId = "juggler"
-def version = "0.1.19"
+def version = "0.1.20"
 
 def releaseDir = "${buildDir}/release"
 
