@@ -88,7 +88,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         drawerToggle.syncState();
     }
 
-    protected DrawerLayout getDrawerLayout() {
+    public DrawerLayout getDrawerLayout() {
         return drawerLayout;
     }
 

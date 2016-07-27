@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
+import me.ilich.juggler.gui.JugglerNavigationFragment;
 import me.ilich.juggler.states.State;
 
 public class Juggler implements Navigable, Serializable {
@@ -295,6 +297,46 @@ public class Juggler implements Navigable, Serializable {
                 Fragment f = activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
                 f.onActivityResult(requestCode, resultCode, data);
             }
+        }
+    }
+
+    public void openDrawer() {
+        State state = currentStateHolder.state;
+        if (state != null) {
+            Cell cell = null;
+            for (Cell c : state.getGrid().getCells()) {
+                if (c.getType() == Cell.CELL_TYPE_NAVIGATION) {
+                    cell = c;
+                }
+            }
+            if (cell == null) {
+                throw new IllegalStateException("State has no drawer");
+            } else {
+                JugglerNavigationFragment f = (JugglerNavigationFragment) activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
+                f.getDrawerLayout().openDrawer(GravityCompat.START);
+            }
+        } else {
+            throw new NullPointerException("State not initialized");
+        }
+    }
+
+    public void closeDrawer() {
+        State state = currentStateHolder.state;
+        if (state != null) {
+            Cell cell = null;
+            for (Cell c : state.getGrid().getCells()) {
+                if (c.getType() == Cell.CELL_TYPE_NAVIGATION) {
+                    cell = c;
+                }
+            }
+            if (cell == null) {
+                throw new IllegalStateException("State has no drawer");
+            } else {
+                JugglerNavigationFragment f = (JugglerNavigationFragment) activity.getSupportFragmentManager().findFragmentById(cell.getContainerId());
+                f.getDrawerLayout().closeDrawer(GravityCompat.START);
+            }
+        } else {
+            throw new NullPointerException("State not initialized");
         }
     }
 
