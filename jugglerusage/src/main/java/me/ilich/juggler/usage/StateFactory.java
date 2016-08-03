@@ -90,6 +90,16 @@ public class StateFactory {
             protected JugglerFragment onConvertNavigation(VoidParams params, @Nullable JugglerFragment fragment) {
                 return instanceFragment(navigation);
             }
+
+            @Override
+            protected Drawable getUpNavigationIcon(Context context, VoidParams params) {
+                return context.getResources().getDrawable(R.mipmap.ic_launcher);
+            }
+
+            @Override
+            public int getToolbarDisplayOptions() {
+                return ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE;
+            }
         };
     }
 

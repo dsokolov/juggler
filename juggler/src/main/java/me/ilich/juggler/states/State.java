@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 
 import java.io.Serializable;
@@ -163,6 +164,11 @@ public abstract class State<P extends State.Params> implements Serializable {
     @Nullable
     public P getParams() {
         return params;
+    }
+
+    @ActionBar.DisplayOptions
+    public int getToolbarDisplayOptions() {
+        return 0;
     }
 
     public static class Params implements Serializable {

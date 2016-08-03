@@ -81,11 +81,13 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, getOpen(), getClose());
         drawerLayout.addDrawerListener(drawerToggle);
 
+
         State state = getState();
         if (state != null) {
             drawerToggle.setDrawerIndicatorEnabled(false);
             drawerToggle.setHomeAsUpIndicator(state.getUpNavigationIcon(getContext()));
-            drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            //TODO нужен ли этот код? вроде же обработчик в активити в onSupportNavigateUp и onOptionsItemSelected
+/*            drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (drawerLayout.isDrawerVisible(gravity)) {
@@ -94,7 +96,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
                         drawerLayout.openDrawer(gravity);
                     }
                 }
-            });
+            });*/
         }
 
         drawerToggle.syncState();
@@ -138,6 +140,7 @@ public abstract class JugglerNavigationFragment extends JugglerFragment {
 
     /**
      * Use {@link #closeDrawer() closeDrawer()} instead.
+     * Deprecated since 27.07.2016
      */
     @Deprecated
     public void close() {

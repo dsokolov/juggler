@@ -21,4 +21,9 @@ public class StubContentFragment extends JugglerFragment {
         return inflater.inflate(R.layout.fragment_stub_content, container, false);
     }
 
+    @Override
+    public boolean onUpPressed() {
+        return true;
+    }
+
 }
