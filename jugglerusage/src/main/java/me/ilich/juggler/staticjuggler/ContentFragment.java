@@ -27,7 +27,7 @@ public class ContentFragment extends Fragment {
         view.findViewById(R.id.details).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Juggler.on(ContentFragment.this).state(MainState.details).execute();
+                Juggler.on(ContentFragment.this).state(MainState.details, null);
             }
         });
     }

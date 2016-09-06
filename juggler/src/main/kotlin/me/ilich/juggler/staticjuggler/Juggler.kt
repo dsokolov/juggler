@@ -1,26 +1,22 @@
 package me.ilich.juggler.staticjuggler
 
 import android.os.Bundle
-import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View
+import me.ilich.juggler.staticjuggler.transitions.StateTransition
+import me.ilich.juggler.staticjuggler.transitions.Transition
+import java.util.*
 
-class Juggler(
-        val activity: AppCompatActivity? = null,
-        val fragment: Fragment? = null
-) {
+abstract class Juggler {
 
     companion object {
 
         @JvmStatic fun on(activity: AppCompatActivity): Juggler {
-            return Juggler(activity = activity)
+            return AppCompatActivityJuggler(activity)
         }
 
         @JvmStatic fun on(fragment: Fragment): Juggler {
-            return Juggler(fragment = fragment)
+            return FragmentJuggler(fragment)
         }
 
         @JvmStatic fun tools(fragment: Fragment): FragmentTools {
@@ -29,71 +25,51 @@ class Juggler(
 
     }
 
-    private var bundle: Bundle? = null
-    private var stateBuilder: State.Builder? = null
-    private var params: State.Params? = null
+    private val STATE_HISTORY = "juggler_history"
 
-    fun restore(bundle: Bundle?): Juggler {
-        this.bundle = bundle
-        return this
-    }
+    protected abstract fun onActivity(): AppCompatActivity
 
-    fun state(stateBuilder: State.Builder): Juggler {
-        this.stateBuilder = stateBuilder
-        return this
-    }
-
-    fun params(params: State.Params): Juggler {
-        this.params = params
-        return this
-    }
-
-    fun execute() {
-        if (activity == null) {
-            if (fragment != null) {
-                processState(fragment.activity as AppCompatActivity)
-            }
+    fun create(bundle: Bundle?, stateBuilder: State.Builder, params: State.Params? = null) {
+        val activity = onActivity()
+        if (bundle == null) {
+            val state = stateBuilder.build(activity, params)
+            val transition = StateTransition(state)
+            transition.create(activity)
+            History.push(activity, transition)
         } else {
-            if (bundle == null) {
-                if (stateBuilder != null) {
-                    processState(activity)
-                }
-            } else {
-                val state = (stateBuilder as State.Builder).build(activity, params)
-                processContentView(activity, state)
-                processTitle(activity, state)
-            }
+            @Suppress("UNCHECKED_CAST")
+            val history = bundle.getSerializable(STATE_HISTORY) as Stack<Transition>
+            History.set(activity, history)
+            val transition = History.peek(activity)
+            transition?.restore(activity)
         }
     }
 
-    private fun processState(activity: AppCompatActivity) {
-        val state = (stateBuilder as State.Builder).build(activity, params)
-        processContentView(activity, state)
-        processTitle(activity, state)
-        val transaction = activity.supportFragmentManager.beginTransaction()
-        replaceFragment(state, transaction)
-        transaction.addToBackStack("123423445")
-        transaction.commit()
+    fun state(stateBuilder: State.Builder, params: State.Params? = null) {
+        val activity = onActivity()
+        val state = stateBuilder.build(activity, params)
+        val transition = StateTransition(state)
+        transition.change(activity)
+        History.push(activity, transition)
     }
 
-    private fun processContentView(activity: AppCompatActivity, state: State) {
-        activity.setContentView(state.layoutId)
+    fun save(outState: Bundle) {
+        val activity = onActivity()
+        outState.putSerializable(STATE_HISTORY, History.get(activity));
     }
 
-    private fun processTitle(activity: AppCompatActivity, state: State) {
-        if (state.title != null) {
-            activity.title = state.title
-        }
+    fun destroy() {
+        History.remove(onActivity())
     }
 
-    private fun replaceFragment(state: State, transaction: FragmentTransaction) {
-        state.containers.forEach {
-            val fragment = state.fragment(it.type)
-            if (fragment == null) {
-
-            } else {
-                transaction.replace(it.id, fragment)
-            }
+    fun backOrFinish() {
+        val activity = onActivity()
+        History.pop(activity)
+        val transition = History.peek(activity)
+        if (transition == null) {
+            activity.finish()
+        } else {
+            transition.rollback(activity)
         }
     }
 

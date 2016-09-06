@@ -7,7 +7,7 @@ import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import me.ilich.juggler.usage.R;
 
-public class MainState {
+public class States {
 
     public static State.Builder main = new State.Builder().
             layoutId(R.layout.juggler_layout_content_below_toolbar).
@@ -17,13 +17,13 @@ public class MainState {
                     return "main";
                 }
             }).
-            addFragmentFactory(new Container(R.id.container_toolbar, new Container.Type(0)), new Function1<State.Params, Fragment>() {
+            addFragmentFactory(Container.toolbar(), new Function1<State.Params, Fragment>() {
                 @Override
                 public Fragment invoke(State.Params params) {
                     return ToolbarFragment.create();
                 }
             }).
-            addFragmentFactory(new Container(R.id.container_content, new Container.Type(1)), new Function1<State.Params, Fragment>() {
+            addFragmentFactory(Container.content(), new Function1<State.Params, Fragment>() {
                 @Override
                 public Fragment invoke(State.Params params) {
                     return ContentFragment.create();
@@ -38,13 +38,13 @@ public class MainState {
                     return "details";
                 }
             }).
-            addFragmentFactory(new Container(R.id.container_toolbar, new Container.Type(0)), new Function1<State.Params, Fragment>() {
+            addFragmentFactory(Container.toolbar(), new Function1<State.Params, Fragment>() {
                 @Override
                 public Fragment invoke(State.Params params) {
                     return ToolbarFragment.create();
                 }
             }).
-            addFragmentFactory(new Container(R.id.container_content, new Container.Type(1)), new Function1<State.Params, Fragment>() {
+            addFragmentFactory(Container.content(), new Function1<State.Params, Fragment>() {
                 @Override
                 public Fragment invoke(State.Params params) {
                     return ContentFragment.create();

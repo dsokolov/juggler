@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 
 class State(
         val layoutId: Int,
-        val title: String?,
+        val title: String,
         val containers: List<Container>,
         val fragmentFactory: (Container.Type) -> (Fragment?)
 ) {
@@ -42,7 +42,7 @@ class State(
             val f = fun(type: Container.Type): Fragment? {
                 return factories[type]?.let { it(params) }
             }
-            val title = titleFactory?.let { it(context, params) }
+            val title = titleFactory?.let { it(context, params) } ?: ""
             return State(layoutId as Int, title, containers.toList(), f)
         }
 
