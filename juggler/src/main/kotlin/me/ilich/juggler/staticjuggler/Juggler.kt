@@ -29,10 +29,9 @@ abstract class Juggler {
 
     protected abstract fun onActivity(): AppCompatActivity
 
-    fun create(bundle: Bundle?, stateBuilder: State.Builder, params: State.Params? = null) {
+    fun create(bundle: Bundle?, state: State) {
         val activity = onActivity()
         if (bundle == null) {
-            val state = stateBuilder.build(activity, params)
             val transition = StateTransition(state)
             transition.create(activity)
             History.push(activity, transition)
@@ -45,9 +44,8 @@ abstract class Juggler {
         }
     }
 
-    fun state(stateBuilder: State.Builder, params: State.Params? = null) {
+    fun state(state: State) {
         val activity = onActivity()
-        val state = stateBuilder.build(activity, params)
         val transition = StateTransition(state)
         transition.change(activity)
         History.push(activity, transition)

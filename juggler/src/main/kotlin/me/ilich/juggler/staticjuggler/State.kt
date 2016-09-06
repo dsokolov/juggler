@@ -10,35 +10,35 @@ class State(
         val fragmentFactory: (Container.Type) -> (Fragment?)
 ) {
 
-    class Builder {
+    class Builder<P : Params> {
 
         private var layoutId: Int? = null
-        private var titleFactory: ((Context, Params?) -> (String))? = null
+        private var titleFactory: ((Context, P?) -> (String))? = null
         private val containers = mutableSetOf<Container>()
-        private val factories = mutableMapOf<Container.Type, (Params?) -> (Fragment?)>()
+        private val factories = mutableMapOf<Container.Type, (P?) -> (Fragment?)>()
 
-        fun layoutId(layoutId: Int): Builder {
+        fun layoutId(layoutId: Int): Builder<P> {
             this.layoutId = layoutId
             return this
         }
 
-        fun title(titleFactory: (Context, Params?) -> (String)): Builder {
+        fun title(titleFactory: (Context, Params?) -> (String)): Builder<P> {
             this.titleFactory = titleFactory
             return this
         }
 
-        fun addContainerType(container: Container): Builder {
+        fun addContainerType(container: Container): Builder<P> {
             containers.add(container)
             return this
         }
 
-        fun addFragmentFactory(container: Container, factory: (Params?) -> (Fragment?)): Builder {
+        fun addFragmentFactory(container: Container, factory: (P?) -> (Fragment?)): Builder<P> {
             containers.add(container)
             factories.put(container.type, factory)
             return this
         }
 
-        fun build(context: Context, params: Params? = null): State {
+        fun build(context: Context, params: P? = null): State {
             val f = fun(type: Container.Type): Fragment? {
                 return factories[type]?.let { it(params) }
             }
@@ -48,9 +48,11 @@ class State(
 
     }
 
-    class Params {
+    open class Params {
 
     }
+
+    class VoidParams : Params()
 
     fun fragment(type: Container.Type): Fragment? = fragmentFactory.invoke(type)
 

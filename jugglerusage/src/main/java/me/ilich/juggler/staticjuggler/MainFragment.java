@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 
 import me.ilich.juggler.usage.R;
 
-public class ContentFragment extends Fragment {
+public class MainFragment extends Fragment {
 
-    public static ContentFragment create() {
-        return new ContentFragment();
+    public static MainFragment create() {
+        return new MainFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_stub_content, container, false);
+        return inflater.inflate(R.layout.fragment_content_main, container, false);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ContentFragment extends Fragment {
         view.findViewById(R.id.details).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Juggler.on(ContentFragment.this).state(MainState.details, null);
+                Juggler.on(MainFragment.this).state(States.list(getContext()));
             }
         });
     }
