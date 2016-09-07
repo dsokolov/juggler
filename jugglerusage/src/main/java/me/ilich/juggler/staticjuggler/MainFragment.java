@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.staticjuggler.state.States;
 import me.ilich.juggler.usage.R;
 
 public class MainFragment extends Fragment {

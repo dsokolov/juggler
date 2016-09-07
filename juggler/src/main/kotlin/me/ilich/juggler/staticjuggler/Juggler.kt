@@ -3,6 +3,7 @@ package me.ilich.juggler.staticjuggler
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import me.ilich.juggler.staticjuggler.state.State
 import me.ilich.juggler.staticjuggler.transitions.StateTransition
 import me.ilich.juggler.staticjuggler.transitions.Transition
 import java.util.*
@@ -10,6 +11,8 @@ import java.util.*
 abstract class Juggler {
 
     companion object {
+
+        private const val STATE_HISTORY = "juggler_history"
 
         @JvmStatic fun on(activity: AppCompatActivity): Juggler {
             return AppCompatActivityJuggler(activity)
@@ -24,8 +27,6 @@ abstract class Juggler {
         }
 
     }
-
-    private val STATE_HISTORY = "juggler_history"
 
     protected abstract fun onActivity(): AppCompatActivity
 

@@ -1,57 +1,61 @@
 package me.ilich.juggler.staticjuggler.transitions
 
-import android.support.v4.app.FragmentTransaction
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import me.ilich.juggler.staticjuggler.State
+import me.ilich.juggler.staticjuggler.state.Cell
+import me.ilich.juggler.staticjuggler.state.State
 import java.util.*
 
-class StateTransition(val state: State) : Transition() {
+class StateTransition(state: State) : Transition() {
 
-    private val contentViewTransition: ContentViewTransition
-    private val titleTransition: TitleTransition
+    private val grid = state.grid()
+    private val title = state.title()
+    private val fragmentFactory: (Cell) -> (Fragment?) = state.fragmentFactory()
     private val transactionName = "juggler_transaction_${UUID.randomUUID()}"
 
-    init {
-        contentViewTransition = ContentViewTransition(state.layoutId)
-        titleTransition = TitleTransition(state.title)
-    }
-
     override fun onCreate(activity: AppCompatActivity) {
-        contentViewTransition.create(activity)
-        titleTransition.create(activity)
-        val transaction = activity.supportFragmentManager.beginTransaction()
-        replaceFragment(state, transaction)
-        transaction.addToBackStack(transactionName)
-        transaction.commit()
+        processContentView(activity)
+        processTitle(activity)
+        val fm = activity.supportFragmentManager
+        processFragments(fm)
     }
 
     override fun onChange(activity: AppCompatActivity) {
-        titleTransition.create(activity)
-        val transaction = activity.supportFragmentManager.beginTransaction()
-        replaceFragment(state, transaction)
-        transaction.addToBackStack(transactionName)
-        transaction.commit()
+        activity.title = title
+        val fm = activity.supportFragmentManager
+        processFragments(fm)
     }
 
     override fun onRestore(activity: AppCompatActivity) {
-        contentViewTransition.restore(activity)
-        titleTransition.restore(activity)
+        processContentView(activity)
+        activity.title = title
     }
 
     override fun onRollback(activity: AppCompatActivity) {
-        titleTransition.rollback(activity)
+        activity.title = title
         activity.supportFragmentManager.popBackStack(transactionName, 0)
     }
 
-    private fun replaceFragment(state: State, transaction: FragmentTransaction) {
-        state.containers.forEach {
-            val fragment = state.fragment(it.type)
-            if (fragment == null) {
+    private fun processContentView(activity: AppCompatActivity) = activity.setContentView(grid.layoutId)
 
+    private fun processTitle(activity: AppCompatActivity) {
+        activity.title = title
+    }
+
+    private fun processFragments(fm: FragmentManager) {
+        val transaction = fm.beginTransaction()
+        grid?.cells?.forEach {
+            val fragment = fragmentFactory(it)
+            if (fragment == null) {
+                val fragmentForRemove = fm.findFragmentById(it.id)
+                transaction.remove(fragmentForRemove)
             } else {
                 transaction.replace(it.id, fragment)
             }
         }
+        transaction.addToBackStack(transactionName)
+        transaction.commit()
     }
 
 }
