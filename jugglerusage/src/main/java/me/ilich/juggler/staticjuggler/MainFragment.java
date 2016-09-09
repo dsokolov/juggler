@@ -33,4 +33,16 @@ public class MainFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Juggler.callback(this).onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //Juggler.callback(this).onStop();
+    }
+
 }

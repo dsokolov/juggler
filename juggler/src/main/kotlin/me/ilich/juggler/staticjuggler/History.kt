@@ -9,7 +9,6 @@ object History {
 
     private val history = mutableMapOf<Int, Stack<Transition>>()
 
-
     fun set(activity: AppCompatActivity, stack: Stack<Transition>) {
         val id = activity.ident()
         history.put(id, stack)
@@ -61,6 +60,5 @@ object History {
         val id = identField.getInt(this@ident)
         return id
     }
-
 
 }

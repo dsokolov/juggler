@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 import kotlin.jvm.functions.Function1;
 import me.ilich.juggler.staticjuggler.MainFragment;
 import me.ilich.juggler.staticjuggler.ToolbarFragment;
@@ -39,7 +41,7 @@ public class MainState extends AbstractState<VoidParams> {
         return new Factory();
     }
 
-    private static class Factory implements Function1<Cell, Fragment> {
+    private static class Factory implements Function1<Cell, Fragment>, Serializable {
         @Override
         public Fragment invoke(Cell cell) {
             switch (cell.getType()) {

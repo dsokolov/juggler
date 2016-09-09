@@ -9,6 +9,12 @@
         android:layout_height="wrap_content"
         android:text="Static Juggler!" />
 
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="123" />
+
     <Button
         android:id="@+id/details"
         android:layout_width="match_parent"

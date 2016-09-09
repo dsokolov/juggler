@@ -2,11 +2,12 @@ package me.ilich.juggler.staticjuggler.state
 
 import android.support.annotation.IdRes
 import me.ilich.juggler.R
+import java.io.Serializable
 
 class Cell(
         @IdRes val id: Int,
         val type: Int
-) {
+) : Serializable {
 
     companion object {
 

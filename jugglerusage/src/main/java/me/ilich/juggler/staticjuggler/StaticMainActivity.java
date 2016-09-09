@@ -15,18 +15,6 @@ public class StaticMainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Juggler.on(this).save(outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Juggler.on(this).destroy();
-    }
-
-    @Override
     public void onBackPressed() {
         Juggler.on(this).backOrFinish();
     }

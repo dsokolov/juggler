@@ -1,5 +1,6 @@
 package me.ilich.juggler.staticjuggler
 
+import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -22,8 +23,16 @@ abstract class Juggler {
             return FragmentJuggler(fragment)
         }
 
+        @JvmStatic fun on(application : Application): ApplicationTools {
+            return ApplicationTools(application)
+        }
+
         @JvmStatic fun tools(fragment: Fragment): FragmentTools {
             return FragmentTools(fragment = fragment)
+        }
+
+        @JvmStatic fun callback(fragment: Fragment): FragmentCallback {
+            return FragmentCallback(fragment = fragment)
         }
 
     }
@@ -73,3 +82,4 @@ abstract class Juggler {
     }
 
 }
+
