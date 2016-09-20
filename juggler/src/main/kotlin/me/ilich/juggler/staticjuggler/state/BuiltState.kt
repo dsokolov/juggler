@@ -1,5 +1,6 @@
 package me.ilich.juggler.staticjuggler.state
 
+import android.content.Context
 import android.support.v4.app.Fragment
 
 internal class BuiltState(
@@ -10,7 +11,7 @@ internal class BuiltState(
 
     override fun grid(): Grid = grid
 
-    override fun title(): String = title
+    override fun title(context: Context): String = title
 
     override fun fragmentFactory(): (Cell) -> (Fragment?) = fragmentFactory
 

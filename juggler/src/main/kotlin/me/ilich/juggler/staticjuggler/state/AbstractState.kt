@@ -4,9 +4,9 @@ import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 
-abstract class AbstractState<P : Params>(val context: Context, val params: P) : State {
+abstract class AbstractState<P : Params>(val params: P) : State {
 
-    override fun title(): String = onTitle(context, params)
+    override fun title(context: Context): String = onTitle(context, params)
 
     override fun grid(): Grid = onGrid()
 

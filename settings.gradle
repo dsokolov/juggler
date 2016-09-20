@@ -1,1 +1,1 @@
-include ':juggler', ':jugglerusage'
+include ':juggler', ':juggler-usage', ':juggler-annotations', ':juggler-compiler'

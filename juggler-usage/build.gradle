@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "me.ilich.juggler.usage"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -18,12 +19,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+
+    }
 }
 
 dependencies {
+    apt project(':juggler-compiler')
     compile project(':juggler')
     ext {
-        supportLibVersion = '23.4.0'
+        supportLibVersion = '24.2.1'
         espressoVersion = '2.2.2'
     }
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -31,7 +38,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestCompile ("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
         exclude module: 'design'
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
@@ -46,4 +53,6 @@ dependencies {
     compile "com.android.support:design:$supportLibVersion"
     compile "com.android.support:appcompat-v7:$supportLibVersion"
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    compile project(':juggler-annotations')
+
 }

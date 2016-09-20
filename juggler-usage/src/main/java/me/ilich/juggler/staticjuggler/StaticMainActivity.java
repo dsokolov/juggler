@@ -11,7 +11,7 @@ public class StaticMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Juggler.on(this).create(savedInstanceState, new MainState(this));
+        Juggler.on(this).firstState(new MainState());
     }
 
     @Override

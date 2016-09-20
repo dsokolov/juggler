@@ -26,19 +26,6 @@ public class ToolbarFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Juggler.tools(this).toolbar(view, R.id.toolbar);
-        Juggler.callback(this).onToolbar((Toolbar) view.findViewById(R.id.toolbar));
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //Juggler.callback(this).onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        //Juggler.callback(this).onStop();
     }
 
 }

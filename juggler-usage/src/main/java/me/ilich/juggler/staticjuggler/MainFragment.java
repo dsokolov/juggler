@@ -7,13 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.ilich.juggler.annotations.JugglerFragment;
 import me.ilich.juggler.staticjuggler.state.States;
 import me.ilich.juggler.usage.R;
 
+@JugglerFragment
 public class MainFragment extends Fragment {
 
     public static MainFragment create() {
-        return new MainFragment();
+        return FragmentTools.instance(MainFragment.class);
     }
 
     @Nullable
@@ -31,18 +33,6 @@ public class MainFragment extends Fragment {
                 Juggler.on(MainFragment.this).state(States.list(getContext()));
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //Juggler.callback(this).onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        //Juggler.callback(this).onStop();
     }
 
 }

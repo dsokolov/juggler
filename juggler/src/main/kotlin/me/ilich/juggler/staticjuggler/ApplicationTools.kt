@@ -30,6 +30,7 @@ class ApplicationTools(
             }
 
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                Juggler.on(activity as AppCompatActivity).restore(savedInstanceState)
             }
 
             override fun onActivityResumed(activity: Activity?) {

@@ -14,8 +14,8 @@ import me.ilich.juggler.usage.R;
 
 public class MainState extends AbstractState<VoidParams> {
 
-    public MainState(@NotNull Context context) {
-        super(context, VoidParams.INSTANCE);
+    public MainState() {
+        super(VoidParams.INSTANCE);
     }
 
     @NotNull
