@@ -16,6 +16,7 @@ class ApplicationTools(
             }
 
             override fun onActivityStarted(activity: Activity?) {
+                Juggler.on(activity as AppCompatActivity).onActivityStart()
             }
 
             override fun onActivityDestroyed(activity: Activity?) {

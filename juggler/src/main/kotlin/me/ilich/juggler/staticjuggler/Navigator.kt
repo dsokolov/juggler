@@ -3,7 +3,7 @@ package me.ilich.juggler.staticjuggler
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import me.ilich.juggler.staticjuggler.state.State
-import me.ilich.juggler.staticjuggler.transitions.StateTransition
+import me.ilich.juggler.staticjuggler.transitions.Transition
 
 abstract class Navigator {
 
@@ -13,17 +13,17 @@ abstract class Navigator {
         val activity = onActivity()
         val isRestored = History.isRestored(activity)
         if (!isRestored) {
-            val transition = StateTransition(state, activity)
-            transition.create(activity)
+            val transition = Transition(state, activity)
             History.push(activity, transition)
+            transition.create(activity)
         }
     }
 
     fun state(state: State) {
         val activity = onActivity()
-        val transition = StateTransition(state, activity)
-        transition.change(activity)
+        val transition = Transition(state, activity)
         History.push(activity, transition)
+        transition.change(activity)
     }
 
     fun restore(bundle: Bundle?) {
@@ -31,6 +31,11 @@ abstract class Navigator {
         if (bundle != null) {
             History.restore(activity, bundle)
         }
+    }
+
+    fun onActivityStart() {
+        val activity = onActivity()
+        History.onActivityStart(activity)
     }
 
     fun save(outState: Bundle) {

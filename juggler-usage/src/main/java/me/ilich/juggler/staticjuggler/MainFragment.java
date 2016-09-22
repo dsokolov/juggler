@@ -15,7 +15,7 @@ import me.ilich.juggler.usage.R;
 public class MainFragment extends Fragment {
 
     public static MainFragment create() {
-        return FragmentTools.instance(MainFragment.class);
+        return Juggler.on(MainFragment.class).newInstance();
     }
 
     @Nullable

@@ -5,7 +5,7 @@ import me.ilich.juggler.R
 import java.io.Serializable
 
 class Cell(
-        @IdRes val id: Int,
+        @IdRes val containerId: Int,
         val type: Int
 ) : Serializable {
 
@@ -25,16 +25,20 @@ class Cell(
 
         other as Cell
 
-        if (id != other.id) return false
+        if (containerId != other.containerId) return false
         if (type != other.type) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = id
+        var result = containerId
         result = 31 * result + type
         return result
+    }
+
+    override fun toString(): String {
+        return "Cell $containerId $type"
     }
 
 }

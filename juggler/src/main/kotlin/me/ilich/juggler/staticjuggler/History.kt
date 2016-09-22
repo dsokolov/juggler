@@ -4,21 +4,16 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import me.ilich.juggler.staticjuggler.transitions.Transition
 import java.io.Serializable
 import java.util.*
-import java.util.concurrent.CopyOnWriteArrayList
 
 object History {
 
     private const val STATE_HISTORY = "juggler_history"
 
     private val history = mutableMapOf<Int, Item>()
-    private val thread = MyThread();
-
-    init {
-        thread.start()
-    }
 
     fun restore(activity: AppCompatActivity, bundle: Bundle) {
         @Suppress("UNCHECKED_CAST")
@@ -32,6 +27,11 @@ object History {
         val transition = History.peek(activity)
         transition?.restore(activity)
         History.setRestored(activity, true)
+    }
+
+    fun onActivityStart(activity: AppCompatActivity) {
+        val transition = History.peek(activity)
+        transition?.restoreFragments(activity)
     }
 
     fun get(activity: AppCompatActivity): Stack<Transition>? {
@@ -113,19 +113,30 @@ object History {
         outState.putSerializable(STATE_HISTORY, History.get(activity));
     }
 
-    fun registerFragment(fragment: Fragment) {
-        thread.fragments.add(fragment)
+    fun onFragmentCreated(fragment: Fragment) {
+        val activity = fragment.activity
+        val id = activity.ident()
+        val item = history[id]
+        if (item != null) {
+            item.stack.peek().onFragmentCreated(fragment)
+        }
     }
 
-    class MyThread : Thread() {
+    fun onFragmentStarted(fragment: Fragment) {
+        val activity = fragment.activity
+        val id = activity.ident()
+        val item = history[id]
+        if (item != null) {
+            item.stack.peek().onFragmentStarted(fragment)
+        }
+    }
 
-        var fragments = CopyOnWriteArrayList<Fragment>()
-
-        override fun run() {
-            while (true) {
-                Thread.sleep(1000)
-
-            }
+    fun onFragmentToolbar(fragment: Fragment, toolbar: Toolbar) {
+        val activity = fragment.activity
+        val id = activity.ident()
+        val item = history[id]
+        if (item != null) {
+            item.stack.peek().onFragmentToolbar(toolbar)
         }
     }
 

@@ -10,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.ilich.juggler.annotations.JugglerFragment;
 import me.ilich.juggler.staticjuggler.state.States;
 import me.ilich.juggler.usage.R;
 
+@JugglerFragment
 public class ListFragment extends Fragment {
 
     public static ListFragment create() {
-        return new ListFragment();
+        return Juggler.on(ListFragment.class).newInstance();
     }
 
     @Nullable

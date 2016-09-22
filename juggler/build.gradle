@@ -9,15 +9,15 @@ def version = "0.1.20"
 def releaseDir = "${buildDir}/release"
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName version
     }

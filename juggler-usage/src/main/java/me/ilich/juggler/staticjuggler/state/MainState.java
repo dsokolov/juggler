@@ -41,6 +41,11 @@ public class MainState extends AbstractState<VoidParams> {
         return new Factory();
     }
 
+    @Override
+    public int icon(@NotNull Context context) {
+        return android.R.drawable.ic_menu_edit;
+    }
+
     private static class Factory implements Function1<Cell, Fragment>, Serializable {
         @Override
         public Fragment invoke(Cell cell) {

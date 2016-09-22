@@ -3,6 +3,7 @@ package me.ilich.juggler.staticjuggler
 import android.app.Application
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import me.ilich.juggler.annotations.ClassTools
 
 class Juggler {
 
@@ -20,9 +21,7 @@ class Juggler {
             return ApplicationTools(application)
         }
 
-        @JvmStatic fun tools(fragment: Fragment): FragmentTools {
-            return FragmentTools(fragment = fragment)
-        }
+        @JvmStatic fun <T> on(cls: Class<T>): ClassTools<T> = ClassTools(cls)
 
     }
 

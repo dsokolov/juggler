@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.ilich.juggler.annotations.JugglerFragment;
 import me.ilich.juggler.usage.R;
 
+@JugglerFragment
 public class DetailsFragment extends Fragment {
 
     public static DetailsFragment create(int id) {
-        DetailsFragment f = new DetailsFragment();
+        DetailsFragment f = Juggler.on(DetailsFragment.class).newInstance();
         Bundle b = new Bundle();
         b.putInt("id", id);
         f.setArguments(b);
