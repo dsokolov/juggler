@@ -1,5 +1,6 @@
 package me.ilich.juggler.staticjuggler
 
+import android.app.ActionBar
 import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,28 +10,30 @@ import me.ilich.juggler.staticjuggler.transitions.Transition
 import java.io.Serializable
 import java.util.*
 
-object History {
+object HistoryStacks {
 
     private const val STATE_HISTORY = "juggler_history"
 
     private val history = mutableMapOf<Int, Item>()
 
-    fun restore(activity: AppCompatActivity, bundle: Bundle) {
-        @Suppress("UNCHECKED_CAST")
-        val stack = bundle.getSerializable(STATE_HISTORY) as Stack<Transition>
-        val id = activity.ident()
-        val item = history.getOrPut(id) {
-            Item()
+    fun restore(activity: AppCompatActivity, savedInstanceState : Bundle?) {
+        if (savedInstanceState != null) {
+            @Suppress("UNCHECKED_CAST")
+            val stack = savedInstanceState .getSerializable(STATE_HISTORY) as Stack<Transition>
+            val id = activity.ident()
+            val item = history.getOrPut(id) {
+                Item()
+            }
+            item.stack.clear()
+            item.stack.addAll(stack)
+            val transition = HistoryStacks.peek(activity)
+            transition?.restore(activity)
+            HistoryStacks.setRestored(activity, true)
         }
-        item.stack.clear()
-        item.stack.addAll(stack)
-        val transition = History.peek(activity)
-        transition?.restore(activity)
-        History.setRestored(activity, true)
     }
 
     fun onActivityStart(activity: AppCompatActivity) {
-        val transition = History.peek(activity)
+        val transition = HistoryStacks.peek(activity)
         transition?.restoreFragments(activity)
     }
 
@@ -110,10 +113,10 @@ object History {
     }
 
     fun save(activity: AppCompatActivity, outState: Bundle) {
-        outState.putSerializable(STATE_HISTORY, History.get(activity));
+        outState.putSerializable(STATE_HISTORY, HistoryStacks.get(activity));
     }
 
-    fun onFragmentCreated(fragment: Fragment) {
+    fun onFragmentCreated(fragment: Fragment, savedInstanceState: Bundle?) {
         val activity = fragment.activity
         val id = activity.ident()
         val item = history[id]
@@ -131,12 +134,12 @@ object History {
         }
     }
 
-    fun onFragmentToolbar(fragment: Fragment, toolbar: Toolbar) {
+    fun onFragmentToolbar(fragment: Fragment, toolbar: Toolbar, actionBar: android.support.v7.app.ActionBar?) {
         val activity = fragment.activity
         val id = activity.ident()
         val item = history[id]
         if (item != null) {
-            item.stack.peek().onFragmentToolbar(toolbar)
+            item.stack.peek().onFragmentToolbar(toolbar, actionBar)
         }
     }
 

@@ -3,7 +3,6 @@ package me.ilich.juggler.staticjuggler
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 
 class ApplicationTools(
         private val application: Application
@@ -12,29 +11,32 @@ class ApplicationTools(
     fun init() {
         application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
 
-            override fun onActivityPaused(activity: Activity?) {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                Dispatcher.onActivityCreated(activity, savedInstanceState)
             }
 
-            override fun onActivityStarted(activity: Activity?) {
-                Juggler.on(activity as AppCompatActivity).onActivityStart()
+            override fun onActivityStarted(activity: Activity) {
+                Dispatcher.onActivityStarted(activity)
             }
 
-            override fun onActivityDestroyed(activity: Activity?) {
-                Juggler.on(activity as AppCompatActivity).destroy()
+            override fun onActivityResumed(activity: Activity) {
+                Dispatcher.onActivityResumed(activity)
             }
 
-            override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle) {
-                Juggler.on(activity as AppCompatActivity).save(outState)
+            override fun onActivityPaused(activity: Activity) {
+                Dispatcher.onActivityPaused(activity)
             }
 
-            override fun onActivityStopped(activity: Activity?) {
+            override fun onActivityStopped(activity: Activity) {
+                Dispatcher.onActivityStopped(activity)
             }
 
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                Juggler.on(activity as AppCompatActivity).restore(savedInstanceState)
+            override fun onActivityDestroyed(activity: Activity) {
+                Dispatcher.onActivityDestroyed(activity)
             }
 
-            override fun onActivityResumed(activity: Activity?) {
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+                Dispatcher.onActivitySaveInstanceState(activity, outState)
             }
 
         })

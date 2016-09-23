@@ -11,10 +11,10 @@ abstract class Navigator {
 
     fun firstState(state: State) {
         val activity = onActivity()
-        val isRestored = History.isRestored(activity)
+        val isRestored = HistoryStacks.isRestored(activity)
         if (!isRestored) {
             val transition = Transition(state, activity)
-            History.push(activity, transition)
+            HistoryStacks.push(activity, transition)
             transition.create(activity)
         }
     }
@@ -22,35 +22,14 @@ abstract class Navigator {
     fun state(state: State) {
         val activity = onActivity()
         val transition = Transition(state, activity)
-        History.push(activity, transition)
+        HistoryStacks.push(activity, transition)
         transition.change(activity)
-    }
-
-    fun restore(bundle: Bundle?) {
-        val activity = onActivity()
-        if (bundle != null) {
-            History.restore(activity, bundle)
-        }
-    }
-
-    fun onActivityStart() {
-        val activity = onActivity()
-        History.onActivityStart(activity)
-    }
-
-    fun save(outState: Bundle) {
-        val activity = onActivity()
-        History.save(activity, outState)
-    }
-
-    fun destroy() {
-        History.remove(onActivity())
     }
 
     fun backOrFinish() {
         val activity = onActivity()
-        History.pop(activity)
-        val transition = History.peek(activity)
+        HistoryStacks.pop(activity)
+        val transition = HistoryStacks.peek(activity)
         if (transition == null) {
             activity.finish()
         } else {

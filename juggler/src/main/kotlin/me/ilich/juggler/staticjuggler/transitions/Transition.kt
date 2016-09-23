@@ -3,6 +3,7 @@ package me.ilich.juggler.staticjuggler.transitions
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -30,6 +31,7 @@ class Transition(state: State, context: Context) : Serializable {
 
     private val fragmentStates = mutableMapOf<Cell, FragmentState>()
     @Transient protected var toolbar: Toolbar? = null
+    @Transient protected var actionBar: ActionBar? = null
 
     fun create(activity: AppCompatActivity) = onCreate(activity)
 
@@ -41,8 +43,9 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun restoreFragments(activity: AppCompatActivity) = onRestoreFragments(activity)
 
-    fun onFragmentToolbar(toolbar: Toolbar) {
+    fun onFragmentToolbar(toolbar: Toolbar, actionBar: ActionBar?) {
         this.toolbar = toolbar
+        this.actionBar = actionBar
     }
 
     fun onFragmentInstantiated(it: Cell, fragment: Fragment?) {
@@ -77,7 +80,7 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun onCreate(activity: AppCompatActivity) {
         processContentView(activity)
-        processTitle(activity)
+        activity.title = title
         val fm = activity.supportFragmentManager
         fragmentStates.clear()
         processFragments(fm)
@@ -115,13 +118,10 @@ class Transition(state: State, context: Context) : Serializable {
     fun onAllFragmentsStarted() {
         Log.v("Sokolov", "onAllFragmentsStarted")
         toolbar?.setNavigationIcon(icon)
+        //actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
     }
 
     private fun processContentView(activity: AppCompatActivity) = activity.setContentView(grid.layoutId)
-
-    private fun processTitle(activity: AppCompatActivity) {
-        activity.title = title
-    }
 
     private fun processFragments(fm: FragmentManager) {
         val transaction = fm.beginTransaction()
