@@ -6,16 +6,19 @@ import android.support.v4.app.Fragment
 
 internal class BuiltState(
         val grid: Grid,
-        val title: String,
-        @DrawableRes val icon: Int,
+        val title: String?,
+        @DrawableRes val icon: Int?,
+        val displayOptions: Int?,
         val fragmentFactory: (Cell) -> (Fragment?)
 ) : State {
 
     override fun grid(): Grid = grid
 
-    override fun title(context: Context): String = title
+    override fun title(context: Context): String? = title
 
-    @DrawableRes override fun icon(context: Context): Int = icon
+    override fun displayOptions(): Int? = displayOptions
+
+    @DrawableRes override fun icon(context: Context): Int? = icon
 
     override fun fragmentFactory(): (Cell) -> (Fragment?) = fragmentFactory
 

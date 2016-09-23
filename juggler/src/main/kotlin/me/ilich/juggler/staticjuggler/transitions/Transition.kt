@@ -25,6 +25,7 @@ class Transition(state: State, context: Context) : Serializable {
     private val grid = state.grid()
     private val title = state.title(context)
     private val icon = state.icon(context)
+    private val displayOptions = state.displayOptions()
     private val fragmentFactory: (Cell) -> (Fragment?) = state.fragmentFactory()
     private val transactionName = "juggler_transaction_${UUID.randomUUID()}"
 
@@ -79,7 +80,7 @@ class Transition(state: State, context: Context) : Serializable {
     }
 
     fun onCreate(activity: AppCompatActivity) {
-        processContentView(activity)
+        activity.setContentView(grid.layoutId)
         activity.title = title
         val fm = activity.supportFragmentManager
         fragmentStates.clear()
@@ -94,7 +95,7 @@ class Transition(state: State, context: Context) : Serializable {
     }
 
     fun onRestore(activity: AppCompatActivity) {
-        processContentView(activity)
+        activity.setContentView(grid.layoutId)
         activity.title = title
         fragmentStates.clear()
     }
@@ -117,11 +118,16 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun onAllFragmentsStarted() {
         Log.v("Sokolov", "onAllFragmentsStarted")
-        toolbar?.setNavigationIcon(icon)
-        //actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        if (icon != null) {
+            toolbar?.setNavigationIcon(icon)
+        }
+        if (displayOptions != null) {
+            actionBar?.displayOptions = displayOptions
+        }
+        toolbar?.setNavigationOnClickListener {
+            Log.v("Sokolov", "navigation click")
+        }
     }
-
-    private fun processContentView(activity: AppCompatActivity) = activity.setContentView(grid.layoutId)
 
     private fun processFragments(fm: FragmentManager) {
         val transaction = fm.beginTransaction()

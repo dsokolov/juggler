@@ -12,35 +12,18 @@ import me.ilich.juggler.usage.R;
 
 public class States {
 
-/*    public static State main(Context context) {
-        return new StateBuilder<VoidParams>().
-                layoutId(R.layout.juggler_layout_content_below_toolbar).
-                title(new Function2<Context, Params, String>() {
-                    @Override
-                    public String invoke(Context context, Params params) {
-                        return "main";
-                    }
-                }).
-                addFragmentFactory(Container.toolbar(), new Function1<Params, Fragment>() {
-                    @Override
-                    public Fragment invoke(Params params) {
-                        return ToolbarFragment.create();
-                    }
-                }).
-                addFragmentFactory(Container.content(), new Function1<Params, Fragment>() {
-                    @Override
-                    public Fragment invoke(Params params) {
-                        return MainFragment.create();
-                    }
-                }).build(context, null);
-    }*/
-
     public static State list(Context context) {
         return new StateBuilder<VoidParams>(new Grid(R.layout.juggler_layout_content_below_toolbar, Cell.toolbar(), Cell.content())).
                 title(new Function2<Context, Params, String>() {
                     @Override
                     public String invoke(Context context, Params params) {
                         return "list";
+                    }
+                }).
+                icon(new Function2<Context, VoidParams, Integer>() {
+                    @Override
+                    public Integer invoke(Context context, VoidParams voidParams) {
+                        return android.R.drawable.ic_menu_add;
                     }
                 }).
                 addFragmentFactory(Cell.toolbar(), new Function1<Params, Fragment>() {
@@ -62,7 +45,7 @@ public class States {
                 title(new Function2<Context, Params, String>() {
                     @Override
                     public String invoke(Context context, Params params) {
-                        return "details";
+                        return null;
                     }
                 }).
                 addFragmentFactory(Cell.toolbar(), new Function1<DetailsParams, Fragment>() {
@@ -79,7 +62,7 @@ public class States {
                 }).build(context, new DetailsParams(id));
     }
 
-    public static class DetailsParams extends Params {
+    private static class DetailsParams extends Params {
 
         public int getId() {
             return id;
@@ -87,7 +70,7 @@ public class States {
 
         private final int id;
 
-        public DetailsParams(int id) {
+        DetailsParams(int id) {
             this.id = id;
         }
     }

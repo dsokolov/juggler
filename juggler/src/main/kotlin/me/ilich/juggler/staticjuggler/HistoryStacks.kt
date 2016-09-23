@@ -1,6 +1,5 @@
 package me.ilich.juggler.staticjuggler
 
-import android.app.ActionBar
 import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,19 +15,21 @@ object HistoryStacks {
 
     private val history = mutableMapOf<Int, Item>()
 
-    fun restore(activity: AppCompatActivity, savedInstanceState : Bundle?) {
+    fun restore(activity: AppCompatActivity, savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             @Suppress("UNCHECKED_CAST")
-            val stack = savedInstanceState .getSerializable(STATE_HISTORY) as Stack<Transition>
-            val id = activity.ident()
-            val item = history.getOrPut(id) {
-                Item()
+            val stack = savedInstanceState.getSerializable(STATE_HISTORY) as Stack<Transition>?
+            if (stack != null) {
+                val id = activity.ident()
+                val item = history.getOrPut(id) {
+                    Item()
+                }
+                item.stack.clear()
+                item.stack.addAll(stack)
+                item.restored = true
+                val transition = item.stack.peek()
+                transition?.restore(activity)
             }
-            item.stack.clear()
-            item.stack.addAll(stack)
-            val transition = HistoryStacks.peek(activity)
-            transition?.restore(activity)
-            HistoryStacks.setRestored(activity, true)
         }
     }
 
@@ -78,14 +79,6 @@ object HistoryStacks {
     fun remove(activity: AppCompatActivity) {
         val id = activity.ident()
         history.remove(id)
-    }
-
-    fun setRestored(activity: AppCompatActivity, b: Boolean) {
-        val id = activity.ident()
-        val item = history.getOrPut(id) {
-            Item()
-        }
-        item.restored = b
     }
 
     fun isRestored(activity: AppCompatActivity): Boolean {

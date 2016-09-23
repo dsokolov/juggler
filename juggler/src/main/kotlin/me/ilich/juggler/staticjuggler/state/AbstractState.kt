@@ -14,8 +14,6 @@ abstract class AbstractState<P : Params>(val params: P) : State {
 
     protected abstract fun onTitle(context: Context, params: P): String
 
-    @LayoutRes protected abstract fun onLayoutId(context: Context, params: P): Int
-
     protected abstract fun onGrid(): Grid
 
     protected abstract fun onFragmentFactory(): (Cell) -> Fragment?

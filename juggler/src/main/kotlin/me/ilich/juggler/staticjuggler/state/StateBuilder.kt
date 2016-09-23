@@ -9,6 +9,7 @@ class StateBuilder<P : Params>(
 
     private var titleFactory: ((Context, P?) -> (String))? = null
     private var iconFactory: ((Context, P?) -> (Int))? = null
+    private var displayOptionsFactory: ((Context, P?) -> (Int))? = null
     private val factories = mutableMapOf<Cell, (P?) -> (Fragment?)>()
 
     fun title(titleFactory: (Context, Params?) -> (String)): StateBuilder<P> {
@@ -21,18 +22,30 @@ class StateBuilder<P : Params>(
         return this
     }
 
+    fun displayOptions(displayOptionsFactory: ((Context, P?) -> (Int))): StateBuilder<P> {
+        this.displayOptionsFactory = displayOptionsFactory
+        return this
+    }
+
     fun addFragmentFactory(cell: Cell, factory: (P?) -> (Fragment?)): StateBuilder<P> {
         factories.put(cell, factory)
         return this
     }
 
     fun build(context: Context, params: P? = null): State {
-        val f = fun(cell: Cell): Fragment? {
+        val fragmentFactory = fun(cell: Cell): Fragment? {
             return factories[cell]?.let { it(params) }
         }
-        val title = titleFactory?.let { it(context, params) } ?: ""
-        val icon = iconFactory?.let { it(context, params) } ?: android.R.drawable.ic_menu_day
-        return BuiltState(grid, title, icon, f)
+        val title = titleFactory?.let { it(context, params) } ?: null
+        val icon = iconFactory?.let { it(context, params) } ?: null
+        val displayOptions = displayOptionsFactory?.let { it(context, params) } ?: null
+        return BuiltState(
+                grid = grid,
+                title = title,
+                icon = icon,
+                displayOptions = displayOptions,
+                fragmentFactory = fragmentFactory
+        )
     }
 
 }

@@ -2,8 +2,10 @@ package me.ilich.juggler.staticjuggler.state;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 
@@ -24,11 +26,6 @@ public class MainState extends AbstractState<VoidParams> {
         return "Main";
     }
 
-    @Override
-    protected int onLayoutId(@NotNull Context context, @NotNull VoidParams params) {
-        return R.layout.juggler_layout_content_below_toolbar;
-    }
-
     @NotNull
     @Override
     protected Grid onGrid() {
@@ -42,8 +39,14 @@ public class MainState extends AbstractState<VoidParams> {
     }
 
     @Override
-    public int icon(@NotNull Context context) {
-        return android.R.drawable.ic_menu_edit;
+    public Integer icon(@NotNull Context context) {
+        return android.R.drawable.ic_menu_info_details;
+    }
+
+    @Nullable
+    @Override
+    public Integer displayOptions() {
+        return ActionBar.DISPLAY_SHOW_TITLE;
     }
 
     private static class Factory implements Function1<Cell, Fragment>, Serializable {
