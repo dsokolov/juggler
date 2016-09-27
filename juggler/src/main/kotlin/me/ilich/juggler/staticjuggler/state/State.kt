@@ -7,7 +7,9 @@ interface State {
 
     fun title(context: Context): String?
 
-    fun icon(context: Context): Int?
+    fun navigationIcon(context: Context): Int?
+
+    fun navigationClick(context: Context): ((Context) -> Unit)?
 
     fun displayOptions(): Int?
 

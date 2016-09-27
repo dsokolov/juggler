@@ -9,8 +9,11 @@ internal class BuiltState(
         val title: String?,
         @DrawableRes val icon: Int?,
         val displayOptions: Int?,
-        val fragmentFactory: (Cell) -> (Fragment?)
+        val fragmentFactory: (Cell) -> (Fragment?),
+        val navigationClick: ((Context) -> (Unit))? = null
 ) : State {
+
+    override fun navigationClick(context: Context): ((Context) -> Unit)? = navigationClick
 
     override fun grid(): Grid = grid
 
@@ -18,7 +21,7 @@ internal class BuiltState(
 
     override fun displayOptions(): Int? = displayOptions
 
-    @DrawableRes override fun icon(context: Context): Int? = icon
+    @DrawableRes override fun navigationIcon(context: Context): Int? = icon
 
     override fun fragmentFactory(): (Cell) -> (Fragment?) = fragmentFactory
 

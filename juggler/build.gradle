@@ -4,7 +4,7 @@ apply plugin: 'maven'
 
 def groupId = "me.ilich"
 def artifactId = "juggler"
-def version = "0.1.20"
+def version = "0.3.0"
 
 def releaseDir = "${buildDir}/release"
 
@@ -41,6 +41,7 @@ configurations {
 }
 
 task javaDocs(type: Javadoc) {
+    excludes = ['**/*.kt']
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.javadocDependencies

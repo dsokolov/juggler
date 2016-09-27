@@ -1,6 +1,5 @@
 package me.ilich.juggler.staticjuggler
 
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import me.ilich.juggler.staticjuggler.state.State
 import me.ilich.juggler.staticjuggler.transitions.Transition
@@ -21,7 +20,14 @@ abstract class Navigator {
 
     fun state(state: State) {
         val activity = onActivity()
+        val currentHistoryItem = HistoryStacks.peek(activity)
         val transition = Transition(state, activity)
+        if (currentHistoryItem == null) {
+            throw IllegalStateException("No current state. Call firstState(State).")
+        }
+        currentHistoryItem.allowNext(transition) {
+            throw IllegalStateException("Can't change to $transition.")
+        }
         HistoryStacks.push(activity, transition)
         transition.change(activity)
     }

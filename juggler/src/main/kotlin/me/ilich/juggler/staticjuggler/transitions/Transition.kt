@@ -24,7 +24,8 @@ class Transition(state: State, context: Context) : Serializable {
 
     private val grid = state.grid()
     private val title = state.title(context)
-    private val icon = state.icon(context)
+    private val navigationIcon = state.navigationIcon(context)
+    private val navigationClick = state.navigationClick(context)
     private val displayOptions = state.displayOptions()
     private val fragmentFactory: (Cell) -> (Fragment?) = state.fragmentFactory()
     private val transactionName = "juggler_transaction_${UUID.randomUUID()}"
@@ -118,14 +119,16 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun onAllFragmentsStarted() {
         Log.v("Sokolov", "onAllFragmentsStarted")
-        if (icon != null) {
-            toolbar?.setNavigationIcon(icon)
+        if (navigationIcon != null) {
+            toolbar?.setNavigationIcon(navigationIcon)
         }
         if (displayOptions != null) {
             actionBar?.displayOptions = displayOptions
         }
-        toolbar?.setNavigationOnClickListener {
-            Log.v("Sokolov", "navigation click")
+        if (navigationClick != null) {
+            toolbar?.setNavigationOnClickListener {
+                navigationClick.invoke(it.context)
+            }
         }
     }
 
@@ -144,6 +147,12 @@ class Transition(state: State, context: Context) : Serializable {
         transaction.addToBackStack(transactionName)
         transaction.commit()
         fm.executePendingTransactions()
+    }
+
+    fun allowNext(transition: Transition, ifNot: () -> Unit) {
+        if (this.grid.layoutId != transition.grid.layoutId) {
+            ifNot()
+        }
     }
 
 }
