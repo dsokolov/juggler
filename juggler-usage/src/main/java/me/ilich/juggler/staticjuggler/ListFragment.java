@@ -58,7 +58,7 @@ public class ListFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Juggler.on(ListFragment.this).state(States.details(getContext(), position));
+                    //Juggler.on(ListFragment.this).state(States.details(getContext(), position));
                 }
             });
         }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import me.ilich.juggler.staticjuggler.state.State
 import me.ilich.juggler.staticjuggler.transitions.Transition
 import java.io.Serializable
 import java.util.*
@@ -15,25 +16,28 @@ object HistoryStacks {
 
     private val history = mutableMapOf<Int, Item>()
 
-    fun restore(activity: AppCompatActivity, savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            @Suppress("UNCHECKED_CAST")
-            val stack = savedInstanceState.getSerializable(STATE_HISTORY) as Stack<Transition>?
-            if (stack != null) {
-                val id = activity.ident()
-                val item = history.getOrPut(id) {
-                    Item()
-                }
-                item.stack.clear()
-                item.stack.addAll(stack)
-                item.restored = true
-                val transition = item.stack.peek()
-                transition?.restore(activity)
+    fun restoreOrIntentState(activity: AppCompatActivity, savedInstanceState: Bundle?) {
+        val intentState = activity.intent.getSerializableExtra(Juggler.EXTRA_JUGGLER_STATE) as State?
+        @Suppress("UNCHECKED_CAST")
+        val historyStack = savedInstanceState?.getSerializable(STATE_HISTORY) as Stack<Transition>?
+        if (intentState == null && historyStack != null) {
+            val id = activity.ident()
+            val item = history.getOrPut(id) {
+                Item()
             }
+            item.stack.clear()
+            item.stack.addAll(historyStack)
+            item.restored = true
+            val transition = item.stack.peek()
+            transition?.restore(activity)
+        } else if (intentState != null) {
+            val transition = Transition(intentState, activity)
+            HistoryStacks.push(activity, transition)
+            transition.create(activity)
         }
     }
 
-    fun onActivityStart(activity: AppCompatActivity) {
+    fun restoreFragments(activity: AppCompatActivity) {
         val transition = HistoryStacks.peek(activity)
         transition?.restoreFragments(activity)
     }

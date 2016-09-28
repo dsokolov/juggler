@@ -12,13 +12,13 @@ object Dispatcher {
 
     fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         activity.ifSuitable {
-            HistoryStacks.restore(it, savedInstanceState)
+            HistoryStacks.restoreOrIntentState(it, savedInstanceState)
         }
     }
 
     fun onActivityStarted(activity: Activity) {
         activity.ifSuitable {
-            HistoryStacks.onActivityStart(it)
+            HistoryStacks.restoreFragments(it)
         }
     }
 

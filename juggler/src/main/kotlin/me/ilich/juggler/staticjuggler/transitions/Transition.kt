@@ -12,7 +12,7 @@ import me.ilich.juggler.staticjuggler.state.State
 import java.io.Serializable
 import java.util.*
 
-class Transition(state: State, context: Context) : Serializable {
+class Transition(private val state: State, context: Context) : Serializable {
 
     private enum class FragmentState {
         NULL,
@@ -23,11 +23,8 @@ class Transition(state: State, context: Context) : Serializable {
     }
 
     private val grid = state.grid()
-    private val title = state.title(context)
     private val navigationIcon = state.navigationIcon(context)
-    private val navigationClick = state.navigationClick(context)
     private val displayOptions = state.displayOptions()
-    private val fragmentFactory: (Cell) -> (Fragment?) = state.fragmentFactory()
     private val transactionName = "juggler_transaction_${UUID.randomUUID()}"
 
 
@@ -82,14 +79,14 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun onCreate(activity: AppCompatActivity) {
         activity.setContentView(grid.layoutId)
-        activity.title = title
+        activity.title = state.title(activity)
         val fm = activity.supportFragmentManager
         fragmentStates.clear()
         processFragments(fm)
     }
 
     fun onChange(activity: AppCompatActivity) {
-        activity.title = title
+        activity.title = state.title(activity)
         val fm = activity.supportFragmentManager
         fragmentStates.clear()
         processFragments(fm)
@@ -97,7 +94,7 @@ class Transition(state: State, context: Context) : Serializable {
 
     fun onRestore(activity: AppCompatActivity) {
         activity.setContentView(grid.layoutId)
-        activity.title = title
+        activity.title = state.title(activity)
         fragmentStates.clear()
     }
 
@@ -109,7 +106,7 @@ class Transition(state: State, context: Context) : Serializable {
     }
 
     fun onRollback(activity: AppCompatActivity) {
-        activity.title = title
+        activity.title = state.title(activity)
         activity.supportFragmentManager.popBackStack(transactionName, 0)
     }
 
@@ -125,17 +122,15 @@ class Transition(state: State, context: Context) : Serializable {
         if (displayOptions != null) {
             actionBar?.displayOptions = displayOptions
         }
-        if (navigationClick != null) {
-            toolbar?.setNavigationOnClickListener {
-                navigationClick.invoke(it.context)
-            }
+        toolbar?.setNavigationOnClickListener {
+            state.navigationClick(it.context)
         }
     }
 
     private fun processFragments(fm: FragmentManager) {
         val transaction = fm.beginTransaction()
         grid.cells.forEach {
-            val fragment = fragmentFactory(it)
+            val fragment = state.fragment(it)
             onFragmentInstantiated(it, fragment)
             if (fragment == null) {
                 val fragmentForRemove = fm.findFragmentById(it.containerId)

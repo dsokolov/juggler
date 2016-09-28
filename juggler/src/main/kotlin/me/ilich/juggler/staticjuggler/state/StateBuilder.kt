@@ -1,7 +1,6 @@
 package me.ilich.juggler.staticjuggler.state
 
 import android.content.Context
-import android.support.v4.app.Fragment
 
 class StateBuilder<P : Params>(
         private val grid: Grid
@@ -10,7 +9,7 @@ class StateBuilder<P : Params>(
     private var titleFactory: ((Context, P?) -> (String))? = null
     private var iconFactory: ((Context, P?) -> (Int))? = null
     private var displayOptionsFactory: ((Context, P?) -> (Int))? = null
-    private val factories = mutableMapOf<Cell, (P?) -> (Fragment?)>()
+    //private val factories = mutableMapOf<Cell, FragmentFactory<P>>()
 
     fun title(titleFactory: (Context, Params?) -> (String)): StateBuilder<P> {
         this.titleFactory = titleFactory
@@ -27,24 +26,22 @@ class StateBuilder<P : Params>(
         return this
     }
 
-    fun addFragmentFactory(cell: Cell, factory: (P?) -> (Fragment?)): StateBuilder<P> {
+/*    fun addFragmentFactory(cell: Cell, factory: FragmentFactory<P>): StateBuilder<P> {
         factories.put(cell, factory)
         return this
-    }
+    }*/
 
     fun build(context: Context, params: P? = null): State {
-        val fragmentFactory = fun(cell: Cell): Fragment? {
-            return factories[cell]?.let { it(params) }
-        }
         val title = titleFactory?.let { it(context, params) } ?: null
         val icon = iconFactory?.let { it(context, params) } ?: null
         val displayOptions = displayOptionsFactory?.let { it(context, params) } ?: null
-        return BuiltState(
+        return BuiltState<P>(
+                params = params,
                 grid = grid,
                 title = title,
                 icon = icon,
-                displayOptions = displayOptions,
-                fragmentFactory = fragmentFactory
+                displayOptions = displayOptions//,
+//                fragmentFactories = factories
         )
     }
 

@@ -1,5 +1,7 @@
 package me.ilich.juggler.staticjuggler
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import me.ilich.juggler.staticjuggler.state.State
 import me.ilich.juggler.staticjuggler.transitions.Transition
@@ -10,8 +12,8 @@ abstract class Navigator {
 
     fun firstState(state: State) {
         val activity = onActivity()
-        val isRestored = HistoryStacks.isRestored(activity)
-        if (!isRestored) {
+        val currentTransition = HistoryStacks.peek(activity)
+        if (currentTransition == null) {
             val transition = Transition(state, activity)
             HistoryStacks.push(activity, transition)
             transition.create(activity)
@@ -30,6 +32,13 @@ abstract class Navigator {
         }
         HistoryStacks.push(activity, transition)
         transition.change(activity)
+    }
+
+    fun getActivityIntent(cls: Class<out Activity>, state: State): Intent {
+        val activity = onActivity()
+        val intent = Intent(activity, cls)
+        intent.putExtra(Juggler.EXTRA_JUGGLER_STATE, state)
+        return intent
     }
 
     fun backOrFinish() {

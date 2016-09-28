@@ -1,5 +1,7 @@
 package me.ilich.juggler.staticjuggler.state
 
-open class Params {
+import java.io.Serializable
+
+open class Params : Serializable {
 
 }

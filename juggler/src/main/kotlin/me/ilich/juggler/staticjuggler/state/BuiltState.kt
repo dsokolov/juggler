@@ -4,16 +4,22 @@ import android.content.Context
 import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
 
-internal class BuiltState(
+internal class BuiltState<P : Params>(
+        val params: P?,
         val grid: Grid,
         val title: String?,
         @DrawableRes val icon: Int?,
         val displayOptions: Int?,
-        val fragmentFactory: (Cell) -> (Fragment?),
         val navigationClick: ((Context) -> (Unit))? = null
 ) : State {
 
-    override fun navigationClick(context: Context): ((Context) -> Unit)? = navigationClick
+    override fun fragment(cell: Cell): Fragment? {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun navigationClick(context: Context) {
+        //TODO
+    }
 
     override fun grid(): Grid = grid
 
@@ -22,7 +28,5 @@ internal class BuiltState(
     override fun displayOptions(): Int? = displayOptions
 
     @DrawableRes override fun navigationIcon(context: Context): Int? = icon
-
-    override fun fragmentFactory(): (Cell) -> (Fragment?) = fragmentFactory
 
 }
