@@ -8,15 +8,15 @@ def version = "0.1.20"
 def releaseDir = "${buildDir}/release"
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 1
         versionName version
     }
@@ -75,7 +75,7 @@ artifacts {
 
 dependencies {
     ext {
-        supportLibVersion = '23.4.0'
+        supportLibVersion = '27.0.2'
         espressoVersion = '2.2.2'
     }
     compile fileTree(include: ['*.jar'], dir: 'libs')

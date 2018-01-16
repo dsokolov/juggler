@@ -1,10 +1,13 @@
 package me.ilich.juggler.hello.gui.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.ilich.juggler.change.Add;
@@ -30,6 +33,10 @@ public class ItemDetailsFragment extends JugglerFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id = getArguments().getInt(ARG_ID);
+        postponeEnterTransition();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        }
     }
 
     @Nullable
@@ -42,6 +49,12 @@ public class ItemDetailsFragment extends JugglerFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView number = (TextView) view.findViewById(R.id.number);
+        ImageView image = (ImageView) view.findViewById(R.id.image);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            number.setTransitionName(String.valueOf(id));
+            image.setTransitionName(id + "image");
+        }
+        startPostponedEnterTransition();
         number.setText(id + "");
         view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
