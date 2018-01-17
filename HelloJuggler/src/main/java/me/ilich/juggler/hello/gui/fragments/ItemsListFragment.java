@@ -1,6 +1,7 @@
 package me.ilich.juggler.hello.gui.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.states.ItemDetailsState;
+import me.ilich.juggler.states.State;
 
 public class ItemsListFragment extends JugglerFragment {
 
@@ -49,10 +52,12 @@ public class ItemsListFragment extends JugglerFragment {
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView;
+        private ImageView imageView;
 
         public ViewHolder(Context context, ViewGroup parent) {
-            super(LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false));
-            textView = (TextView) itemView.findViewById(android.R.id.text1);
+            super(LayoutInflater.from(context).inflate(R.layout.item_list, parent, false));
+            textView = (TextView) itemView.findViewById(R.id.text);
+            imageView = (ImageView) itemView.findViewById(R.id.image);
         }
 
     }
@@ -65,14 +70,27 @@ public class ItemsListFragment extends JugglerFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             final Integer item = items.get(position);
             holder.textView.setText("item " + item);
+            /**
+             * setup name for animation enter
+             */
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.textView.setTransitionName(String.valueOf(item));
+                holder.imageView.setTransitionName(item + "image");
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //navigateTo().state(Add.linear(new ItemDetailsState(item)));
-                    navigateTo().state(Add.deeper(new ItemDetailsState(item)));
+                    State newState = new ItemDetailsState(item);
+                    /**
+                     * add elements in State, witch need animate
+                     */
+                    newState.addSharedElement(holder.textView, String.valueOf(item));
+                    newState.addSharedElement(holder.imageView, item + "image");
+                    navigateTo().state(Add.deeper(newState));
                 }
             });
         }

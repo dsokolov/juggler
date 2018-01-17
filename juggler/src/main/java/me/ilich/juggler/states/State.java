@@ -11,8 +11,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.view.View;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.grid.Cell;
@@ -31,6 +34,8 @@ public abstract class State<P extends State.Params> implements Serializable {
     private Transition backTransition;
     @Nullable
     private Transition upTransition;
+    @Nullable
+    private List<SharedElement> sharedElements;
 
     public State(Grid grid, @Nullable P params) {
         if (grid == null) {
@@ -68,6 +73,20 @@ public abstract class State<P extends State.Params> implements Serializable {
         if (!TextUtils.isEmpty(title)) {
             activity.setTitle(title);
         }
+    }
+
+    public void addSharedElement(View view, String transitionName) {
+        if (sharedElements == null) sharedElements = new ArrayList<>();
+        sharedElements.add(new SharedElement(view, transitionName));
+    }
+
+    public void deactivateSharedElements() {
+        sharedElements = null;
+    }
+
+    @Nullable
+    public List<SharedElement> getSharedElements() {
+        return sharedElements;
     }
 
     @CallSuper
@@ -178,6 +197,24 @@ public abstract class State<P extends State.Params> implements Serializable {
             return getClass().getName();
         }
 
+    }
+
+    public static class SharedElement implements Serializable {
+        private View view;
+        private String transitionName;
+
+        public SharedElement(View view, String transitionName) {
+            this.view = view;
+            this.transitionName = transitionName;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public String getTransitionName() {
+            return transitionName;
+        }
     }
 
 }

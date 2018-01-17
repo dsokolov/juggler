@@ -16,7 +16,6 @@ import me.ilich.juggler.Log;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.gui.JugglerFragment;
-import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;
 
@@ -134,6 +133,12 @@ public abstract class AbstractAdd implements Add.Interface {
                     }
                 }
                 fragmentTransaction.replace(containerId, fragment);
+            }
+        }
+        if (newItem.getState().getSharedElements() != null) {
+            for (int i = 0; i < newItem.getState().getSharedElements().size(); i++) {
+                State.SharedElement currSharedElement = (State.SharedElement) newItem.getState().getSharedElements().get(i);
+                fragmentTransaction.addSharedElement(currSharedElement.getView(), currSharedElement.getTransitionName());
             }
         }
         newState.onFragmentTransitionBeforeCommit(fragmentTransaction);

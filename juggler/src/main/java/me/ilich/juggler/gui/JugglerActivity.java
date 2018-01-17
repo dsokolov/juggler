@@ -33,6 +33,10 @@ public class JugglerActivity extends AppCompatActivity {
         if (intent == null) {
             intent = new Intent();
         }
+        /**
+         * when use {@link Add#newActivity(State)}  animation don't working
+         */
+        state.deactivateSharedElements();
         intent.putExtra(EXTRA_STATE, state);
         return intent;
     }
