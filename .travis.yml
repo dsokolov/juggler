@@ -15,7 +15,7 @@ script:
     - ./gradlew generateBintrayJson
 
 jdk:
-  - oraclejdk7
+  - oraclejdk8
 
 cache:
   directories:
