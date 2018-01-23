@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import java.util.List;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
+import me.ilich.juggler.hello.gui.activities.HelloActivity;
 import me.ilich.juggler.hello.states.ItemDetailsState;
 import me.ilich.juggler.states.State;
 
@@ -88,9 +91,13 @@ public class ItemsListFragment extends JugglerFragment {
                     /**
                      * add elements in State, witch need animate
                      */
-                    newState.addSharedElement(holder.textView, String.valueOf(item));
-                    newState.addSharedElement(holder.imageView, item + "image");
-                    navigateTo().state(Add.deeper(newState));
+//                    newState.addSharedElement(holder.textView, String.valueOf(item));
+//                    newState.addSharedElement(holder.imageView, item + "image");
+                    newState.addActivityOptions(ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            getActivity(),
+                            Pair.create((View) holder.textView, String.valueOf(item)),
+                            Pair.create((View) holder.imageView, item + "image")).toBundle());
+                    navigateTo().state(Add.newActivity(newState, HelloActivity.class));
                 }
             });
         }

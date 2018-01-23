@@ -1,18 +1,19 @@
 package me.ilich.juggler;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 
 import java.io.Serializable;
 
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Item;
+import me.ilich.juggler.change.NewActivityAdd;
 import me.ilich.juggler.change.Remove;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.grid.Cell;
@@ -182,9 +183,17 @@ public class Juggler implements Navigable, Serializable {
             newActivityIntent.putExtra(DATA_ANIMATION_FINISH_ENTER, finishEnterAnimation);
             newActivityIntent.putExtra(DATA_ANIMATION_FINISH_EXIT, finishExitAnimation);
             if (isForResult) {
-                activity.startActivityForResult(newActivityIntent, requestCode);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && add != null && add instanceof NewActivityAdd && ((NewActivityAdd) add).getActivityOptions() != null) {
+                    activity.startActivityForResult(newActivityIntent, requestCode, ((NewActivityAdd) add).getActivityOptions());
+                } else {
+                    activity.startActivityForResult(newActivityIntent, requestCode);
+                }
             } else {
-                activity.startActivity(newActivityIntent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && add != null && add instanceof NewActivityAdd && ((NewActivityAdd) add).getActivityOptions() != null) {
+                    activity.startActivity(newActivityIntent, ((NewActivityAdd) add).getActivityOptions());
+                } else {
+                    activity.startActivity(newActivityIntent);
+                }
             }
             activity.overridePendingTransition(enterAnimation, exitAnimation);
         }

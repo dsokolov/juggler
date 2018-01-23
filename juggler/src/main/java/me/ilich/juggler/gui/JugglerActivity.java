@@ -36,7 +36,7 @@ public class JugglerActivity extends AppCompatActivity {
         /**
          * when use {@link Add#newActivity(State)}  animation don't working
          */
-        state.deactivateSharedElements();
+        state.deactivateNotSerializable();
         intent.putExtra(EXTRA_STATE, state);
         return intent;
     }
@@ -67,6 +67,7 @@ public class JugglerActivity extends AppCompatActivity {
             state = createState();
         }
         if (state != null) {
+            if (state.getActivityOptions() != null) supportPostponeEnterTransition();
             if (savedInstanceState == null) {
                 navigateTo().state(Add.deeper(state));
             } else {

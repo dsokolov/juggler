@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
+import android.support.annotation.Nullable;
 
 import java.util.Stack;
 
@@ -27,8 +28,12 @@ public class NewActivityAdd implements Add.Interface {
     private final boolean isForResult;
     private final int requestCode;
 
+    @Nullable
+    private Bundle activityOptions;
+
     public NewActivityAdd(State state) {
         this.state = state;
+        this.activityOptions = state.getActivityOptions();
         this.activityClass = null;
         this.enterAnimationId = 0;
         this.exitAnimationId = 0;
@@ -38,6 +43,7 @@ public class NewActivityAdd implements Add.Interface {
 
     public NewActivityAdd(State state, Class<? extends JugglerActivity> activityClass) {
         this.state = state;
+        this.activityOptions = state.getActivityOptions();
         this.activityClass = activityClass;
         this.enterAnimationId = 0;
         this.exitAnimationId = 0;
@@ -61,6 +67,11 @@ public class NewActivityAdd implements Add.Interface {
         this.exitAnimationId = exitAnimationId;
         this.isForResult = true;
         this.requestCode = requestCode;
+    }
+
+    @Nullable
+    public Bundle getActivityOptions() {
+        return activityOptions;
     }
 
     @Override

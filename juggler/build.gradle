@@ -8,6 +8,9 @@ def version = "0.1.21"
 def releaseDir = "${buildDir}/release"
 
 android {
+    lintOptions {
+        disable 'RestrictedApi'
+    }
     compileSdkVersion 27
     buildToolsVersion "27.0.2"
 

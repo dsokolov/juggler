@@ -33,7 +33,7 @@ public class ItemDetailsFragment extends JugglerFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id = getArguments().getInt(ARG_ID);
-        postponeEnterTransition();
+//        postponeEnterTransition();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         }
@@ -54,7 +54,8 @@ public class ItemDetailsFragment extends JugglerFragment {
             number.setTransitionName(String.valueOf(id));
             image.setTransitionName(id + "image");
         }
-        startPostponedEnterTransition();
+        getJugglerActivity().supportStartPostponedEnterTransition();
+//        startPostponedEnterTransition();
         number.setText(id + "");
         view.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override

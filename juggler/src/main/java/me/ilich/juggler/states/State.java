@@ -36,6 +36,8 @@ public abstract class State<P extends State.Params> implements Serializable {
     private Transition upTransition;
     @Nullable
     private List<SharedElement> sharedElements;
+    @Nullable
+    private Bundle activityOptions;
 
     public State(Grid grid, @Nullable P params) {
         if (grid == null) {
@@ -80,13 +82,23 @@ public abstract class State<P extends State.Params> implements Serializable {
         sharedElements.add(new SharedElement(view, transitionName));
     }
 
-    public void deactivateSharedElements() {
+    public void addActivityOptions(Bundle activityOptions) {
+        this.activityOptions = activityOptions;
+    }
+
+    public void deactivateNotSerializable() {
         sharedElements = null;
+        activityOptions = null;
     }
 
     @Nullable
     public List<SharedElement> getSharedElements() {
         return sharedElements;
+    }
+
+    @Nullable
+    public Bundle getActivityOptions() {
+        return activityOptions;
     }
 
     @CallSuper
@@ -214,6 +226,10 @@ public abstract class State<P extends State.Params> implements Serializable {
 
         public String getTransitionName() {
             return transitionName;
+        }
+
+        public void clearView() {
+            view = null;
         }
     }
 
