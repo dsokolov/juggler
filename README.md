@@ -161,4 +161,10 @@ public class HelloActivity extends JugglerActivity {
 
 That is all. Now you can use `navigateTo` method of JugglerFragment to replace one or many fragments on current activity.
 
+If you need use `java android.transition` for navigate screens you can use:
+1) `addSharedElement(View view, String transitionName)` off your State object if you used Add.deeper
+2) or `addActivityOptions(Bundle activityOptions)` off your State object if you used Add.newActivity or Add.newActivityForResult
+
+But if you used second variant you need used `getJugglerActivity().supportStartPostponedEnterTransition()` in your Fragment after setting transitionName your Views.
+
 Complete example you can find in `HelloJuggler` module in this repositiry.
