@@ -97,7 +97,7 @@ public class ItemsListFragment extends JugglerFragment {
                             getActivity(),
                             Pair.create((View) holder.textView, String.valueOf(item)),
                             Pair.create((View) holder.imageView, item + "image")).toBundle());
-                    navigateTo().state(Add.newActivity(newState, HelloActivity.class));
+                    navigateTo().state(Add.newActivityForResult(newState, HelloActivity.class, 123));
                 }
             });
         }

@@ -184,6 +184,7 @@ public class Juggler implements Navigable, Serializable {
             newActivityIntent.putExtra(DATA_ANIMATION_FINISH_EXIT, finishExitAnimation);
             if (isForResult) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && add != null && add instanceof NewActivityAdd && ((NewActivityAdd) add).getActivityOptions() != null) {
+                    //noinspection RestrictedApi
                     activity.startActivityForResult(newActivityIntent, requestCode, ((NewActivityAdd) add).getActivityOptions());
                 } else {
                     activity.startActivityForResult(newActivityIntent, requestCode);

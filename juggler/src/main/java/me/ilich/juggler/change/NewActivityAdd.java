@@ -53,6 +53,7 @@ public class NewActivityAdd implements Add.Interface {
 
     public NewActivityAdd(State state, Class<? extends JugglerActivity> activityClass, @AnimRes int enterAnimationId, @AnimRes int exitAnimationId) {
         this.state = state;
+        this.activityOptions = state.getActivityOptions();
         this.activityClass = activityClass;
         this.enterAnimationId = enterAnimationId;
         this.exitAnimationId = exitAnimationId;
@@ -62,6 +63,7 @@ public class NewActivityAdd implements Add.Interface {
 
     private NewActivityAdd(State state, Class<? extends JugglerActivity> activityClass, @AnimRes int enterAnimationId, @AnimRes int exitAnimationId, boolean forResult, int requestCode) {
         this.state = state;
+        this.activityOptions = state.getActivityOptions();
         this.activityClass = activityClass;
         this.enterAnimationId = enterAnimationId;
         this.exitAnimationId = exitAnimationId;
