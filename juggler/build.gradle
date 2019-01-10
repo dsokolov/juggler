@@ -11,15 +11,15 @@ android {
     lintOptions {
         disable 'RestrictedApi'
     }
-    compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName version
     }
@@ -78,15 +78,15 @@ artifacts {
 
 dependencies {
     ext {
-        supportLibVersion = '27.0.2'
+        supportLibVersion = '28.0.0'
         espressoVersion = '2.2.2'
     }
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:support-annotations:$supportLibVersion"
-    compile "com.android.support:design:$supportLibVersion"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
 
-    testCompile 'junit:junit:4.12'
+    api 'junit:junit:4.12'
 
     javadocDependencies "com.android.support:appcompat-v7:$supportLibVersion"
     javadocDependencies "com.android.support:support-annotations:$supportLibVersion"
