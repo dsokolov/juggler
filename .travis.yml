@@ -18,8 +18,9 @@ before_install:
 script:
     - ./gradlew clean
     - ./gradlew assembleRelease
-#    - ./gradlew uploadArchives
+    - ./gradlew uploadArchives
     - ./gradlew generateBintrayJson
+    - chmod 0777 /home/travis/build/dsokolov/juggler/bintray.json
 
 jdk:
   - oraclejdk8
