@@ -12,7 +12,7 @@
 
   "files": [
     {
-      "includePattern": "juggler/build/release/(.*)",
+      "includePattern": "/home/matek3022/AndroidStudioProjects/juggler/juggler/build/release",
       "uploadPattern": "$1"
     }
   ],
