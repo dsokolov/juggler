@@ -1,0 +1,22 @@
+{
+
+  "package": {
+    "name": "juggler",
+    "repo": "maven",
+    "subject": "dsokolov"
+  },
+
+  "version": {
+    "name": "0.1.23"
+  },
+
+  "files": [
+    {
+      "includePattern": "juggler/build/release/(.*)",
+      "uploadPattern": "$1"
+    }
+  ],
+
+  "publish": true
+
+}
