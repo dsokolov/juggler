@@ -1,13 +1,11 @@
 package me.ilich.juggler.hello.gui.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
+import androidx.fragment.app.FragmentManager;
 import me.ilich.juggler.Log;
 import me.ilich.juggler.gui.JugglerActivity;
-import me.ilich.juggler.hello.states.LoginState;
 import me.ilich.juggler.hello.states.MainState;
-import me.ilich.juggler.hello.states.StateB;
 import me.ilich.juggler.states.State;
 
 public class HelloActivity extends JugglerActivity {

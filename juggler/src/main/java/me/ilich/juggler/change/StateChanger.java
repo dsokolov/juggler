@@ -1,12 +1,11 @@
 package me.ilich.juggler.change;
 
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-
 import java.io.Serializable;
 import java.util.Stack;
 import java.util.UUID;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 

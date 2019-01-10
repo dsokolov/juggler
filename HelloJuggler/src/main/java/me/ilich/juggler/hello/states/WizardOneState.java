@@ -2,9 +2,9 @@ package me.ilich.juggler.hello.states;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragment;

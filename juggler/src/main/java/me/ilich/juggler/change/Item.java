@@ -1,11 +1,10 @@
 package me.ilich.juggler.change;
 
-import android.support.annotation.Nullable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import me.ilich.juggler.states.State;
 
 public class Item implements Serializable {

@@ -1,11 +1,11 @@
 package me.ilich.juggler.hello.simple;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import me.ilich.juggler.hello.R;
 
 public class ViewFlipperActivity extends AppCompatActivity {

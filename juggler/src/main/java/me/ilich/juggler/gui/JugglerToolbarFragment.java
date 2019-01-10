@@ -1,13 +1,12 @@
 package me.ilich.juggler.gui;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.ilich.juggler.Log;
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import me.ilich.juggler.states.State;
 
 public abstract class JugglerToolbarFragment extends JugglerFragment {

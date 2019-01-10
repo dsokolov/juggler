@@ -1,9 +1,7 @@
 package me.ilich.juggler.usage.navigate.deeper;
 
-import android.support.test.espresso.Espresso;
-import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
 
+import androidx.test.espresso.Espresso;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
@@ -12,6 +10,8 @@ import me.ilich.juggler.usage.fragments.Stub2ContentFragment;
 import me.ilich.juggler.usage.fragments.StubContentFragment;
 import me.ilich.juggler.usage.navigate.Tools;
 import me.ilich.juggler.usage.navigate.Tools2;
+
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 public class DeeperTestCase extends ActivityInstrumentationTestCase2<JugglerActivity> {
 

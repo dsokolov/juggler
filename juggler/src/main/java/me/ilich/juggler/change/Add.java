@@ -1,10 +1,10 @@
 package me.ilich.juggler.change;
 
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
 
 import java.util.Stack;
 
+import androidx.annotation.AnimRes;
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;

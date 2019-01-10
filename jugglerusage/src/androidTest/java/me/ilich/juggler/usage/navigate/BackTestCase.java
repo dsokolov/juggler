@@ -1,15 +1,15 @@
 package me.ilich.juggler.usage.navigate;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.NoActivityResumedException;
 import android.test.ActivityInstrumentationTestCase2;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.NoActivityResumedException;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.usage.StateFactory;
 import me.ilich.juggler.usage.fragments.StubContentFragment;
 
-import static android.support.test.espresso.Espresso.pressBack;
+import static androidx.test.espresso.Espresso.pressBack;
 
 public class BackTestCase extends ActivityInstrumentationTestCase2<JugglerActivity> {
 

@@ -3,11 +3,11 @@ package me.ilich.juggler.gui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
 import me.ilich.juggler.CrossActivity;
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.Log;

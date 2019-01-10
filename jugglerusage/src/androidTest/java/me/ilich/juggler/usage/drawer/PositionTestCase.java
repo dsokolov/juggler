@@ -1,16 +1,15 @@
 package me.ilich.juggler.usage.drawer;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.contrib.DrawerActions;
-import android.support.test.filters.SmallTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.view.GravityCompat;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.core.view.GravityCompat;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.filters.SmallTest;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
@@ -20,10 +19,10 @@ import me.ilich.juggler.usage.fragments.StubContentFragment;
 import me.ilich.juggler.usage.fragments.StubNavigationFragment;
 import me.ilich.juggler.usage.fragments.StubToolbarFragment;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.DrawerMatchers.isOpen;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.DrawerMatchers.isOpen;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest

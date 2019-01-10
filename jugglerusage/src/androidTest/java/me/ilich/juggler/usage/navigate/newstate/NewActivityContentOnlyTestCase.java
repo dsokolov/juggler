@@ -1,8 +1,6 @@
 package me.ilich.juggler.usage.navigate.newstate;
 
-import android.support.test.InstrumentationRegistry;
-import android.test.ActivityInstrumentationTestCase2;
-
+import androidx.test.InstrumentationRegistry;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.usage.StateFactory;

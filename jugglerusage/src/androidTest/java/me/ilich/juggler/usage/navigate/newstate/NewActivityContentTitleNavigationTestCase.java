@@ -1,10 +1,9 @@
 package me.ilich.juggler.usage.navigate.newstate;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.support.test.InstrumentationRegistry;
-import android.test.ActivityInstrumentationTestCase2;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.usage.StateFactory;
@@ -13,7 +12,7 @@ import me.ilich.juggler.usage.fragments.StubNavigationFragment;
 import me.ilich.juggler.usage.fragments.StubToolbarFragment;
 import me.ilich.juggler.usage.navigate.Tools;
 
-public class NewActivityContentTitleNavigationTestCase extends ActivityInstrumentationTestCase2<JugglerActivity> {
+public class NewActivityContentTitleNavigationTestCase extends ActivityTestRule<JugglerActivity> {
 
     public NewActivityContentTitleNavigationTestCase() {
         super(JugglerActivity.class);

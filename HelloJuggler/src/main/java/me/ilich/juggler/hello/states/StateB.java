@@ -2,13 +2,12 @@ package me.ilich.juggler.hello.states;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 
+import androidx.annotation.Nullable;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
 import me.ilich.juggler.hello.gui.fragments.FragmentB;
 import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragment;
-import me.ilich.juggler.hello.gui.fragments.StandardNavigationFragmentB;
 import me.ilich.juggler.hello.gui.fragments.StandardToolbarFragmentB;
 import me.ilich.juggler.states.NavigationContentDoubleToolbarState;
 import me.ilich.juggler.states.VoidParams;

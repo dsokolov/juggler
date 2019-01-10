@@ -3,11 +3,11 @@ package me.ilich.juggler.change;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
-import android.support.annotation.Nullable;
 
 import java.util.Stack;
 
+import androidx.annotation.AnimRes;
+import androidx.annotation.Nullable;
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;

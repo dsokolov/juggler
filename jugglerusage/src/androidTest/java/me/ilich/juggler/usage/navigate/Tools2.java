@@ -1,22 +1,22 @@
 package me.ilich.juggler.usage.navigate;
 
 import android.content.pm.ActivityInfo;
-import android.support.test.espresso.contrib.DrawerActions;
 import android.support.v7.widget.Toolbar;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.test.espresso.contrib.DrawerActions;
 import me.ilich.juggler.usage.R;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static me.ilich.juggler.usage.EspressoTestsMatchers.withDrawable;
 import static org.hamcrest.core.AllOf.allOf;
 

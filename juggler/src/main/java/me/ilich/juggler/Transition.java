@@ -1,9 +1,8 @@
 package me.ilich.juggler;
 
-import android.support.annotation.Nullable;
-
 import java.io.Serializable;
 
+import androidx.annotation.Nullable;
 import me.ilich.juggler.change.StateChanger;
 import me.ilich.juggler.gui.JugglerActivity;
 import me.ilich.juggler.states.State;

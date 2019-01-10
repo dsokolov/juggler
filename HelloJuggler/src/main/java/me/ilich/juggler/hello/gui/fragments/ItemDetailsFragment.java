@@ -2,7 +2,6 @@ package me.ilich.juggler.hello.gui.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;

@@ -1,9 +1,9 @@
 package me.ilich.juggler.grid;
 
-import android.support.annotation.IdRes;
 
 import java.io.Serializable;
 
+import androidx.annotation.IdRes;
 import me.ilich.juggler.R;
 
 public class Cell implements Serializable {

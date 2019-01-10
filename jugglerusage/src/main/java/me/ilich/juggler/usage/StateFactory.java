@@ -3,9 +3,9 @@ package me.ilich.juggler.usage;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.gui.JugglerToolbarFragment;
 import me.ilich.juggler.states.ContentBelowToolbarState;

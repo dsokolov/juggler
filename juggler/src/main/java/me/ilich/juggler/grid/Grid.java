@@ -1,12 +1,11 @@
 package me.ilich.juggler.grid;
 
-import android.support.annotation.LayoutRes;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.annotation.LayoutRes;
 import me.ilich.juggler.R;
 
 public class Grid implements Serializable {

@@ -2,7 +2,6 @@ package me.ilich.juggler.hello;
 
 import android.app.Application;
 
-import me.ilich.juggler.Juggler;
 
 public class HelloJugglerApplication extends Application {
 

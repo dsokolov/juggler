@@ -1,7 +1,6 @@
 package me.ilich.juggler.change;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import me.ilich.juggler.Transition;
 import me.ilich.juggler.states.State;
 import me.ilich.juggler.states.TargetBound;

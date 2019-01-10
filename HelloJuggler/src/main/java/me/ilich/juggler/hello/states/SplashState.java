@@ -1,7 +1,7 @@
 package me.ilich.juggler.hello.states;
 
-import android.support.annotation.Nullable;
 
+import androidx.annotation.Nullable;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.gui.fragments.SplashFragment;
 import me.ilich.juggler.states.ContentOnlyState;

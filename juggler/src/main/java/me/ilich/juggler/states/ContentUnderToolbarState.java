@@ -1,7 +1,6 @@
 package me.ilich.juggler.states;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import me.ilich.juggler.grid.Cell;
 import me.ilich.juggler.grid.Grid;
 import me.ilich.juggler.gui.JugglerFragment;

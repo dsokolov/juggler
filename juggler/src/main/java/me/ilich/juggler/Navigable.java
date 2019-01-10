@@ -1,7 +1,6 @@
 package me.ilich.juggler;
 
-import android.support.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import me.ilich.juggler.change.Add;
 import me.ilich.juggler.change.Remove;
 

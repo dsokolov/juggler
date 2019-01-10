@@ -1,10 +1,10 @@
 package me.ilich.juggler.change;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
 import java.util.Stack;
 
+import androidx.fragment.app.FragmentManager;
 import me.ilich.juggler.Juggler;
 import me.ilich.juggler.gui.JugglerActivity;
 

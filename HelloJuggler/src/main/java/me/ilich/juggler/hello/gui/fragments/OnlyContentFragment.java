@@ -1,17 +1,13 @@
 package me.ilich.juggler.hello.gui.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.ilich.juggler.change.Add;
-import me.ilich.juggler.change.Remove;
+import androidx.annotation.Nullable;
 import me.ilich.juggler.gui.JugglerFragment;
 import me.ilich.juggler.hello.R;
-import me.ilich.juggler.hello.states.MainState;
 
 public class OnlyContentFragment extends JugglerFragment {
 
