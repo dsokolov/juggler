@@ -1,4 +1,5 @@
 language: android
+sudo: required
 
 android:
   components:
@@ -20,7 +21,6 @@ script:
     - ./gradlew assembleRelease
     - ./gradlew uploadArchives
     - ./gradlew generateBintrayJson
-    - chmod 0777 /home/travis/build/dsokolov/juggler/bintray.json
 
 jdk:
   - oraclejdk8
@@ -31,6 +31,6 @@ cache:
 
 deploy:
   provider: bintray
-  file: "/home/travis/build/dsokolov/juggler/bintray.json"
+  file: "bintray.json"
   user: "dsokolov"
   key: $BINTRAY_API_KEY
