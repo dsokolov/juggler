@@ -18,7 +18,7 @@ before_install:
 script:
     - ./gradlew clean
     - ./gradlew assembleRelease
-    - ./gradlew uploadArchives
+#    - ./gradlew uploadArchives
     - ./gradlew generateBintrayJson
 
 jdk:
