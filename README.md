@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/dsokolov/juggler.svg?branch=master)](https://travis-ci.org/dsokolov/juggler)
 [ ![Download](https://api.bintray.com/packages/dsokolov/maven/juggler/images/download.svg) ](https://bintray.com/dsokolov/maven/juggler/_latestVersion)
 
-# Juggler (0.1.22 with support libs, 0.1.23 with androidx libs)
+# Juggler (0.1.22 with support libs, 0.1.24 with androidx libs)
 
 ## What is it?
 
