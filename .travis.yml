@@ -18,8 +18,8 @@ before_install:
 script:
     - ./gradlew clean
     - ./gradlew assembleRelease
-    - ./gradlew generateBintrayJson
     - ./gradlew uploadArchives
+    - ./gradlew generateBintrayJson
 
 jdk:
   - oraclejdk8
