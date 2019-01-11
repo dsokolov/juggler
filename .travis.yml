@@ -30,6 +30,7 @@ cache:
 
 deploy:
   provider: bintray
+  skip_cleanup: true
   file: "bintray.json"
   user: "dsokolov"
   key: $BINTRAY_API_KEY
